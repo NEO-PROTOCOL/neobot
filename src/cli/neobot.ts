@@ -42,6 +42,19 @@ async function main() {
     }
 
     if (skill === "ops-status") {
+      const { assertChannelEnabled, assertExecutorEnabled, requiresConfirmation } =
+        await import("../config/runtime-config.js");
+      const readline = await import("readline-sync");
+
+      const argsArray = rest;
+      if (argsArray.includes("--confirm-required")) {
+        const answer = readline.question("⚠️  Confirmation required. Type 'CONFIRM' to proceed: ");
+        if (answer !== "CONFIRM") {
+          console.error("❌ Aborted by user.");
+          process.exit(1);
+        }
+      }
+
       const res = await runShellSkill({
         skill: "ops-status",
         scriptPath: "skills/ops-status/scripts/report.sh",
