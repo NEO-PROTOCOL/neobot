@@ -3,6 +3,23 @@ set -e
 
 DETAIL="${1:-summary}"
 
+# Ledger Integration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Resolving project root (assuming/skills/ops-status/scripts layout)
+PROJECT_ROOT="$(dirname "$(dirname "$(dirname "$SCRIPT_DIR")")")"
+LEDGER_SCRIPT="$PROJECT_ROOT/skills/ledger/scripts/ledger.mjs"
+
+# 1. Policy Check
+POLICY_CHECK=$(node "$LEDGER_SCRIPT" check-policy --skill "ops-status")
+if echo "$POLICY_CHECK" | grep -q '"allowed":false'; then
+  echo "❌ Policy Denied: ops-status is not allowed to run."
+  node "$LEDGER_SCRIPT" log --intent "run report" --skill "ops-status" --status "blocked" --risk "high"
+  exit 1
+fi
+
+# 2. Log Start
+node "$LEDGER_SCRIPT" log --intent "run report" --skill "ops-status" --status "pending" --data "{\"detail\":\"$DETAIL\"}" > /dev/null
+
 echo "## System Status Report"
 echo "Date: $(date)"
 echo "Hostname: $(hostname)"
@@ -43,3 +60,6 @@ fi
 echo ""
 echo "### Summary"
 echo "System operational."
+
+# 3. Log Success
+node "$LEDGER_SCRIPT" log --intent "run report" --skill "ops-status" --status "success" > /dev/null
