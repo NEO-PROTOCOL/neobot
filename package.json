@@ -80,6 +80,7 @@
   ],
   "scripts": {
     "dev": "node scripts/run-node.mjs",
+    "neobot": "node scripts/neobot.mjs",
     "postinstall": "node scripts/postinstall.js",
     "prepack": "pnpm build && pnpm ui:build",
     "docs:list": "node scripts/docs-list.js",
