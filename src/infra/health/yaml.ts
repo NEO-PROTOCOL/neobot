@@ -13,7 +13,7 @@ function indentLines(s: string, spaces: number): string {
 function yamlEscapeString(s: string): string {
   // keep it safe and readable
   if (s === "") return '""';
-  const needsQuotes = /[:\-\[\]\{\},#&*!|>'"%@`]/.test(s) || /\s/.test(s) || s.includes("\n");
+  const needsQuotes = /[:\-[\]{},#&*!|>'"%@`]/.test(s) || /\s/.test(s) || s.includes("\n");
   if (!needsQuotes) return s;
   return JSON.stringify(s); // double quotes safe
 }
@@ -65,5 +65,12 @@ export function toYaml(value: unknown, level = 0): string {
   }
 
   // fallback
-  return yamlEscapeString(String(value));
+  try {
+    if (typeof value === "object" && value !== null) {
+      return yamlEscapeString(JSON.stringify(value));
+    }
+    return yamlEscapeString(String(value as any));
+  } catch {
+    return "unserializable";
+  }
 }

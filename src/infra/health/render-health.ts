@@ -1,4 +1,4 @@
-import type { GlobalHealthReport, HealthCheckResult } from "./types.js";
+import type { GlobalHealthReport } from "./types.js";
 import { toYaml } from "./yaml.js";
 
 export type HealthOutputFormat = "chat" | "yaml" | "json";

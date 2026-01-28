@@ -19,7 +19,7 @@ function banner() {
        ╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░  ╚═╝░░╚══╝╚══════╝░╚════╝░
     
                     ◆ NEO PROTOCOL v1.0 ◆
-                  ▶ Independent AI Framework ◀
+                  ▶ Olá! Eu sou o Neobot. ◀
     
     ================================================================
 `.trim(),
@@ -30,25 +30,28 @@ function usage() {
   banner();
   console.log(
     `
-Usage:
-  neobot run <skill> [args...]       Executar uma skill
-  neobot whoami                      Verificar identidade atual
-  neobot config show                 Mostrar configuração ativa
-  neobot ledger path                 Ver caminho do Ledger
-  neobot ledger tail [n]             Ver últimas entradas do Ledger
-  neobot cron list                   Listar tarefas agendadas
-  neobot cron run <job>              Executar tarefa manualmente
-  neobot cron start                  Iniciar o agendador (scheduler)
-  neobot health [--full] [--json|--yaml|--chat] [--repair]    Diagnóstico de saúde do sistema
-  neobot explain <id>                Explica um evento do ledger em PT-BR
-  neobot anchor latest               Exibe a última âncora de saúde gerada
+Como eu posso te ajudar hoje? Aqui está o que eu sei fazer:
 
-Exemplos:
-  pnpm neobot run ops-status
-  pnpm neobot whoami
-  pnpm neobot health
-  pnpm neobot explain 2026-01-27T23:58:24.000Z
-  pnpm neobot cron list
+🛠️  SKILLS & AÇÃO
+  neobot run <skill> [args...]       Me pede para executar uma tarefa (Ex: ops-status)
+
+🩺  SAÚDE & DIAGNÓSTICO
+  neobot health [--full] [--repair]  Eu verifico se meu sistema está saudável
+  neobot whoami                      Eu te digo quem eu sou e o que tenho por perto
+  neobot config show                 Eu mostro como estou configurado agora
+
+📖  MEMÓRIA & AUDITORIA (Ledger)
+  neobot explain <id>                Eu te explico o que aconteceu em um evento (IDs são timestamps)
+  neobot anchor latest               Eu te mostro minha última prova de integridade diária
+  neobot ledger tail [n]             Eu listo as últimas [n] páginas da minha memória técnica
+  neobot ledger path                 Eu te digo onde guardo minha caixa preta
+
+⏰  AGENDAMENTO (Cron)
+  neobot cron list                   Vê o que eu tenho agendado para o futuro
+  neobot cron run <job>              Me faz rodar uma tarefa agendada agora mesmo
+  neobot cron start                  Coloca meu relógio para despertar sozinho
+
+Dica: Se estiver perdido, tente "pnpm neobot health --full" para um papo mais detalhado.
 `.trim(),
   );
 }
@@ -68,7 +71,6 @@ async function main() {
 
     const isJson = allArgs.includes("--json");
     const isYaml = allArgs.includes("--yaml");
-    const isChat = allArgs.includes("--chat") || (!isJson && !isYaml);
 
     const format = isJson ? "json" : isYaml ? "yaml" : "chat";
     const isFull = allArgs.includes("--full");
@@ -102,11 +104,12 @@ async function main() {
         console.log("❌ Nenhuma âncora encontrada.");
         process.exit(1);
       }
-      console.log("\n⚓ **ÚLTIMA ÂNCORA DE SAÚDE**");
-      console.log(`Data: ${latest.date}`);
-      console.log(`Hash: ${latest.ledger_hash}`);
-      console.log(`Linha: ${latest.checkpoint_line}`);
-      console.log(`Gerada em: ${latest.ts}`);
+      console.log(`\n⚓ Aqui está minha última âncora de saúde (prova de integridade):`);
+      console.log(`- Data: ${latest.date}`);
+      console.log(`- Hash da Corrente: ${latest.ledger_hash}`);
+      console.log(`- Última Linha do Ledger: ${latest.checkpoint_line}`);
+      console.log(`- Gerada em: ${latest.ts}`);
+      console.log(`\n✅ Minha memória está protegida e validada.`);
       process.exit(0);
     }
   }
@@ -145,28 +148,47 @@ async function main() {
   if (cmd === "whoami") {
     const cfg = loadRuntimeConfig();
     const user = os.userInfo();
-    console.log(
-      JSON.stringify(
-        {
-          actor: "user",
-          channel: "cli",
-          os_user: user.username,
-          homedir: os.homedir(),
-          cwd: process.cwd(),
-          node: process.version,
-          runtime_config: path.resolve(process.cwd(), "config/neobot.runtime.json"),
-          enabled_channels: Object.entries(cfg.channels ?? {})
-            .filter(([, v]) => v?.enabled === true)
-            .map(([k]) => k),
-          enabled_executors: Object.entries(cfg.executors ?? {})
-            .filter(([, v]) => v?.enabled === true)
-            .map(([k]) => k),
-          social_enabled: cfg.social_browser_automation?.enabled === true,
-        },
-        null,
-        2,
-      ),
-    );
+    const isJson = process.argv.includes("--json");
+    if (isJson) {
+      console.log(
+        JSON.stringify(
+          {
+            actor: "user",
+            channel: "cli",
+            os_user: user.username,
+            homedir: os.homedir(),
+            cwd: process.cwd(),
+            node: process.version,
+            runtime_config: path.resolve(process.cwd(), "config/neobot.runtime.json"),
+            enabled_channels: Object.entries(cfg.channels ?? {})
+              .filter(([, v]) => v?.enabled === true)
+              .map(([k]) => k),
+            enabled_executors: Object.entries(cfg.executors ?? {})
+              .filter(([, v]) => v?.enabled === true)
+              .map(([k]) => k),
+            social_enabled: cfg.social_browser_automation?.enabled === true,
+          },
+          null,
+          2,
+        ),
+      );
+    } else {
+      console.log(`\n👋 Olá! Eu sou o NEØ BOT.`);
+      console.log(`👤 Estou rodando como o usuário "${user.username}" neste mac.`);
+      console.log(`📍 Meu diretório atual é: ${process.cwd()}`);
+      console.log(`🟢 Versão do Node.js: ${process.version}`);
+      console.log(`📂 Configuração carregada de: config/neobot.runtime.json`);
+
+      const channels = Object.entries(cfg.channels ?? {})
+        .filter(([, v]) => v?.enabled === true)
+        .map(([k]) => k);
+      console.log(`📡 Canais ativos: ${channels.join(", ") || "Nenhum"}`);
+
+      const executors = Object.entries(cfg.executors ?? {})
+        .filter(([, v]) => v?.enabled === true)
+        .map(([k]) => k);
+      console.log(`🛠️  Ferramentas (Executors) prontas: ${executors.join(", ") || "Nenhuma"}`);
+    }
     process.exit(0);
   }
 
@@ -197,7 +219,16 @@ async function main() {
       }
       const lines = fs.readFileSync(p, "utf8").trim().split("\n").filter(Boolean);
       const last = lines.slice(-n);
-      console.log(last.join("\n"));
+
+      if (process.argv.includes("--json")) {
+        console.log(last.join("\n"));
+      } else {
+        console.log(`\n📖 Lendo as últimas ${last.length} memórias do meu Ledger:\n`);
+        console.log(last.join("\n"));
+        console.log(
+          `\n💡 Use "pnpm neobot explain <timestamp>" para eu te explicar qualquer linha dessas.`,
+        );
+      }
       process.exit(0);
     }
 
@@ -215,8 +246,6 @@ async function main() {
     if (skill === "ops-status") {
       // load runtime config early (gatekeeper)
       loadRuntimeConfig();
-      const { assertChannelEnabled, assertExecutorEnabled, requiresConfirmation } =
-        await import("../config/runtime-config.js");
       const readline = await import("readline-sync");
 
       const argsArray = rest;
@@ -237,14 +266,20 @@ async function main() {
         actor: "user",
       });
 
+      console.log(`\n🚀 Executando tarefa: ${skill}...\n`);
+      console.log("------------------------------------------");
       console.log(res.stdout.trim());
+      console.log("------------------------------------------");
+
       if (!res.ok) {
+        console.error(`\n❌ Opa, algo deu errado:`);
         console.error(res.stderr.trim());
-        console.error(`\n[ledger event] ${res.eventId}`);
+        console.error(`\n[Evento registrado na memória: ${res.eventId}]`);
         process.exit(1);
       }
 
-      console.log(`\n[ledger event] ${res.eventId}`);
+      console.log(`\n✅ Tarefa concluída com sucesso!`);
+      console.log(`[Evento registrado na memória: ${res.eventId}]`);
       process.exit(0);
     }
 
@@ -252,7 +287,6 @@ async function main() {
       const { assertSocialEnabled, requiresConfirmation } =
         await import("../config/runtime-config.js");
       const { appendLedgerEvent, createEventId } = await import("../infra/ledger/ledger.js");
-      const readline = await import("readline-sync");
 
       try {
         // 1. Policy Gate: Check if enabled

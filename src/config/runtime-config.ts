@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import os from "node:os";
 
 // Type definition matching config/neobot.runtime.json
 export interface NeobotRuntimeConfig {
@@ -49,7 +48,9 @@ export function loadRuntimeConfig(): NeobotRuntimeConfig {
     const raw = fs.readFileSync(configPath, "utf-8");
     return JSON.parse(raw) as NeobotRuntimeConfig;
   } catch (err) {
-    console.error(`Failed to load runtime config: ${err}`);
+    console.error(
+      `Failed to load runtime config: ${err instanceof Error ? err.message : String(err)}`,
+    );
     return DEFAULT_CONFIG;
   }
 }
