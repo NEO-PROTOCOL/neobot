@@ -1,5 +1,35 @@
 # 🦞 Moltbot — Personal AI Assistant
 
+## 🚀 Neobot CLI - Guia Rápido de Comandos
+
+O Neobot CLI é a sua interface de controle para o protocolo NEO. Aqui estão os comandos essenciais:
+
+### 🛠️ Skills e Execução
+* `pnpm neobot run <skill> [args...]` - Executa uma skill específica.
+* `pnpm neobot whoami` - Mostra a identidade atual do Neobot.
+* `pnpm neobot config show` - Exibe a configuração de runtime ativa.
+
+### 📊 Observabilidade e Saúde
+* `pnpm neobot health` - Diagnóstico rápido de saúde do sistema.
+* `pnpm neobot health --full` - Relatório detalhado com recomendações (Modo Bate-papo).
+* `pnpm neobot health --repair` - Tenta corrigir falhas de integridade e infraestrutura de baixo risco.
+* `pnpm neobot health --yaml` - Exporta o relatório de saúde no formato YAML.
+* `pnpm neobot health --json` - Exporta o relatório no formato JSON (para máquinas).
+
+### 📖 Auditoria e Ledger
+* `pnpm neobot ledger tail [n]` - Mostra as últimas `n` entradas do log de eventos.
+* `pnpm neobot explain <id>` - Explica um evento específico do Ledger em português humano.
+* `pnpm neobot anchor latest` - Exibe a última prova de integridade (Âncora de Saúde) gerada.
+* `pnpm neobot ledger path` - Mostra onde o arquivo do Ledger está armazenado.
+
+### ⏰ Agendamento (Cron)
+* `pnpm neobot cron list` - Lista todas as tarefas agendadas.
+* `pnpm neobot cron run <job>` - Executa uma tarefa agendada manualmente agora.
+* `pnpm neobot cron start` - Inicia o agendador autônomo.
+
+---
+
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/moltbot/moltbot/main/docs/whatsapp-clawd.jpg" alt="Clawdbot" width="400">
 </p>
