@@ -35,12 +35,17 @@ Usage:
   neobot config show
   neobot ledger path
   neobot ledger tail [n]
+  neobot cron list
+  neobot cron run <job>
+  neobot cron start
 
 Examples:
   pnpm neobot run ops-status
   pnpm neobot whoami
   pnpm neobot config show
   pnpm neobot ledger tail 20
+  pnpm neobot cron list
+  pnpm neobot cron run daily-ops-status
 `.trim(),
   );
 }
@@ -51,6 +56,37 @@ async function main() {
   if (!cmd) {
     usage();
     process.exit(0);
+  }
+
+  if (cmd === "cron") {
+    const { jobs, startScheduler } = await import("../infra/scheduler/scheduler.js");
+
+    if (subcmd === "list") {
+      console.log("📋 Scheduled Jobs:");
+      jobs.forEach((j) => console.log(`- ${j.name}: ${j.schedule}`));
+      process.exit(0);
+    }
+
+    if (subcmd === "run") {
+      const jobName = rest[0];
+      const job = jobs.find((j) => j.name === jobName);
+      if (!job) {
+        console.error(`❌ Job not found: ${jobName}`);
+        process.exit(1);
+      }
+      await job.run();
+      process.exit(0);
+    }
+
+    if (subcmd === "start") {
+      startScheduler();
+      // Keep process alive
+      process.stdin.resume();
+      return;
+    }
+
+    usage();
+    process.exit(1);
   }
 
   if (cmd === "whoami") {
