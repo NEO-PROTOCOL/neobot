@@ -4,7 +4,7 @@ export async function sendTelegramNotification(text: string) {
 
   if (!token || !chatId) {
     console.warn(
-      "⚠️ Telegram Notification skipped: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID missing in .env",
+      "⚠️ Notificação via Telegram ignorada: TELEGRAM_BOT_TOKEN ou TELEGRAM_CHAT_ID ausentes no .env",
     );
     return;
   }
@@ -24,11 +24,11 @@ export async function sendTelegramNotification(text: string) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("❌ Telegram API Error:", errorData);
+      console.error("❌ Erro na API do Telegram:", errorData);
     } else {
-      console.log("📨 Telegram notification sent.");
+      console.log("📨 Notificação enviada para o Telegram.");
     }
   } catch (error) {
-    console.error("❌ Failed to send Telegram notification:", error);
+    console.error("❌ Falha ao enviar notificação para o Telegram:", error);
   }
 }

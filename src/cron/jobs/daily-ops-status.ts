@@ -5,7 +5,7 @@ export const dailyOpsStatusJob = {
   name: "daily-ops-status",
   schedule: "0 9 * * *", // 9:00 AM daily
   run: async () => {
-    console.log("⏰ Starting Daily Ops Status Job...");
+    console.log("⏰ Iniciando Relatório Diário de Operações...");
     const result = await runShellSkill({
       skill: "ops-status",
       scriptPath: "skills/ops-status/scripts/report.sh",
@@ -16,15 +16,15 @@ export const dailyOpsStatusJob = {
     });
 
     if (result.ok) {
-      console.log("✅ Daily Ops Status recorded in Ledger.");
+      console.log("✅ Relatório Diário gravado no Ledger.");
 
       // Notify via Telegram
-      const reportDate = new Date().toLocaleDateString();
-      const telegramMessage = `📊 *Daily Ops Report - ${reportDate}*\n\n${result.stdout.trim()}`;
+      const reportDate = new Date().toLocaleDateString("pt-BR");
+      const telegramMessage = `📊 *Relatório Diário de Operações - ${reportDate}*\n\n${result.stdout.trim()}`;
       await sendTelegramNotification(telegramMessage);
     } else {
-      console.error("❌ Daily Ops Status Job failed.");
-      await sendTelegramNotification("🚨 *Daily Ops Status Job FAILED*");
+      console.error("❌ Falha no Relatório Diário de Operações.");
+      await sendTelegramNotification("🚨 *ERRO: Falha no Relatório Diário de Operações*");
     }
   },
 };
