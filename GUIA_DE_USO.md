@@ -82,6 +82,10 @@ pnpm neobot cron start
 
 ## 🔔 Sistema de Lembretes Pessoais
 
+**✨ NOVO: Agora SEM precisar de API da Anthropic!**
+
+O sistema usa o comando `at` do macOS/Linux para agendar lembretes diretamente.
+
 ### Criar um Lembrete
 
 ```bash
@@ -92,26 +96,36 @@ pnpm tsx skills/reminders/remind.ts "texto do lembrete" "quando"
 
 ```bash
 # Lembrete em 30 minutos
-pnpm tsx skills/reminders/remind.ts "Ir à academia" "in 30 minutes"
-
-# Lembrete amanhã às 9h
-pnpm tsx skills/reminders/remind.ts "Reunião importante" "tomorrow at 9am"
-
-# Lembrete diário (todo dia às 8h)
-pnpm tsx skills/reminders/remind.ts "Tomar vitamina" "0 8 * * *"
+pnpm tsx skills/reminders/remind.ts "Beber água" "in 30 minutes"
 
 # Lembrete em 2 horas
 pnpm tsx skills/reminders/remind.ts "Ligar para mãe" "in 2 hours"
 
 # Em português também funciona
-pnpm tsx skills/reminders/remind.ts "Beber água" "em 1 hora"
+pnpm tsx skills/reminders/remind.ts "Academia" "em 1 hora"
 ```
+
+**Formatos aceitos:**
+- `"in X minutes"` - Daqui a X minutos
+- `"in X hours"` - Daqui a X horas  
+- `"em X minutos"` - Português
+- `"em X horas"` - Português
 
 **Como funciona:**
 1. Você cria o lembrete com texto e horário
-2. O sistema agenda automaticamente
+2. O sistema agenda usando o comando `at` do macOS
 3. No horário marcado, você recebe uma mensagem no Telegram com 🔔
-4. Simples e direto!
+4. **Não precisa deixar nada rodando!** O sistema operacional cuida disso
+
+**Ver lembretes agendados:**
+```bash
+atq  # Lista todos os lembretes pendentes
+```
+
+**Cancelar um lembrete:**
+```bash
+atrm <número>  # Remove o lembrete pelo número mostrado no atq
+```
 
 ---
 

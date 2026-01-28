@@ -2,39 +2,91 @@
 
 /**
  * Sistema de Lembretes Pessoais via Telegram
- * Uso: pnpm tsx skills/reminders/remind.ts "texto do lembrete" "quando"
+ * Usa o comando 'at' do sistema - SEM precisar de API da Anthropic
  */
 
-import { execSync } from "node:child_process";
+import { exec } from "node:child_process";
+import { promisify } from "node:util";
 import process from "node:process";
+import path from "node:path";
 
-const TELEGRAM_SCRIPT = "skills/telegram/scripts/telegram.ts";
-const SCHEDULER_SCRIPT = "skills/scheduler/scripts/scheduler.ts";
+const execAsync = promisify(exec);
 
-// Seu Chat ID (Netto)
+const TELEGRAM_SCRIPT = path.resolve(process.cwd(), "skills/telegram/scripts/telegram.ts");
 const MY_CHAT_ID = process.env.MY_TELEGRAM_CHAT_ID || "6582122066";
 
-function main() {
+function parseTime(when: string): Date | null {
+    const now = new Date();
+
+    // "in X minutes"
+    const inMinMatch = when.match(/in (\d+) minutes?/i);
+    if (inMinMatch) {
+        const mins = parseInt(inMinMatch[1], 10);
+        return new Date(now.getTime() + mins * 60 * 1000);
+    }
+
+    // "in X hours"
+    const inHourMatch = when.match(/in (\d+) hours?/i);
+    if (inHourMatch) {
+        const hours = parseInt(inHourMatch[1], 10);
+        return new Date(now.getTime() + hours * 60 * 60 * 1000);
+    }
+
+    // "em X minutos" (português)
+    const emMinMatch = when.match(/em (\d+) minutos?/i);
+    if (emMinMatch) {
+        const mins = parseInt(emMinMatch[1], 10);
+        return new Date(now.getTime() + mins * 60 * 1000);
+    }
+
+    // "em X horas" (português)
+    const emHourMatch = when.match(/em (\d+) horas?/i);
+    if (emHourMatch) {
+        const hours = parseInt(emHourMatch[1], 10);
+        return new Date(now.getTime() + hours * 60 * 60 * 1000);
+    }
+
+    return null;
+}
+
+async function scheduleReminder(reminderText: string, targetTime: Date) {
+    const timeStr = targetTime.toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+
+    const command = `cd ${process.cwd()} && pnpm tsx ${TELEGRAM_SCRIPT} --to ${MY_CHAT_ID} --message "🔔 LEMBRETE: ${reminderText}"`;
+
+    try {
+        const atCommand = `echo '${command}' | at ${timeStr}`;
+        await execAsync(atCommand);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
+
+async function main() {
     const args = process.argv.slice(2);
 
     if (args.length < 2) {
         console.log(`
-📅 Sistema de Lembretes Pessoais
+📅 Sistema de Lembretes Pessoais (SEM precisar de IA!)
 
 Uso:
   pnpm tsx skills/reminders/remind.ts "texto do lembrete" "quando"
 
 Exemplos:
-  pnpm tsx skills/reminders/remind.ts "Ligar para o dentista" "in 2 hours"
-  pnpm tsx skills/reminders/remind.ts "Reunião importante" "tomorrow at 9am"
-  pnpm tsx skills/reminders/remind.ts "Academia" "in 30 minutes"
-  pnpm tsx skills/reminders/remind.ts "Tomar remédio" "0 20 * * *"
+  pnpm tsx skills/reminders/remind.ts "Beber água" "in 30 minutes"
+  pnpm tsx skills/reminders/remind.ts "Ligar para mãe" "in 2 hours"
+  pnpm tsx skills/reminders/remind.ts "Academia" "em 1 hora"
 
-Formatos de tempo:
-  - "in X minutes/hours/days"
-  - "tomorrow at HH:mm"
-  - "0 9 * * *" (cron: todo dia às 9h)
-  - "em X minutos" (português também funciona)
+Formatos aceitos:
+  - "in X minutes" - Daqui a X minutos
+  - "in X hours" - Daqui a X horas
+  - "em X minutos" - Português também funciona
+  - "em X horas" - Português também funciona
     `);
         process.exit(1);
     }
@@ -42,27 +94,27 @@ Formatos de tempo:
     const reminderText = args[0];
     const when = args[1];
 
-    // Criar nome da tarefa baseado no texto
-    const taskName = `Lembrete: ${reminderText.slice(0, 30)}${reminderText.length > 30 ? "..." : ""}`;
-
-    // Criar o comando que será executado
-    const command = `pnpm tsx ${TELEGRAM_SCRIPT} --to ${MY_CHAT_ID} --message "🔔 LEMBRETE: ${reminderText}"`;
-
-    // Agendar o lembrete
     console.log(`📅 Agendando lembrete...`);
     console.log(`📝 "${reminderText}"`);
-    console.log(`⏰ Para: ${when}\n`);
+    console.log(`⏰ Quando: ${when}\n`);
 
-    try {
-        const result = execSync(
-            `pnpm tsx ${SCHEDULER_SCRIPT} add --name "${taskName}" --when "${when}" --command "${command}"`,
-            { encoding: "utf-8", stdio: "inherit" }
-        );
+    const targetTime = parseTime(when);
 
-        console.log(`\n✅ Lembrete agendado com sucesso!`);
-        console.log(`💡 Você receberá uma mensagem no Telegram quando chegar a hora.`);
-    } catch (error) {
-        console.error(`\n❌ Erro ao agendar lembrete:`, error);
+    if (!targetTime) {
+        console.error(`❌ Formato de tempo não reconhecido: "${when}"`);
+        console.log(`💡 Use: "in X minutes", "in X hours", "em X minutos", ou "em X horas"`);
+        process.exit(1);
+    }
+
+    const success = await scheduleReminder(reminderText, targetTime);
+
+    if (success) {
+        console.log(`✅ Lembrete agendado para ${targetTime.toLocaleString('pt-BR')}`);
+        console.log(`� Você receberá: "🔔 LEMBRETE: ${reminderText}"`);
+        console.log(`\n💡 O lembrete será enviado automaticamente pelo sistema.`);
+    } else {
+        console.error(`❌ Erro ao agendar lembrete.`);
+        console.log(`💡 Certifique-se de que o comando 'at' está instalado no sistema.`);
         process.exit(1);
     }
 }
