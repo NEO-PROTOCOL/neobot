@@ -31,6 +31,13 @@ function openMessageModal() {
     document.getElementById('message-modal').classList.add('active');
 }
 
+function openBugModal() {
+    document.getElementById('bug-modal').classList.add('active');
+    // Clear previous results
+    document.getElementById('bug-result').style.display = 'none';
+    document.getElementById('bug-form').reset();
+}
+
 function closeModal(modalId) {
     document.getElementById(modalId).classList.remove('active');
 }
@@ -467,3 +474,77 @@ document.addEventListener('DOMContentLoaded', () => {
     // Refresh AI stats every 30 seconds
     setInterval(loadAIStats, 30000);
 });
+
+// ============================================
+// BUG ANALYZER FUNCTIONS
+// ============================================
+
+async function analyzeBug(event) {
+    event.preventDefault();
+
+    const error = document.getElementById('bug-error').value.trim();
+    const code = document.getElementById('bug-code').value.trim();
+
+    if (!error) {
+        showNotification('❌ Forneça uma mensagem de erro', 'error');
+        return;
+    }
+
+    // Show loading
+    const resultDiv = document.getElementById('bug-result');
+    const analysisDiv = document.getElementById('bug-analysis');
+
+    resultDiv.style.display = 'block';
+    analysisDiv.innerHTML = '<div class="loading">🔍 Analisando bug...</div>';
+
+    // Disable submit button
+    const submitBtn = document.querySelector('#bug-form button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = '🔍 Analisando...';
+
+    try {
+        const response = await fetch(`${API_BASE}/ai/analyze-bug`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ error, code })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // Format and display analysis
+            analysisDiv.innerHTML = formatBugAnalysis(data.message);
+
+            // Update AI stats
+            loadAIStats();
+
+            showNotification('✅ Análise concluída!', 'success');
+        } else {
+            throw new Error('Falha ao analisar bug');
+        }
+    } catch (error) {
+        analysisDiv.innerHTML = `
+            <div class="empty-state">
+                ❌ Erro ao analisar bug. Verifique se a API do Claude está configurada.
+            </div>
+        `;
+        showNotification('❌ Erro ao analisar bug', 'error');
+        console.error(error);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '🔍 Analisar Bug';
+    }
+}
+
+function formatBugAnalysis(text) {
+    // Convert markdown-like formatting to HTML
+    let formatted = text
+        .replace(/### (.*)/g, '<h3>$1</h3>')
+        .replace(/## (.*)/g, '<h3>$1</h3>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\n\n/g, '<br><br>');
+
+    return formatted;
+}

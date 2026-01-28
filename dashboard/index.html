@@ -42,6 +42,10 @@
                         <span class="btn-icon">💬</span>
                         <span>Enviar Mensagem</span>
                     </button>
+                    <button class="action-btn" onclick="openBugModal()">
+                        <span class="btn-icon">🐛</span>
+                        <span>Analisar Bug</span>
+                    </button>
                     <button class="action-btn" onclick="refreshStatus()">
                         <span class="btn-icon">🔄</span>
                         <span>Atualizar Status</span>
@@ -224,6 +228,32 @@
                 </div>
                 <button type="submit" class="submit-btn">Enviar Agora</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal: Bug Analyzer -->
+    <div id="bug-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>🐛 Analisador de Bugs</h2>
+                <button class="close-btn" onclick="closeModal('bug-modal')">&times;</button>
+            </div>
+            <form id="bug-form" onsubmit="analyzeBug(event)">
+                <div class="form-group">
+                    <label>Mensagem de Erro ou Descrição do Bug</label>
+                    <textarea id="bug-error" rows="4"
+                        placeholder="Ex: TypeError: Cannot read property 'map' of undefined" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Código (Opcional)</label>
+                    <textarea id="bug-code" rows="6" placeholder="Cole o código relacionado ao erro..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">🔍 Analisar Bug</button>
+            </form>
+            <div id="bug-result" class="bug-result" style="display: none;">
+                <h3>📊 Análise do Bug</h3>
+                <div id="bug-analysis" class="bug-analysis-content"></div>
+            </div>
         </div>
     </div>
 

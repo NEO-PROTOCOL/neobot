@@ -252,4 +252,122 @@ export function setupAIRoutes(app) {
         claude.clearContext(userId || 'default');
         res.json({ success: true });
     });
+
+    // Bug Analyzer endpoints
+    app.post('/api/ai/analyze-bug', async (req, res) => {
+        try {
+            const { error, code } = req.body;
+
+            if (!error) {
+                return res.status(400).json({ error: 'Error message is required' });
+            }
+
+            let prompt = `Você é um especialista em debugging. Analise este erro e forneça uma análise completa:
+
+## 🐛 Erro Reportado:
+${error}
+`;
+
+            if (code) {
+                prompt += `
+## 💻 Contexto do Código:
+\`\`\`
+${code}
+\`\`\`
+`;
+            }
+
+            prompt += `
+Por favor, forneça:
+
+### 1. 🔍 Causa Provável
+Explique qual é a causa mais provável deste erro.
+
+### 2. 🔄 Como Reproduzir
+Descreva os passos para reproduzir o erro.
+
+### 3. ✅ Solução Passo-a-Passo
+Forneça instruções claras para corrigir o problema.
+
+### 4. 💡 Código Corrigido
+Se aplicável, mostre o código corrigido.
+
+### 5. 🛡️ Prevenção Futura
+Dê dicas para evitar este tipo de erro no futuro.
+
+Seja específico, claro e forneça exemplos práticos.
+`;
+
+            const response = await claude.chat(prompt, 'bug-analyzer');
+            res.json(response);
+
+        } catch (error) {
+            console.error('Bug analysis error:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
+
+    // Suggest fix endpoint
+    app.post('/api/ai/suggest-fix', async (req, res) => {
+        try {
+            const { code, issue } = req.body;
+
+            if (!code || !issue) {
+                return res.status(400).json({ error: 'Code and issue are required' });
+            }
+
+            const prompt = `Analise este código e sugira uma correção para o seguinte problema:
+
+**Problema:** ${issue}
+
+**Código:**
+\`\`\`
+${code}
+\`\`\`
+
+Forneça:
+1. O que está errado
+2. Código corrigido
+3. Explicação da correção
+`;
+
+            const response = await claude.chat(prompt, 'bug-fixer');
+            res.json(response);
+
+        } catch (error) {
+            console.error('Fix suggestion error:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
+
+    // Analyze stack trace endpoint
+    app.post('/api/ai/analyze-stack', async (req, res) => {
+        try {
+            const { stackTrace } = req.body;
+
+            if (!stackTrace) {
+                return res.status(400).json({ error: 'Stack trace is required' });
+            }
+
+            const prompt = `Analise este stack trace e identifique:
+
+1. Onde o erro ocorreu (arquivo e linha)
+2. Qual é o erro
+3. Possíveis causas
+4. Como corrigir
+
+**Stack Trace:**
+\`\`\`
+${stackTrace}
+\`\`\`
+`;
+
+            const response = await claude.chat(prompt, 'stack-analyzer');
+            res.json(response);
+
+        } catch (error) {
+            console.error('Stack trace analysis error:', error);
+            res.status(500).json({ error: error.message });
+        }
+    });
 }
