@@ -39,7 +39,7 @@ Usage:
   neobot cron list                   Listar tarefas agendadas
   neobot cron run <job>              Executar tarefa manualmente
   neobot cron start                  Iniciar o agendador (scheduler)
-  neobot health [--full] [--json]    Diagnóstico de saúde do sistema
+  neobot health [--full] [--json|--yaml|--chat]    Diagnóstico de saúde do sistema
   neobot explain <id>                Explica um evento do ledger em PT-BR
 
 Exemplos:
@@ -62,39 +62,20 @@ async function main() {
 
   if (cmd === "health") {
     const { runHealthCheck } = await import("../infra/health/health.js");
+    const { renderHealth } = await import("../infra/health/render-health.js");
     const allArgs = [subcmd, ...rest];
+
     const isJson = allArgs.includes("--json");
+    const isYaml = allArgs.includes("--yaml");
+    const isChat = allArgs.includes("--chat") || (!isJson && !isYaml);
+
+    const format = isJson ? "json" : isYaml ? "yaml" : "chat";
     const isFull = allArgs.includes("--full");
     const sinceIdx = allArgs.indexOf("--since");
     const sinceHours = sinceIdx !== -1 ? parseInt(allArgs[sinceIdx + 1]) || 24 : 24;
 
     const report = await runHealthCheck({ sinceHours });
-
-    if (isJson) {
-      console.log(JSON.stringify(report, null, 2));
-      process.exit(report.overall_status === "fail" ? 1 : 0);
-    }
-
-    const statusIcons = { ok: "✅", warn: "⚠️", fail: "❌" };
-
-    console.log(`\nSAÚDE DO SISTEMA NEOBOT ${statusIcons[report.overall_status]}`);
-    console.log(`Horário: ${report.ts}`);
-    console.log("----------------------------------------------------------------");
-
-    for (const check of report.checks) {
-      console.log(`${statusIcons[check.status]} ${check.key}: ${check.summary}`);
-      if (isFull) {
-        if (check.details) {
-          console.log(
-            `   Detalhes: ${JSON.stringify(check.details, null, 2).split("\n").join("\n   ")}`,
-          );
-        }
-        if (check.recommendation) {
-          console.log(`   💡 Recomendação: ${check.recommendation}`);
-        }
-      }
-    }
-    console.log("----------------------------------------------------------------\n");
+    console.log(renderHealth(report, format, isFull));
 
     process.exit(report.overall_status === "fail" ? 1 : 0);
   }
