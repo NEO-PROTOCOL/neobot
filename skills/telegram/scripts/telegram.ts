@@ -1,5 +1,4 @@
 import { sendMessageTelegram } from "../../../src/telegram/send.js";
-import { loadConfig } from "../../../src/config/config.js";
 
 async function main() {
     const args = process.argv.slice(2);
