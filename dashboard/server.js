@@ -5,10 +5,75 @@ import { promisify } from 'util';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { setupAIRoutes } from './ai-routes.js';
+import automationRoutes from './automation-routes.js';
+import { initializeAutomations } from '../dist/automations/index.js';
 
 const execAsync = promisify(exec);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Simple Telegram Bot implementation for automations
+class SimpleTelegramBot {
+    constructor(token, defaultChatId) {
+        this.token = token;
+        this.defaultChatId = defaultChatId;
+        this.apiUrl = `https://api.telegram.org/bot${token}`;
+    }
+
+    async sendMessage(chatId, message, options = {}) {
+        try {
+            const response = await fetch(`${this.apiUrl}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chatId || this.defaultChatId,
+                    text: message,
+                    parse_mode: options.parse_mode || 'Markdown',
+                    ...options
+                })
+            });
+            
+            const data = await response.json();
+            if (!data.ok) {
+                throw new Error(`Telegram API error: ${data.description}`);
+            }
+            
+            return data.result;
+        } catch (error) {
+            console.error('❌ Error sending Telegram message:', error);
+            throw error;
+        }
+    }
+}
+
+// Initialize Telegram Bot
+const telegramBot = new SimpleTelegramBot(
+    process.env.TELEGRAM_BOT_TOKEN,
+    process.env.TELEGRAM_CHAT_ID
+);
+
+// Initialize Automation Manager
+let automationManager = null;
+try {
+    automationManager = initializeAutomations({
+        enabledAutomations: [
+            'intelligent-report',
+            'morning-briefing',
+            'weekly-summary',
+            'health-check'
+        ],
+        telegram: telegramBot
+    });
+    
+    // Initialize in background
+    automationManager.initialize().then(() => {
+        console.log('✅ Automation system initialized');
+    }).catch(error => {
+        console.error('❌ Error initializing automations:', error);
+    });
+} catch (error) {
+    console.error('❌ Failed to create automation manager:', error);
+}
 
 const app = express();
 const PORT = 3000;
@@ -20,6 +85,9 @@ app.use(express.static(path.join(__dirname, '../dashboard')));
 
 // Setup AI routes
 setupAIRoutes(app);
+
+// Setup automation routes
+app.use('/api/automations', automationRoutes);
 
 // Storage (in-memory for now)
 let reminders = [];

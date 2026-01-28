@@ -548,3 +548,186 @@ function formatBugAnalysis(text) {
 
     return formatted;
 }
+
+// ============================================
+// AUTOMATIONS FUNCTIONS
+// ============================================
+
+async function loadAutomations() {
+    try {
+        const response = await fetch(`${API_BASE}/automations/tasks`);
+        
+        if (!response.ok) {
+            throw new Error('Failed to load automations');
+        }
+
+        const data = await response.json();
+        
+        if (data.success) {
+            displayAutomations(data.tasks);
+            updateAutomationStats(data.stats);
+        }
+    } catch (error) {
+        console.error('Error loading automations:', error);
+        const container = document.getElementById('automations-list');
+        container.innerHTML = '<div class="empty-state">❌ Erro ao carregar automações</div>';
+    }
+}
+
+function displayAutomations(tasks) {
+    const container = document.getElementById('automations-list');
+    
+    if (!tasks || tasks.length === 0) {
+        container.innerHTML = '<div class="empty-state">Nenhuma automação configurada</div>';
+        return;
+    }
+
+    container.innerHTML = tasks.map(task => `
+        <div class="automation-item">
+            <div class="automation-info">
+                <div class="automation-name">
+                    <span class="automation-status ${task.enabled ? 'enabled' : 'disabled'}"></span>
+                    ${task.name}
+                </div>
+                <div class="automation-schedule">${task.schedule}</div>
+                <div class="automation-meta">
+                    <span>✓ ${task.runCount} execuções</span>
+                    ${task.errorCount > 0 ? `<span>⚠️ ${task.errorCount} erros</span>` : ''}
+                    ${task.lastRun ? `<span>📅 ${formatDate(task.lastRun)}</span>` : ''}
+                </div>
+            </div>
+            <div class="automation-actions">
+                <button class="automation-btn" onclick="executeAutomation('${task.id}')">
+                    ▶️ Executar
+                </button>
+                <button class="automation-btn toggle ${task.enabled ? 'enabled' : 'disabled'}" 
+                        onclick="toggleAutomation('${task.id}', ${!task.enabled})">
+                    ${task.enabled ? '⏸️ Pausar' : '▶️ Ativar'}
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function updateAutomationStats(stats) {
+    document.getElementById('automation-total').textContent = stats.enabled;
+    document.getElementById('automation-runs').textContent = stats.totalRuns;
+}
+
+async function executeAutomation(taskId) {
+    try {
+        showNotification('🚀 Executando automação...', 'info');
+        
+        const response = await fetch(`${API_BASE}/automations/tasks/${taskId}/execute`, {
+            method: 'POST'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification('✅ Automação executada com sucesso!', 'success');
+            loadAutomations();
+        } else {
+            throw new Error(data.error || 'Failed to execute automation');
+        }
+    } catch (error) {
+        console.error('Error executing automation:', error);
+        showNotification('❌ Erro ao executar automação', 'error');
+    }
+}
+
+async function toggleAutomation(taskId, enabled) {
+    try {
+        const response = await fetch(`${API_BASE}/automations/tasks/${taskId}/toggle`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ enabled })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            showNotification(`✅ Automação ${enabled ? 'ativada' : 'pausada'}!`, 'success');
+            loadAutomations();
+        } else {
+            throw new Error(data.error || 'Failed to toggle automation');
+        }
+    } catch (error) {
+        console.error('Error toggling automation:', error);
+        showNotification('❌ Erro ao alterar automação', 'error');
+    }
+}
+
+async function generateReport() {
+    try {
+        showNotification('📊 Gerando relatório inteligente...', 'info');
+        
+        const button = event.target.closest('button');
+        button.disabled = true;
+        button.innerHTML = '<span class="spinner"></span> Gerando...';
+
+        const response = await fetch(`${API_BASE}/automations/report/generate`, {
+            method: 'POST'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            const previewDiv = document.getElementById('report-preview');
+            const contentDiv = document.getElementById('report-content');
+            
+            contentDiv.textContent = data.report;
+            previewDiv.style.display = 'block';
+            
+            showNotification('✅ Relatório gerado com sucesso!', 'success');
+        } else {
+            throw new Error(data.error || 'Failed to generate report');
+        }
+    } catch (error) {
+        console.error('Error generating report:', error);
+        showNotification('❌ Erro ao gerar relatório', 'error');
+    } finally {
+        const button = event.target.closest('button');
+        button.disabled = false;
+        button.innerHTML = '<span class="btn-icon">📄</span><span>Gerar Relatório Inteligente</span>';
+    }
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diff = now - date;
+    
+    // Less than 1 minute
+    if (diff < 60000) {
+        return 'agora mesmo';
+    }
+    
+    // Less than 1 hour
+    if (diff < 3600000) {
+        const minutes = Math.floor(diff / 60000);
+        return `há ${minutes} min`;
+    }
+    
+    // Less than 24 hours
+    if (diff < 86400000) {
+        const hours = Math.floor(diff / 3600000);
+        return `há ${hours}h`;
+    }
+    
+    // More than 24 hours
+    return date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Initialize automations on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadAutomations();
+    
+    // Auto-refresh automations every 30 seconds
+    setInterval(loadAutomations, 30000);
+});

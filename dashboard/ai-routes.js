@@ -1,193 +1,18 @@
-import Anthropic from '@anthropic-ai/sdk';
 import dotenv from 'dotenv';
+import { getClaudeService as getOptimizedClaudeService } from '../dist/ai/claude-service.js';
 
 // Load environment variables
 dotenv.config({ path: '../.env' });
 
-class ClaudeService {
-    constructor() {
-        const apiKey = process.env.ANTHROPIC_API_KEY;
-
-        if (!apiKey) {
-            throw new Error('ANTHROPIC_API_KEY not found in environment');
-        }
-
-        this.client = new Anthropic({ apiKey });
-
-        // Stats tracking
-        this.stats = {
-            totalRequests: 0,
-            totalTokens: 0,
-            totalCost: 0,
-            errors: 0,
-            responseTimes: []
-        };
-
-        // Conversation contexts
-        this.contexts = new Map();
-    }
-
-    async chat(message, userId = 'default') {
-        const startTime = Date.now();
-
-        try {
-            // Get or create context
-            let context = this.contexts.get(userId);
-            if (!context) {
-                context = { history: [] };
-                this.contexts.set(userId, context);
-            }
-
-            // Add user message to history
-            context.history.push({
-                role: 'user',
-                content: message
-            });
-
-            // Keep only last 10 messages
-            if (context.history.length > 20) {
-                context.history = context.history.slice(-10);
-            }
-
-            const response = await this.client.messages.create({
-                model: 'claude-sonnet-4-20250514',
-                max_tokens: 4096,
-                messages: context.history
-            });
-
-            const responseTime = Date.now() - startTime;
-            this.trackRequest(response.usage, responseTime);
-
-            const assistantMessage = response.content[0].text;
-
-            // Add assistant response to history
-            context.history.push({
-                role: 'assistant',
-                content: assistantMessage
-            });
-
-            return {
-                message: assistantMessage,
-                usage: response.usage,
-                responseTime
-            };
-
-        } catch (error) {
-            this.stats.errors++;
-            throw error;
-        }
-    }
-
-    async analyzeImage(base64Image, question = 'Descreva esta imagem em detalhes') {
-        const startTime = Date.now();
-
-        try {
-            const response = await this.client.messages.create({
-                model: 'claude-sonnet-4-20250514',
-                max_tokens: 4096,
-                messages: [{
-                    role: 'user',
-                    content: [
-                        {
-                            type: 'image',
-                            source: {
-                                type: 'base64',
-                                media_type: 'image/jpeg',
-                                data: base64Image
-                            }
-                        },
-                        {
-                            type: 'text',
-                            text: question
-                        }
-                    ]
-                }]
-            });
-
-            const responseTime = Date.now() - startTime;
-            this.trackRequest(response.usage, responseTime);
-
-            return {
-                analysis: response.content[0].text,
-                usage: response.usage,
-                responseTime
-            };
-
-        } catch (error) {
-            this.stats.errors++;
-            throw error;
-        }
-    }
-
-    async createPlan(task) {
-        const response = await this.chat(`Você é um agente de planejamento. Quebre esta tarefa em etapas executáveis:
-
-Tarefa: ${task}
-
-Retorne APENAS um array JSON de etapas, exemplo:
-["buscar informação X", "processar dados Y", "gerar relatório Z"]`, 'planner');
-
-        // Extract JSON from response
-        const jsonMatch = response.message.match(/\[.*\]/s);
-        if (jsonMatch) {
-            try {
-                return JSON.parse(jsonMatch[0]);
-            } catch {
-                return [task];
-            }
-        }
-
-        return [task];
-    }
-
-    clearContext(userId) {
-        this.contexts.delete(userId);
-    }
-
-    trackRequest(usage, responseTime) {
-        this.stats.totalRequests++;
-        this.stats.totalTokens += usage.input_tokens + usage.output_tokens;
-        this.stats.responseTimes.push(responseTime);
-
-        // Calculate cost (Claude Sonnet 4)
-        // Input: $3/M tokens, Output: $15/M tokens
-        const inputCost = (usage.input_tokens / 1_000_000) * 3;
-        const outputCost = (usage.output_tokens / 1_000_000) * 15;
-        this.stats.totalCost += inputCost + outputCost;
-    }
-
-    getStats() {
-        const avgResponseTime = this.stats.responseTimes.length > 0
-            ? this.stats.responseTimes.reduce((a, b) => a + b, 0) / this.stats.responseTimes.length
-            : 0;
-
-        return {
-            totalRequests: this.stats.totalRequests,
-            totalTokens: this.stats.totalTokens,
-            totalCost: this.stats.totalCost,
-            errors: this.stats.errors,
-            avgResponseTime: Math.round(avgResponseTime),
-            avgCostPerRequest: this.stats.totalRequests > 0
-                ? this.stats.totalCost / this.stats.totalRequests
-                : 0
-        };
-    }
-}
-
-// Singleton instance
-let claudeInstance = null;
-
+// 🚀 Use optimized Claude service with cache & auto-model selection
 export function getClaudeService() {
-    if (!claudeInstance) {
-        claudeInstance = new ClaudeService();
-    }
-    return claudeInstance;
+    return getOptimizedClaudeService();
 }
 
 export function setupAIRoutes(app) {
     const claude = getClaudeService();
 
-    // Chat endpoint
+    // Chat endpoint (optimized with cache & auto-model)
     app.post('/api/ai/chat', async (req, res) => {
         try {
             const { message, userId } = req.body;
@@ -196,8 +21,23 @@ export function setupAIRoutes(app) {
                 return res.status(400).json({ error: 'Message is required' });
             }
 
-            const response = await claude.chat(message, userId || 'default');
-            res.json(response);
+            const startTime = Date.now();
+            
+            // Use context-aware chat if userId provided
+            let responseText;
+            if (userId) {
+                responseText = await claude.chatWithContext(userId, message);
+            } else {
+                // Use simple chat with auto-model selection
+                responseText = await claude.chat(message, { cache: true });
+            }
+            
+            const responseTime = Date.now() - startTime;
+
+            res.json({
+                message: responseText,
+                responseTime
+            });
 
         } catch (error) {
             console.error('AI Chat error:', error);
@@ -205,7 +45,7 @@ export function setupAIRoutes(app) {
         }
     });
 
-    // Analyze image endpoint
+    // Analyze image endpoint (with cache)
     app.post('/api/ai/analyze-image', async (req, res) => {
         try {
             const { image, question } = req.body;
@@ -214,8 +54,14 @@ export function setupAIRoutes(app) {
                 return res.status(400).json({ error: 'Image is required' });
             }
 
-            const response = await claude.analyzeImage(image, question);
-            res.json(response);
+            const startTime = Date.now();
+            const analysis = await claude.analyzeImage(image, question, { cache: true });
+            const responseTime = Date.now() - startTime;
+
+            res.json({
+                analysis,
+                responseTime
+            });
 
         } catch (error) {
             console.error('Image analysis error:', error);
@@ -241,9 +87,14 @@ export function setupAIRoutes(app) {
         }
     });
 
-    // Get AI stats
+    // Get AI stats (with cache info!)
     app.get('/api/ai/stats', (req, res) => {
         res.json(claude.getStats());
+    });
+    
+    // Get cache stats
+    app.get('/api/ai/cache-stats', (req, res) => {
+        res.json(claude.getCacheStats());
     });
 
     // Clear context
@@ -251,6 +102,12 @@ export function setupAIRoutes(app) {
         const { userId } = req.body;
         claude.clearContext(userId || 'default');
         res.json({ success: true });
+    });
+    
+    // Clear cache
+    app.post('/api/ai/clear-cache', (req, res) => {
+        claude.clearCache();
+        res.json({ success: true, message: 'Cache cleared' });
     });
 
     // Bug Analyzer endpoints
@@ -298,8 +155,14 @@ Dê dicas para evitar este tipo de erro no futuro.
 Seja específico, claro e forneça exemplos práticos.
 `;
 
-            const response = await claude.chat(prompt, 'bug-analyzer');
-            res.json(response);
+            const startTime = Date.now();
+            const analysis = await claude.chatWithContext('bug-analyzer', prompt);
+            const responseTime = Date.now() - startTime;
+            
+            res.json({
+                message: analysis,
+                responseTime
+            });
 
         } catch (error) {
             console.error('Bug analysis error:', error);
@@ -331,8 +194,14 @@ Forneça:
 3. Explicação da correção
 `;
 
-            const response = await claude.chat(prompt, 'bug-fixer');
-            res.json(response);
+            const startTime = Date.now();
+            const fix = await claude.chatWithContext('bug-fixer', prompt);
+            const responseTime = Date.now() - startTime;
+            
+            res.json({
+                message: fix,
+                responseTime
+            });
 
         } catch (error) {
             console.error('Fix suggestion error:', error);
@@ -362,8 +231,14 @@ ${stackTrace}
 \`\`\`
 `;
 
-            const response = await claude.chat(prompt, 'stack-analyzer');
-            res.json(response);
+            const startTime = Date.now();
+            const analysis = await claude.chatWithContext('stack-analyzer', prompt);
+            const responseTime = Date.now() - startTime;
+            
+            res.json({
+                message: analysis,
+                responseTime
+            });
 
         } catch (error) {
             console.error('Stack trace analysis error:', error);

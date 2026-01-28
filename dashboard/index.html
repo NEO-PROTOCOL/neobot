@@ -20,162 +20,210 @@
                 <span class="logo-icon">🛰️</span>
                 <h1>NΞØ BOT</h1>
             </div>
-            <div class="status-badge">
-                <span class="status-dot"></span>
-                <span>Sistema Ativo</span>
+            <div class="header-info">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>Sistema Ativo</span>
+                </div>
+                <button class="icon-btn" onclick="refreshStatus()" title="Atualizar">↻</button>
             </div>
         </header>
 
-        <!-- Bento Grid -->
-        <div class="bento-grid">
-            <!-- Quick Actions -->
-            <div class="bento-card card-primary">
-                <div class="card-header">
-                    <h2>⚡ Ações Rápidas</h2>
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Column - Main Actions & Chat -->
+            <div class="col-main">
+                
+                <!-- Quick Actions Card -->
+                <div class="bento-card card-primary">
+                    <div class="card-header">
+                        <h2>⚡ Ações Rápidas</h2>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn" onclick="openReminderModal()">
+                            <span class="btn-icon">🔔</span>
+                            <span>Novo Lembrete</span>
+                        </button>
+                        <button class="action-btn" onclick="openMessageModal()">
+                            <span class="btn-icon">💬</span>
+                            <span>Enviar Mensagem</span>
+                        </button>
+                        <button class="action-btn" onclick="openBugModal()">
+                            <span class="btn-icon">🐛</span>
+                            <span>Analisar Bug</span>
+                        </button>
+                        <button class="action-btn" onclick="generateReport()">
+                            <span class="btn-icon">📊</span>
+                            <span>Gerar Relatório</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="quick-actions">
-                    <button class="action-btn" onclick="openReminderModal()">
-                        <span class="btn-icon">🔔</span>
-                        <span>Novo Lembrete</span>
-                    </button>
-                    <button class="action-btn" onclick="openMessageModal()">
-                        <span class="btn-icon">💬</span>
-                        <span>Enviar Mensagem</span>
-                    </button>
-                    <button class="action-btn" onclick="openBugModal()">
-                        <span class="btn-icon">🐛</span>
-                        <span>Analisar Bug</span>
-                    </button>
-                    <button class="action-btn" onclick="refreshStatus()">
-                        <span class="btn-icon">🔄</span>
-                        <span>Atualizar Status</span>
-                    </button>
+
+                <!-- AI Chat Card -->
+                <div class="bento-card card-chat">
+                    <div class="card-header">
+                        <h2>🤖 Chat com Claude AI</h2>
+                        <button class="icon-btn" onclick="clearAIContext()" title="Limpar conversa">🗑️</button>
+                    </div>
+                    <div class="ai-chat-container">
+                        <div id="ai-messages" class="ai-messages">
+                            <div class="ai-welcome">
+                                👋 Olá! Sou o Claude AI. Como posso ajudar você hoje?
+                            </div>
+                        </div>
+                        <form id="ai-chat-form" onsubmit="sendAIMessage(event)" class="ai-input-form">
+                            <input type="text" id="ai-input" placeholder="Digite sua mensagem..." autocomplete="off">
+                            <button type="submit" class="ai-send-btn">
+                                <span>Enviar</span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
+
+                <!-- Automations Card -->
+                <div class="bento-card">
+                    <div class="card-header">
+                        <h2>🤖 Automações Ativas</h2>
+                        <button class="icon-btn" onclick="loadAutomations()">↻</button>
+                    </div>
+                    <div id="automations-list" class="automations-container">
+                        <div class="loading">Carregando automações...</div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Reminders List -->
-            <div class="bento-card card-tall">
-                <div class="card-header">
-                    <h2>📅 Lembretes Agendados</h2>
-                    <button class="icon-btn" onclick="loadReminders()">↻</button>
-                </div>
-                <div id="reminders-list" class="list-container">
-                    <div class="loading">Carregando...</div>
-                </div>
-            </div>
+            <!-- Right Column - Status & Info -->
+            <div class="col-sidebar">
 
-            <!-- System Health -->
-            <div class="bento-card card-accent">
-                <div class="card-header">
-                    <h2>💚 Saúde do Sistema</h2>
-                </div>
-                <div class="health-metrics">
-                    <div class="metric">
-                        <span class="metric-label">Telegram</span>
-                        <span class="metric-value" id="telegram-status">✅ Conectado</span>
+                <!-- System Health Card -->
+                <div class="bento-card card-accent">
+                    <div class="card-header">
+                        <h2>💚 Status do Sistema</h2>
                     </div>
-                    <div class="metric">
-                        <span class="metric-label">Scheduler</span>
-                        <span class="metric-value" id="scheduler-status">✅ Ativo</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Lembretes</span>
-                        <span class="metric-value" id="reminders-count">0 agendados</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Messages -->
-            <div class="bento-card card-wide">
-                <div class="card-header">
-                    <h2>📨 Mensagens Recentes</h2>
-                    <button class="icon-btn" onclick="loadMessages()">↻</button>
-                </div>
-                <div id="messages-list" class="messages-container">
-                    <div class="empty-state">Nenhuma mensagem ainda</div>
-                </div>
-            </div>
-
-            <!-- Chat IDs -->
-            <div class="bento-card">
-                <div class="card-header">
-                    <h2>👥 Contatos</h2>
-                </div>
-                <div class="contacts-list">
-                    <div class="contact-item">
-                        <span class="contact-name">Você (Netto)</span>
-                        <code class="contact-id">6582122066</code>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-name">Ana Carolina</span>
-                        <code class="contact-id">8181568281</code>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stats -->
-            <div class="bento-card card-stats">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-value" id="total-reminders">0</div>
-                        <div class="stat-label">Lembretes Criados</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="total-messages">0</div>
-                        <div class="stat-label">Mensagens Enviadas</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Chat -->
-            <div class="bento-card card-wide card-tall">
-                <div class="card-header">
-                    <h2>🤖 Chat com Claude AI</h2>
-                    <button class="icon-btn" onclick="clearAIContext()">🗑️</button>
-                </div>
-                <div class="ai-chat-container">
-                    <div id="ai-messages" class="ai-messages">
-                        <div class="ai-welcome">
-                            👋 Olá! Sou o Claude AI. Como posso ajudar você hoje?
+                    <div class="health-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Telegram</span>
+                            <span class="metric-value" id="telegram-status">✅ Conectado</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Scheduler</span>
+                            <span class="metric-value" id="scheduler-status">✅ Ativo</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Claude AI</span>
+                            <span class="metric-value" id="ai-status">✅ Online</span>
                         </div>
                     </div>
-                    <form id="ai-chat-form" onsubmit="sendAIMessage(event)" class="ai-input-form">
-                        <input type="text" id="ai-input" placeholder="Digite sua mensagem..." autocomplete="off">
-                        <button type="submit" class="ai-send-btn">
-                            <span>Enviar</span>
-                        </button>
-                    </form>
                 </div>
+
+                <!-- Stats Cards Row -->
+                <div class="stats-row">
+                    <div class="bento-card card-stat">
+                        <div class="stat-content">
+                            <div class="stat-icon">🔔</div>
+                            <div class="stat-value" id="total-reminders">0</div>
+                            <div class="stat-label">Lembretes</div>
+                        </div>
+                    </div>
+                    <div class="bento-card card-stat">
+                        <div class="stat-content">
+                            <div class="stat-icon">💬</div>
+                            <div class="stat-value" id="total-messages">0</div>
+                            <div class="stat-label">Mensagens</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="bento-card card-stat">
+                        <div class="stat-content">
+                            <div class="stat-icon">🤖</div>
+                            <div class="stat-value" id="automation-total">0</div>
+                            <div class="stat-label">Automações</div>
+                        </div>
+                    </div>
+                    <div class="bento-card card-stat">
+                        <div class="stat-content">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-value" id="automation-runs">0</div>
+                            <div class="stat-label">Execuções</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Stats Card -->
+                <div class="bento-card">
+                    <div class="card-header">
+                        <h2>📊 IA Stats</h2>
+                        <button class="icon-btn" onclick="loadAIStats()">↻</button>
+                    </div>
+                    <div class="ai-stats-grid">
+                        <div class="ai-stat">
+                            <div class="ai-stat-value" id="ai-requests">0</div>
+                            <div class="ai-stat-label">Requests</div>
+                        </div>
+                        <div class="ai-stat">
+                            <div class="ai-stat-value" id="ai-tokens">0</div>
+                            <div class="ai-stat-label">Tokens</div>
+                        </div>
+                        <div class="ai-stat">
+                            <div class="ai-stat-value" id="ai-cost">$0.00</div>
+                            <div class="ai-stat-label">Custo</div>
+                        </div>
+                        <div class="ai-stat">
+                            <div class="ai-stat-value" id="ai-avg-time">0ms</div>
+                            <div class="ai-stat-label">Tempo Médio</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reminders Card -->
+                <div class="bento-card">
+                    <div class="card-header">
+                        <h2>📅 Lembretes</h2>
+                        <button class="icon-btn" onclick="loadReminders()">↻</button>
+                    </div>
+                    <div id="reminders-list" class="list-container">
+                        <div class="empty-state">Nenhum lembrete agendado</div>
+                    </div>
+                </div>
+
+                <!-- Recent Messages Card -->
+                <div class="bento-card">
+                    <div class="card-header">
+                        <h2>📨 Mensagens</h2>
+                        <button class="icon-btn" onclick="loadMessages()">↻</button>
+                    </div>
+                    <div id="messages-list" class="messages-container">
+                        <div class="empty-state">Nenhuma mensagem ainda</div>
+                    </div>
+                </div>
+
+                <!-- Contacts Card -->
+                <div class="bento-card">
+                    <div class="card-header">
+                        <h2>👥 Contatos</h2>
+                    </div>
+                    <div class="contacts-list">
+                        <div class="contact-item">
+                            <span class="contact-name">Você (Netto)</span>
+                            <code class="contact-id">6582122066</code>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-name">Ana Carolina</span>
+                            <code class="contact-id">8181568281</code>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <!-- AI Stats -->
-            <div class="bento-card card-accent">
-                <div class="card-header">
-                    <h2>📊 Estatísticas de IA</h2>
-                    <button class="icon-btn" onclick="loadAIStats()">↻</button>
-                </div>
-                <div class="health-metrics">
-                    <div class="metric">
-                        <span class="metric-label">Requests</span>
-                        <span class="metric-value" id="ai-requests">0</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Tokens</span>
-                        <span class="metric-value" id="ai-tokens">0</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Custo Total</span>
-                        <span class="metric-value" id="ai-cost">$0.00</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Tempo Médio</span>
-                        <span class="metric-value" id="ai-avg-time">0ms</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- Modals (unchanged) -->
     <!-- Modal: Novo Lembrete -->
     <div id="reminder-modal" class="modal">
         <div class="modal-content">
