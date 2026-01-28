@@ -1,6 +1,7 @@
 ---
 summary: "Agent runtime (embedded p-mono), workspace contract, and session bootstrap"
 read_when:
+
   - Changing agent runtime, workspace bootstrap, or session behavior
 ---
 # Agent Runtime 🤖
@@ -22,6 +23,7 @@ per-session workspaces under `agents.defaults.sandbox.workspaceRoot` (see
 ## Bootstrap files (injected)
 
 Inside `agents.defaults.workspace`, Moltbot expects these user-editable files:
+
 - `AGENTS.md` — operating instructions + “memory”
 - `SOUL.md` — persona, boundaries, tone
 - `TOOLS.md` — user-maintained tool notes (e.g. `imsg`, `sag`, conventions)
@@ -53,6 +55,7 @@ guidance for how *you* want them used.
 ## Skills
 
 Moltbot loads skills from three locations (workspace wins on name conflict):
+
 - Bundled (shipped with the install)
 - Managed/local: `~/.clawdbot/skills`
 - Workspace: `<workspace>/skills`
@@ -69,6 +72,7 @@ Moltbot reuses pieces of the p-mono codebase (models/tools), but **session manag
 ## Sessions
 
 Session transcripts are stored as JSONL at:
+
 - `~/.clawdbot/agents/<agentId>/sessions/<SessionId>.jsonl`
 
 The session ID is stable and chosen by Moltbot.
@@ -109,6 +113,7 @@ Model refs in config (for example `agents.defaults.model` and `agents.defaults.m
 ## Configuration (minimal)
 
 At minimum, set:
+
 - `agents.defaults.workspace`
 - `channels.whatsapp.allowFrom` (strongly recommended)
 

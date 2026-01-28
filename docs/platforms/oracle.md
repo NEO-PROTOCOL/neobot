@@ -1,6 +1,7 @@
 ---
 summary: "Moltbot on Oracle Cloud (Always Free ARM)"
 read_when:
+
   - Setting up Moltbot on Oracle Cloud
   - Looking for low-cost VPS hosting for Moltbot
   - Want 24/7 Moltbot on a small server
@@ -40,6 +41,7 @@ Oracle’s free tier can be a great fit for Moltbot (especially if you already h
 1. Log into [Oracle Cloud Console](https://cloud.oracle.com/)
 2. Navigate to **Compute → Instances → Create Instance**
 3. Configure:
+
    - **Name:** `moltbot`
    - **Image:** Ubuntu 24.04 (aarch64)
    - **Shape:** `VM.Standard.A1.Flex` (Ampere ARM)
@@ -88,6 +90,7 @@ sudo tailscale up --ssh --hostname=moltbot
 This enables Tailscale SSH, so you can connect via `ssh moltbot` from any device on your tailnet — no public IP needed.
 
 Verify:
+
 ```bash
 tailscale status
 ```
@@ -147,6 +150,7 @@ Now that everything is working, lock down the VCN to block all traffic except Ta
 1. Go to **Networking → Virtual Cloud Networks** in the OCI Console
 2. Click your VCN → **Security Lists** → Default Security List
 3. **Remove** all ingress rules except:
+
    - `0.0.0.0/0 UDP 41641` (Tailscale)
 4. Keep default egress rules (allow all outbound)
 
@@ -165,6 +169,7 @@ https://moltbot.<tailnet-name>.ts.net/
 Replace `<tailnet-name>` with your tailnet name (visible in `tailscale status`).
 
 No SSH tunnel needed. Tailscale provides:
+
 - HTTPS encryption (automatic certs)
 - Authentication via Tailscale identity
 - Access from any device on your tailnet (laptop, phone, etc.)
@@ -226,12 +231,15 @@ Then open `http://localhost:18789`.
 ## Troubleshooting
 
 ### Instance creation fails ("Out of capacity")
+
 Free tier ARM instances are popular. Try:
+
 - Different availability domain
 - Retry during off-peak hours (early morning)
 - Use the "Always Free" filter when selecting shape
 
 ### Tailscale won't connect
+
 ```bash
 # Check status
 sudo tailscale status
@@ -241,6 +249,7 @@ sudo tailscale up --ssh --hostname=moltbot --reset
 ```
 
 ### Gateway won't start
+
 ```bash
 moltbot gateway status
 moltbot doctor --non-interactive
@@ -248,6 +257,7 @@ journalctl --user -u moltbot-gateway -n 50
 ```
 
 ### Can't reach Control UI
+
 ```bash
 # Verify Tailscale Serve is running
 tailscale serve status
@@ -260,7 +270,9 @@ systemctl --user restart moltbot-gateway
 ```
 
 ### ARM binary issues
+
 Some tools may not have ARM builds. Check:
+
 ```bash
 uname -m  # Should show aarch64
 ```
@@ -272,10 +284,12 @@ Most npm packages work fine. For binaries, look for `linux-arm64` or `aarch64` r
 ## Persistence
 
 All state lives in:
+
 - `~/.clawdbot/` — config, credentials, session data
 - `~/clawd/` — workspace (SOUL.md, memory, artifacts)
 
 Back up periodically:
+
 ```bash
 tar -czvf moltbot-backup.tar.gz ~/.clawdbot ~/clawd
 ```

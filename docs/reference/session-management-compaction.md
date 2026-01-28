@@ -1,6 +1,7 @@
 ---
 summary: "Deep dive: session store + transcripts, lifecycle, and (auto)compaction internals"
 read_when:
+
   - You need to debug session ids, transcript JSONL, or sessions.json fields
   - You are changing auto-compaction behavior or adding “pre-compaction” housekeeping
   - You want to implement memory flushes or silent system turns
@@ -18,6 +19,7 @@ This document explains how Moltbot manages sessions end-to-end:
 - **Silent housekeeping** (e.g. memory writes that shouldn’t produce user-visible output)
 
 If you want a higher-level overview first, start with:
+
 - [/concepts/session](/concepts/session)
 - [/concepts/compaction](/concepts/compaction)
 - [/concepts/session-pruning](/concepts/session-pruning)
@@ -83,6 +85,7 @@ The canonical rules are documented at [/concepts/session](/concepts/session).
 Each `sessionKey` points at a current `sessionId` (the transcript file that continues the conversation).
 
 Rules of thumb:
+
 - **Reset** (`/new`, `/reset`) creates a new `sessionId` for that `sessionKey`.
 - **Daily reset** (default 4:00 AM local time on the gateway host) creates a new `sessionId` on the next message after the reset boundary.
 - **Idle expiry** (`session.reset.idleMinutes` or legacy `session.idleMinutes`) creates a new `sessionId` when a message arrives after the idle window. When daily + idle are both configured, whichever expires first wins.
@@ -103,11 +106,14 @@ Key fields (not exhaustive):
 - `chatType`: `direct | group | room` (helps UIs and send policy)
 - `provider`, `subject`, `room`, `space`, `displayName`: metadata for group/channel labeling
 - Toggles:
+
   - `thinkingLevel`, `verboseLevel`, `reasoningLevel`, `elevatedLevel`
   - `sendPolicy` (per-session override)
 - Model selection:
+
   - `providerOverride`, `modelOverride`, `authProfileOverride`
 - Token counters (best-effort / provider-dependent):
+
   - `inputTokens`, `outputTokens`, `totalTokens`, `contextTokens`
 - `compactionCount`: how often auto-compaction completed for this session key
 - `memoryFlushAt`: timestamp for the last pre-compaction memory flush
@@ -122,10 +128,12 @@ The store is safe to edit, but the Gateway is the authority: it may rewrite or r
 Transcripts are managed by `@mariozechner/pi-coding-agent`’s `SessionManager`.
 
 The file is JSONL:
+
 - First line: session header (`type: "session"`, includes `id`, `cwd`, `timestamp`, optional `parentSession`)
 - Then: session entries with `id` + `parentId` (tree)
 
 Notable entry types:
+
 - `message`: user/assistant/toolResult messages
 - `custom_message`: extension-injected messages that *do* enter model context (can be hidden from UI)
 - `custom`: extension state that does *not* enter model context
@@ -144,6 +152,7 @@ Two different concepts matter:
 2) **Session store counters**: rolling stats written into `sessions.json` (used for /status and dashboards)
 
 If you’re tuning limits:
+
 - The context window comes from the model catalog (and can be overridden via config).
 - `contextTokens` in the store is a runtime estimate/reporting value; don’t treat it as a strict guarantee.
 
@@ -156,6 +165,7 @@ For more, see [/token-use](/token-use).
 Compaction summarizes older conversation into a persisted `compaction` entry in the transcript and keeps recent messages intact.
 
 After compaction, future turns see:
+
 - The compaction summary
 - Messages after `firstKeptEntryId`
 
@@ -173,6 +183,7 @@ In the embedded Pi agent, auto-compaction triggers in two cases:
 `contextTokens > contextWindow - reserveTokens`
 
 Where:
+
 - `contextWindow` is the model’s context window
 - `reserveTokens` is headroom reserved for prompts + the next model output
 
@@ -224,6 +235,7 @@ You can observe compaction and session state via:
 Moltbot supports “silent” turns for background tasks where the user should not see intermediate output.
 
 Convention:
+
 - The assistant starts its output with `NO_REPLY` to indicate “do not deliver a reply to the user”.
 - Moltbot strips/suppresses this in the delivery layer.
 
@@ -245,12 +257,14 @@ Moltbot uses the **pre-threshold flush** approach:
 3) Use `NO_REPLY` so the user sees nothing.
 
 Config (`agents.defaults.compaction.memoryFlush`):
+
 - `enabled` (default: `true`)
 - `softThresholdTokens` (default: `4000`)
 - `prompt` (user message for the flush turn)
 - `systemPrompt` (extra system prompt appended for the flush turn)
 
 Notes:
+
 - The default prompt/system prompt include a `NO_REPLY` hint to suppress delivery.
 - The flush runs once per compaction cycle (tracked in `sessions.json`).
 - The flush runs only for embedded Pi sessions (CLI backends skip it).
@@ -267,6 +281,7 @@ flush logic lives on the Gateway side today.
 - Session key wrong? Start with [/concepts/session](/concepts/session) and confirm the `sessionKey` in `/status`.
 - Store vs transcript mismatch? Confirm the Gateway host and the store path from `moltbot status`.
 - Compaction spam? Check:
+
   - model context window (too small)
   - compaction settings (`reserveTokens` too high for the model window can cause earlier compaction)
   - tool-result bloat: enable/tune session pruning

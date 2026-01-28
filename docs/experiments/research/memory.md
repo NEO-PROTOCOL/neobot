@@ -1,6 +1,7 @@
 ---
 summary: "Research notes: offline memory system for Clawd workspaces (Markdown source-of-truth + derived index)"
 read_when:
+
   - Designing workspace memory (~/clawd) beyond daily Markdown logs
   - Deciding: standalone CLI vs deep Moltbot integration
   - Adding offline recall + reflection (retain/recall/reflect)
@@ -15,12 +16,14 @@ This doc proposes an **offline-first** memory architecture that keeps Markdown a
 ## Why change?
 
 The current setup (one file per day) is excellent for:
+
 - “append-only” journaling
 - human editing
 - git-backed durability + auditability
 - low-friction capture (“just write it down”)
 
 It’s weak for:
+
 - high-recall retrieval (“what did we decide about X?”, “last time we tried Y?”)
 - entity-centric answers (“tell me about Alice / The Castle / warelay”) without rereading many files
 - opinion/preference stability (and evidence when it changes)
@@ -74,6 +77,7 @@ Suggested workspace layout:
 ```
 
 Notes:
+
 - **Daily log stays daily log**. No need to turn it into JSON.
 - The `bank/` files are **curated**, produced by reflection jobs, and can still be edited by hand.
 - `memory.md` remains “small + core-ish”: the things you want Clawd to see every session.
@@ -87,6 +91,7 @@ Add a derived index under the workspace (not necessarily git tracked):
 ```
 
 Back it with:
+
 - SQLite schema for facts + entity links + opinion metadata
 - SQLite **FTS5** for lexical recall (fast, tiny, offline)
 - optional embeddings table for semantic recall (still offline)
@@ -100,7 +105,9 @@ The index is always **rebuildable from Markdown**.
 Hindsight’s key insight that matters here: store **narrative, self-contained facts**, not tiny snippets.
 
 Practical rule for `memory/YYYY-MM-DD.md`:
+
 - at end of day (or during), add a `## Retain` section with 2–5 bullets that are:
+
   - narrative (cross-turn context preserved)
   - self-contained (standalone makes sense later)
   - tagged with type + entity mentions
@@ -115,6 +122,7 @@ Example:
 ```
 
 Minimal parsing:
+
 - Type prefix: `W` (world), `B` (experience/biographical), `O` (opinion), `S` (observation/summary; usually generated)
 - Entities: `@Peter`, `@warelay`, etc (slugs map to `bank/entities/*.md`)
 - Opinion confidence: `O(c=0.0..1.0)` optional
@@ -124,12 +132,14 @@ If you don’t want authors to think about it: the reflect job can infer these b
 ### Recall: queries over the derived index
 
 Recall should support:
+
 - **lexical**: “find exact terms / names / commands” (FTS5)
 - **entity**: “tell me about X” (entity pages + entity-linked facts)
 - **temporal**: “what happened around Nov 27” / “since last week”
 - **opinion**: “what does Peter prefer?” (with confidence + evidence)
 
 Return format should be agent-friendly and cite sources:
+
 - `kind` (`world|experience|opinion|observation`)
 - `timestamp` (source day, or extracted time range if present)
 - `entities` (`["Peter","warelay"]`)
@@ -139,17 +149,21 @@ Return format should be agent-friendly and cite sources:
 ### Reflect: produce stable pages + update beliefs
 
 Reflection is a scheduled job (daily or heartbeat `ultrathink`) that:
+
 - updates `bank/entities/*.md` from recent facts (entity summaries)
 - updates `bank/opinions.md` confidence based on reinforcement/contradiction
 - optionally proposes edits to `memory.md` (“core-ish” durable facts)
 
 Opinion evolution (simple, explainable):
+
 - each opinion has:
+
   - statement
   - confidence `c ∈ [0,1]`
   - last_updated
   - evidence links (supporting + contradicting fact IDs)
 - when new facts arrive:
+
   - find candidate opinions by entity overlap + similarity (FTS first, embeddings later)
   - update confidence by small deltas; big jumps require strong contradiction + repeated evidence
 
@@ -158,19 +172,24 @@ Opinion evolution (simple, explainable):
 Recommendation: **deep integration in Moltbot**, but keep a separable core library.
 
 ### Why integrate into Moltbot?
+
 - Moltbot already knows:
+
   - the workspace path (`agents.defaults.workspace`)
   - the session model + heartbeats
   - logging + troubleshooting patterns
 - You want the agent itself to call the tools:
+
   - `moltbot memory recall "…" --k 25 --since 30d`
   - `moltbot memory reflect --since 7d`
 
 ### Why still split a library?
+
 - keep memory logic testable without gateway/runtime
 - reuse from other contexts (local scripts, future desktop app, etc.)
 
 Shape:
+
 The memory tooling is intended to be a small CLI + library layer, but this is exploratory only.
 
 ## “S-Collide” / SuCo: when to use it (research)
@@ -178,20 +197,24 @@ The memory tooling is intended to be a small CLI + library layer, but this is ex
 If “S-Collide” refers to **SuCo (Subspace Collision)**: it’s an ANN retrieval approach that targets strong recall/latency tradeoffs by using learned/structured collisions in subspaces (paper: arXiv 2411.14754, 2024).
 
 Pragmatic take for `~/clawd`:
+
 - **don’t start** with SuCo.
 - start with SQLite FTS + (optional) simple embeddings; you’ll get most UX wins immediately.
 - consider SuCo/HNSW/ScaNN-class solutions only once:
+
   - corpus is big (tens/hundreds of thousands of chunks)
   - brute-force embedding search becomes too slow
   - recall quality is meaningfully bottlenecked by lexical search
 
 Offline-friendly alternatives (in increasing complexity):
+
 - SQLite FTS5 + metadata filters (zero ML)
 - Embeddings + brute force (works surprisingly far if chunk count is low)
 - HNSW index (common, robust; needs a library binding)
 - SuCo (research-grade; attractive if there’s a solid implementation you can embed)
 
 Open question:
+
 - what’s the **best** offline embedding model for “personal assistant memory” on your machines (laptop + desktop)?
   - if you already have Ollama: embed with a local model; otherwise ship a small embedding model in the toolchain.
 

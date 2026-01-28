@@ -1,6 +1,7 @@
 ---
 summary: "Run multiple Moltbot Gateways on one host (isolation, ports, and profiles)"
 read_when:
+
   - Running more than one Gateway on the same machine
   - You need isolated config/state/ports per Gateway
 ---
@@ -9,6 +10,7 @@ read_when:
 Most setups should use one Gateway because a single Gateway can handle multiple messaging connections and agents. If you need stronger isolation or redundancy (e.g., a rescue bot), run separate Gateways with isolated profiles/ports.
 
 ## Isolation checklist (required)
+
 - `CLAWDBOT_CONFIG_PATH` — per-instance config file
 - `CLAWDBOT_STATE_DIR` — per-instance sessions, creds, caches
 - `agents.defaults.workspace` — per-instance workspace root
@@ -32,6 +34,7 @@ moltbot --profile rescue gateway --port 19001
 ```
 
 Per-profile services:
+
 ```bash
 moltbot --profile main gateway install
 moltbot --profile rescue gateway install
@@ -40,6 +43,7 @@ moltbot --profile rescue gateway install
 ## Rescue-bot guide
 
 Run a second Gateway on the same host with its own:
+
 - profile/config
 - state dir
 - workspace

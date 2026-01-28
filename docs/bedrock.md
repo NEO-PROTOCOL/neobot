@@ -1,6 +1,7 @@
 ---
 summary: "Use Amazon Bedrock (Converse API) models with Moltbot"
 read_when:
+
   - You want to use Amazon Bedrock models with Moltbot
   - You need AWS credential/region setup for model calls
 ---
@@ -41,6 +42,7 @@ Config options live under `models.bedrockDiscovery`:
 ```
 
 Notes:
+
 - `enabled` defaults to `true` when AWS credentials are present.
 - `region` defaults to `AWS_REGION` or `AWS_DEFAULT_REGION`, then `us-east-1`.
 - `providerFilter` matches Bedrock provider names (for example `anthropic`).
@@ -112,6 +114,7 @@ export AWS_REGION=us-east-1
 ```
 
 **Required IAM permissions** for the EC2 instance role:
+
 - `bedrock:InvokeModel`
 - `bedrock:InvokeModelWithResponseStream`
 - `bedrock:ListFoundationModels` (for automatic discovery)

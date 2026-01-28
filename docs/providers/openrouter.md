@@ -1,6 +1,7 @@
 ---
 summary: "Use OpenRouter's unified API to access many models in Moltbot"
 read_when:
+
   - You want a single API key for many LLMs
   - You want to run models via OpenRouter in Moltbot
 ---

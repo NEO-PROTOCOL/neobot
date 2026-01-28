@@ -1,6 +1,7 @@
 ---
 summary: "Telegram bot support status, capabilities, and configuration"
 read_when:
+
   - Working on Telegram features or webhooks
 ---
 # Telegram (Bot API)
@@ -9,8 +10,10 @@ read_when:
 Status: production-ready for bot DMs + groups via grammY. Long-polling by default; webhook optional.
 
 ## Quick setup (beginner)
+
 1) Create a bot with **@BotFather** and copy the token.
 2) Set the token:
+
    - Env: `TELEGRAM_BOT_TOKEN=...`
    - Or config: `channels.telegram.botToken: "..."`.
    - If both are set, config takes precedence (env fallback is default-account only).
@@ -18,6 +21,7 @@ Status: production-ready for bot DMs + groups via grammY. Long-polling by defaul
 4) DM access is pairing by default; approve the pairing code on first contact.
 
 Minimal config:
+
 ```json5
 {
   channels: {
@@ -31,21 +35,25 @@ Minimal config:
 ```
 
 ## What it is
+
 - A Telegram Bot API channel owned by the Gateway.
 - Deterministic routing: replies go back to Telegram; the model never chooses channels.
 - DMs share the agent's main session; groups stay isolated (`agent:<agentId>:telegram:group:<chatId>`).
 
 ## Setup (fast path)
 ### 1) Create a bot token (BotFather)
+
 1) Open Telegram and chat with **@BotFather**.
 2) Run `/newbot`, then follow the prompts (name + username ending in `bot`).
 3) Copy the token and store it safely.
 
 Optional BotFather settings:
+
 - `/setjoingroups` — allow/deny adding the bot to groups.
 - `/setprivacy` — control whether the bot sees all group messages.
 
 ### 2) Configure the token (env or config)
+
 Example:
 
 ```json5
@@ -73,12 +81,15 @@ Multi-account support: use `channels.telegram.accounts` with per-account tokens 
 ## Token + privacy + permissions (Telegram side)
 
 ### Token creation (BotFather)
+
 - `/newbot` creates the bot and returns the token (keep it secret).
 - If a token leaks, revoke/regenerate it via @BotFather and update your config.
 
 ### Group message visibility (Privacy Mode)
+
 Telegram bots default to **Privacy Mode**, which limits which group messages they receive.
 If your bot must see *all* group messages, you have two options:
+
 - Disable privacy mode with `/setprivacy` **or**
 - Add the bot as a group **admin** (admin bots receive all messages).
 
@@ -86,10 +97,12 @@ If your bot must see *all* group messages, you have two options:
 to each group for the change to take effect.
 
 ### Group permissions (admin rights)
+
 Admin status is set inside the group (Telegram UI). Admin bots always receive all
 group messages, so use admin if you need full visibility.
 
 ## How it works (behavior)
+
 - Inbound messages are normalized into the shared channel envelope with reply context and media placeholders.
 - Group replies require a mention by default (native @mention or `agents.list[].groupChat.mentionPatterns` / `messages.groupChat.mentionPatterns`).
 - Multi-agent override: set per-agent patterns on `agents.list[].groupChat.mentionPatterns`.
@@ -98,12 +111,14 @@ group messages, so use admin if you need full visibility.
 - Telegram Bot API does not support read receipts; there is no `sendReadReceipts` option.
 
 ## Formatting (Telegram HTML)
+
 - Outbound Telegram text uses `parse_mode: "HTML"` (Telegram’s supported tag subset).
 - Markdown-ish input is rendered into **Telegram-safe HTML** (bold/italic/strike/code/links); block elements are flattened to text with newlines/bullets.
 - Raw HTML from models is escaped to avoid Telegram parse errors.
 - If Telegram rejects the HTML payload, Moltbot retries the same message as plain text.
 
 ## Commands (native + custom)
+
 Moltbot registers native commands (like `/status`, `/reset`, `/model`) with Telegram’s bot menu on startup.
 You can add custom commands to the menu via config:
 
@@ -128,12 +143,14 @@ You can add custom commands to the menu via config:
 More help: [Channel troubleshooting](/channels/troubleshooting).
 
 Notes:
+
 - Custom commands are **menu entries only**; Moltbot does not implement them unless you handle them elsewhere.
 - Command names are normalized (leading `/` stripped, lowercased) and must match `a-z`, `0-9`, `_` (1–32 chars).
 - Custom commands **cannot override native commands**. Conflicts are ignored and logged.
 - If `commands.native` is disabled, only custom commands are registered (or cleared if none).
 
 ## Limits
+
 - Outbound text is chunked to `channels.telegram.textChunkLimit` (default 4000).
 - Optional newline chunking: set `channels.telegram.chunkMode="newline"` to split on blank lines (paragraph boundaries) before length chunking.
 - Media downloads/uploads are capped by `channels.telegram.mediaMaxMb` (default 5).
@@ -163,6 +180,7 @@ By default, the bot only responds to mentions in groups (`@botname` or patterns 
 Forum topics inherit their parent group config (allowFrom, requireMention, skills, prompts) unless you add per-topic overrides under `channels.telegram.groups.<groupId>.topics.<topicId>`.
 
 To allow all groups with always-respond:
+
 ```json5
 {
   channels: {
@@ -176,6 +194,7 @@ To allow all groups with always-respond:
 ```
 
 To keep mention-only for all groups (default behavior):
+
 ```json5
 {
   channels: {
@@ -191,6 +210,7 @@ To keep mention-only for all groups (default behavior):
 ### Via command (session-level)
 
 Send in the group:
+
 - `/activation always` - respond to all messages
 - `/activation mention` - require mentions (default)
 
@@ -205,13 +225,16 @@ Forward any message from the group to `@userinfobot` or `@getidsbot` on Telegram
 **Privacy note:** `@userinfobot` is a third-party bot. If you prefer, add the bot to the group, send a message, and use `moltbot logs --follow` to read `chat.id`, or use the Bot API `getUpdates`.
 
 ## Config writes
+
 By default, Telegram is allowed to write config updates triggered by channel events or `/config set|unset`.
 
 This happens when:
+
 - A group is upgraded to a supergroup and Telegram emits `migrate_to_chat_id` (chat ID changes). Moltbot can migrate `channels.telegram.groups` automatically.
 - You run `/config set` or `/config unset` in a Telegram chat (requires `commands.config: true`).
 
 Disable with:
+
 ```json5
 {
   channels: { telegram: { configWrites: false } }
@@ -219,7 +242,9 @@ Disable with:
 ```
 
 ## Topics (forum supergroups)
+
 Telegram forum topics include a `message_thread_id` per message. Moltbot:
+
 - Appends `:topic:<threadId>` to the Telegram group session key so each topic is isolated.
 - Sends typing indicators and replies with `message_thread_id` so responses stay in the topic.
 - General topic (thread id `1`) is special: message sends omit `message_thread_id` (Telegram rejects it), but typing indicators still include it.
@@ -246,6 +271,7 @@ Telegram supports inline keyboards with callback buttons.
 ```
 
 For per-account configuration:
+
 ```json5
 {
   "channels": {
@@ -263,6 +289,7 @@ For per-account configuration:
 ```
 
 Scopes:
+
 - `off` — inline buttons disabled
 - `dm` — only DMs (group targets blocked)
 - `group` — only groups (DM targets blocked)
@@ -295,6 +322,7 @@ Use the message tool with the `buttons` parameter:
 ```
 
 When a user clicks a button, the callback data is sent back to the agent as a message with the format:
+
 `callback_data: value`
 
 ### Configuration options
@@ -308,26 +336,33 @@ Use the global setting when all Telegram bots/accounts should behave the same. U
 ## Access control (DMs + groups)
 
 ### DM access
+
 - Default: `channels.telegram.dmPolicy = "pairing"`. Unknown senders receive a pairing code; messages are ignored until approved (codes expire after 1 hour).
 - Approve via:
+
   - `moltbot pairing list telegram`
   - `moltbot pairing approve telegram <CODE>`
 - Pairing is the default token exchange used for Telegram DMs. Details: [Pairing](/start/pairing)
 - `channels.telegram.allowFrom` accepts numeric user IDs (recommended) or `@username` entries. It is **not** the bot username; use the human sender’s ID. The wizard accepts `@username` and resolves it to the numeric ID when possible.
 
 #### Finding your Telegram user ID
+
 Safer (no third-party bot):
+
 1) Start the gateway and DM your bot.
 2) Run `moltbot logs --follow` and look for `from.id`.
 
 Alternate (official Bot API):
+
 1) DM your bot.
 2) Fetch updates with your bot token and read `message.from.id`:
+
    ```bash
    curl "https://api.telegram.org/bot<bot_token>/getUpdates"
    ```
 
 Third-party (less private):
+
 - DM `@userinfobot` or `@getidsbot` and use the returned user id.
 
 ### Group access
@@ -335,11 +370,13 @@ Third-party (less private):
 Two independent controls:
 
 **1. Which groups are allowed** (group allowlist via `channels.telegram.groups`):
+
 - No `groups` config = all groups allowed
 - With `groups` config = only listed groups or `"*"` are allowed
 - Example: `"groups": { "-1001234567890": {}, "*": {} }` allows all groups
 
 **2. Which senders are allowed** (sender filtering via `channels.telegram.groupPolicy`):
+
 - `"open"` = all senders in allowed groups can message
 - `"allowlist"` = only senders in `channels.telegram.groupAllowFrom` can message
 - `"disabled"` = no group messages accepted at all
@@ -348,24 +385,30 @@ Default is `groupPolicy: "allowlist"` (blocked unless you add `groupAllowFrom`).
 Most users want: `groupPolicy: "allowlist"` + `groupAllowFrom` + specific groups listed in `channels.telegram.groups`
 
 ## Long-polling vs webhook
+
 - Default: long-polling (no public URL required).
 - Webhook mode: set `channels.telegram.webhookUrl` (optionally `channels.telegram.webhookSecret` + `channels.telegram.webhookPath`).
   - The local listener binds to `0.0.0.0:8787` and serves `POST /telegram-webhook` by default.
   - If your public URL is different, use a reverse proxy and point `channels.telegram.webhookUrl` at the public endpoint.
 
 ## Reply threading
+
 Telegram supports optional threaded replies via tags:
+
 - `[[reply_to_current]]` -- reply to the triggering message.
 - `[[reply_to:<id>]]` -- reply to a specific message id.
 
 Controlled by `channels.telegram.replyToMode`:
+
 - `first` (default), `all`, `off`.
 
 ## Audio messages (voice vs file)
+
 Telegram distinguishes **voice notes** (round bubble) from **audio files** (metadata card).
 Moltbot defaults to audio files for backward compatibility.
 
 To force a voice note bubble in agent replies, include this tag anywhere in the reply:
+
 - `[[audio_as_voice]]` — send audio as a voice note instead of a file.
 
 The tag is stripped from the delivered text. Other channels ignore this tag.
@@ -396,7 +439,9 @@ When a user sends a sticker, Moltbot handles it based on the sticker type:
 - **Video stickers (WEBM):** Skipped (video format not supported for processing).
 
 Template context field available when receiving stickers:
+
 - `Sticker` — object with:
+
   - `emoji` — emoji associated with the sticker
   - `setName` — name of the sticker set
   - `fileId` — Telegram file ID (send the same sticker back)
@@ -462,6 +507,7 @@ The agent can send and search stickers using the `sticker` and `sticker-search` 
 ```
 
 Parameters:
+
 - `fileId` (required) — the Telegram file ID of the sticker. Obtain this from `Sticker.fileId` when receiving a sticker, or from a `sticker-search` result.
 - `replyTo` (optional) — message ID to reply to.
 - `threadId` (optional) — message thread ID for forum topics.
@@ -480,6 +526,7 @@ The agent can search cached stickers by description, emoji, or set name:
 ```
 
 Returns matching stickers from the cache:
+
 ```json5
 {
   "ok": true,
@@ -511,21 +558,25 @@ The search uses fuzzy matching across description text, emoji characters, and se
 ```
 
 ## Streaming (drafts)
+
 Telegram can stream **draft bubbles** while the agent is generating a response.
 Moltbot uses Bot API `sendMessageDraft` (not real messages) and then sends the
 final reply as a normal message.
 
 Requirements (Telegram Bot API 9.3+):
+
 - **Private chats with topics enabled** (forum topic mode for the bot).
 - Incoming messages must include `message_thread_id` (private topic thread).
 - Streaming is ignored for groups/supergroups/channels.
 
 Config:
+
 - `channels.telegram.streamMode: "off" | "partial" | "block"` (default: `partial`)
   - `partial`: update the draft bubble with the latest streaming text.
   - `block`: update the draft bubble in larger blocks (chunked).
   - `off`: disable draft streaming.
 - Optional (only for `streamMode: "block"`):
+
   - `channels.telegram.draftChunk: { minChars?, maxChars?, breakPreference? }`
     - defaults: `minChars: 200`, `maxChars: 800`, `breakPreference: "paragraph"` (clamped to `channels.telegram.textChunkLimit`).
 
@@ -534,15 +585,18 @@ Block streaming is off by default and requires `channels.telegram.blockStreaming
 if you want early Telegram messages instead of draft updates.
 
 Reasoning stream (Telegram only):
+
 - `/reasoning stream` streams reasoning into the draft bubble while the reply is
   generating, then sends the final answer without reasoning.
 - If `channels.telegram.streamMode` is `off`, reasoning stream is disabled.
 More context: [Streaming + chunking](/concepts/streaming).
 
 ## Retry policy
+
 Outbound Telegram API calls retry on transient network/429 errors with exponential backoff and jitter. Configure via `channels.telegram.retry`. See [Retry policy](/concepts/retry).
 
 ## Agent tool (messages + reactions)
+
 - Tool: `telegram` with `sendMessage` action (`to`, `content`, optional `mediaUrl`, `replyToMessageId`, `messageThreadId`).
 - Tool: `telegram` with `react` action (`chatId`, `messageId`, `emoji`).
 - Tool: `telegram` with `deleteMessage` action (`chatId`, `messageId`).
@@ -593,6 +647,7 @@ The agent sees reactions as **system notifications** in the conversation history
 - For polling mode, reactions are included in the `getUpdates` `allowed_updates`
 
 ## Delivery targets (CLI/cron)
+
 - Use a chat id (`123456789`) or a username (`@name`) as the target.
 - Example: `moltbot message send --channel telegram --target 123456789 --message "hi"`.
 
@@ -629,9 +684,11 @@ The agent sees reactions as **system notifications** in the conversation history
 - Quick check: `dig +short api.telegram.org A` and `dig +short api.telegram.org AAAA` to confirm what DNS returns.
 
 ## Configuration reference (Telegram)
+
 Full configuration: [Configuration](/gateway/configuration)
 
 Provider options:
+
 - `channels.telegram.enabled`: enable/disable channel startup.
 - `channels.telegram.botToken`: bot token (BotFather).
 - `channels.telegram.tokenFile`: read token from file path.
@@ -669,6 +726,7 @@ Provider options:
 - `channels.telegram.reactionLevel`: `off | ack | minimal | extensive` — control agent's reaction capability (default: `minimal` when not set).
 
 Related global options:
+
 - `agents.list[].groupChat.mentionPatterns` (mention gating patterns).
 - `messages.groupChat.mentionPatterns` (global fallback).
 - `commands.native` (defaults to `"auto"` → on for Telegram/Discord, off for Slack), `commands.text`, `commands.useAccessGroups` (command behavior). Override with `channels.telegram.commands.native`.

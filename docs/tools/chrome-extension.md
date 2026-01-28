@@ -1,6 +1,7 @@
 ---
 summary: "Chrome extension: let Moltbot drive your existing Chrome tab"
 read_when:
+
   - You want the agent to drive an existing Chrome tab (toolbar button)
   - You need remote Gateway + local browser automation via Tailscale
   - You want to understand the security implications of browser takeover
@@ -15,6 +16,7 @@ Attach/detach happens via a **single Chrome toolbar button**.
 ## What it is (concept)
 
 There are three parts:
+
 - **Browser control service** (Gateway or node): the API the agent/tool calls (via the Gateway)
 - **Local relay server** (loopback CDP): bridges between the control server and the extension (`http://127.0.0.1:18792` by default)
 - **Chrome MV3 extension**: attaches to the active tab using `chrome.debugger` and pipes CDP messages to the relay
@@ -46,6 +48,7 @@ moltbot browser extension path
 The extension ships inside the Moltbot release (npm package) as static files. There is no separate “build” step.
 
 After upgrading Moltbot:
+
 - Re-run `moltbot browser extension install` to refresh the installed files under your Moltbot state directory.
 - Chrome → `chrome://extensions` → click “Reload” on the extension.
 
@@ -54,6 +57,7 @@ After upgrading Moltbot:
 Moltbot ships with a built-in browser profile named `chrome` that targets the extension relay on the default port.
 
 Use it:
+
 - CLI: `moltbot browser --browser-profile chrome tabs`
 - Agent tool: `browser` with `profile="chrome"`
 
@@ -87,6 +91,7 @@ moltbot browser create-profile \
 - `!`: relay not reachable (most common: browser relay server isn’t running on this machine).
 
 If you see `!`:
+
 - Make sure the Gateway is running locally (default setup), or run a node host on this machine if the Gateway runs elsewhere.
 - Open the extension Options page; it shows whether the relay is reachable.
 
@@ -112,6 +117,7 @@ If your agent session is sandboxed (`agents.defaults.sandbox.mode != "off"`), th
 - Chrome extension relay takeover requires controlling the **host** browser control server.
 
 Options:
+
 - Easiest: use the extension from a **non-sandboxed** session/agent.
 - Or allow host browser control for sandboxed sessions:
 
@@ -151,6 +157,7 @@ If you move or delete that install directory, Chrome will mark the extension as 
 This is powerful and risky. Treat it like giving the model “hands on your browser”.
 
 - The extension uses Chrome’s debugger API (`chrome.debugger`). When attached, the model can:
+
   - click/type/navigate in that tab
   - read page content
   - access whatever the tab’s logged-in session can access
@@ -158,11 +165,13 @@ This is powerful and risky. Treat it like giving the model “hands on your brow
   - If you attach to your daily-driver profile/tab, you’re granting access to that account state.
 
 Recommendations:
+
 - Prefer a dedicated Chrome profile (separate from your personal browsing) for extension relay usage.
 - Keep the Gateway and any node hosts tailnet-only; rely on Gateway auth + node pairing.
 - Avoid exposing relay ports over LAN (`0.0.0.0`) and avoid Funnel (public).
 
 Related:
+
 - Browser tool overview: [Browser](/tools/browser)
 - Security audit: [Security](/gateway/security)
 - Tailscale setup: [Tailscale](/gateway/tailscale)

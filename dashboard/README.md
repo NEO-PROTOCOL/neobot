@@ -5,6 +5,7 @@ Dashboard moderno com design inspirado no iOS, usando glassmorphism, animações
 ## ✨ Features
 
 ### Design iOS-like
+
 - 🌈 **Glassmorphism**: Efeitos de vidro com blur e transparência
 - 🎭 **Dynamic Gradients**: Gradientes animados e coloridos
 - ⚡ **Spring Animations**: Animações suaves estilo iOS
@@ -12,6 +13,7 @@ Dashboard moderno com design inspirado no iOS, usando glassmorphism, animações
 - 🌙 **Dark Mode**: Design dark elegante
 
 ### Funcionalidades
+
 - 📊 **Visualização em Tempo Real**: Status do sistema atualizado automaticamente
 - 🤖 **Chat com Claude AI**: Interface de chat integrada
 - 📅 **Gerenciamento de Lembretes**: Criar e visualizar lembretes
@@ -185,6 +187,7 @@ Lista scrollável de lembretes com auto-refresh.
 ### 4. Saúde do Sistema
 
 Métricas em tempo real:
+
 - Status Telegram
 - Status Scheduler
 - Contagem de lembretes
@@ -196,6 +199,7 @@ Histórico das últimas mensagens enviadas.
 ### 6. Chat com Claude AI
 
 Interface de chat em tempo real:
+
 - Mensagens do usuário (direita, azul)
 - Respostas da IA (esquerda, cinza)
 - Input com envio rápido
@@ -204,6 +208,7 @@ Interface de chat em tempo real:
 ### 7. Estatísticas de IA
 
 Métricas de uso do Claude:
+
 - Total de requests
 - Tokens consumidos
 - Custo acumulado
@@ -212,6 +217,7 @@ Métricas de uso do Claude:
 ### 8. Automações Avançadas
 
 Lista de todas as automações com:
+
 - Status (ativa/pausada)
 - Schedule (cron)
 - Contadores (runs/errors)
@@ -224,6 +230,7 @@ Botão para gerar relatórios sob demanda com preview.
 ### 10. Estatísticas de Automações
 
 Contadores rápidos:
+
 - Automações ativas
 - Execuções do dia
 
@@ -314,6 +321,7 @@ O dashboard usa CSS Grid com auto-fit:
 ```
 
 Em mobile (< 768px):
+
 - Grid colapsa para 1 coluna
 - Cards wide/tall voltam ao tamanho normal
 - Padding reduzido
@@ -358,11 +366,13 @@ curl http://localhost:3000/api/ai/stats
 ## 🎨 Screenshots
 
 ### Desktop View
+
 - Layout em grid com múltiplas colunas
 - Glassmorphism effects
 - Hover animations
 
 ### Mobile View
+
 - Single column
 - Touch-friendly buttons
 - Optimized spacing

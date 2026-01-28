@@ -3,7 +3,9 @@
 ## 📦 Arquivos Criados
 
 ### 1. **PLANO_PERSONALIZACAO.md**
+
 Roadmap completo de 4 semanas com:
+
 - Fases de implementação
 - Tecnologias necessárias
 - Estrutura de pastas
@@ -53,6 +55,7 @@ skills/ai/
 ### 1️⃣ Configurar API Key
 
 Adicione no `.env`:
+
 ```bash
 ANTHROPIC_API_KEY=sk-ant-api03-...
 ```
@@ -103,18 +106,24 @@ neobot/
 ## 🎯 Próximos Passos Recomendados
 
 ### Hoje (30 min):
+
+
 1. ✅ Obter API key do Claude (https://console.anthropic.com/)
 2. ✅ Adicionar no `.env`
 3. ✅ Testar chat CLI: `pnpm tsx skills/ai/scripts/chat.ts`
 4. ✅ Testar bot Telegram de exemplo
 
 ### Esta Semana:
+
+
 1. ⬜ Integrar comandos de IA no seu bot principal
 2. ⬜ Criar skill de clima (OpenWeather API)
 3. ⬜ Criar skill de cotações (AwesomeAPI)
 4. ⬜ Implementar primeira automação
 
 ### Próximas 2 Semanas:
+
+
 1. ⬜ Criar mais 3 skills (GitHub, notícias, etc)
 2. ⬜ Implementar 3 automações
 3. ⬜ Melhorar dashboard com gráficos
@@ -123,6 +132,7 @@ neobot/
 ## 💡 Exemplos de Uso
 
 ### Chat CLI
+
 ```bash
 $ pnpm tsx skills/ai/scripts/chat.ts
 
@@ -142,6 +152,7 @@ Você: sair
 ```
 
 ### Telegram
+
 ```
 Você: /chat Como fazer um bot Telegram?
 Bot: Para criar um bot Telegram, você precisa...
@@ -174,15 +185,19 @@ Bot: 📝 Resumo: [resumo conciso]
 
 ```bash
 # Testar chat CLI
+
 pnpm tsx skills/ai/scripts/chat.ts
 
 # Pergunta rápida
+
 pnpm tsx skills/ai/scripts/chat.ts "sua pergunta"
 
 # Bot Telegram de exemplo
+
 pnpm tsx skills/ai/scripts/telegram-bot-example.ts
 
 # Ver estrutura criada
+
 tree skills/ai
 ```
 

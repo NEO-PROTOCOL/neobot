@@ -1,6 +1,7 @@
 ---
 summary: "Top-level overview of Moltbot, features, and purpose"
 read_when:
+
   - Introducing Moltbot to newcomers
 ---
 # Moltbot 🦞
@@ -168,6 +169,7 @@ Example:
 ## Docs
 
 - Start here:
+
   - [Docs hubs (all pages linked)](/start/hubs)
   - [Help](/help) ← *common fixes + troubleshooting*
   - [Configuration](/gateway/configuration)
@@ -188,6 +190,7 @@ Example:
   - [Discovery + transports](/gateway/discovery)
   - [Remote access](/gateway/remote)
 - Providers and UX:
+
   - [WebChat](/web/webchat)
   - [Control UI (browser)](/web/control-ui)
   - [Telegram](/channels/telegram)
@@ -199,12 +202,14 @@ Example:
   - [Media: images](/nodes/images)
   - [Media: audio](/nodes/audio)
 - Companion apps:
+
   - [macOS app](/platforms/macos)
   - [iOS app](/platforms/ios)
   - [Android app](/platforms/android)
   - [Windows (WSL2)](/platforms/windows)
   - [Linux app](/platforms/linux)
 - Ops and safety:
+
   - [Sessions](/concepts/session)
   - [Cron jobs](/automation/cron-jobs)
   - [Webhooks](/automation/webhook)

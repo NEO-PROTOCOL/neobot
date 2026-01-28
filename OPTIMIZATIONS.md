@@ -15,11 +15,13 @@ const CACHE_CONFIG = {
 ```
 
 **Economia**:
+
 - ✅ Cache hits economizam ~$0.005 por request
 - ✅ Queries repetidas são INSTANTÂNEAS
 - ✅ Limpeza automática a cada 30 minutos
 
 **Como usar**:
+
 ```typescript
 // Cache ativado por padrão
 await claude.chat("Sua pergunta", { cache: true });
@@ -48,6 +50,7 @@ const analyses = await claude.batchAnalyze(files, 'code-review');
 ```
 
 **Economia**:
+
 - ✅ Processa em paralelo vs sequencial
 - ✅ Reduz overhead de rede
 - ✅ Melhor utilização de recursos
@@ -65,6 +68,7 @@ Resumo automático de conversas longas!
 ```
 
 **Economia**:
+
 - ✅ Reduz tokens de contexto em ~60%
 - ✅ Mantém qualidade da conversa
 - ✅ Previne custos crescentes
@@ -85,6 +89,7 @@ const taskTypes = {
 ```
 
 **Como funciona**:
+
 - Detecta automaticamente o tipo de tarefa
 - Seleciona modelo apropriado
 - Otimiza custo vs qualidade
@@ -173,6 +178,7 @@ curl -X POST http://localhost:3000/api/ai/clear-cache
 ## 📈 Economia Estimada
 
 ### Antes das Otimizações
+
 ```
 1000 mensagens/dia
 ~$1.00/dia
@@ -180,6 +186,7 @@ curl -X POST http://localhost:3000/api/ai/clear-cache
 ```
 
 ### Depois das Otimizações
+
 ```
 1000 mensagens/dia
 - 30% cache hits = ~$0.30 economizado
@@ -262,6 +269,8 @@ const CACHE_CONFIG = {
 ✅ **Cleanup automático** - gerenciamento inteligente de recursos  
 
 ### ROI:
+
+
 - 💰 **~$180/ano economizado** (baseado em 1000 msgs/dia)
 - ⚡ **6-7x mais rápido** para operações em batch
 - 📊 **Visibilidade completa** de custos e economia

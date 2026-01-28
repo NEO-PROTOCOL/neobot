@@ -1,6 +1,7 @@
 ---
 summary: "CLI reference for `moltbot devices` (device pairing + token rotation/revocation)"
 read_when:
+
   - You are approving device pairing requests
   - You need to rotate or revoke device tokens
 ---

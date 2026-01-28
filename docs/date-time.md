@@ -1,6 +1,7 @@
 ---
 summary: "Date and time handling across envelopes, prompts, tools, and connectors"
 read_when:
+
   - You are changing how timestamps are shown to the model or users
   - You are debugging time formatting in messages or system prompt output
 ---

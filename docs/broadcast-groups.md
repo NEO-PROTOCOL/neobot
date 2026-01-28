@@ -1,6 +1,7 @@
 ---
 summary: "Broadcast a WhatsApp message to multiple agents"
 read_when:
+
   - Configuring broadcast groups
   - Debugging multi-agent replies in WhatsApp
 status: experimental
@@ -22,7 +23,9 @@ Broadcast groups are evaluated after channel allowlists and group activation rul
 ## Use Cases
 
 ### 1. Specialized Agent Teams
+
 Deploy multiple agents with atomic, focused responsibilities:
+
 ```
 Group: "Development Team"
 Agents:
@@ -35,6 +38,7 @@ Agents:
 Each agent processes the same message and provides its specialized perspective.
 
 ### 2. Multi-Language Support
+
 ```
 Group: "International Support"
 Agents:
@@ -44,6 +48,7 @@ Agents:
 ```
 
 ### 3. Quality Assurance Workflows
+
 ```
 Group: "Customer Support"
 Agents:
@@ -52,6 +57,7 @@ Agents:
 ```
 
 ### 4. Task Automation
+
 ```
 Group: "Project Management"
 Agents:
@@ -65,6 +71,7 @@ Agents:
 ### Basic Setup
 
 Add a top-level `broadcast` section (next to `bindings`). Keys are WhatsApp peer ids:
+
 - group chats: group JID (e.g. `120363403215116621@g.us`)
 - DMs: E.164 phone number (e.g. `+15551234567`)
 
@@ -83,7 +90,9 @@ Add a top-level `broadcast` section (next to `bindings`). Keys are WhatsApp peer
 Control how agents process messages:
 
 #### Parallel (Default)
+
 All agents process simultaneously:
+
 ```json
 {
   "broadcast": {
@@ -94,7 +103,9 @@ All agents process simultaneously:
 ```
 
 #### Sequential
+
 Agents process in order (one waits for previous to finish):
+
 ```json
 {
   "broadcast": {
@@ -146,10 +157,12 @@ Agents process in order (one waits for previous to finish):
 1. **Incoming message** arrives in a WhatsApp group
 2. **Broadcast check**: System checks if peer ID is in `broadcast`
 3. **If in broadcast list**:
+
    - All listed agents process the message
    - Each agent has its own session key and isolated context
    - Agents process in parallel (default) or sequentially
 4. **If not in broadcast list**:
+
    - Normal routing applies (first matching binding)
 
 Note: broadcast groups do not bypass channel allowlists or group activation rules (mentions/commands/etc). They only change *which agents run* when a message is eligible for processing.
@@ -166,6 +179,7 @@ Each agent in a broadcast group maintains completely separate:
 - **Group context buffer** (recent group messages used for context) is shared per peer, so all broadcast agents see the same context when triggered
 
 This allows each agent to have:
+
 - Different personalities
 - Different tool access (e.g., read-only vs. read-write)
 - Different models (e.g., opus vs. sonnet)
@@ -242,6 +256,7 @@ Give agents only the tools they need:
 ### 4. Monitor Performance
 
 With many agents, consider:
+
 - Using `"strategy": "parallel"` (default) for speed
 - Limiting broadcast groups to 5-10 agents
 - Using faster models for simpler agents
@@ -260,6 +275,7 @@ Result: Agent A and C respond, Agent B logs error
 ### Providers
 
 Broadcast groups currently work with:
+
 - ✅ WhatsApp (implemented)
 - 🚧 Telegram (planned)
 - 🚧 Discord (planned)
@@ -395,6 +411,7 @@ interface MoltbotConfig {
 ## Future Enhancements
 
 Planned features:
+
 - [ ] Shared context mode (agents see each other's responses)
 - [ ] Agent coordination (agents can signal each other)
 - [ ] Dynamic agent selection (choose agents based on message content)

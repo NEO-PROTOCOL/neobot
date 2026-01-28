@@ -3,6 +3,7 @@ title: Lobster
 summary: "Typed workflow runtime for Moltbot with resumable approval gates."
 description: Typed workflow runtime for Moltbot — composable pipelines with approval gates.
 read_when:
+
   - You want deterministic multi-step workflows with explicit approvals
   - You need to resume a workflow without re-running earlier steps
 ---
@@ -196,6 +197,7 @@ tools, include the core tools or groups you want in the allowlist too.
 ## Example: Email triage
 
 Without Lobster:
+
 ```
 User: "Check my email and draft replies"
 → clawd calls gmail.list
@@ -208,6 +210,7 @@ User: "Check my email and draft replies"
 ```
 
 With Lobster:
+
 ```json
 {
   "action": "run",
@@ -217,6 +220,7 @@ With Lobster:
 ```
 
 Returns a JSON envelope (truncated):
+
 ```json
 {
   "ok": true,
@@ -232,6 +236,7 @@ Returns a JSON envelope (truncated):
 ```
 
 User approves → resume:
+
 ```json
 {
   "action": "resume",

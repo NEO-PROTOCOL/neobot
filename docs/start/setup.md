@@ -1,6 +1,7 @@
 ---
 summary: "Setup guide: keep your Moltbot setup tailored while staying up-to-date"
 read_when:
+
   - Setting up a new machine
   - You want “latest + greatest” without breaking your personal setup
 ---
@@ -10,11 +11,13 @@ read_when:
 Last updated: 2026-01-01
 
 ## TL;DR
+
 - **Tailoring lives outside the repo:** `~/clawd` (workspace) + `~/.clawdbot/moltbot.json` (config).
 - **Stable workflow:** install the macOS app; let it run the bundled Gateway.
 - **Bleeding edge workflow:** run the Gateway yourself via `pnpm gateway:watch`, then let the macOS app attach in Local mode.
 
 ## Prereqs (from source)
+
 - Node `>=22`
 - `pnpm`
 - Docker (optional; only for containerized setup/e2e — see [Docker](/install/docker))
@@ -58,6 +61,7 @@ moltbot health
 ```
 
 If onboarding is not available in your build:
+
 - Run `moltbot setup`, then `moltbot channels login`, then start the Gateway manually (`moltbot gateway`).
 
 ## Bleeding edge workflow (Gateway in a terminal)
@@ -98,6 +102,7 @@ moltbot health
 ```
 
 ### Common footguns
+
 - **Wrong port:** Gateway WS defaults to `ws://127.0.0.1:18789`; keep app + CLI on the same port.
 - **Where state lives:**
   - Credentials: `~/.clawdbot/credentials/`

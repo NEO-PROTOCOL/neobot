@@ -8,6 +8,7 @@ read_when: "Browser control fails on Linux, especially with snap Chromium"
 ## Problem: "Failed to start Chrome CDP on port 18800"
 
 Moltbot's browser control server fails to launch Chrome/Brave/Edge/Chromium with the error:
+
 ```
 {"error":"Error: Failed to start Chrome CDP on port 18800 for profile \"clawd\"."}
 ```
@@ -17,6 +18,7 @@ Moltbot's browser control server fails to launch Chrome/Brave/Edge/Chromium with
 On Ubuntu (and many Linux distros), the default Chromium installation is a **snap package**. Snap's AppArmor confinement interferes with how Moltbot spawns and monitors the browser process.
 
 The `apt install chromium` command installs a stub package that redirects to snap:
+
 ```
 Note, selecting 'chromium-browser' instead of 'chromium'
 chromium-browser is already the newest version (2:1snap1-0ubuntu2).
@@ -52,6 +54,7 @@ Then update your Moltbot config (`~/.clawdbot/moltbot.json`):
 If you must use snap Chromium, configure Moltbot to attach to a manually-started browser:
 
 1. Update config:
+
 ```json
 {
   "browser": {
@@ -64,6 +67,7 @@ If you must use snap Chromium, configure Moltbot to attach to a manually-started
 ```
 
 2. Start Chromium manually:
+
 ```bash
 chromium-browser --headless --no-sandbox --disable-gpu \
   --remote-debugging-port=18800 \
@@ -72,6 +76,7 @@ chromium-browser --headless --no-sandbox --disable-gpu \
 ```
 
 3. Optionally create a systemd user service to auto-start Chrome:
+
 ```ini
 # ~/.config/systemd/user/clawd-browser.service
 [Unit]
@@ -92,11 +97,13 @@ Enable with: `systemctl --user enable --now clawd-browser.service`
 ### Verifying the Browser Works
 
 Check status:
+
 ```bash
 curl -s http://127.0.0.1:18791/ | jq '{running, pid, chosenBrowser}'
 ```
 
 Test browsing:
+
 ```bash
 curl -s -X POST http://127.0.0.1:18791/start
 curl -s http://127.0.0.1:18791/tabs
@@ -119,11 +126,13 @@ You’re using the `chrome` profile (extension relay). It expects the Moltbot
 browser extension to be attached to a live tab.
 
 Fix options:
+
 1. **Use the managed browser:** `moltbot browser start --browser-profile clawd`
    (or set `browser.defaultProfile: "clawd"`).
 2. **Use the extension relay:** install the extension, open a tab, and click the
    Moltbot extension icon to attach it.
 
 Notes:
+
 - The `chrome` profile uses your **system default Chromium browser** when possible.
 - Local `clawd` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.

@@ -1,6 +1,7 @@
 ---
 summary: "Run the ACP bridge for IDE integrations"
 read_when:
+
   - Setting up ACP-based IDE integrations
   - Debugging ACP session routing to the Gateway
 ---

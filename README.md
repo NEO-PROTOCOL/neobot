@@ -5,11 +5,13 @@
 O NEO BOT CLI é a sua interface de controle para o protocolo NEO. Aqui estão os comandos essenciais:
 
 ### 🛠️ Skills e Execução
+
 * `pnpm neobot run <skill> [args...]` - Executa uma skill específica.
 * `pnpm neobot whoami` - Mostra a identidade atual do NEO BOT.
 * `pnpm neobot config show` - Exibe a configuração de runtime ativa.
 
 ### 📊 Observabilidade e Saúde
+
 * `pnpm neobot health` - Diagnóstico rápido de saúde do sistema.
 * `pnpm neobot health --full` - Relatório detalhado com recomendações (Modo Bate-papo).
 * `pnpm neobot health --repair` - Tenta corrigir falhas de integridade e infraestrutura de baixo risco.
@@ -17,21 +19,25 @@ O NEO BOT CLI é a sua interface de controle para o protocolo NEO. Aqui estão o
 * `pnpm neobot health --json` - Exporta o relatório no formato JSON (para máquinas).
 
 ### 📖 Auditoria e Ledger
+
 * `pnpm neobot ledger tail [n]` - Mostra as últimas `n` entradas do log de eventos.
 * `pnpm neobot explain <id>` - Explica um evento específico do Ledger em português humano.
 * `pnpm neobot anchor latest` - Exibe a última prova de integridade (Âncora de Saúde) gerada.
 * `pnpm neobot ledger path` - Mostra onde o arquivo do Ledger está armazenado.
 
 ### ⏰ Agendamento (Cron)
+
 * `pnpm neobot cron list` - Lista todas as tarefas agendadas.
 * `pnpm neobot cron run <job>` - Executa uma tarefa agendada manualmente agora.
 * `pnpm neobot cron start` - Inicia o agendador autônomo.
 
 ### 📱 Telegram & Automação
+
 * **[📖 Guia Completo de Uso](GUIA_DE_USO.md)** - Documentação detalhada de comandos, exemplos e troubleshooting
 * Envio de mensagens, agendamento, descoberta de Chat IDs e muito mais!
 
 ### 🎨 Dashboard Web (v1.1.0 - Optimized!)
+
 * **[🛰️ Dashboard Premium](dashboard/README.md)** - Interface iOS-style otimizada
 * ⚡ Performance 2.6x mais rápida | 💰 Economia de IA 30-50%
 * Chat com Claude AI, automações avançadas, relatórios inteligentes
@@ -39,7 +45,6 @@ O NEO BOT CLI é a sua interface de controle para o protocolo NEO. Aqui estão o
 * **[📚 Ver todas as features](FEATURES.md)** | **[💰 Otimizações](OPTIMIZATIONS.md)**
 
 ---
-
 
 <p align="center">
   <img src="docs/assets/neobot-logo.png" alt="NEØ BØT Logo" width="400">
@@ -143,16 +148,28 @@ NEO BOT connects to real messaging surfaces. Treat inbound DMs as **untrusted in
 Full security guide: [Security](https://docs.molt.bot/gateway/security)
 
 Default behavior on Telegram/WhatsApp/Signal/iMessage/Microsoft Teams/Discord/Google Chat/Slack:
-- **DM pairing** (`dmPolicy="pairing"` / `channels.discord.dm.policy="pairing"` / `channels.slack.dm.policy="pairing"`): unknown senders receive a short pairing code and the bot does not process their message.
-- Approve with: `neobot pairing approve <channel> <code>` (then the sender is added to a local allowlist store).
-- Public inbound DMs require an explicit opt-in: set `dmPolicy="open"` and include `"*"` in the channel allowlist (`allowFrom` / `channels.discord.dm.allowFrom` / `channels.slack.dm.allowFrom`).
+
+- **DM pairing** (`dmPolicy="pairing"` / `channels.discord.dm.policy="pairing"` / `channels.slack.dm.policy="pairing"`):
+
+  unknown senders receive a short pairing code and the bot does not process their message.
+
+- Approve with:
+  
+  `neobot pairing approve <channel> <code>` (then the sender is added to a local allowlist store).
+
+- Public inbound DMs require an explicit opt-in:
+  
+  set `dmPolicy="open"` and include `"*"` in the channel allowlist (`allowFrom` / `channels.discord.dm.allowFrom` / `channels.slack.dm.allowFrom`).
 
 Run `neobot doctor` to surface risky/misconfigured DM policies.
 
 ## Highlights
 
 - **[Local-first Gateway](https://docs.molt.bot/gateway)** — single control plane for sessions, channels, tools, and events.
+
 - **[Multi-channel inbox](https://docs.molt.bot/channels)** — WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, BlueBubbles, Microsoft Teams, Matrix, Zalo, Zalo Personal, WebChat, macOS, iOS/Android.
+
+
 - **[Multi-agent routing](https://docs.molt.bot/gateway/configuration)** — route inbound channels/accounts/peers to isolated agents (workspaces + per-agent sessions).
 - **[Voice Wake](https://docs.molt.bot/nodes/voicewake) + [Talk Mode](https://docs.molt.bot/nodes/talk)** — always-on speech for macOS/iOS/Android with ElevenLabs.
 - **[Live Canvas](https://docs.molt.bot/platforms/mac/canvas)** — agent-driven visual workspace with [A2UI](https://docs.molt.bot/platforms/mac/canvas#canvas-a2ui).
@@ -167,6 +184,7 @@ Run `neobot doctor` to surface risky/misconfigured DM policies.
 ## Everything we built so far
 
 ### Core platform
+
 - [Gateway WS control plane](https://docs.molt.bot/gateway) with sessions, presence, config, cron, webhooks, [Control UI](https://docs.molt.bot/web), and [Canvas host](https://docs.molt.bot/platforms/mac/canvas#canvas-a2ui).
 - [CLI surface](https://docs.molt.bot/tools/agent-send): gateway, agent, send, [wizard](https://docs.molt.bot/start/wizard), and [doctor](https://docs.molt.bot/gateway/doctor).
 - [Pi agent runtime](https://docs.molt.bot/concepts/agent) in RPC mode with tool streaming and block streaming.
@@ -174,16 +192,19 @@ Run `neobot doctor` to surface risky/misconfigured DM policies.
 - [Media pipeline](https://docs.molt.bot/nodes/images): images/audio/video, transcription hooks, size caps, temp file lifecycle. Audio details: [Audio](https://docs.molt.bot/nodes/audio).
 
 ### Channels
+
 - [Channels](https://docs.molt.bot/channels): [WhatsApp](https://docs.molt.bot/channels/whatsapp) (Baileys), [Telegram](https://docs.molt.bot/channels/telegram) (grammY), [Slack](https://docs.molt.bot/channels/slack) (Bolt), [Discord](https://docs.molt.bot/channels/discord) (discord.js), [Google Chat](https://docs.molt.bot/channels/googlechat) (Chat API), [Signal](https://docs.molt.bot/channels/signal) (signal-cli), [iMessage](https://docs.molt.bot/channels/imessage) (imsg), [BlueBubbles](https://docs.molt.bot/channels/bluebubbles) (extension), [Microsoft Teams](https://docs.molt.bot/channels/msteams) (extension), [Matrix](https://docs.molt.bot/channels/matrix) (extension), [Zalo](https://docs.molt.bot/channels/zalo) (extension), [Zalo Personal](https://docs.molt.bot/channels/zalouser) (extension), [WebChat](https://docs.molt.bot/web/webchat).
 - [Group routing](https://docs.molt.bot/concepts/group-messages): mention gating, reply tags, per-channel chunking and routing. Channel rules: [Channels](https://docs.molt.bot/channels).
 
 ### Apps + nodes
+
 - [macOS app](https://docs.molt.bot/platforms/macos): menu bar control plane, [Voice Wake](https://docs.molt.bot/nodes/voicewake)/PTT, [Talk Mode](https://docs.molt.bot/nodes/talk) overlay, [WebChat](https://docs.molt.bot/web/webchat), debug tools, [remote gateway](https://docs.molt.bot/gateway/remote) control.
 - [iOS node](https://docs.molt.bot/platforms/ios): [Canvas](https://docs.molt.bot/platforms/mac/canvas), [Voice Wake](https://docs.molt.bot/nodes/voicewake), [Talk Mode](https://docs.molt.bot/nodes/talk), camera, screen recording, Bonjour pairing.
 - [Android node](https://docs.molt.bot/platforms/android): [Canvas](https://docs.molt.bot/platforms/mac/canvas), [Talk Mode](https://docs.molt.bot/nodes/talk), camera, screen recording, optional SMS.
 - [macOS node mode](https://docs.molt.bot/nodes): system.run/notify + canvas/camera exposure.
 
 ### Tools + automation
+
 - [Browser control](https://docs.molt.bot/tools/browser): dedicated neobot Chrome/Chromium, snapshots, actions, uploads, profiles.
 - [Canvas](https://docs.molt.bot/platforms/mac/canvas): [A2UI](https://docs.molt.bot/platforms/mac/canvas#canvas-a2ui) push/reset, eval, snapshot.
 - [Nodes](https://docs.molt.bot/nodes): camera snap/clip, screen record, [location.get](https://docs.molt.bot/nodes/location-command), notifications.
@@ -191,12 +212,14 @@ Run `neobot doctor` to surface risky/misconfigured DM policies.
 - [Skills platform](https://docs.molt.bot/tools/skills): bundled, managed, and workspace skills with install gating + UI.
 
 ### Runtime + safety
+
 - [Channel routing](https://docs.molt.bot/concepts/channel-routing), [retry policy](https://docs.molt.bot/concepts/retry), and [streaming/chunking](https://docs.molt.bot/concepts/streaming).
 - [Presence](https://docs.molt.bot/concepts/presence), [typing indicators](https://docs.molt.bot/concepts/typing-indicators), and [usage tracking](https://docs.molt.bot/concepts/usage-tracking).
 - [Models](https://docs.molt.bot/concepts/models), [model failover](https://docs.molt.bot/concepts/model-failover), and [session pruning](https://docs.molt.bot/concepts/session-pruning).
 - [Security](https://docs.molt.bot/gateway/security) and [troubleshooting](https://docs.molt.bot/channels/troubleshooting).
 
 ### Ops + packaging
+
 - [Control UI](https://docs.molt.bot/web) + [WebChat](https://docs.molt.bot/web/webchat) served directly from the Gateway.
 - [Tailscale Serve/Funnel](https://docs.molt.bot/gateway/tailscale) or [SSH tunnels](https://docs.molt.bot/gateway/remote) with token/password auth.
 - [Nix mode](https://docs.molt.bot/install/nix) for declarative config; [Docker](https://docs.molt.bot/install/docker)-based installs.
@@ -239,6 +262,7 @@ NEO BOT can auto-configure Tailscale **Serve** (tailnet-only) or **Funnel** (pub
 - `funnel`: public HTTPS via `tailscale funnel` (requires shared password auth).
 
 Notes:
+
 - `gateway.bind` must stay `loopback` when Serve/Funnel is enabled (NEO BOT enforces this).
 - Serve can be forced to require a password by setting `gateway.auth.mode: "password"` or `gateway.auth.allowTailscale: false`.
 - Funnel refuses to start unless `gateway.auth.mode: "password"` is set.
@@ -358,13 +382,17 @@ Details: [Security guide](https://docs.molt.bot/gateway/security) · [Docker + s
 
 ### [WhatsApp](https://docs.molt.bot/channels/whatsapp)
 
-- Link the device: `pnpm neobot channels login` (stores creds in `~/.neobot/credentials`).
+- Link the device:
+  
+  `pnpm neobot channels login` (stores creds in `~/.neobot/credentials`).
 - Allowlist who can talk to the assistant via `channels.whatsapp.allowFrom`.
 - If `channels.whatsapp.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 
 ### [Telegram](https://docs.molt.bot/channels/telegram)
 
-- Set `TELEGRAM_BOT_TOKEN` or `channels.telegram.botToken` (env wins).
+- Set:
+  
+  `TELEGRAM_BOT_TOKEN` or `channels.telegram.botToken` (env wins).
 - Optional: set `channels.telegram.groups` (with `channels.telegram.groups."*".requireMention`); when set, it is a group allowlist (include `"*"` to allow all). Also `channels.telegram.allowFrom` or `channels.telegram.webhookUrl` as needed.
 
 ```json5
@@ -379,11 +407,15 @@ Details: [Security guide](https://docs.molt.bot/gateway/security) · [Docker + s
 
 ### [Slack](https://docs.molt.bot/channels/slack)
 
-- Set `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` (or `channels.slack.botToken` + `channels.slack.appToken`).
+- Set:
+  
+  `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` (or `channels.slack.botToken` + `channels.slack.appToken`).
 
 ### [Discord](https://docs.molt.bot/channels/discord)
 
-- Set `DISCORD_BOT_TOKEN` or `channels.discord.token` (env wins).
+- Set:
+  
+  `DISCORD_BOT_TOKEN` or `channels.discord.token` (env wins).
 - Optional: set `commands.native`, `commands.text`, or `commands.useAccessGroups`, plus `channels.discord.dm.allowFrom`, `channels.discord.guilds`, or `channels.discord.mediaMaxMb` as needed.
 
 ```json5
@@ -398,21 +430,29 @@ Details: [Security guide](https://docs.molt.bot/gateway/security) · [Docker + s
 
 ### [Signal](https://docs.molt.bot/channels/signal)
 
-- Requires `signal-cli` and a `channels.signal` config section.
+- Requires:
+  
+  `signal-cli` and a `channels.signal` config section.
 
 ### [iMessage](https://docs.molt.bot/channels/imessage)
 
-- macOS only; Messages must be signed in.
+- macOS only:
+  
+  Messages must be signed in.
 - If `channels.imessage.groups` is set, it becomes a group allowlist; include `"*"` to allow all.
 
 ### [Microsoft Teams](https://docs.molt.bot/channels/msteams)
 
-- Configure a Teams app + Bot Framework, then add a `msteams` config section.
+- Configure:
+  
+  a Teams app + Bot Framework, then add a `msteams` config section.
 - Allowlist who can talk via `msteams.allowFrom`; group access via `msteams.groupAllowFrom` or `msteams.groupPolicy: "open"`.
 
 ### [WebChat](https://docs.molt.bot/web/webchat)
 
-- Uses the Gateway WebSocket; no separate WebChat port/config.
+- Uses:
+  
+  the Gateway WebSocket; no separate WebChat port/config.
 
 Browser control (optional):
 

@@ -1,6 +1,7 @@
 ---
 summary: "LINE Messaging API plugin setup, config, and usage"
 read_when:
+
   - You want to connect Moltbot to LINE
   - You need LINE webhook + credential setup
   - You want LINE-specific message options
@@ -33,6 +34,7 @@ moltbot plugins install ./extensions/line
 ## Setup
 
 1) Create a LINE Developers account and open the Console:
+
    https://developers.line.biz/console/
 2) Create (or pick) a Provider and add a **Messaging API** channel.
 3) Copy the **Channel access token** and **Channel secret** from the channel settings.

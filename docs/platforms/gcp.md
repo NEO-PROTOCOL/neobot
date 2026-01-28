@@ -1,6 +1,7 @@
 ---
 summary: "Run Moltbot Gateway 24/7 on a GCP Compute Engine VM (Docker) with durable state"
 read_when:
+
   - You want Moltbot running 24/7 on GCP
   - You want a production-grade, always-on Gateway on your own VM
   - You want full control over persistence, binaries, and restart behavior
@@ -25,6 +26,7 @@ Pricing varies by machine type and region; pick the smallest VM that fits your w
 - Access the Control UI from your laptop via an SSH tunnel
 
 The Gateway can be accessed via:
+
 - SSH port forwarding from your laptop
 - Direct port exposure if you manage firewalling and tokens yourself
 
@@ -290,6 +292,7 @@ Anything installed at runtime will be lost on restart.
 All external binaries required by skills must be installed at image build time.
 
 The examples below show three common binaries only:
+
 - `gog` for Gmail access
 - `goplaces` for Google Places
 - `wacli` for WhatsApp
@@ -298,6 +301,7 @@ These are examples, not a complete list.
 You may install as many binaries as needed using the same pattern.
 
 If you add new skills later that depend on additional binaries, you must:
+
 1. Update the Dockerfile
 2. Rebuild the image
 3. Restart the containers
@@ -473,12 +477,14 @@ For personal use, your default user account works fine.
 For automation or CI/CD pipelines, create a dedicated service account with minimal permissions:
 
 1. Create a service account:
+
    ```bash
    gcloud iam service-accounts create moltbot-deploy \
      --display-name="Moltbot Deployment"
    ```
 
 2. Grant Compute Instance Admin role (or narrower custom role):
+
    ```bash
    gcloud projects add-iam-policy-binding my-moltbot-project \
      --member="serviceAccount:moltbot-deploy@my-moltbot-project.iam.gserviceaccount.com" \

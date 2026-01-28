@@ -1,6 +1,7 @@
 ---
 summary: "Use OpenAI via API keys or Codex subscription in Moltbot"
 read_when:
+
   - You want to use OpenAI models in Moltbot
   - You want Codex subscription auth instead of API keys
 ---

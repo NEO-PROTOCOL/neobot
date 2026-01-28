@@ -1,6 +1,7 @@
 ---
 summary: "Run Moltbot Gateway 24/7 on a cheap Hetzner VPS (Docker) with durable state and baked-in binaries"
 read_when:
+
   - You want Moltbot running 24/7 on a cloud VPS (not your laptop)
   - You want a production-grade, always-on Gateway on your own VPS
   - You want full control over persistence, binaries, and restart behavior
@@ -10,6 +11,7 @@ read_when:
 # Moltbot on Hetzner (Docker, Production VPS Guide)
 
 ## Goal
+
 Run a persistent Moltbot Gateway on a Hetzner VPS using Docker, with durable state, baked-in binaries, and safe restart behavior.
 
 If you want “Moltbot 24/7 for ~$5”, this is the simplest reliable setup.
@@ -24,6 +26,7 @@ Hetzner pricing changes; pick the smallest Debian/Ubuntu VPS and scale up if you
 - Access the Control UI from your laptop via an SSH tunnel
 
 The Gateway can be accessed via:
+
 - SSH port forwarding from your laptop
 - Direct port exposure if you manage firewalling and tokens yourself
 
@@ -202,6 +205,7 @@ Anything installed at runtime will be lost on restart.
 All external binaries required by skills must be installed at image build time.
 
 The examples below show three common binaries only:
+
 - `gog` for Gmail access
 - `goplaces` for Google Places
 - `wacli` for WhatsApp
@@ -210,6 +214,7 @@ These are examples, not a complete list.
 You may install as many binaries as needed using the same pattern.
 
 If you add new skills later that depend on additional binaries, you must:
+
 1. Update the Dockerfile
 2. Rebuild the image
 3. Restart the containers

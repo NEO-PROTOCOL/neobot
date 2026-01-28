@@ -1,6 +1,7 @@
 ---
 summary: "Reference: provider-specific transcript sanitization and repair rules"
 read_when:
+
   - You are debugging provider request rejections tied to transcript shape
   - You are changing transcript sanitization or tool-call repair logic
   - You are investigating tool-call id mismatches across providers
@@ -12,6 +13,7 @@ This document describes **provider-specific fixes** applied to transcripts befor
 provider requirements. They do **not** rewrite the stored JSONL transcript on disk.
 
 Scope includes:
+
 - Tool call id sanitization
 - Tool result pairing repair
 - Turn validation / ordering
@@ -19,6 +21,7 @@ Scope includes:
 - Image payload sanitization
 
 If you need transcript storage details, see:
+
 - [/reference/session-management-compaction](/reference/session-management-compaction)
 
 ---
@@ -26,6 +29,7 @@ If you need transcript storage details, see:
 ## Where this runs
 
 All transcript hygiene is centralized in the embedded runner:
+
 - Policy selection: `src/agents/transcript-policy.ts`
 - Sanitization/repair application: `sanitizeSessionHistory` in `src/agents/pi-embedded-runner/google.ts`
 
@@ -39,6 +43,7 @@ Image payloads are always sanitized to prevent provider-side rejection due to si
 limits (downscale/recompress oversized base64 images).
 
 Implementation:
+
 - `sanitizeSessionMessagesImages` in `src/agents/pi-embedded-helpers/images.ts`
 - `sanitizeContentBlocksImages` in `src/agents/tool-images.ts`
 
@@ -82,10 +87,12 @@ Implementation:
 Before the 2026.1.22 release, Moltbot applied multiple layers of transcript hygiene:
 
 - A **transcript-sanitize extension** ran on every context build and could:
+
   - Repair tool use/result pairing.
   - Sanitize tool call ids (including a non-strict mode that preserved `_`/`-`).
 - The runner also performed provider-specific sanitization, which duplicated work.
 - Additional mutations occurred outside the provider policy, including:
+
   - Stripping `<final>` tags from assistant text before persistence.
   - Dropping empty assistant error turns.
   - Trimming assistant content after tool calls.

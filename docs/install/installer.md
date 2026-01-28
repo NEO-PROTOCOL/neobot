@@ -1,6 +1,7 @@
 ---
 summary: "How the installer scripts work (install.sh + install-cli.sh), flags, and automation"
 read_when:
+
   - You want to understand `molt.bot/install.sh`
   - You want to automate installs (CI / headless)
   - You want to install from a GitHub checkout
@@ -35,6 +36,7 @@ What it does (high level):
 - Detect OS (macOS / Linux / WSL).
 - Ensure Node.js **22+** (macOS via Homebrew; Linux via NodeSource).
 - Choose install method:
+
   - `npm` (default): `npm install -g moltbot@latest`
   - `git`: clone/build a source checkout and install a wrapper script
 - On Linux: avoid global npm permission errors by switching npm’s prefix to `~/.npm-global` when needed.
@@ -87,6 +89,7 @@ What it does (high level):
 
 - Ensure Node.js **22+** (winget/Chocolatey/Scoop or manual).
 - Choose install method:
+
   - `npm` (default): `npm install -g moltbot@latest`
   - `git`: clone/build a source checkout and install a wrapper script
 - Runs `moltbot doctor --non-interactive` on upgrades and git installs (best effort).

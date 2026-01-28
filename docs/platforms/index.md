@@ -1,6 +1,7 @@
 ---
 summary: "Platform support overview (Gateway + companion apps)"
 read_when:
+
   - Looking for OS support or install paths
   - Deciding where to run the Gateway
 ---
@@ -46,5 +47,6 @@ Use one of these (all supported):
 - Repair/migrate: `moltbot doctor` (offers to install or fix the service)
 
 The service target depends on OS:
+
 - macOS: LaunchAgent (`bot.molt.gateway` or `bot.molt.<profile>`; legacy `com.clawdbot.*`)
 - Linux/WSL2: systemd user service (`moltbot-gateway[-<profile>].service`)

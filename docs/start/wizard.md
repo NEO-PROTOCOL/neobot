@@ -1,6 +1,7 @@
 ---
 summary: "CLI onboarding wizard: guided setup for gateway, workspace, channels, and skills"
 read_when:
+
   - Running or configuring the onboarding wizard
   - Setting up a new machine
 ---
@@ -36,6 +37,7 @@ which stores `tools.web.search.apiKey`. Docs: [Web tools](/tools/web).
 The wizard starts with **QuickStart** (defaults) vs **Advanced** (full control).
 
 **QuickStart** keeps the defaults:
+
 - Local gateway (loopback)
 - Workspace default (or existing workspace)
 - Gateway port **18789**
@@ -48,6 +50,7 @@ The wizard starts with **QuickStart** (defaults) vs **Advanced** (full control).
 ## What the wizard does
 
 **Local mode (default)** walks you through:
+
   - Model/auth (OpenAI Code (Codex) subscription OAuth, Anthropic API key (recommended) or setup-token (paste), plus MiniMax/GLM/Moonshot/AI Gateway options)
 - Workspace location + bootstrap files
 - Gateway settings (port/bind/auth/tailscale)
@@ -76,6 +79,7 @@ Tip: `--json` does **not** imply non-interactive mode. Use `--non-interactive` (
    - If the config is invalid or contains legacy keys, the wizard stops and asks
      you to run `moltbot doctor` before continuing.
    - Reset uses `trash` (never `rm`) and offers scopes:
+
      - Config only
      - Config + credentials + sessions
      - Full reset (also removes workspace)
@@ -153,13 +157,16 @@ Tip: `--json` does **not** imply non-interactive mode. Use `--non-interactive` (
 Remote mode configures a local client to connect to a Gateway elsewhere.
 
 What you’ll set:
+
 - Remote Gateway URL (`ws://...`)
 - Token if the remote Gateway requires auth (recommended)
 
 Notes:
+
 - No remote installs or daemon changes are performed.
 - If the Gateway is loopback‑only, use SSH tunneling or a tailnet.
 - Discovery hints:
+
   - macOS: Bonjour (`dns-sd`)
   - Linux: Avahi (`avahi-browse`)
 
@@ -169,11 +176,13 @@ Use `moltbot agents add <name>` to create a separate agent with its own workspac
 sessions, and auth profiles. Running without `--workspace` launches the wizard.
 
 What it sets:
+
 - `agents.list[].name`
 - `agents.list[].workspace`
 - `agents.list[].agentDir`
 
 Notes:
+
 - Default workspaces follow `~/clawd-<agentId>`.
 - Add `bindings` to route inbound messages (the wizard can do this).
 - Non-interactive flags: `--model`, `--agent-dir`, `--bind`, `--non-interactive`.
@@ -281,11 +290,13 @@ Clients (macOS app, Control UI) can render steps without re‑implementing onboa
 ## Signal setup (signal-cli)
 
 The wizard can install `signal-cli` from GitHub releases:
+
 - Downloads the appropriate release asset.
 - Stores it under `~/.clawdbot/tools/signal-cli/<version>/`.
 - Writes `channels.signal.cliPath` to your config.
 
 Notes:
+
 - JVM builds require **Java 21**.
 - Native builds are used when available.
 - Windows uses WSL2; signal-cli install follows the Linux flow inside WSL.
@@ -293,6 +304,7 @@ Notes:
 ## What the wizard writes
 
 Typical fields in `~/.clawdbot/moltbot.json`:
+
 - `agents.defaults.workspace`
 - `agents.defaults.model` / `models.providers` (if Minimax chosen)
 - `gateway.*` (mode, bind, auth, tailscale)

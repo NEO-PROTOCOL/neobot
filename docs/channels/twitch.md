@@ -1,6 +1,7 @@
 ---
 summary: "Twitch chat bot configuration and setup"
 read_when:
+
   - Setting up Twitch chat integration for Moltbot
 ---
 # Twitch (plugin)
@@ -34,6 +35,7 @@ Details: [Plugins](/plugin)
    - Copy the **Client ID** and **Access Token**
 3) Find your Twitch user ID: https://www.streamweasels.com/tools/convert-twitch-username-to-user-id/
 4) Configure the token:
+
    - Env: `CLAWDBOT_TWITCH_ACCESS_TOKEN=...` (default account only)
    - Or config: `channels.twitch.accessToken`
    - If both are set, config takes precedence (env fallback is default-account only).
@@ -271,6 +273,7 @@ Access token refreshed for user 123456 (expires in 14400s)
 ```
 
 If you see "token refresh disabled (no refresh token)":
+
 - Ensure `clientSecret` is provided
 - Ensure `refreshToken` is provided
 
@@ -336,6 +339,7 @@ Full example:
 ## Tool actions
 
 The agent can call `twitch` with action:
+
 - `send` - Send a message to a channel
 
 Example:

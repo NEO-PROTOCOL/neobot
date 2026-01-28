@@ -1,6 +1,7 @@
 ---
 summary: "Telegram allowlist hardening: prefix + whitespace normalization"
 read_when:
+
   - Reviewing historical Telegram allowlist changes
 ---
 # Telegram Allowlist Hardening

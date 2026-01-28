@@ -1,6 +1,7 @@
 ---
 summary: "Optional Docker-based setup and onboarding for Moltbot"
 read_when:
+
   - You want a containerized gateway instead of local installs
   - You are validating the Docker flow
 ---
@@ -16,6 +17,7 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
 - **Sandboxing note**: agent sandboxing uses Docker too, but it does **not** require the full gateway to run in Docker. See [Sandboxing](/gateway/sandboxing).
 
 This guide covers:
+
 - Containerized Gateway (full Moltbot in Docker)
 - Per-session Agent Sandbox (host gateway + Docker-isolated agent tools)
 
@@ -37,6 +39,7 @@ From repo root:
 ```
 
 This script:
+
 - builds the gateway image
 - runs the onboarding wizard
 - prints optional provider setup hints
@@ -44,15 +47,18 @@ This script:
 - generates a gateway token and writes it to `.env`
 
 Optional env vars:
+
 - `CLAWDBOT_DOCKER_APT_PACKAGES` — install extra apt packages during build
 - `CLAWDBOT_EXTRA_MOUNTS` — add extra host bind mounts
 - `CLAWDBOT_HOME_VOLUME` — persist `/home/node` in a named volume
 
 After it finishes:
+
 - Open `http://127.0.0.1:18789/` in your browser.
 - Paste the token into the Control UI (Settings → token).
 
 It writes config/workspace on the host:
+
 - `~/.clawdbot/`
 - `~/clawd`
 
@@ -81,6 +87,7 @@ export CLAWDBOT_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/ho
 ```
 
 Notes:
+
 - Paths must be shared with Docker Desktop on macOS/Windows.
 - If you edit `CLAWDBOT_EXTRA_MOUNTS`, rerun `docker-setup.sh` to regenerate the
   extra compose file.
@@ -110,6 +117,7 @@ export CLAWDBOT_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/ho
 ```
 
 Notes:
+
 - If you change `CLAWDBOT_HOME_VOLUME`, rerun `docker-setup.sh` to regenerate the
   extra compose file.
 - The named volume persists until removed with `docker volume rm <name>`.
@@ -129,6 +137,7 @@ export CLAWDBOT_DOCKER_APT_PACKAGES="ffmpeg build-essential"
 ```
 
 Notes:
+
 - This accepts a space-separated list of apt package names.
 - If you change `CLAWDBOT_DOCKER_APT_PACKAGES`, rerun `docker-setup.sh` to rebuild
   the image.
@@ -171,16 +180,19 @@ CMD ["node","dist/index.js"]
 Use the CLI container to configure channels, then restart the gateway if needed.
 
 WhatsApp (QR):
+
 ```bash
 docker compose run --rm moltbot-cli channels login
 ```
 
 Telegram (bot token):
+
 ```bash
 docker compose run --rm moltbot-cli channels add --channel telegram --token "<token>"
 ```
 
 Discord (bot token):
+
 ```bash
 docker compose run --rm moltbot-cli channels add --channel discord --token "<token>"
 ```
@@ -218,6 +230,7 @@ Deep dive: [Sandboxing](/gateway/sandboxing)
 
 When `agents.defaults.sandbox` is enabled, **non-main sessions** run tools inside a Docker
 container. The gateway stays on your host, but the tool execution is isolated:
+
 - scope: `"agent"` by default (one container + workspace per agent)
 - scope: `"session"` for per-session isolation
 - per-scope workspace folder mounted at `/workspace`
@@ -231,8 +244,10 @@ one container and one workspace.
 ### Per-agent sandbox profiles (multi-agent)
 
 If you use multi-agent routing, each agent can override sandbox + tool settings:
+
 `agents.list[].sandbox` and `agents.list[].tools` (plus `agents.list[].tools.sandbox.tools`). This lets you run
 mixed access levels in one gateway:
+
 - Full access (personal agent)
 - Read-only tools + read-only workspace (family/work agent)
 - No filesystem/shell tools (public agent)
@@ -255,6 +270,7 @@ precedence, and troubleshooting.
 ### Enable sandboxing
 
 If you plan to install packages in `setupCommand`, note:
+
 - Default `docker.network` is `"none"` (no egress).
 - `readOnlyRoot: true` blocks package installs.
 - `user` must be root for `apt-get` (omit `user` or set `user: "0:0"`).
@@ -313,6 +329,7 @@ log a warning with the exact `moltbot sandbox recreate ...` command.
 ```
 
 Hardening knobs live under `agents.defaults.sandbox.docker`:
+
 `network`, `user`, `pidsLimit`, `memory`, `memorySwap`, `cpus`, `ulimits`,
 `seccompProfile`, `apparmorProfile`, `dns`, `extraHosts`.
 
@@ -328,6 +345,7 @@ scripts/sandbox-setup.sh
 This builds `moltbot-sandbox:bookworm-slim` using `Dockerfile.sandbox`.
 
 ### Sandbox common image (optional)
+
 If you want a sandbox image with common build tooling (Node, Go, Rust, etc.), build the common image:
 
 ```bash
@@ -355,6 +373,7 @@ This builds `moltbot-sandbox-browser:bookworm-slim` using
 an optional noVNC observer (headful via Xvfb).
 
 Notes:
+
 - Headful (Xvfb) reduces bot blocking vs headless.
 - Headless can still be used by setting `agents.defaults.sandbox.browser.headless=true`.
 - No full desktop environment (GNOME) is needed; Xvfb provides the display.
@@ -386,6 +405,7 @@ Custom browser image:
 ```
 
 When enabled, the agent receives:
+
 - a sandbox browser control URL (for the `browser` tool)
 - a noVNC URL (if enabled and headless=false)
 
@@ -420,13 +440,17 @@ docker build -t my-moltbot-sbx -f Dockerfile.sandbox .
 ### Pruning strategy
 
 Two knobs:
+
 - `prune.idleHours`: remove containers not used in X hours (0 = disable)
 - `prune.maxAgeDays`: remove containers older than X days (0 = disable)
 
 Example:
+
 - Keep busy sessions but cap lifetime:
+
   `idleHours: 24`, `maxAgeDays: 7`
 - Never prune:
+
   `idleHours: 0`, `maxAgeDays: 0`
 
 ### Security notes

@@ -1,6 +1,7 @@
 ---
 summary: "Setup guide for developers working on the Moltbot macOS app"
 read_when:
+
   - Setting up the macOS development environment
 ---
 # macOS Developer Setup
@@ -33,6 +34,7 @@ To build the macOS app and package it into `dist/Moltbot.app`, run:
 If you don't have an Apple Developer ID certificate, the script will automatically use **ad-hoc signing** (`-`). 
 
 For dev run modes, signing flags, and Team ID troubleshooting, see the macOS app README:
+
 https://github.com/moltbot/moltbot/blob/main/apps/macos/README.md
 
 > **Note**: Ad-hoc signed apps may trigger security prompts. If the app crashes immediately with "Abort trap 6", see the [Troubleshooting](#troubleshooting) section.
@@ -47,6 +49,7 @@ The macOS app expects a global `moltbot` CLI install to manage background tasks.
 3.  Click **"Install CLI"**.
 
 Alternatively, install it manually:
+
 ```bash
 npm install -g moltbot@<version>
 ```
@@ -54,6 +57,7 @@ npm install -g moltbot@<version>
 ## Troubleshooting
 
 ### Build Fails: Toolchain or SDK Mismatch
+
 The macOS app build expects the latest macOS SDK and Swift 6.2 toolchain.
 
 **System dependencies (required):**
@@ -69,16 +73,19 @@ xcrun swift --version
 If versions don’t match, update macOS/Xcode and re-run the build.
 
 ### App Crashes on Permission Grant
+
 If the app crashes when you try to allow **Speech Recognition** or **Microphone** access, it may be due to a corrupted TCC cache or signature mismatch.
 
 **Fix:**
 1. Reset the TCC permissions:
+
    ```bash
    tccutil reset All bot.molt.mac.debug
    ```
 2. If that fails, change the `BUNDLE_ID` temporarily in [`scripts/package-mac-app.sh`](https://github.com/moltbot/moltbot/blob/main/scripts/package-mac-app.sh) to force a "clean slate" from macOS.
 
 ### Gateway "Starting..." indefinitely
+
 If the gateway status stays on "Starting...", check if a zombie process is holding the port:
 
 ```bash

@@ -180,6 +180,7 @@ neobot/
 ### Frontend (Dashboard)
 
 #### 1. HTML Structure
+
 ```html
 <!DOCTYPE html>
 <html>
@@ -213,6 +214,7 @@ neobot/
 ```
 
 #### 2. CSS Architecture
+
 ```css
 :root {
   /* Variáveis iOS */
@@ -247,6 +249,7 @@ body { /* Gradientes + Dark BG */ }
 ```
 
 #### 3. JavaScript Modules
+
 ```javascript
 // app.js structure
 
@@ -290,6 +293,7 @@ setInterval(refreshAll, 30000);
 ### Backend (Express Server)
 
 #### 1. Server Structure
+
 ```javascript
 // server.js
 
@@ -323,6 +327,7 @@ app.listen(3000);
 ```
 
 #### 2. AI Routes
+
 ```javascript
 // ai-routes.js
 
@@ -342,6 +347,7 @@ export function setupAIRoutes(app) {
 ```
 
 #### 3. Automation Routes
+
 ```javascript
 // automation-routes.js
 
@@ -365,6 +371,7 @@ export default router;
 ### Automation System
 
 #### 1. Scheduler
+
 ```typescript
 // scheduler.ts
 
@@ -392,6 +399,7 @@ export class TaskScheduler extends EventEmitter {
 ```
 
 #### 2. Report Service
+
 ```typescript
 // intelligent-report-service.ts
 
@@ -415,6 +423,7 @@ export class IntelligentReportService {
 ```
 
 #### 3. Automation Manager
+
 ```typescript
 // automation-manager.ts
 
@@ -546,6 +555,7 @@ export class AutomationManager {
 ## 🎨 Design Patterns
 
 ### 1. Singleton Pattern
+
 ```typescript
 // Used in services
 let schedulerInstance: TaskScheduler | null = null;
@@ -559,6 +569,7 @@ export function getScheduler(): TaskScheduler {
 ```
 
 ### 2. Observer Pattern
+
 ```typescript
 // Event-driven automation
 scheduler.on('task:complete', ({ task, duration }) => {
@@ -567,6 +578,7 @@ scheduler.on('task:complete', ({ task, duration }) => {
 ```
 
 ### 3. Strategy Pattern
+
 ```typescript
 // Different automation strategies
 interface Automation {
@@ -583,6 +595,7 @@ class MorningBriefing implements Automation {
 ```
 
 ### 4. Adapter Pattern
+
 ```typescript
 // Telegram bot adapter
 interface TelegramBot {
@@ -599,6 +612,7 @@ class GrammyAdapter implements TelegramBot {
 ## 🔒 Security Considerations
 
 ### Environment Variables
+
 ```env
 TELEGRAM_BOT_TOKEN=xxx    # Never commit!
 ANTHROPIC_API_KEY=xxx     # Keep secret!
@@ -606,6 +620,7 @@ TELEGRAM_ADMIN_CHAT=xxx   # Limit access
 ```
 
 ### API Security
+
 - CORS configured
 - Input validation
 - Rate limiting (health check)
@@ -613,6 +628,7 @@ TELEGRAM_ADMIN_CHAT=xxx   # Limit access
 - Logs de auditoria
 
 ### Recommendations
+
 - [ ] Add authentication (JWT)
 - [ ] HTTPS in production
 - [ ] API key rotation
@@ -622,6 +638,7 @@ TELEGRAM_ADMIN_CHAT=xxx   # Limit access
 ## 📈 Scalability
 
 ### Current Architecture
+
 ```
 Single server
    ├── Express (API)
@@ -632,6 +649,7 @@ Single server
 ### Scaling Options
 
 #### Horizontal Scaling
+
 ```
 Load Balancer
    ├── Server 1 (API only)
@@ -640,6 +658,7 @@ Load Balancer
 ```
 
 #### With Database
+
 ```
 Frontend → API Server → Database
                  ↓
@@ -649,6 +668,7 @@ Frontend → API Server → Database
 ```
 
 #### Microservices
+
 ```
 API Gateway
    ├── Dashboard Service

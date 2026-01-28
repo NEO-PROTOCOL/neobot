@@ -1,6 +1,7 @@
 ---
 summary: "Run Moltbot on local LLMs (LM Studio, vLLM, LiteLLM, custom OpenAI endpoints)"
 read_when:
+
   - You want to serve models from your own GPU box
   - You are wiring LM Studio or an OpenAI-compatible proxy
   - You need the safest local model guidance
@@ -140,6 +141,7 @@ vLLM, LiteLLM, OAI-proxy, or custom gateways work if they expose an OpenAI-style
 Keep `models.mode: "merge"` so hosted models stay available as fallbacks.
 
 ## Troubleshooting
+
 - Gateway can reach the proxy? `curl http://127.0.0.1:1234/v1/models`.
 - LM Studio model unloaded? Reload; cold start is a common “hanging” cause.
 - Context errors? Lower `contextWindow` or raise your server limit.

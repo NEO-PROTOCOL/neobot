@@ -1,6 +1,7 @@
 ---
 summary: "Moltbot plugins/extensions: discovery, config, and safety"
 read_when:
+
   - Adding or modifying plugins/extensions
   - Documenting plugin install or load rules
 ---
@@ -79,6 +80,7 @@ const result = await api.runtime.tts.textToSpeechTelephony({
 ```
 
 Notes:
+
 - Uses core `messages.tts` configuration (OpenAI or ElevenLabs).
 - Returns PCM audio buffer + sample rate. Plugins must resample/encode for providers.
 - Edge TTS is not supported for telephony.
@@ -164,6 +166,7 @@ Example:
 
 Moltbot can also merge **external channel catalogs** (for example, an MPM
 registry export). Drop a JSON file at one of:
+
 - `~/.clawdbot/mpm/plugins.json`
 - `~/.clawdbot/mpm/catalog.json`
 - `~/.clawdbot/plugins/catalog.json`
@@ -199,6 +202,7 @@ configured id.
 ```
 
 Fields:
+
 - `enabled`: master toggle (default: true)
 - `allow`: allowlist (optional)
 - `deny`: denylist (optional; deny wins)
@@ -208,6 +212,7 @@ Fields:
 Config changes **require a gateway restart**.
 
 Validation rules (strict):
+
 - Unknown plugin ids in `entries`, `allow`, `deny`, or `slots` are **errors**.
 - Unknown `channels.<id>` keys are **errors** unless a plugin manifest declares
   the channel id.
@@ -241,6 +246,7 @@ Moltbot augments `uiHints` at runtime based on discovered plugins:
 
 - Adds per-plugin labels for `plugins.entries.<id>` / `.enabled` / `.config`
 - Merges optional plugin-provided config field hints under:
+
   `plugins.entries.<id>.config.<field>`
 
 If you want your plugin config fields to show good labels/placeholders (and mark secrets as sensitive),
@@ -311,6 +317,7 @@ export default function register(api) {
 ```
 
 Notes:
+
 - Hook directories follow the normal hook structure (`HOOK.md` + `handler.ts`).
 - Hook eligibility rules still apply (OS/bins/env/config requirements).
 - Plugin-managed hooks show up in `moltbot hooks list` with `plugin:<id>`.
@@ -361,6 +368,7 @@ api.registerProvider({
 ```
 
 Notes:
+
 - `run` receives a `ProviderAuthContext` with `prompter`, `runtime`,
   `openUrl`, and `oauth.createVpsAwareHandlers` helpers.
 - Return `configPatch` when you need to add default models or provider config.
@@ -401,6 +409,7 @@ export default function (api) {
 ```
 
 Notes:
+
 - Put config under `channels.<id>` (not `plugins.entries`).
 - `meta.label` is used for labels in CLI/UI lists.
 - `meta.aliases` adds alternate ids for normalization and CLI inputs.
@@ -563,6 +572,7 @@ api.registerCommand({
 ```
 
 Notes:
+
 - Plugin commands are processed **before** built-in commands and the AI agent
 - Commands are registered globally and work across all channels
 - Command names are case-insensitive (`/MyStatus` matches `/mystatus`)

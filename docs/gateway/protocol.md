@@ -1,6 +1,7 @@
 ---
 summary: "Gateway WebSocket protocol: handshake, frames, versioning"
 read_when:
+
   - Implementing or updating gateway WS clients
   - Debugging protocol mismatches or connect failures
   - Regenerating protocol schema/models
@@ -134,11 +135,14 @@ Side-effecting methods require **idempotency keys** (see schema).
 ## Roles + scopes
 
 ### Roles
+
 - `operator` = control plane client (CLI/UI/automation).
 - `node` = capability host (camera/screen/canvas/system.run).
 
 ### Scopes (operator)
+
 Common scopes:
+
 - `operator.read`
 - `operator.write`
 - `operator.admin`
@@ -146,7 +150,9 @@ Common scopes:
 - `operator.pairing`
 
 ### Caps/commands/permissions (node)
+
 Nodes declare capability claims at connect time:
+
 - `caps`: high-level capability categories.
 - `commands`: command allowlist for invoke.
 - `permissions`: granular toggles (e.g. `screen.record`, `camera.capture`).
@@ -174,6 +180,7 @@ The Gateway treats these as **claims** and enforces server-side allowlists.
 - `PROTOCOL_VERSION` lives in `src/gateway/protocol/schema.ts`.
 - Clients send `minProtocol` + `maxProtocol`; the server rejects mismatches.
 - Schemas + models are generated from TypeBox definitions:
+
   - `pnpm protocol:gen`
   - `pnpm protocol:gen:swift`
   - `pnpm protocol:check`

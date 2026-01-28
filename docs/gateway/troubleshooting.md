@@ -1,6 +1,7 @@
 ---
 summary: "Quick troubleshooting guide for common Moltbot failures"
 read_when:
+
   - Investigating runtime issues or failures
 ---
 # Troubleshooting 🔧
@@ -37,14 +38,17 @@ This means the **agent’s auth store is empty** or missing Anthropic credential
 Auth is **per agent**, so a new agent won’t inherit the main agent’s keys.
 
 Fix options:
+
 - Re-run onboarding and choose **Anthropic** for that agent.
 - Or paste a setup-token on the **gateway host**:
+
   ```bash
   moltbot models auth setup-token --provider anthropic
   ```
 - Or copy `auth-profiles.json` from the main agent dir to the new agent dir.
 
 Verify:
+
 ```bash
 moltbot models status
 ```
@@ -112,10 +116,12 @@ Doctor/service will show runtime state (PID/last exit) and log hints.
 
 **Enable more logging:**
 - Bump file log detail (persisted JSONL):
+
   ```json
   { "logging": { "level": "debug" } }
   ```
 - Bump console verbosity (TTY output only):
+
   ```json
   { "logging": { "consoleLevel": "debug", "consoleStyle": "pretty" } }
   ```
@@ -130,16 +136,19 @@ Gateway refuses to start.
 
 **Fix (recommended):**
 - Run the wizard and set the Gateway run mode to **Local**:
+
   ```bash
   moltbot configure
   ```
 - Or set it directly:
+
   ```bash
   moltbot config set gateway.mode local
   ```
 
 **If you meant to run a remote Gateway instead:**
 - Set a remote URL and keep `gateway.mode=remote`:
+
   ```bash
   moltbot config set gateway.mode remote
   moltbot config set gateway.remote.url "wss://gateway.example.com"
@@ -154,6 +163,7 @@ the gateway.
 ### Service Environment (PATH + runtime)
 
 The gateway service runs with a **minimal PATH** to avoid shell/manager cruft:
+
 - macOS: `/opt/homebrew/bin`, `/usr/local/bin`, `/usr/bin`, `/bin`
 - Linux: `/usr/local/bin`, `/usr/bin`, `/bin`
 
@@ -195,6 +205,7 @@ the Gateway likely refused to bind.
 - If you set `gateway.mode=remote`, the **CLI defaults** to a remote URL. The service can still be running locally, but your CLI may be probing the wrong place. Use `moltbot gateway status` to see the service’s resolved port + probe target (or pass `--url`).
 - `moltbot gateway status` and `moltbot doctor` surface the **last gateway error** from logs when the service looks running but the port is closed.
 - Non-loopback binds (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) require auth:
+
   `gateway.auth.token` (or `CLAWDBOT_GATEWAY_TOKEN`).
 - `gateway.remote.token` is for remote CLI calls only; it does **not** enable local auth.
 - `gateway.token` is ignored; use `gateway.auth.token`.
@@ -325,6 +336,7 @@ moltbot logs --follow | grep "pairing request"
 Known issue: When you send an image with ONLY a mention (no other text), WhatsApp sometimes doesn't include the mention metadata.
 
 **Workaround:** Add some text with the mention:
+
 - ❌ `@clawd` + image
 - ✅ `@clawd check this` + image
 
@@ -412,6 +424,7 @@ grep "media\\|fetch\\|download" "$(ls -t /tmp/moltbot/moltbot-*.log | head -1)" 
 Moltbot keeps conversation history in memory.
 
 **Fix:** Restart periodically or set session limits:
+
 ```json
 {
   "session": {
@@ -428,12 +441,14 @@ Moltbot now refuses to start when the config contains unknown keys, malformed va
 This is intentional for safety.
 
 Fix it with Doctor:
+
 ```bash
 moltbot doctor
 moltbot doctor --fix
 ```
 
 Notes:
+
 - `moltbot doctor` reports every invalid entry.
 - `moltbot doctor --fix` applies migrations/repairs and rewrites the config.
 - Diagnostic commands like `moltbot logs`, `moltbot health`, `moltbot status`, `moltbot gateway status`, and `moltbot gateway probe` still run even if the config is invalid.
@@ -484,6 +499,7 @@ If you’re running from source, use the repo’s package manager: **pnpm** (pre
 The repo declares `packageManager: "pnpm@…"`.
 
 Typical recovery:
+
 ```bash
 git status   # ensure you’re in the repo root
 pnpm install
@@ -500,18 +516,22 @@ Use the **website installer** and select the install method with a flag. It
 upgrades in place and rewrites the gateway service to point at the new install.
 
 Switch **to git install**:
+
 ```bash
 curl -fsSL https://molt.bot/install.sh | bash -s -- --install-method git --no-onboard
 ```
 
 Switch **to npm global**:
+
 ```bash
 curl -fsSL https://molt.bot/install.sh | bash
 ```
 
 Notes:
+
 - The git flow only rebases if the repo is clean. Commit or stash changes first.
 - After switching, run:
+
   ```bash
   moltbot doctor
   moltbot gateway restart
@@ -520,6 +540,7 @@ Notes:
 ### Telegram block streaming isn’t splitting text between tool calls. Why?
 
 Block streaming only sends **completed text blocks**. Common reasons you see a single message:
+
 - `agents.defaults.blockStreamingDefault` is still `"off"`.
 - `channels.telegram.blockStreaming` is set to `false`.
 - `channels.telegram.streamMode` is `partial` or `block` **and draft streaming is active**
@@ -528,6 +549,7 @@ Block streaming only sends **completed text blocks**. Common reasons you see a s
 - The model emits one large text block (no mid‑reply flush points).
 
 Fix checklist:
+
 1) Put block streaming settings under `agents.defaults`, not the root.
 2) Set `channels.telegram.streamMode: "off"` if you want real multi‑message block replies.
 3) Use smaller chunk/coalesce thresholds while debugging.
@@ -541,6 +563,7 @@ By default `channels.discord.groupPolicy` is **allowlist**, so guilds must be ex
 If you set `channels.discord.guilds.<guildId>.channels`, only the listed channels are allowed; omit it to allow all channels in the guild.
 
 Fix checklist:
+
 1) Set `channels.discord.groupPolicy: "open"` **or** add a guild allowlist entry (and optionally a channel allowlist).
 2) Use **numeric channel IDs** in `channels.discord.guilds.<guildId>.channels`.
 3) Put `requireMention: false` **under** `channels.discord.guilds` (global or per‑channel).
@@ -558,7 +581,9 @@ schemas in current `main`, but the fix is not in the last release yet (as of
 January 13, 2026).
 
 Fix checklist:
+
 1) **Update Moltbot**:
+
    - If you can run from source, pull `main` and restart the gateway.
    - Otherwise, wait for the next release that includes the schema scrubber.
 2) Avoid unsupported keywords like `anyOf/oneOf/allOf`, `patternProperties`,
@@ -588,6 +613,7 @@ The app connects to a local gateway on port `18789`. If it stays stuck:
 
 **Fix 1: Stop the supervisor (preferred)**
 If the gateway is supervised by launchd, killing the PID will just respawn it. Stop the supervisor first:
+
 ```bash
 moltbot gateway status
 moltbot gateway stop
@@ -600,6 +626,7 @@ lsof -nP -iTCP:18789 -sTCP:LISTEN
 ```
 
 If it’s an unsupervised process, try a graceful stop first, then escalate:
+
 ```bash
 kill -TERM <PID>
 sleep 1
@@ -608,6 +635,7 @@ kill -9 <PID> # last resort
 
 **Fix 3: Check the CLI install**
 Ensure the global `moltbot` CLI is installed and matches the app version:
+
 ```bash
 moltbot --version
 npm install -g moltbot@<version>
@@ -679,6 +707,7 @@ moltbot gateway restart           # or: moltbot gateway
 1. Check logs first: `/tmp/moltbot/` (default: `moltbot-YYYY-MM-DD.log`, or your configured `logging.file`)
 2. Search existing issues on GitHub
 3. Open a new issue with:
+
    - Moltbot version
    - Relevant log snippets
    - Steps to reproduce
@@ -697,12 +726,14 @@ If you see `"Failed to start Chrome CDP on port 18800"`:
 **Most likely cause:** Snap-packaged Chromium on Ubuntu.
 
 **Quick fix:** Install Google Chrome instead:
+
 ```bash
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 ```
 
 Then set in config:
+
 ```json
 {
   "browser": {

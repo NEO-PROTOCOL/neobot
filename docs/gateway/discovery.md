@@ -1,6 +1,7 @@
 ---
 summary: "Node discovery and transports (Bonjour, Tailscale, SSH) for finding the gateway"
 read_when:
+
   - Implementing or changing Bonjour discovery/advertising
   - Adjusting remote connection modes (direct vs SSH)
   - Designing node discovery + pairing for remote nodes
@@ -23,16 +24,19 @@ The design goal is to keep all network discovery/advertising in the **Node Gatew
 - **Legacy TCP bridge (deprecated/removed)**: older node transport (see [Bridge protocol](/gateway/bridge-protocol)); no longer advertised for discovery.
 
 Protocol details:
+
 - [Gateway protocol](/gateway/protocol)
 - [Bridge protocol (legacy)](/gateway/bridge-protocol)
 
 ## Why we keep both “direct” and SSH
 
 - **Direct WS** is the best UX on the same network and within a tailnet:
+
   - auto-discovery on LAN via Bonjour
   - pairing tokens + ACLs owned by the gateway
   - no shell access required; protocol surface can stay tight and auditable
 - **SSH** remains the universal fallback:
+
   - works anywhere you have SSH access (even across unrelated networks)
   - survives multicast/mDNS issues
   - requires no new inbound ports besides SSH
@@ -44,6 +48,7 @@ Protocol details:
 Bonjour is best-effort and does not cross networks. It is only used for “same LAN” convenience.
 
 Target direction:
+
 - The **gateway** advertises its WS endpoint via Bonjour.
 - Clients browse and show a “pick a gateway” list, then store the chosen endpoint.
 
@@ -52,8 +57,10 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 #### Service beacon details
 
 - Service types:
+
   - `_moltbot-gw._tcp` (gateway transport beacon)
 - TXT keys (non-secret):
+
   - `role=gateway`
   - `lanHost=<hostname>.local`
   - `sshPort=22` (or whatever is advertised)
@@ -65,6 +72,7 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
   - `tailnetDns=<magicdns>` (optional hint; auto-detected when Tailscale is available)
 
 Disable/override:
+
 - `CLAWDBOT_DISABLE_BONJOUR=1` disables advertising.
 - `gateway.bind` in `~/.clawdbot/moltbot.json` controls the Gateway bind mode.
 - `CLAWDBOT_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
@@ -74,6 +82,7 @@ Disable/override:
 ### 2) Tailnet (cross-network)
 
 For London/Vienna style setups, Bonjour won’t help. The recommended “direct” target is:
+
 - Tailscale MagicDNS name (preferred) or a stable tailnet IP.
 
 If the gateway can detect it is running under Tailscale, it publishes `tailnetDns` as an optional hint for clients (including wide-area beacons).
@@ -99,6 +108,7 @@ The gateway is the source of truth for node/client admission.
 
 - Pairing requests are created/approved/rejected in the gateway (see [Gateway pairing](/gateway/pairing)).
 - The gateway enforces:
+
   - auth (token / keypair)
   - scopes/ACLs (the gateway is not a raw proxy to every method)
   - rate limits

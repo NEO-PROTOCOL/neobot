@@ -1,6 +1,7 @@
 ---
 summary: "OpenProse: .prose workflows, slash commands, and state in Moltbot"
 read_when:
+
   - You want to run or write .prose workflows
   - You want to enable the OpenProse plugin
   - You need to understand state storage
@@ -104,6 +105,7 @@ OpenProse supports multiple state backends:
 - **postgres** (experimental): requires `psql` and a connection string
 
 Notes:
+
 - sqlite/postgres are opt-in and experimental.
 - postgres credentials flow into subagent logs; use a dedicated, least-privileged DB.
 

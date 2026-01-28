@@ -13,6 +13,7 @@ intended security policy (authorization, session isolation, tool gating, and
 misconfiguration safety), under explicit assumptions.
 
 **What this is (today):** an executable, attacker-driven **security regression suite**:
+
 - Each claim has a runnable model-check over a finite state space.
 - Many claims have a paired **negative model** that produces a counterexample trace for a realistic bug class.
 
@@ -31,6 +32,7 @@ Models are maintained in a separate repo: [vignesh07/moltbot-formal-models](http
 ## Reproducing results
 
 Today, results are reproduced by cloning the models repo locally and running TLC (see below). A future iteration could offer:
+
 - CI-run models with public artifacts (counterexample traces, run logs)
 - a hosted “run this model” workflow for small, bounded checks
 
@@ -51,9 +53,11 @@ make <target>
 **Claim:** binding beyond loopback without auth can make remote compromise possible / increases exposure; token/password blocks unauth attackers (per the model assumptions).
 
 - Green runs:
+
   - `make gateway-exposure-v2`
   - `make gateway-exposure-v2-protected`
 - Red (expected):
+
   - `make gateway-exposure-v2-negative`
 
 See also: `docs/gateway-exposure-matrix.md` in the models repo.
@@ -63,9 +67,11 @@ See also: `docs/gateway-exposure-matrix.md` in the models repo.
 **Claim:** `nodes.run` requires (a) node command allowlist plus declared commands and (b) live approval when configured; approvals are tokenized to prevent replay (in the model).
 
 - Green runs:
+
   - `make nodes-pipeline`
   - `make approvals-token`
 - Red (expected):
+
   - `make nodes-pipeline-negative`
   - `make approvals-token-negative`
 
@@ -74,9 +80,11 @@ See also: `docs/gateway-exposure-matrix.md` in the models repo.
 **Claim:** pairing requests respect TTL and pending-request caps.
 
 - Green runs:
+
   - `make pairing`
   - `make pairing-cap`
 - Red (expected):
+
   - `make pairing-negative`
   - `make pairing-cap-negative`
 
@@ -85,8 +93,10 @@ See also: `docs/gateway-exposure-matrix.md` in the models repo.
 **Claim:** in group contexts requiring mention, an unauthorized “control command” cannot bypass mention gating.
 
 - Green:
+
   - `make ingress-gating`
 - Red (expected):
+
   - `make ingress-gating-negative`
 
 ### Routing/session-key isolation
@@ -94,13 +104,16 @@ See also: `docs/gateway-exposure-matrix.md` in the models repo.
 **Claim:** DMs from distinct peers do not collapse into the same session unless explicitly linked/configured.
 
 - Green:
+
   - `make routing-isolation`
 - Red (expected):
+
   - `make routing-isolation-negative`
 
 ## Roadmap
 
 Next models to deepen fidelity:
+
 - Pairing store concurrency/locking/idempotency
 - Provider-specific ingress preflight modeling
 - Routing identity-links + dmScope variants + binding precedence

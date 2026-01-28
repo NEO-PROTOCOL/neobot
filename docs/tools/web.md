@@ -1,6 +1,7 @@
 ---
 summary: "Web search + fetch tools (Brave Search API, Perplexity direct/OpenRouter)"
 read_when:
+
   - You want to enable web_search or web_fetch
   - You need Brave Search API key setup
   - You want to use Perplexity Sonar for web search
@@ -146,6 +147,7 @@ Search the web using your configured provider.
 
 - `tools.web.search.enabled` must not be `false` (default: enabled)
 - API key for your chosen provider:
+
   - **Brave**: `BRAVE_API_KEY` or `tools.web.search.apiKey`
   - **Perplexity**: `OPENROUTER_API_KEY`, `PERPLEXITY_API_KEY`, or `tools.web.search.perplexity.apiKey`
 
@@ -246,6 +248,7 @@ Fetch a URL and extract readable content.
 - `maxChars` (truncate long pages)
 
 Notes:
+
 - `web_fetch` uses Readability (main-content extraction) first, then Firecrawl (if configured). If both fail, the tool returns an error.
 - Firecrawl requests use bot-circumvention mode and cache results by default.
 - `web_fetch` sends a Chrome-like User-Agent and `Accept-Language` by default; override `userAgent` if needed.

@@ -1,6 +1,7 @@
 ---
 summary: "Network hub: gateway surfaces, pairing, discovery, and security"
 read_when:
+
   - You need the network architecture + security overview
   - You are debugging local vs tailnet access or pairing
   - You want the canonical list of networking docs
@@ -25,6 +26,7 @@ devices across localhost, LAN, and tailnet.
 - [Pairing CLI (DM approvals)](/cli/pairing)
 
 Local trust:
+
 - Local connections (loopback or the gateway host’s own tailnet address) can be
   auto‑approved for pairing to keep same‑host UX smooth.
 - Non‑local tailnet/LAN clients still require explicit pairing approval.

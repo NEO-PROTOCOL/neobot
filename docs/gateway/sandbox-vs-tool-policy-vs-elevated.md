@@ -25,6 +25,7 @@ moltbot sandbox explain --json
 ```
 
 It prints:
+
 - effective sandbox mode/scope/workspace access
 - whether the session is currently sandboxed (main vs non-main)
 - effective sandbox tool allow/deny (and whether it came from agent/global/default)
@@ -33,6 +34,7 @@ It prints:
 ## Sandbox: where tools run
 
 Sandboxing is controlled by `agents.defaults.sandbox.mode`:
+
 - `"off"`: everything runs on the host.
 - `"non-main"`: only non-main sessions are sandboxed (common “surprise” for groups/channels).
 - `"all"`: everything is sandboxed.
@@ -50,6 +52,7 @@ See [Sandboxing](/gateway/sandboxing) for the full matrix (scope, workspace moun
 ## Tool policy: which tools exist/are callable
 
 Two layers matter:
+
 - **Tool profile**: `tools.profile` and `agents.list[].tools.profile` (base allowlist)
 - **Provider tool profile**: `tools.byProvider[provider].profile` and `agents.list[].tools.byProvider[provider].profile`
 - **Global/per-agent tool policy**: `tools.allow`/`tools.deny` and `agents.list[].tools.allow`/`agents.list[].tools.deny`
@@ -57,6 +60,7 @@ Two layers matter:
 - **Sandbox tool policy** (only applies when sandboxed): `tools.sandbox.tools.allow`/`tools.sandbox.tools.deny` and `agents.list[].tools.sandbox.tools.*`
 
 Rules of thumb:
+
 - `deny` always wins.
 - If `allow` is non-empty, everything else is treated as blocked.
 - Tool policy is the hard stop: `/exec` cannot override a denied `exec` tool.
@@ -80,6 +84,7 @@ Tool policies (global, agent, sandbox) support `group:*` entries that expand to 
 ```
 
 Available groups:
+
 - `group:runtime`: `exec`, `bash`, `process`
 - `group:fs`: `read`, `write`, `edit`, `apply_patch`
 - `group:sessions`: `sessions_list`, `sessions_history`, `sessions_send`, `sessions_spawn`, `session_status`
@@ -100,6 +105,7 @@ Elevated does **not** grant extra tools; it only affects `exec`.
 - `/exec` is separate from elevated. It only adjusts per-session exec defaults for authorized senders.
 
 Gates:
+
 - Enablement: `tools.elevated.enabled` (and optionally `agents.list[].tools.elevated.enabled`)
 - Sender allowlists: `tools.elevated.allowFrom.<provider>` (and optionally `agents.list[].tools.elevated.allowFrom.<provider>`)
 
@@ -110,8 +116,10 @@ See [Elevated Mode](/tools/elevated).
 ### “Tool X blocked by sandbox tool policy”
 
 Fix-it keys (pick one):
+
 - Disable sandbox: `agents.defaults.sandbox.mode=off` (or per-agent `agents.list[].sandbox.mode=off`)
 - Allow the tool inside sandbox:
+
   - remove it from `tools.sandbox.tools.deny` (or per-agent `agents.list[].tools.sandbox.tools.deny`)
   - or add it to `tools.sandbox.tools.allow` (or per-agent allow)
 

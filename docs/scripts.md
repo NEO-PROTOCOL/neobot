@@ -1,6 +1,7 @@
 ---
 summary: "Repository scripts: purpose, scope, and safety notes"
 read_when:
+
   - Running scripts from the repo
   - Adding or changing scripts under ./scripts
 ---
@@ -23,6 +24,7 @@ Use these when a task is clearly tied to a script; otherwise prefer the CLI.
 ## Auth monitoring scripts
 
 Auth monitoring scripts are documented here:
+
 [/automation/auth-monitoring](/automation/auth-monitoring)
 
 ## When adding scripts

@@ -1,6 +1,7 @@
 ---
 summary: "Sign in to GitHub Copilot from Moltbot using the device flow"
 read_when:
+
   - You want to use GitHub Copilot as a model provider
   - You need the `moltbot models auth login-github-copilot` flow
 ---

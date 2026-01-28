@@ -114,6 +114,7 @@ npm install node-cron express
 ### Estrutura de arquivos
 
 Certifique-se de que todos os arquivos de automação estão em:
+
 ```
 src/automations/
 ```
@@ -416,6 +417,7 @@ Todas as execuções geram logs:
 ### Problema: Automações não executam
 
 **Solução**:
+
 ```typescript
 // Verifique se o manager foi inicializado
 const manager = getAutomationManager();
@@ -426,6 +428,7 @@ console.log('Tasks:', manager?.listTasks());
 ### Problema: Dashboard não carrega automações
 
 **Solução**:
+
 1. Verifique se o servidor está rodando
 2. Abra o console do navegador (F12)
 3. Verifique a resposta da API em Network
@@ -433,6 +436,7 @@ console.log('Tasks:', manager?.listTasks());
 ### Problema: Telegram não envia mensagens
 
 **Solução**:
+
 1. Verifique `TELEGRAM_BOT_TOKEN` no `.env`
 2. Confirme que o bot está iniciado
 3. Teste o adapter manualmente

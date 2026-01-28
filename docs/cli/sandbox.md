@@ -108,6 +108,7 @@ moltbot sandbox recreate --agent alfred
 ## Why is this needed?
 
 **Problem:** When you update sandbox Docker images or configuration:
+
 - Existing containers continue running with old settings
 - Containers are only pruned after 24h of inactivity
 - Regularly-used agents keep old containers running indefinitely

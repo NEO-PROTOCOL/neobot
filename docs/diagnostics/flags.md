@@ -1,6 +1,7 @@
 ---
 summary: "Diagnostics flags for targeted debug logs"
 read_when:
+
   - You need targeted debug logs without raising global logging levels
   - You need to capture subsystem-specific logs for support
 ---
@@ -13,6 +14,7 @@ Diagnostics flags let you enable targeted debug logs without turning on verbose 
 - Flags are strings (case-insensitive).
 - You can enable flags in config or via an env override.
 - Wildcards are supported:
+
   - `telegram.*` matches `telegram.http`
   - `*` enables all flags
 

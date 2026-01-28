@@ -1,6 +1,7 @@
 ---
 summary: "Run Moltbot Gateway on exe.dev (VM + HTTPS proxy) for remote access"
 read_when:
+
   - You want a cheap always-on Linux host for the Gateway
   - You want remote Control UI access without running your own VPS
 ---
@@ -8,6 +9,7 @@ read_when:
 # exe.dev
 
 Goal: Moltbot Gateway running on an exe.dev VM, reachable from your laptop via:
+
 - **exe.dev HTTPS proxy** (easy, no tunnel) or
 - **SSH tunnel** (most secure; loopback-only Gateway)
 
@@ -93,6 +95,7 @@ moltbot onboard --install-daemon
 ```
 
 It can set up:
+
 - `~/clawd` workspace bootstrap
 - `~/.clawdbot/moltbot.json` config
 - model auth profiles
@@ -112,6 +115,7 @@ ssh -N -L 18789:127.0.0.1:18789 moltbot.exe.xyz
 ```
 
 Open locally:
+
 - `http://127.0.0.1:18789/` (Control UI)
 
 Runbook: [Remote access](/gateway/remote)
@@ -139,6 +143,7 @@ For service runs, persist it in `~/.clawdbot/moltbot.json`:
 ```
 
 Notes:
+
 - Non-loopback binds require `gateway.auth.token` (or `CLAWDBOT_GATEWAY_TOKEN`).
 - `gateway.remote.token` is only for remote CLI calls; it does not enable local auth.
 
@@ -149,11 +154,13 @@ ssh exe.dev share port moltbot 8080
 ```
 
 Open:
+
 - `https://moltbot.exe.xyz/`
 
 In the Control UI, paste the token (UI → Settings → token). The UI sends it as `connect.params.auth.token`.
 
 Notes:
+
 - Prefer a **non-default** port (like `8080`) if your proxy expects an app port.
 - Treat the token like a password.
 

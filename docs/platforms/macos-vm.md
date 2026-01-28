@@ -1,6 +1,7 @@
 ---
 summary: "Run Moltbot in a sandboxed macOS VM (local or hosted) when you need isolation or iMessage"
 read_when:
+
   - You want Moltbot isolated from your main macOS environment
   - You want iMessage integration (BlueBubbles) in a sandbox
   - You want a resettable macOS environment you can clone
@@ -24,6 +25,7 @@ Use a macOS VM when you specifically need macOS-only capabilities (iMessage/Blue
 Run Moltbot in a sandboxed macOS VM on your existing Apple Silicon Mac using [Lume](https://cua.ai/docs/lume).
 
 This gives you:
+
 - Full macOS environment in isolation (your host stays clean)
 - iMessage support via BlueBubbles (impossible on Linux/Windows)
 - Instant reset by cloning VMs
@@ -32,6 +34,7 @@ This gives you:
 ### Hosted Mac providers (cloud)
 
 If you want macOS in the cloud, hosted Mac providers work too:
+
 - [MacStadium](https://www.macstadium.com/) (hosted Macs)
 - Other hosted Mac vendors also work; follow their VM + SSH docs
 
@@ -96,12 +99,14 @@ Note: The download can take a while depending on your connection.
 ## 3) Complete Setup Assistant
 
 In the VNC window:
+
 1. Select language and region
 2. Skip Apple ID (or sign in if you want iMessage later)
 3. Create a user account (remember the username and password)
 4. Skip all optional features
 
 After setup completes, enable SSH:
+
 1. Open System Settings → General → Sharing
 2. Enable "Remote Login"
 
@@ -244,6 +249,7 @@ lume run moltbot --no-display
 ## Running 24/7
 
 Keep the VM running by:
+
 - Keeping your Mac plugged in
 - Disabling sleep in System Settings → Energy Saver
 - Using `caffeinate` if needed

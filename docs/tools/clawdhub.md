@@ -1,6 +1,7 @@
 ---
 summary: "ClawdHub guide: public skills registry + CLI workflows"
 read_when:
+
   - Introducing ClawdHub to new users
   - Installing, searching, or publishing skills
   - Explaining ClawdHub CLI flags and sync behavior
@@ -25,8 +26,10 @@ If you want to add new capabilities to your Moltbot agent, ClawdHub is the easie
 
 1) Install the CLI (see next section).
 2) Search for something you need:
+
    - `clawdhub search "calendar"`
 3) Install a skill:
+
    - `clawdhub install <skill-slug>`
 4) Start a new Moltbot session so it picks up the new skill.
 

@@ -1,6 +1,7 @@
 ---
 summary: "Discord bot support status, capabilities, and configuration"
 read_when:
+
   - Working on Discord channel features
 ---
 # Discord (Bot API)
@@ -9,9 +10,11 @@ read_when:
 Status: ready for DM and guild text channels via the official Discord bot gateway.
 
 ## Quick setup (beginner)
+
 1) Create a Discord bot and copy the bot token.
 2) In the Discord app settings, enable **Message Content Intent** (and **Server Members Intent** if you plan to use allowlists or name lookups).
 3) Set the token for Moltbot:
+
    - Env: `DISCORD_BOT_TOKEN=...`
    - Or config: `channels.discord.token: "..."`.
    - If both are set, config takes precedence (env fallback is default-account only).
@@ -20,6 +23,7 @@ Status: ready for DM and guild text channels via the official Discord bot gatewa
 6) DM access is pairing by default; approve the pairing code on first contact.
 
 Minimal config:
+
 ```json5
 {
   channels: {
@@ -32,12 +36,14 @@ Minimal config:
 ```
 
 ## Goals
+
 - Talk to Moltbot via Discord DMs or guild channels.
 - Direct chats collapse into the agent's main session (default `agent:main:main`); guild channels stay isolated as `agent:<agentId>:discord:channel:<channelId>` (display names use `discord:<guildSlug>#<channelSlug>`).
 - Group DMs are ignored by default; enable via `channels.discord.dm.groupEnabled` and optionally restrict by `channels.discord.dm.groupChannels`.
 - Keep routing deterministic: replies always go back to the channel they arrived on.
 
 ## How it works
+
 1. Create a Discord application → Bot, enable the intents you need (DMs + guild messages + message content), and grab the bot token.
 2. Invite the bot to your server with the permissions required to read/send messages where you want to use it.
 3. Configure Moltbot with `channels.discord.token` (or `DISCORD_BOT_TOKEN` as a fallback).
@@ -64,9 +70,11 @@ Note: Slugs are lowercase with spaces replaced by `-`. Channel names are slugged
 Note: Guild context `[from:]` lines include `author.tag` + `id` to make ping-ready replies easy.
 
 ## Config writes
+
 By default, Discord is allowed to write config updates triggered by `/config set|unset` (requires `commands.config: true`).
 
 Disable with:
+
 ```json5
 {
   channels: { discord: { configWrites: false } }
@@ -78,21 +86,26 @@ Disable with:
 This is the “Discord Developer Portal” setup for running Moltbot in a server (guild) channel like `#help`.
 
 ### 1) Create the Discord app + bot user
+
 1. Discord Developer Portal → **Applications** → **New Application**
 2. In your app:
+
    - **Bot** → **Add Bot**
    - Copy the **Bot Token** (this is what you put in `DISCORD_BOT_TOKEN`)
 
 ### 2) Enable the gateway intents Moltbot needs
+
 Discord blocks “privileged intents” unless you explicitly enable them.
 
 In **Bot** → **Privileged Gateway Intents**, enable:
+
 - **Message Content Intent** (required to read message text in most guilds; without it you’ll see “Used disallowed intents” or the bot will connect but not react to messages)
 - **Server Members Intent** (recommended; required for some member/user lookups and allowlist matching in guilds)
 
 You usually do **not** need **Presence Intent**.
 
 ### 3) Generate an invite URL (OAuth2 URL Generator)
+
 In your app: **OAuth2** → **URL Generator**
 
 **Scopes**
@@ -113,10 +126,12 @@ Avoid **Administrator** unless you’re debugging and fully trust the bot.
 Copy the generated URL, open it, pick your server, and install the bot.
 
 ### 4) Get the ids (guild/user/channel)
+
 Discord uses numeric ids everywhere; Moltbot config prefers ids.
 
 1. Discord (desktop/web) → **User Settings** → **Advanced** → enable **Developer Mode**
 2. Right-click:
+
    - Server name → **Copy Server ID** (guild id)
    - Channel (e.g. `#help`) → **Copy Channel ID**
    - Your user → **Copy User ID**
@@ -124,7 +139,9 @@ Discord uses numeric ids everywhere; Moltbot config prefers ids.
 ### 5) Configure Moltbot
 
 #### Token
+
 Set the bot token via env var (recommended on servers):
+
 - `DISCORD_BOT_TOKEN=...`
 
 Or via config:
@@ -143,6 +160,7 @@ Or via config:
 Multi-account support: use `channels.discord.accounts` with per-account tokens and optional `name`. See [`gateway/configuration`](/gateway/configuration#telegramaccounts--discordaccounts--slackaccounts--signalaccounts--imessageaccounts) for the shared pattern.
 
 #### Allowlist + channel routing
+
 Example “single server, only allow me, only allow #help”:
 
 ```json5
@@ -172,6 +190,7 @@ Example “single server, only allow me, only allow #help”:
 ```
 
 Notes:
+
 - `requireMention: true` means the bot only replies when mentioned (recommended for shared channels).
 - `agents.list[].groupChat.mentionPatterns` (or `messages.groupChat.mentionPatterns`) also count as mentions for guild messages.
 - Multi-agent override: set per-agent patterns on `agents.list[].groupChat.mentionPatterns`.
@@ -182,19 +201,23 @@ Notes:
 - Warning: If you allow replies to other bots (`channels.discord.allowBots=true`), prevent bot-to-bot reply loops with `requireMention`, `channels.discord.guilds.*.channels.<id>.users` allowlists, and/or clear guardrails in `AGENTS.md` and `SOUL.md`.
 
 ### 6) Verify it works
+
 1. Start the gateway.
 2. In your server channel, send: `@Krill hello` (or whatever your bot name is).
 3. If nothing happens: check **Troubleshooting** below.
 
 ### Troubleshooting
+
 - First: run `moltbot doctor` and `moltbot channels status --probe` (actionable warnings + quick audits).
 - **“Used disallowed intents”**: enable **Message Content Intent** (and likely **Server Members Intent**) in the Developer Portal, then restart the gateway.
 - **Bot connects but never replies in a guild channel**:
+
   - Missing **Message Content Intent**, or
   - The bot lacks channel permissions (View/Send/Read History), or
   - Your config requires mentions and you didn’t mention it, or
   - Your guild/channel allowlist denies the channel/user.
 - **`requireMention: false` but still no replies**:
+
 - `channels.discord.groupPolicy` defaults to **allowlist**; set it to `"open"` or add a guild entry under `channels.discord.guilds` (optionally list channels under `channels.discord.guilds.<id>.channels` to restrict).
   - If you only set `DISCORD_BOT_TOKEN` and never create a `channels.discord` section, the runtime
     defaults `groupPolicy` to `open`. Add `channels.discord.groupPolicy`,
@@ -204,6 +227,7 @@ Notes:
 - **DMs don’t work**: `channels.discord.dm.enabled=false`, `channels.discord.dm.policy="disabled"`, or you haven’t been approved yet (`channels.discord.dm.policy="pairing"`).
 
 ## Capabilities & limits
+
 - DMs and guild text channels (threads are treated as separate channels; voice not supported).
 - Typing indicators sent best-effort; message chunking uses `channels.discord.textChunkLimit` (default 2000) and splits tall replies by line count (`channels.discord.maxLinesPerMessage`, default 17).
 - Optional newline chunking: set `channels.discord.chunkMode="newline"` to split on blank lines (paragraph boundaries) before length chunking.
@@ -213,6 +237,7 @@ Notes:
 - Native reply threading is **off by default**; enable with `channels.discord.replyToMode` and reply tags.
 
 ## Retry policy
+
 Outbound Discord API calls retry on rate limits (429) using Discord `retry_after` when available, with exponential backoff and jitter. Configure via `channels.discord.retry`. See [Retry policy](/concepts/retry).
 
 ## Config
@@ -327,6 +352,7 @@ ack reaction after the bot replies.
   - `moderation` (timeout/kick/ban, default `false`)
 
 Reaction notifications use `guilds.<id>.reactionNotifications`:
+
 - `off`: no reaction events.
 - `own`: reactions on the bot's own messages (default).
 - `all`: all reactions on all messages.
@@ -357,17 +383,21 @@ Reaction notifications use `guilds.<id>.reactionNotifications`:
 - `replyToMode`: `off` (default), `first`, or `all`. Applies only when the model includes a reply tag.
 
 ## Reply tags
+
 To request a threaded reply, the model can include one tag in its output:
+
 - `[[reply_to_current]]` — reply to the triggering Discord message.
 - `[[reply_to:<id>]]` — reply to a specific message id from context/history.
 Current message ids are appended to prompts as `[message_id: …]`; history entries already include ids.
 
 Behavior is controlled by `channels.discord.replyToMode`:
+
 - `off`: ignore tags.
 - `first`: only the first outbound chunk/attachment is a reply.
 - `all`: every outbound chunk/attachment is a reply.
 
 Allowlist matching notes:
+
 - `allowFrom`/`users`/`groupChannels` accept ids, names, tags, or mentions like `<@id>`.
 - Prefixes like `discord:`/`user:` (users) and `channel:` (group DMs) are supported.
 - Use `*` to allow any sender/channel.
@@ -379,12 +409,15 @@ Allowlist matching notes:
   and logs the mapping; unresolved entries are kept as typed.
 
 Native command notes:
+
 - The registered commands mirror Moltbot’s chat commands.
 - Native commands honor the same allowlists as DMs/guild messages (`channels.discord.dm.allowFrom`, `channels.discord.guilds`, per-channel rules).
 - Slash commands may still be visible in Discord UI to users who aren’t allowlisted; Moltbot enforces allowlists on execution and replies “not authorized”.
 
 ## Tool actions
+
 The agent can call `discord` with actions like:
+
 - `react` / `reactions` (add or list reactions)
 - `sticker`, `poll`, `permissions`
 - `readMessages`, `sendMessage`, `editMessage`, `deleteMessage`
@@ -399,6 +432,7 @@ Discord message ids are surfaced in the injected context (`[discord message id: 
 Emoji can be unicode (e.g., `✅`) or custom emoji syntax like `<:party_blob:1234567890>`.
 
 ## Safety & ops
+
 - Treat the bot token like a password; prefer the `DISCORD_BOT_TOKEN` env var on supervised hosts or lock down the config file permissions.
 - Only grant the bot permissions it needs (typically Read/Send Messages).
 - If the bot is stuck or rate limited, restart the gateway (`moltbot gateway --force`) after confirming no other processes own the Discord session.

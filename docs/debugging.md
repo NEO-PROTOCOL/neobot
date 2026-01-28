@@ -1,6 +1,7 @@
 ---
 summary: "Debugging tools: watch mode, raw model streams, and tracing reasoning leakage"
 read_when:
+
   - You need to inspect raw model output for reasoning leakage
   - You want to run the Gateway in watch mode while iterating
   - You need a repeatable debugging workflow
@@ -77,6 +78,7 @@ What this does:
    - Sets `agent.workspace` to the dev workspace.
    - Sets `agent.skipBootstrap=true` (no BOOTSTRAP.md).
    - Seeds the workspace files if missing:
+
      `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`.
    - Default identity: **C3‑PO** (protocol droid).
    - Skips channel providers in dev mode (`CLAWDBOT_SKIP_CHANNELS=1`).

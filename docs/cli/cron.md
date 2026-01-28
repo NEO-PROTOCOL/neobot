@@ -1,6 +1,7 @@
 ---
 summary: "CLI reference for `moltbot cron` (schedule and run background jobs)"
 read_when:
+
   - You want scheduled jobs and wakeups
   - You’re debugging cron execution and logs
 ---
@@ -10,6 +11,7 @@ read_when:
 Manage cron jobs for the Gateway scheduler.
 
 Related:
+
 - Cron jobs: [Cron jobs](/automation/cron-jobs)
 
 Tip: run `moltbot cron --help` for the full command surface.

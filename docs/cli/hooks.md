@@ -1,6 +1,7 @@
 ---
 summary: "CLI reference for `moltbot hooks` (agent hooks)"
 read_when:
+
   - You want to manage agent hooks
   - You want to install or update hooks
 ---
@@ -10,6 +11,7 @@ read_when:
 Manage agent hooks (event-driven automations for commands like `/new`, `/reset`, and gateway startup).
 
 Related:
+
 - Hooks: [Hooks](/hooks)
 - Plugin hooks: [Plugins](/plugin#plugin-hooks)
 

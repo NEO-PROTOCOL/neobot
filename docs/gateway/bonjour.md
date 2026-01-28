@@ -1,6 +1,7 @@
 ---
 summary: "Bonjour/mDNS discovery + debugging (Gateway beacons, clients, and common failure modes)"
 read_when:
+
   - Debugging Bonjour discovery issues on macOS/iOS
   - Changing mDNS service types, TXT records, or discovery UX
 ---
@@ -43,6 +44,7 @@ moltbot dns setup --apply
 ```
 
 This installs CoreDNS and configures it to:
+
 - listen on port 53 only on the gateway’s Tailscale interfaces
 - serve `moltbot.internal.` from `~/.clawdbot/dns/moltbot.internal.db`
 
@@ -69,6 +71,7 @@ The Gateway WS port (default `18789`) binds to loopback by default. For LAN/tail
 access, bind explicitly and keep auth enabled.
 
 For tailnet‑only setups:
+
 - Set `gateway.bind: "tailnet"` in `~/.clawdbot/moltbot.json`.
 - Restart the Gateway (or restart the macOS menubar app).
 
@@ -101,10 +104,12 @@ The Gateway advertises small non‑secret hints to make UI flows convenient:
 Useful built‑in tools:
 
 - Browse instances:
+
   ```bash
   dns-sd -B _moltbot-gw._tcp local.
   ```
 - Resolve one instance (replace `<instance>`):
+
   ```bash
   dns-sd -L "<instance>" _moltbot-gw._tcp local.
   ```
@@ -126,6 +131,7 @@ The Gateway writes a rolling log file (printed on startup as
 The iOS node uses `NWBrowser` to discover `_moltbot-gw._tcp`.
 
 To capture logs:
+
 - Settings → Gateway → Advanced → **Discovery Debug Logs**
 - Settings → Gateway → Advanced → **Discovery Logs** → reproduce → **Copy**
 

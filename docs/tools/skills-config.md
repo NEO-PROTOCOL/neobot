@@ -1,6 +1,7 @@
 ---
 summary: "Skills config schema and examples"
 read_when:
+
   - Adding or modifying skills config
   - Adjusting bundled allowlist or install behavior
 ---
@@ -53,6 +54,7 @@ All skills-related configuration lives under `skills` in `~/.clawdbot/moltbot.js
 - `entries.<skillKey>`: per-skill overrides.
 
 Per-skill fields:
+
 - `enabled`: set `false` to disable a skill even if it’s bundled/installed.
 - `env`: environment variables injected for the agent run (only if not already set).
 - `apiKey`: optional convenience for skills that declare a primary env var.
@@ -69,6 +71,7 @@ When a session is **sandboxed**, skill processes run inside Docker. The sandbox
 does **not** inherit the host `process.env`.
 
 Use one of:
+
 - `agents.defaults.sandbox.docker.env` (or per-agent `agents.list[].sandbox.docker.env`)
 - bake the env into your custom sandbox image
 

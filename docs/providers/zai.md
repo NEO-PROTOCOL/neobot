@@ -1,6 +1,7 @@
 ---
 summary: "Use Z.AI (GLM models) with Moltbot"
 read_when:
+
   - You want Z.AI / GLM models in Moltbot
   - You need a simple ZAI_API_KEY setup
 ---

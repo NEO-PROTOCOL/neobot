@@ -1,6 +1,7 @@
 ---
 summary: "VPS hosting hub for Moltbot (Oracle/Fly/Hetzner/GCP/exe.dev)"
 read_when:
+
   - You want to run the Gateway in the cloud
   - You need a quick map of VPS/hosting guides
 ---
@@ -19,6 +20,7 @@ deployments work at a high level.
 - **GCP (Compute Engine)**: [GCP](/platforms/gcp)
 - **exe.dev** (VM + HTTPS proxy): [exe.dev](/platforms/exe-dev)
 - **AWS (EC2/Lightsail/free tier)**: works well too. Video guide:
+
   https://x.com/techfrenAJ/status/2014934471095812547
 
 ## How cloud setups work

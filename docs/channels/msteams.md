@@ -1,6 +1,7 @@
 ---
 summary: "Microsoft Teams bot support status, capabilities, and configuration"
 read_when:
+
   - Working on MS Teams channel features
 ---
 # Microsoft Teams (plugin)
@@ -13,6 +14,7 @@ Updated: 2026-01-21
 Status: text + DM attachments are supported; channel/group file sending requires `sharePointSiteId` + Graph permissions (see [Sending files in group chats](#sending-files-in-group-chats)). Polls are sent via Adaptive Cards.
 
 ## Plugin required
+
 Microsoft Teams ships as a plugin and is not bundled with the core install.
 
 **Breaking change (2026.1.15):** MS Teams moved out of core. If you use it, you must install the plugin.
@@ -20,11 +22,13 @@ Microsoft Teams ships as a plugin and is not bundled with the core install.
 Explainable: keeps core installs lighter and lets MS Teams dependencies update independently.
 
 Install via CLI (npm registry):
+
 ```bash
 moltbot plugins install @moltbot/msteams
 ```
 
 Local checkout (when running from a git repo):
+
 ```bash
 moltbot plugins install ./extensions/msteams
 ```
@@ -35,6 +39,7 @@ Moltbot will offer the local install path automatically.
 Details: [Plugins](/plugin)
 
 ## Quick setup (beginner)
+
 1) Install the Microsoft Teams plugin.
 2) Create an **Azure Bot** (App ID + client secret + tenant ID).
 3) Configure Moltbot with those credentials.
@@ -42,6 +47,7 @@ Details: [Plugins](/plugin)
 5) Install the Teams app package and start the gateway.
 
 Minimal config:
+
 ```json5
 {
   channels: {
@@ -58,14 +64,17 @@ Minimal config:
 Note: group chats are blocked by default (`channels.msteams.groupPolicy: "allowlist"`). To allow group replies, set `channels.msteams.groupAllowFrom` (or use `groupPolicy: "open"` to allow any member, mention-gated).
 
 ## Goals
+
 - Talk to Moltbot via Teams DMs, group chats, or channels.
 - Keep routing deterministic: replies always go back to the channel they arrived on.
 - Default to safe channel behavior (mentions required unless configured otherwise).
 
 ## Config writes
+
 By default, Microsoft Teams is allowed to write config updates triggered by `/config set|unset` (requires `commands.config: true`).
 
 Disable with:
+
 ```json5
 {
   channels: { msteams: { configWrites: false } }
@@ -85,6 +94,7 @@ Disable with:
 - To allow **no channels**, set `channels.msteams.groupPolicy: "disabled"`.
 
 Example:
+
 ```json5
 {
   channels: {
@@ -105,6 +115,7 @@ Example:
   and logs the mapping; unresolved entries are kept as typed.
 
 Example:
+
 ```json5
 {
   channels: {
@@ -123,6 +134,7 @@ Example:
 ```
 
 ## How it works
+
 1. Install the Microsoft Teams plugin.
 2. Create an **Azure Bot** (App ID + secret + tenant ID).
 3. Build a **Teams app package** that references the bot and includes the RSC permissions below.
@@ -164,6 +176,7 @@ Before configuring Moltbot, you need to create an Azure Bot resource.
 
 1. In Azure Bot → **Configuration**
 2. Set **Messaging endpoint** to your webhook URL:
+
    - Production: `https://your-domain.com/api/messages`
    - Local dev: Use a tunnel (see [Local Development](#local-development-tunneling) below)
 
@@ -217,12 +230,14 @@ This is often easier than hand-editing JSON manifests.
 3. Check gateway logs for incoming activity
 
 ## Setup (minimal text-only)
+
 1. **Install the Microsoft Teams plugin**
    - From npm: `moltbot plugins install @moltbot/msteams`
    - From a local checkout: `moltbot plugins install ./extensions/msteams`
 
 2. **Bot registration**
    - Create an Azure Bot (see above) and note:
+
      - App ID
      - Client secret (App password)
      - Tenant ID (single-tenant)
@@ -249,23 +264,27 @@ This is often easier than hand-editing JSON manifests.
    ```
 
    You can also use environment variables instead of config keys:
+
    - `MSTEAMS_APP_ID`
    - `MSTEAMS_APP_PASSWORD`
    - `MSTEAMS_TENANT_ID`
 
 5. **Bot endpoint**
    - Set the Azure Bot Messaging Endpoint to:
+
      - `https://<host>:3978/api/messages` (or your chosen path/port).
 
 6. **Run the gateway**
    - The Teams channel starts automatically when the plugin is installed and `msteams` config exists with credentials.
 
 ## History context
+
 - `channels.msteams.historyLimit` controls how many recent channel/group messages are wrapped into the prompt.
 - Falls back to `messages.groupChat.historyLimit`. Set `0` to disable (default 50).
 - DM history can be limited with `channels.msteams.dmHistoryLimit` (user turns). Per-user overrides: `channels.msteams.dms["<user_id>"].historyLimit`.
 
 ## Current Teams RSC Permissions (Manifest)
+
 These are the **existing resourceSpecific permissions** in our Teams app manifest. They only apply inside the team/chat where the app is installed.
 
 **For channels (team scope):**
@@ -281,6 +300,7 @@ These are the **existing resourceSpecific permissions** in our Teams app manifes
 - `ChatMessage.Read.Chat` (Application) - receive all group chat messages without @mention
 
 ## Example Teams Manifest (redacted)
+
 Minimal, valid example with the required fields. Replace IDs and URLs.
 
 ```json
@@ -330,6 +350,7 @@ Minimal, valid example with the required fields. Replace IDs and URLs.
 ```
 
 ### Manifest caveats (must-have fields)
+
 - `bots[].botId` **must** match the Azure Bot App ID.
 - `webApplicationInfo.id` **must** match the Azure Bot App ID.
 - `bots[].scopes` must include the surfaces you plan to use (`personal`, `team`, `groupChat`).
@@ -344,6 +365,7 @@ To update an already-installed Teams app (e.g., to add RSC permissions):
 2. **Increment the `version` field** (e.g., `1.0.0` → `1.1.0`)
 3. **Re-zip** the manifest with icons (`manifest.json`, `outline.png`, `color.png`)
 4. Upload the new zip:
+
    - **Option A (Teams Admin Center):** Teams Admin Center → Teams apps → Manage apps → find your app → Upload new version
    - **Option B (Sideload):** In Teams → Apps → Manage your apps → Upload a custom app
 5. **For team channels:** Reinstall the app in each team for new permissions to take effect
@@ -352,18 +374,23 @@ To update an already-installed Teams app (e.g., to add RSC permissions):
 ## Capabilities: RSC only vs Graph
 
 ### With **Teams RSC only** (app installed, no Graph API permissions)
+
 Works:
+
 - Read channel message **text** content.
 - Send channel message **text** content.
 - Receive **personal (DM)** file attachments.
 
 Does NOT work:
+
 - Channel/group **image or file contents** (payload only includes HTML stub).
 - Downloading attachments stored in SharePoint/OneDrive.
 - Reading message history (beyond the live webhook event).
 
 ### With **Teams RSC + Microsoft Graph Application permissions**
+
 Adds:
+
 - Downloading hosted contents (images pasted into messages).
 - Downloading file attachments stored in SharePoint/OneDrive.
 - Reading channel/chat message history via Graph.
@@ -380,9 +407,11 @@ Adds:
 **Bottom line:** RSC is for real-time listening; Graph API is for historical access. For catching up on missed messages while offline, you need Graph API with `ChannelMessage.Read.All` (requires admin consent).
 
 ## Graph-enabled media + history (required for channels)
+
 If you need images/files in **channels** or want to fetch **message history**, you must enable Microsoft Graph permissions and grant admin consent.
 
 1. In Entra ID (Azure AD) **App Registration**, add Microsoft Graph **Application permissions**:
+
    - `ChannelMessage.Read.All` (channel attachments + history)
    - `Chat.Read.All` or `ChatMessage.Read.All` (group chats)
 2. **Grant admin consent** for the tenant.
@@ -392,7 +421,9 @@ If you need images/files in **channels** or want to fetch **message history**, y
 ## Known Limitations
 
 ### Webhook timeouts
+
 Teams delivers messages via HTTP webhook. If processing takes too long (e.g., slow LLM responses), you may see:
+
 - Gateway timeouts
 - Teams retrying the message (causing duplicates)
 - Dropped replies
@@ -400,12 +431,15 @@ Teams delivers messages via HTTP webhook. If processing takes too long (e.g., sl
 Moltbot handles this by returning quickly and sending replies proactively, but very slow responses may still cause issues.
 
 ### Formatting
+
 Teams markdown is more limited than Slack or Discord:
+
 - Basic formatting works: **bold**, *italic*, `code`, links
 - Complex markdown (tables, nested lists) may not render correctly
 - Adaptive Cards are supported for polls and arbitrary card sends (see below)
 
 ## Configuration
+
 Key settings (see `/gateway/configuration` for shared channel patterns):
 
 - `channels.msteams.enabled`: enable/disable the channel.
@@ -430,9 +464,12 @@ Key settings (see `/gateway/configuration` for shared channel patterns):
 - `channels.msteams.sharePointSiteId`: SharePoint site ID for file uploads in group chats/channels (see [Sending files in group chats](#sending-files-in-group-chats)).
 
 ## Routing & Sessions
+
 - Session keys follow the standard agent format (see [/concepts/session](/concepts/session)):
+
   - Direct messages share the main session (`agent:<agentId>:<mainKey>`).
   - Channel/group messages use conversation id:
+
     - `agent:<agentId>:msteams:channel:<conversationId>`
     - `agent:<agentId>:msteams:group:<conversationId>`
 
@@ -446,6 +483,7 @@ Teams recently introduced two channel UI styles over the same underlying data mo
 | **Threads** (Slack-like) | Messages flow linearly, more like Slack | `top-level` |
 
 **The problem:** The Teams API does not expose which UI style a channel uses. If you use the wrong `replyStyle`:
+
 - `thread` in a Threads-style channel → replies appear nested awkwardly
 - `top-level` in a Posts-style channel → replies appear as separate top-level posts instead of in-thread
 
@@ -494,6 +532,7 @@ Bots don't have a personal OneDrive drive (the `/me/drive` Graph API endpoint do
 ### Setup
 
 1. **Add Graph API permissions** in Entra ID (Azure AD) → App Registration:
+
    - `Sites.ReadWrite.All` (Application) - upload files to SharePoint
    - `Chat.Read.All` (Application) - optional, enables per-user sharing links
 
@@ -547,6 +586,7 @@ Per-user sharing is more secure as only the chat participants can access the fil
 Uploaded files are stored in a `/MoltbotShared/` folder in the configured SharePoint site's default document library.
 
 ## Polls (Adaptive Cards)
+
 Moltbot sends Teams polls as Adaptive Cards (there is no native Teams poll API).
 
 - CLI: `moltbot message poll --channel msteams --target conversation:<id> ...`
@@ -555,6 +595,7 @@ Moltbot sends Teams polls as Adaptive Cards (there is no native Teams poll API).
 - Polls do not auto-post result summaries yet (inspect the store file if needed).
 
 ## Adaptive Cards (arbitrary)
+
 Send any Adaptive Card JSON to Teams users or conversations using the `message` tool or CLI.
 
 The `card` parameter accepts an Adaptive Card JSON object. When `card` is provided, the message text is optional.
@@ -631,6 +672,7 @@ moltbot message send --channel msteams --target "conversation:19:abc...@thread.t
 Note: Without the `user:` prefix, names default to group/team resolution. Always use `user:` when targeting people by display name.
 
 ## Proactive messaging
+
 - Proactive messages are only possible **after** a user has interacted, because we store conversation references at that point.
 - See `/gateway/configuration` for `dmPolicy` and allowlist gating.
 
@@ -698,6 +740,7 @@ Bots have limited support in private channels:
 4. Confirm you're using the right scope: `ChannelMessage.Read.Group` for teams, `ChatMessage.Read.Chat` for group chats
 
 ## References
+
 - [Create Azure Bot](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-quickstart-registration) - Azure Bot setup guide
 - [Teams Developer Portal](https://dev.teams.microsoft.com/apps) - create/manage Teams apps
 - [Teams app manifest schema](https://learn.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema)

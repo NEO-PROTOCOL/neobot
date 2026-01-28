@@ -3,18 +3,21 @@
 ## ✨ O que foi implementado
 
 ### 🎯 **Chat Inteligente no Dashboard**
+
 - Interface visual premium integrada ao bento grid
 - Contexto de conversa mantido automaticamente
 - Respostas em tempo real do Claude Sonnet 4
 - Histórico de mensagens com timestamps
 
 ### 📊 **Analytics em Tempo Real**
+
 - Total de requests
 - Tokens consumidos
 - Custo total e por request
 - Tempo médio de resposta
 
 ### 🔌 **API REST Completa**
+
 ```
 POST /api/ai/chat              - Chat com contexto
 POST /api/ai/analyze-image     - Análise de imagens
@@ -28,6 +31,7 @@ POST /api/ai/clear-context     - Limpar contexto
 ### 1. **Configurar API Key**
 
 Já está configurado no `.env`:
+
 ```bash
 ANTHROPIC_API_KEY=sk-ant-...
 ```
@@ -139,16 +143,19 @@ pnpm tsx skills/ai/scripts/chat.ts "sua pergunta aqui"
 ## 💡 Dicas Pro
 
 ### **Economizar Tokens**
+
 - Seja específico nas perguntas
 - Use o botão de limpar contexto quando mudar de assunto
 - Evite mensagens muito longas
 
 ### **Melhores Resultados**
+
 - Dê contexto claro
 - Peça exemplos quando necessário
 - Use formatação markdown nas perguntas
 
 ### **Performance**
+
 - Respostas típicas: 1-3 segundos
 - Máximo de tokens por resposta: 4096
 - Modelo usado: Claude Sonnet 4 (mais recente!)
@@ -156,6 +163,7 @@ pnpm tsx skills/ai/scripts/chat.ts "sua pergunta aqui"
 ## 🎨 Interface
 
 ### **Design Premium**
+
 - ✅ Dark theme moderno
 - ✅ Mensagens com gradientes
 - ✅ Animações suaves
@@ -164,7 +172,9 @@ pnpm tsx skills/ai/scripts/chat.ts "sua pergunta aqui"
 - ✅ Loading states
 
 ### **Responsivo**
+
 Funciona perfeitamente em:
+
 - Desktop
 - Tablet  
 - Mobile

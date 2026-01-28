@@ -1,6 +1,7 @@
 ---
 summary: "Guidance for choosing between heartbeat and cron jobs for automation"
 read_when:
+
   - Deciding how to schedule recurring tasks
   - Setting up background monitoring or notifications
   - Optimizing token usage for periodic checks
@@ -157,6 +158,7 @@ The most efficient setup uses **both**:
 ### Example: Efficient automation setup
 
 **HEARTBEAT.md** (checked every 30 min):
+
 ```md
 # Heartbeat checklist
 - Scan inbox for urgent emails
@@ -166,6 +168,7 @@ The most efficient setup uses **both**:
 ```
 
 **Cron jobs** (precise timing):
+
 ```bash
 # Daily morning briefing at 7am
 moltbot cron add --name "Morning brief" --cron "0 7 * * *" --session isolated --message "..." --deliver
@@ -221,6 +224,7 @@ Both heartbeat and cron can interact with the main session, but differently:
 ### When to use main session cron
 
 Use `--session main` with `--system-event` when you want:
+
 - The reminder/event to appear in main session context
 - The agent to handle it during the next heartbeat with full context
 - No separate isolated run
@@ -237,6 +241,7 @@ moltbot cron add \
 ### When to use isolated cron
 
 Use `--session isolated` when you want:
+
 - A clean slate without prior context
 - Different model or thinking settings
 - Output delivered directly to a channel (summary still posts to main by default)
@@ -262,6 +267,7 @@ moltbot cron add \
 | Cron (isolated) | Full agent turn per job; can use cheaper model |
 
 **Tips**:
+
 - Keep `HEARTBEAT.md` small to minimize token overhead.
 - Batch similar checks into heartbeat instead of multiple cron jobs.
 - Use `target: "none"` on heartbeat if you only want internal processing.

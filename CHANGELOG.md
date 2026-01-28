@@ -104,6 +104,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 #### Sistema de Automações
 
 - 4 automações pré-configuradas:
+
   - Relatório Diário Inteligente (18h)
   - Briefing Matinal (8h)
   - Resumo Semanal (Segunda 9h)

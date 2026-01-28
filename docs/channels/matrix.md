@@ -1,6 +1,7 @@
 ---
 summary: "Matrix support status, capabilities, and configuration"
 read_when:
+
   - Working on Matrix channel features
 ---
 # Matrix (plugin)
@@ -37,12 +38,15 @@ Details: [Plugins](/plugin)
 ## Setup
 
 1) Install the Matrix plugin:
+
    - From npm: `moltbot plugins install @moltbot/matrix`
    - From a local checkout: `moltbot plugins install ./extensions/matrix`
 2) Create a Matrix account on a homeserver:
+
    - Browse hosting options at [https://matrix.org/ecosystem/hosting/](https://matrix.org/ecosystem/hosting/)
    - Or host it yourself.
 3) Get an access token for the bot account:
+
    - Use the Matrix login API with `curl` at your home server:
 
    ```bash
@@ -64,6 +68,7 @@ Details: [Plugins](/plugin)
      login endpoint, stores the access token in `~/.clawdbot/credentials/matrix/credentials.json`,
      and reuses it on next start.
 4) Configure credentials:
+
    - Env: `MATRIX_HOMESERVER`, `MATRIX_ACCESS_TOKEN` (or `MATRIX_USER_ID` + `MATRIX_PASSWORD`)
    - Or config: `channels.matrix.*`
    - If both are set, config takes precedence.
@@ -142,6 +147,7 @@ Once verified, the bot can decrypt messages in encrypted rooms.
 
 - Default: `channels.matrix.dm.policy = "pairing"`. Unknown senders get a pairing code.
 - Approve via:
+
   - `moltbot pairing list matrix`
   - `moltbot pairing approve matrix <CODE>`
 - Public DMs: `channels.matrix.dm.policy="open"` plus `channels.matrix.dm.allowFrom=["*"]`.
@@ -181,8 +187,10 @@ Once verified, the bot can decrypt messages in encrypted rooms.
 
 - Reply threading is supported.
 - `channels.matrix.threadReplies` controls whether replies stay in threads:
+
   - `off`, `inbound` (default), `always`
 - `channels.matrix.replyToMode` controls reply-to metadata when not replying in a thread:
+
   - `off` (default), `first`, `all`
 
 ## Capabilities

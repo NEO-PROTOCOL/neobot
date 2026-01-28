@@ -1,6 +1,7 @@
 ---
 summary: "Routing rules per channel (WhatsApp, Telegram, Discord, Slack) and shared context"
 read_when:
+
   - Changing channel routing or inbox behavior
 ---
 # Channels & routing
@@ -108,6 +109,7 @@ agent in one place.
 ## Reply context
 
 Inbound replies include:
+
 - `ReplyToId`, `ReplyToBody`, and `ReplyToSender` when available.
 - Quoted context is appended to `Body` as a `[Replying to ...]` block.
 

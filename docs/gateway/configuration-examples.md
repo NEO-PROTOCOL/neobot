@@ -1,6 +1,7 @@
 ---
 summary: "Schema-accurate configuration examples for common Moltbot setups"
 read_when:
+
   - Learning how to configure Moltbot
   - Looking for configuration examples
   - Setting up Moltbot for the first time
@@ -12,6 +13,7 @@ Examples below are aligned with the current config schema. For the exhaustive re
 ## Quick start
 
 ### Absolute minimum
+
 ```json5
 {
   agent: { workspace: "~/clawd" },
@@ -22,6 +24,7 @@ Examples below are aligned with the current config schema. For the exhaustive re
 Save to `~/.clawdbot/moltbot.json` and you can DM the bot from that number.
 
 ### Recommended starter
+
 ```json5
 {
   identity: {
@@ -423,6 +426,7 @@ Save to `~/.clawdbot/moltbot.json` and you can DM the bot from that number.
 ## Common patterns
 
 ### Multi-platform setup
+
 ```json5
 {
   agent: { workspace: "~/clawd" },
@@ -443,6 +447,7 @@ Save to `~/.clawdbot/moltbot.json` and you can DM the bot from that number.
 ```
 
 ### OAuth with API key failover
+
 ```json5
 {
   auth: {
@@ -472,6 +477,7 @@ Save to `~/.clawdbot/moltbot.json` and you can DM the bot from that number.
 ```
 
 ### Anthropic subscription + API key, MiniMax fallback
+
 ```json5
 {
   auth: {
@@ -510,6 +516,7 @@ Save to `~/.clawdbot/moltbot.json` and you can DM the bot from that number.
 ```
 
 ### Work bot (restricted access)
+
 ```json5
 {
   identity: {
@@ -534,6 +541,7 @@ Save to `~/.clawdbot/moltbot.json` and you can DM the bot from that number.
 ```
 
 ### Local models only
+
 ```json5
 {
   agent: {

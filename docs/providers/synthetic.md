@@ -1,6 +1,7 @@
 ---
 summary: "Use Synthetic's Anthropic-compatible API in Moltbot"
 read_when:
+
   - You want to use Synthetic as a model provider
   - You need a Synthetic API key or base URL setup
 ---

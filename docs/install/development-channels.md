@@ -1,6 +1,7 @@
 ---
 summary: "Stable, beta, and dev channels: semantics, switching, and tagging"
 read_when:
+
   - You want to switch between stable/beta/dev
   - You are tagging or publishing prereleases
 ---
@@ -62,6 +63,7 @@ When you switch channels with `moltbot update`, Moltbot also syncs plugin source
 - Tag releases you want git checkouts to land on (`vYYYY.M.D` or `vYYYY.M.D-<patch>`).
 - Keep tags immutable: never move or reuse a tag.
 - npm dist-tags remain the source of truth for npm installs:
+
   - `latest` → stable
   - `beta` → candidate build
   - `dev` → main snapshot (optional)

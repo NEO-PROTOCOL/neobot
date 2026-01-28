@@ -1,6 +1,7 @@
 ---
 summary: "Gateway runtime on macOS (external launchd service)"
 read_when:
+
   - Packaging Moltbot.app
   - Debugging the macOS gateway launchd service
   - Installing the gateway CLI for macOS
@@ -26,23 +27,28 @@ The macOS app’s **Install CLI** button runs the same flow via npm/pnpm (bun no
 ## Launchd (Gateway as LaunchAgent)
 
 Label:
+
 - `bot.molt.gateway` (or `bot.molt.<profile>`; legacy `com.clawdbot.*` may remain)
 
 Plist location (per‑user):
+
 - `~/Library/LaunchAgents/bot.molt.gateway.plist`
   (or `~/Library/LaunchAgents/bot.molt.<profile>.plist`)
 
 Manager:
+
 - The macOS app owns LaunchAgent install/update in Local mode.
 - The CLI can also install it: `moltbot gateway install`.
 
 Behavior:
+
 - “Moltbot Active” enables/disables the LaunchAgent.
 - App quit does **not** stop the gateway (launchd keeps it alive).
 - If a Gateway is already running on the configured port, the app attaches to
   it instead of starting a new one.
 
 Logging:
+
 - launchd stdout/err: `/tmp/moltbot/moltbot-gateway.log`
 
 ## Version compatibility

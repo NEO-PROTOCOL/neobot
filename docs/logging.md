@@ -1,6 +1,7 @@
 ---
 summary: "Logging overview: file logs, console output, CLI tailing, and the Control UI"
 read_when:
+
   - You need a beginner-friendly overview of logging
   - You want to configure log levels or formats
   - You are troubleshooting and need to find logs quickly
@@ -163,9 +164,11 @@ diagnostics + the exporter plugin are enabled.
 ### Diagnostic event catalog
 
 Model usage:
+
 - `model.usage`: tokens, cost, duration, context, provider/model/channel, session ids.
 
 Message flow:
+
 - `webhook.received`: webhook ingress per channel.
 - `webhook.processed`: webhook handled + duration.
 - `webhook.error`: webhook handler errors.
@@ -173,6 +176,7 @@ Message flow:
 - `message.processed`: outcome + duration + optional error.
 
 Queue + session:
+
 - `queue.lane.enqueue`: command queue lane enqueue + depth.
 - `queue.lane.dequeue`: command queue lane dequeue + wait time.
 - `session.state`: session state transition + reason.
@@ -212,6 +216,7 @@ CLAWDBOT_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 Notes:
+
 - Flag logs go to the standard log file (same as `logging.file`).
 - Output is still redacted according to `logging.redactSensitive`.
 - Full guide: [/diagnostics/flags](/diagnostics/flags).
@@ -249,6 +254,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 ```
 
 Notes:
+
 - You can also enable the plugin with `moltbot plugins enable diagnostics-otel`.
 - `protocol` currently supports `http/protobuf` only. `grpc` is ignored.
 - Metrics include token usage, cost, context size, run duration, and message-flow
@@ -262,6 +268,7 @@ Notes:
 ### Exported metrics (names + types)
 
 Model usage:
+
 - `moltbot.tokens` (counter, attrs: `moltbot.token`, `moltbot.channel`,
   `moltbot.provider`, `moltbot.model`)
 - `moltbot.cost.usd` (counter, attrs: `moltbot.channel`, `moltbot.provider`,
@@ -272,6 +279,7 @@ Model usage:
   `moltbot.channel`, `moltbot.provider`, `moltbot.model`)
 
 Message flow:
+
 - `moltbot.webhook.received` (counter, attrs: `moltbot.channel`,
   `moltbot.webhook`)
 - `moltbot.webhook.error` (counter, attrs: `moltbot.channel`,
@@ -286,6 +294,7 @@ Message flow:
   `moltbot.outcome`)
 
 Queues + sessions:
+
 - `moltbot.queue.lane.enqueue` (counter, attrs: `moltbot.lane`)
 - `moltbot.queue.lane.dequeue` (counter, attrs: `moltbot.lane`)
 - `moltbot.queue.depth` (histogram, attrs: `moltbot.lane` or

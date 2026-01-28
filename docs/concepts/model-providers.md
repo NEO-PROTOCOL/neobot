@@ -1,6 +1,7 @@
 ---
 summary: "Model provider overview with example configs + CLI flows"
 read_when:
+
   - You need a provider-by-provider model setup reference
   - You want example configs or CLI onboarding commands for model providers
 ---
@@ -132,6 +133,7 @@ Moonshot uses OpenAI-compatible endpoints, so configure it as a custom provider:
 - Auth: `MOONSHOT_API_KEY`
 - Example model: `moonshot/kimi-k2-0905-preview`
 - Kimi K2 model IDs:
+
   {/* moonshot-kimi-k2-model-refs:start */}
   - `moonshot/kimi-k2-0905-preview`
   - `moonshot/kimi-k2-turbo-preview`
@@ -196,6 +198,7 @@ moltbot models auth login --provider qwen-portal --set-default
 ```
 
 Model refs:
+
 - `qwen-portal/coder-model`
 - `qwen-portal/vision-model`
 
@@ -298,8 +301,10 @@ Example (OpenAI‑compatible):
 ```
 
 Notes:
+
 - For custom providers, `reasoning`, `input`, `cost`, `contextWindow`, and `maxTokens` are optional.
   When omitted, Moltbot defaults to:
+
   - `reasoning: false`
   - `input: ["text"]`
   - `cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }`

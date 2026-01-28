@@ -1,6 +1,7 @@
 ---
 summary: "Updating Moltbot safely (global install or source), plus rollback strategy"
 read_when:
+
   - Updating Moltbot
   - Something breaks after an update
 ---
@@ -20,8 +21,10 @@ curl -fsSL https://molt.bot/install.sh | bash
 ```
 
 Notes:
+
 - Add `--no-onboard` if you don’t want the onboarding wizard to run again.
 - For **source installs**, use:
+
   ```bash
   curl -fsSL https://molt.bot/install.sh | bash -s -- --install-method git --no-onboard
   ```
@@ -34,6 +37,7 @@ Notes:
 - Know how you installed: **global** (npm/pnpm) vs **from source** (git clone).
 - Know how your Gateway is running: **foreground terminal** vs **supervised service** (launchd/systemd).
 - Snapshot your tailoring:
+
   - Config: `~/.clawdbot/moltbot.json`
   - Credentials: `~/.clawdbot/credentials/`
   - Workspace: `~/clawd`
@@ -74,6 +78,7 @@ moltbot health
 ```
 
 Notes:
+
 - If your Gateway runs as a service, `moltbot gateway restart` is preferred over killing PIDs.
 - If you’re pinned to a specific version, see “Rollback / pinning” below.
 
@@ -86,6 +91,7 @@ moltbot update
 ```
 
 It runs a safe-ish update flow:
+
 - Requires a clean worktree.
 - Switches to the selected channel (tag or branch).
 - Fetches + rebases against the configured upstream (dev channel).
@@ -97,6 +103,7 @@ If you installed via **npm/pnpm** (no git metadata), `moltbot update` will try t
 ## Update (Control UI / RPC)
 
 The Control UI has **Update & Restart** (RPC: `update.run`). It:
+
 1) Runs the same source-update flow as `moltbot update` (git checkout only).
 2) Writes a restart sentinel with a structured report (stdout/stderr tail).
 3) Restarts the gateway and pings the last active session with the report.
@@ -125,6 +132,7 @@ moltbot health
 ```
 
 Notes:
+
 - `pnpm build` matters when you run the packaged `moltbot` binary ([`moltbot.mjs`](https://github.com/moltbot/moltbot/blob/main/moltbot.mjs)) or use Node to run `dist/`.
 - If you run from a repo checkout without a global install, use `pnpm moltbot ...` for CLI commands.
 - If you run directly from TypeScript (`pnpm moltbot ...`), a rebuild is usually unnecessary, but **config migrations still apply** → run doctor.
@@ -137,6 +145,7 @@ Doctor is the “safe update” command. It’s intentionally boring: repair + m
 Note: if you’re on a **source install** (git checkout), `moltbot doctor` will offer to run `moltbot update` first.
 
 Typical things it does:
+
 - Migrate deprecated config keys / legacy config file locations.
 - Audit DM policies and warn on risky “open” settings.
 - Check Gateway health and can offer to restart.
@@ -158,6 +167,7 @@ moltbot logs --follow
 ```
 
 If you’re supervised:
+
 - macOS launchd (app-bundled LaunchAgent): `launchctl kickstart -k gui/$UID/bot.molt.gateway` (use `bot.molt.<profile>`; legacy `com.clawdbot.*` still works)
 - Linux systemd user service: `systemctl --user restart moltbot-gateway[-<profile>].service`
 - Windows (WSL2): `systemctl --user restart moltbot-gateway[-<profile>].service`

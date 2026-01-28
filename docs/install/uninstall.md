@@ -1,6 +1,7 @@
 ---
 summary: "Uninstall Moltbot completely (CLI, service, state, workspace)"
 read_when:
+
   - You want to remove Moltbot from a machine
   - The gateway service is still running after uninstall
 ---
@@ -8,6 +9,7 @@ read_when:
 # Uninstall
 
 Two paths:
+
 - **Easy path** if `moltbot` is still installed.
 - **Manual service removal** if the CLI is gone but the service is still running.
 
@@ -69,6 +71,7 @@ rm -rf /Applications/Moltbot.app
 ```
 
 Notes:
+
 - If you used profiles (`--profile` / `CLAWDBOT_PROFILE`), repeat step 3 for each state dir (defaults are `~/.clawdbot-<profile>`).
 - In remote mode, the state dir lives on the **gateway host**, so run steps 1-4 there too.
 

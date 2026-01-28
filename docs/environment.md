@@ -1,6 +1,7 @@
 ---
 summary: "Where Moltbot loads environment variables and the precedence order"
 read_when:
+
   - You need to know which env vars are loaded, and in what order
   - You are debugging missing API keys in the Gateway
   - You are documenting provider auth or deployment environments
@@ -50,6 +51,7 @@ Two equivalent ways to set inline env vars (both are non-overriding):
 ```
 
 Env var equivalents:
+
 - `CLAWDBOT_LOAD_SHELL_ENV=1`
 - `CLAWDBOT_SHELL_ENV_TIMEOUT_MS=15000`
 

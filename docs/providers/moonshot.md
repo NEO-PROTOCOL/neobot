@@ -1,6 +1,7 @@
 ---
 summary: "Configure Moonshot K2 vs Kimi Code (separate providers + keys)"
 read_when:
+
   - You want Moonshot K2 (Moonshot Open Platform) vs Kimi Code setup
   - You need to understand separate endpoints, keys, and model refs
   - You want copy/paste config for either provider
@@ -13,6 +14,7 @@ provider and set the default model to `moonshot/kimi-k2-0905-preview`, or use
 Kimi Code with `kimi-code/kimi-for-coding`.
 
 Current Kimi K2 model IDs:
+
 {/* moonshot-kimi-k2-ids:start */}
 - `kimi-k2-0905-preview`
 - `kimi-k2-turbo-preview`

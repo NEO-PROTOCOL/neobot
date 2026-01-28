@@ -1,6 +1,7 @@
 ---
 summary: "CLI reference for `moltbot message` (send + channel actions)"
 read_when:
+
   - Adding or modifying message CLI actions
   - Changing outbound channel behavior
 ---
@@ -17,11 +18,13 @@ moltbot message <subcommand> [flags]
 ```
 
 Channel selection:
+
 - `--channel` required if more than one channel is configured.
 - If exactly one channel is configured, it becomes the default.
 - Values: `whatsapp|telegram|discord|googlechat|slack|mattermost|signal|imessage|msteams` (Mattermost requires plugin)
 
 Target formats (`--target`):
+
 - WhatsApp: E.164 or group JID
 - Telegram: chat id or `@username`
 - Discord: `channel:<id>` or `user:<id>` (or `<@id>` mention; raw numeric ids are treated as channels)
@@ -33,6 +36,7 @@ Target formats (`--target`):
 - MS Teams: conversation id (`19:...@thread.tacv2`) or `conversation:<id>` or `user:<aad-object-id>`
 
 Name lookup:
+
 - For supported providers (Discord/Slack/etc), channel names like `Help` or `#help` are resolved via the directory cache.
 - On cache miss, Moltbot will attempt a live directory lookup when the provider supports it.
 
@@ -180,12 +184,14 @@ Name lookup:
 ## Examples
 
 Send a Discord reply:
+
 ```
 moltbot message send --channel discord \
   --target channel:123 --message "hi" --reply-to 456
 ```
 
 Create a Discord poll:
+
 ```
 moltbot message poll --channel discord \
   --target channel:123 \
@@ -195,12 +201,14 @@ moltbot message poll --channel discord \
 ```
 
 Send a Teams proactive message:
+
 ```
 moltbot message send --channel msteams \
   --target conversation:19:abc@thread.tacv2 --message "hi"
 ```
 
 Create a Teams poll:
+
 ```
 moltbot message poll --channel msteams \
   --target conversation:19:abc@thread.tacv2 \
@@ -209,12 +217,14 @@ moltbot message poll --channel msteams \
 ```
 
 React in Slack:
+
 ```
 moltbot message react --channel slack \
   --target C123 --message-id 456 --emoji "✅"
 ```
 
 React in a Signal group:
+
 ```
 moltbot message react --channel signal \
   --target signal:group:abc123 --message-id 1737630212345 \
@@ -222,6 +232,7 @@ moltbot message react --channel signal \
 ```
 
 Send Telegram inline buttons:
+
 ```
 moltbot message send --channel telegram --target @mychat --message "Choose:" \
   --buttons '[ [{"text":"Yes","callback_data":"cmd:yes"}], [{"text":"No","callback_data":"cmd:no"}] ]'

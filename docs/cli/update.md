@@ -1,6 +1,7 @@
 ---
 summary: "CLI reference for `moltbot update` (safe-ish source update + gateway auto-restart)"
 read_when:
+
   - You want to update a source checkout safely
   - You need to understand `--update` shorthand behavior
 ---
@@ -46,6 +47,7 @@ moltbot update status --timeout 10
 ```
 
 Options:
+
 - `--json`: print machine-readable status JSON.
 - `--timeout <seconds>`: timeout for checks (default is 3s).
 

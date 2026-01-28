@@ -1,6 +1,7 @@
 ---
 summary: "Logging surfaces, file logs, WS log styles, and console formatting"
 read_when:
+
   - Changing logging output or formats
   - Debugging CLI or gateway output
 ---
@@ -19,6 +20,7 @@ Moltbot has two log “surfaces”:
 - Default rolling log file is under `/tmp/moltbot/` (one file per day): `moltbot-YYYY-MM-DD.log`
   - Date uses the gateway host's local timezone.
 - The log file path and level can be configured via `~/.clawdbot/moltbot.json`:
+
   - `logging.file`
   - `logging.level`
 
@@ -65,6 +67,7 @@ console stream. This is **tools-only** and does not alter file logs.
 The gateway prints WebSocket protocol logs in two modes:
 
 - **Normal mode (no `--verbose`)**: only “interesting” RPC results are printed:
+
   - errors (`ok=false`)
   - slow calls (default threshold: `>= 50ms`)
   - parse errors

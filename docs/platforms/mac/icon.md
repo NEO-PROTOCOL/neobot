@@ -1,6 +1,7 @@
 ---
 summary: "Menu bar icon states and animations for Moltbot on macOS"
 read_when:
+
   - Changing menu bar icon behavior
 ---
 # Menu Bar Icon States

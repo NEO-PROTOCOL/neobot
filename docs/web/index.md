@@ -1,6 +1,7 @@
 ---
 summary: "Gateway web surfaces: Control UI, bind modes, and security"
 read_when:
+
   - You want to access the Gateway over Tailscale
   - You want the browser Control UI and config editing
 ---
@@ -54,6 +55,7 @@ moltbot gateway
 ```
 
 Open:
+
 - `https://<magicdns>/` (or your configured `gateway.controlUi.basePath`)
 
 ### Tailnet bind + token
@@ -75,6 +77,7 @@ moltbot gateway
 ```
 
 Open:
+
 - `http://<tailscale-ip>:18789/` (or your configured `gateway.controlUi.basePath`)
 
 ### Public internet (Funnel)

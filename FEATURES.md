@@ -5,6 +5,7 @@
 ### 🎨 Design System
 
 #### Paleta de Cores iOS
+
 ```css
 • Primary Blue: #007AFF     - Ações principais
 • Purple: #5856D6          - Secundário
@@ -135,6 +136,7 @@ Métricas Claude:
 ```
 
 #### 9. 🔄 Automações Avançadas
+
 - Lista de todas as tarefas
 - Status (ativa/pausada)
 - Schedule (cron format)
@@ -143,12 +145,14 @@ Métricas Claude:
 - Last run timestamp
 
 #### 10. 📄 Gerador de Relatórios
+
 - Botão para gerar relatório
 - Preview do último relatório
 - Download automático
 - Integração com IA
 
 #### 11. 📈 Stats de Automações
+
 ```
 • Automações ativas
 • Total de execuções
@@ -172,6 +176,7 @@ src/automations/
 ### 🔧 Automações Disponíveis
 
 #### 1. Relatório Diário Inteligente
+
 ```yaml
 ID: intelligent-report
 Schedule: 0 18 * * *  # 18h todo dia
@@ -190,6 +195,7 @@ Output:
 ```
 
 #### 2. Briefing Matinal
+
 ```yaml
 ID: morning-briefing
 Schedule: 0 8 * * *  # 8h todo dia
@@ -206,6 +212,7 @@ Output:
 ```
 
 #### 3. Resumo Semanal
+
 ```yaml
 ID: weekly-summary
 Schedule: 0 9 * * 1  # Segunda às 9h
@@ -223,6 +230,7 @@ Output:
 ```
 
 #### 4. Health Check
+
 ```yaml
 ID: health-check
 Schedule: */5 * * * *  # A cada 5 min
@@ -252,6 +260,7 @@ Output:
 ### 📊 Intelligent Report Service
 
 #### Coleta de Dados
+
 ```typescript
 • System stats (uptime, memory, CPU)
 • AI usage (requests, tokens, cost)
@@ -261,6 +270,7 @@ Output:
 ```
 
 #### Geração de Relatório
+
 ```
 1. Coleta dados do sistema
 2. Envia para Claude AI
@@ -271,11 +281,13 @@ Output:
 ```
 
 #### Fallback Mode
+
 Se Claude falhar, gera relatório básico com templates.
 
 ## 🔌 API REST
 
 ### Base URL
+
 ```
 http://localhost:3000/api
 ```
@@ -283,24 +295,28 @@ http://localhost:3000/api
 ### Endpoints Principais
 
 #### Health & Status
+
 ```http
 GET  /health          # Sistema health check
 GET  /status          # Status detalhado
 ```
 
 #### Reminders
+
 ```http
 GET  /reminders       # Listar lembretes
 POST /reminders       # Criar lembrete
 ```
 
 #### Messages
+
 ```http
 GET  /messages        # Listar mensagens
 POST /messages        # Enviar mensagem
 ```
 
 #### AI
+
 ```http
 POST /ai/chat         # Chat com Claude
 POST /ai/analyze-bug  # Analisar bug
@@ -309,6 +325,7 @@ POST /ai/clear        # Limpar contexto
 ```
 
 #### Automations
+
 ```http
 GET  /automations/tasks              # Listar tarefas
 POST /automations/tasks/:id/execute  # Executar
@@ -319,6 +336,7 @@ GET  /automations/report/data        # Dados do relatório
 ```
 
 #### Stats
+
 ```http
 GET /stats           # Estatísticas gerais
 ```
@@ -360,6 +378,7 @@ GET /stats           # Estatísticas gerais
 ## 🎯 Fluxo de Trabalho
 
 ### 1. Desenvolvimento
+
 ```bash
 # Build do projeto
 pnpm run build
@@ -372,6 +391,7 @@ http://localhost:3000
 ```
 
 ### 2. Inicializar Automações
+
 ```typescript
 import { initializeAutomations } from './src/automations';
 
@@ -389,6 +409,7 @@ await manager.initialize();
 ```
 
 ### 3. Usar Dashboard
+
 ```
 1. Abrir http://localhost:3000
 2. Ver todas as seções automaticamente
@@ -400,7 +421,9 @@ await manager.initialize();
 ## 🎨 Temas & Customização
 
 ### Cores
+
 Editável em `dashboard/styles.css`:
+
 ```css
 :root {
     --accent-primary: #007AFF;
@@ -409,13 +432,17 @@ Editável em `dashboard/styles.css`:
 ```
 
 ### Layout
+
 Bento grid é responsivo:
+
 - Desktop: múltiplas colunas
 - Mobile: single column
 - Adapta automaticamente
 
 ### Componentes
+
 Adicione novos facilmente:
+
 1. HTML em `index.html`
 2. CSS em `styles.css`
 3. JS em `app.js`
@@ -423,6 +450,7 @@ Adicione novos facilmente:
 ## 🚀 Performance
 
 ### Otimizações
+
 - ✅ Auto-refresh otimizado (30s)
 - ✅ Backdrop-filter com GPU acceleration
 - ✅ Debounce em inputs
@@ -430,6 +458,7 @@ Adicione novos facilmente:
 - ✅ Cache de relatórios
 
 ### Métricas
+
 ```
 • First Paint: < 1s
 • Interactive: < 2s
@@ -440,6 +469,7 @@ Adicione novos facilmente:
 ## 🔒 Segurança
 
 ### Implementado
+
 - ✅ CORS configurado
 - ✅ Rate limiting (health check)
 - ✅ Input validation
@@ -448,6 +478,7 @@ Adicione novos facilmente:
 - ✅ Logs de auditoria
 
 ### Recomendações
+
 - [ ] Adicionar autenticação
 - [ ] HTTPS em produção
 - [ ] Rate limiting global
@@ -457,6 +488,7 @@ Adicione novos facilmente:
 ## 📱 Mobile Support
 
 ### Features
+
 - ✅ Responsive design
 - ✅ Touch-friendly buttons
 - ✅ Swipe gestures (scroll)
@@ -464,6 +496,7 @@ Adicione novos facilmente:
 - ✅ Viewport optimizado
 
 ### Testar
+
 ```
 1. Abrir em mobile browser
 2. Menu > "Adicionar à tela inicial"
@@ -473,6 +506,7 @@ Adicione novos facilmente:
 ## 🐛 Debugging
 
 ### Logs do Sistema
+
 ```bash
 # Ver logs do dashboard
 cd dashboard && node server.js
@@ -482,6 +516,7 @@ cd dashboard && node server.js
 ```
 
 ### Browser DevTools
+
 ```
 F12 > Console: Errors JavaScript
 F12 > Network: API requests
@@ -489,6 +524,7 @@ F12 > Elements: Inspecionar CSS
 ```
 
 ### API Testing
+
 ```bash
 # Test health
 curl http://localhost:3000/api/health
@@ -589,12 +625,14 @@ DevOps:
 ## 📞 Suporte
 
 ### Recursos
+
 - 📖 [Documentação Completa](docs/automations-guide.md)
 - 🚀 [Início Rápido](QUICKSTART.md)
 - 🎨 [Dashboard Guide](dashboard/README.md)
 - 💬 Issues no GitHub
 
 ### Contato
+
 - Email: support@neobot.com (exemplo)
 - Telegram: @neobot_support (exemplo)
 - GitHub: /neobot/issues (exemplo)

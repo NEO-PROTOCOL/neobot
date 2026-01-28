@@ -1,6 +1,7 @@
 ---
 summary: "Use Claude Max/Pro subscription as an OpenAI-compatible API endpoint"
 read_when:
+
   - You want to use Claude Max subscription with OpenAI-compatible tools
   - You want a local API server that wraps Claude Code CLI
   - You want to save money by using subscription instead of API keys
@@ -26,6 +27,7 @@ Your App → claude-max-api-proxy → Claude Code CLI → Anthropic (via subscri
 ```
 
 The proxy:
+
 1. Accepts OpenAI-format requests at `http://localhost:3456/v1/chat/completions`
 2. Converts them to Claude Code CLI commands
 3. Returns responses in OpenAI format (streaming supported)

@@ -1,6 +1,7 @@
 ---
 summary: "Step-by-step release checklist for npm + macOS app"
 read_when:
+
   - Cutting a new npm release
   - Cutting a new macOS app release
   - Verifying metadata before publishing
@@ -11,7 +12,9 @@ read_when:
 Use `pnpm` (Node 22+) from the repo root. Keep the working tree clean before tagging/publishing.
 
 ## Operator trigger
+
 When the operator says “release”, immediately do this preflight (no extra questions unless blocked):
+
 - Read this doc and `docs/platforms/mac/release.md`.
 - Load env from `~/.profile` and confirm `SPARKLE_PRIVATE_KEY_FILE` + App Store Connect vars are set (SPARKLE_PRIVATE_KEY_FILE should live in `~/.profile`).
 - Use Sparkle keys from `~/Library/CloudStorage/Dropbox/Backup/Sparkle` if needed.
@@ -63,12 +66,16 @@ When the operator says “release”, immediately do this preflight (no extra qu
 - [ ] Verify the registry: `npm view moltbot version`, `npm view moltbot dist-tags`, and `npx -y moltbot@X.Y.Z --version` (or `--help`).
 
 ### Troubleshooting (notes from 2.0.0-beta2 release)
+
 - **npm pack/publish hangs or produces huge tarball**: the macOS app bundle in `dist/Moltbot.app` (and release zips) get swept into the package. Fix by whitelisting publish contents via `package.json` `files` (include dist subdirs, docs, skills; exclude app bundles). Confirm with `npm pack --dry-run` that `dist/Moltbot.app` is not listed.
 - **npm auth web loop for dist-tags**: use legacy auth to get an OTP prompt:
+
   - `NPM_CONFIG_AUTH_TYPE=legacy npm dist-tag add moltbot@X.Y.Z latest`
 - **`npx` verification fails with `ECOMPROMISED: Lock compromised`**: retry with a fresh cache:
+
   - `NPM_CONFIG_CACHE=/tmp/npm-cache-$(date +%s) npx -y moltbot@X.Y.Z --version`
 - **Tag needs repointing after a late fix**: force-update and push the tag, then ensure the GitHub release assets still match:
+
   - `git tag -f vX.Y.Z && git push -f origin vX.Y.Z`
 
 7) **GitHub release + appcast**
@@ -86,11 +93,13 @@ plugins that are not on npm stay **disk-tree only** (still shipped in
 `extensions/**`).
 
 Process to derive the list:
+
 1) `npm search @moltbot --json` and capture the package names.
 2) Compare with `extensions/*/package.json` names.
 3) Publish only the **intersection** (already on npm).
 
 Current npm plugin list (update as needed):
+
 - @moltbot/bluebubbles
 - @moltbot/diagnostics-otel
 - @moltbot/discord

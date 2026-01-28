@@ -1,6 +1,7 @@
 ---
 summary: "Run Moltbot with Ollama (local LLM runtime)"
 read_when:
+
   - You want to run Moltbot with local models via Ollama
   - You need Ollama setup and configuration guidance
 ---
@@ -87,6 +88,7 @@ export OLLAMA_API_KEY="ollama-local"
 ### Explicit setup (manual models)
 
 Use explicit config when:
+
 - Ollama runs on another host/port.
 - You want to force specific context windows or model lists.
 - You want to include models that do not report tool support.
@@ -190,6 +192,7 @@ curl http://localhost:11434/api/tags
 ### No models available
 
 Moltbot only auto-discovers models that report tool support. If your model isn't listed, either:
+
 - Pull a tool-capable model, or
 - Define the model explicitly in `models.providers.ollama`.
 

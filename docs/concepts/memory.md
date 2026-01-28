@@ -1,6 +1,7 @@
 ---
 summary: "How Moltbot memory works (workspace files + automatic memory flush)"
 read_when:
+
   - You want the memory file layout and workflow
   - You want to tune the automatic pre-compaction memory flush
 ---
@@ -10,6 +11,7 @@ Moltbot memory is **plain Markdown in the agent workspace**. The files are the
 source of truth; the model only "remembers" what gets written to disk.
 
 Memory search tools are provided by the active memory plugin (default:
+
 `memory-core`). Disable memory plugins with `plugins.slots.memory = "none"`.
 
 ## Memory files (Markdown)
@@ -62,6 +64,7 @@ This is controlled by `agents.defaults.compaction.memoryFlush`:
 ```
 
 Details:
+
 - **Soft threshold**: flush triggers when the session token estimate crosses
   `contextWindow - reserveTokensFloor - softThresholdTokens`.
 - **Silent** by default: prompts include `NO_REPLY` so nothing is delivered.
@@ -79,9 +82,11 @@ Moltbot can build a small vector index over `MEMORY.md` and `memory/*.md` so
 semantic queries can find related notes even when wording differs.
 
 Defaults:
+
 - Enabled by default.
 - Watches memory files for changes (debounced).
 - Uses remote embeddings by default. If `memorySearch.provider` is not set, Moltbot auto-selects:
+
   1. `local` if a `memorySearch.local.modelPath` is configured and the file exists.
   2. `openai` if an OpenAI key can be resolved.
   3. `gemini` if a Gemini key can be resolved.
@@ -115,6 +120,7 @@ agents: {
 ```
 
 Notes:
+
 - `remote.baseUrl` is optional (defaults to the Gemini API base URL).
 - `remote.headers` lets you add extra headers if needed.
 - Default model: `gemini-embedding-001`.
@@ -142,10 +148,12 @@ If you don't want to set an API key, use `memorySearch.provider = "local"` or se
 `memorySearch.fallback = "none"`.
 
 Fallbacks:
+
 - `memorySearch.fallback` can be `openai`, `gemini`, `local`, or `none`.
 - The fallback provider is only used when the primary embedding provider fails.
 
 Batch indexing (OpenAI + Gemini):
+
 - Enabled by default for OpenAI and Gemini embeddings. Set `agents.defaults.memorySearch.remote.batch.enabled = false` to disable.
 - Default behavior waits for batch completion; tune `remote.batch.wait`, `remote.batch.pollIntervalMs`, and `remote.batch.timeoutMinutes` if needed.
 - Set `remote.batch.concurrency` to control how many batch jobs we submit in parallel (default: 2).
@@ -153,9 +161,11 @@ Batch indexing (OpenAI + Gemini):
 - Gemini batch jobs use the async embeddings batch endpoint and require Gemini Batch API availability.
 
 Why OpenAI batch is fast + cheap:
+
 - For large backfills, OpenAI is typically the fastest option we support because we can submit many embedding requests in a single batch job and let OpenAI process them asynchronously.
 - OpenAI offers discounted pricing for Batch API workloads, so large indexing runs are usually cheaper than sending the same requests synchronously.
 - See the OpenAI Batch API docs and pricing for details:
+
   - https://platform.openai.com/docs/api-reference/batch
   - https://platform.openai.com/pricing
 
@@ -178,10 +188,12 @@ agents: {
 ```
 
 Tools:
+
 - `memory_search` — returns snippets with file + line ranges.
 - `memory_get` — read memory file content by path.
 
 Local mode:
+
 - Set `agents.defaults.memorySearch.provider = "local"`.
 - Provide `agents.defaults.memorySearch.local.modelPath` (GGUF or `hf:` URI).
 - Optional: set `agents.defaults.memorySearch.fallback = "none"` to avoid remote fallback.
@@ -202,6 +214,7 @@ Local mode:
 ### Hybrid search (BM25 + vector)
 
 When enabled, Moltbot combines:
+
 - **Vector similarity** (semantic match, wording can differ)
 - **BM25 keyword relevance** (exact tokens like IDs, env vars, code symbols)
 
@@ -210,10 +223,12 @@ If full-text search is unavailable on your platform, Moltbot falls back to vecto
 #### Why hybrid?
 
 Vector search is great at “this means the same thing”:
+
 - “Mac Studio gateway host” vs “the machine running the gateway”
 - “debounce file updates” vs “avoid indexing on every write”
 
 But it can be weak at exact, high-signal tokens:
+
 - IDs (`a828e60`, `b3b9895a…`)
 - code symbols (`memorySearch.query.hybrid`)
 - error strings (“sqlite-vec unavailable”)
@@ -227,16 +242,20 @@ good results for both “natural language” queries and “needle in a haystack
 Implementation sketch:
 
 1) Retrieve a candidate pool from both sides:
+
 - **Vector**: top `maxResults * candidateMultiplier` by cosine similarity.
 - **BM25**: top `maxResults * candidateMultiplier` by FTS5 BM25 rank (lower is better).
 
 2) Convert BM25 rank into a 0..1-ish score:
+
 - `textScore = 1 / (1 + max(0, bm25Rank))`
 
 3) Union candidates by chunk id and compute a weighted score:
+
 - `finalScore = vectorWeight * vectorScore + textWeight * textScore`
 
 Notes:
+
 - `vectorWeight` + `textWeight` is normalized to 1.0 in config resolution, so weights behave as percentages.
 - If embeddings are unavailable (or the provider returns a zero-vector), we still run BM25 and return keyword matches.
 - If FTS5 can’t be created, we keep vector-only search (no hard failure).
@@ -300,6 +319,7 @@ agents: {
 ```
 
 Notes:
+
 - Session indexing is **opt-in** (off by default).
 - Session updates are debounced and **indexed asynchronously** once they cross delta thresholds (best-effort).
 - `memory_search` never blocks on indexing; results can be slightly stale until background sync finishes.
@@ -348,6 +368,7 @@ agents: {
 ```
 
 Notes:
+
 - `enabled` defaults to true; when disabled, search falls back to in-process
   cosine similarity over stored embeddings.
 - If the sqlite-vec extension is missing or fails to load, Moltbot logs the
@@ -384,5 +405,6 @@ agents: {
 ```
 
 Notes:
+
 - `remote.*` takes precedence over `models.providers.openai.*`.
 - `remote.headers` merge with OpenAI headers; remote wins on key conflicts. Omit `remote.headers` to use the OpenAI defaults.

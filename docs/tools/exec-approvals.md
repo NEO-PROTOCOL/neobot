@@ -1,6 +1,7 @@
 ---
 summary: "Exec approvals, allowlists, and sandbox escape prompts"
 read_when:
+
   - Configuring exec approvals or allowlists
   - Implementing exec approval UX in the macOS app
   - Reviewing sandbox escape prompts and implications
@@ -10,6 +11,7 @@ read_when:
 
 Exec approvals are the **companion app / node host guardrail** for letting a sandboxed agent run
 commands on a real host (`gateway` or `node`). Think of it like a safety interlock:
+
 commands are allowed only when policy + allowlist + (optional) user approval all agree.
 Exec approvals are **in addition** to tool policy and elevated gating (unless elevated is set to `full`, which skips approvals).
 Effective policy is the **stricter** of `tools.exec.*` and approvals defaults; if an approvals field is omitted, the `tools.exec` value is used.
@@ -20,10 +22,12 @@ resolved by the **ask fallback** (default: deny).
 ## Where it applies
 
 Exec approvals are enforced locally on the execution host:
+
 - **gateway host** → `moltbot` process on the gateway machine
 - **node host** → node runner (macOS companion app or headless node host)
 
 macOS split:
+
 - **node host service** forwards `system.run` to the **macOS app** over local IPC.
 - **macOS app** enforces approvals + executes the command in UI context.
 
@@ -34,6 +38,7 @@ Approvals live in a local JSON file on the execution host:
 `~/.clawdbot/exec-approvals.json`
 
 Example schema:
+
 ```json
 {
   "version": 1,
@@ -70,17 +75,21 @@ Example schema:
 ## Policy knobs
 
 ### Security (`exec.security`)
+
 - **deny**: block all host exec requests.
 - **allowlist**: allow only allowlisted commands.
 - **full**: allow everything (equivalent to elevated).
 
 ### Ask (`exec.ask`)
+
 - **off**: never prompt.
 - **on-miss**: prompt only when allowlist does not match.
 - **always**: prompt on every command.
 
 ### Ask fallback (`askFallback`)
+
 If a prompt is required but no UI is reachable, fallback decides:
+
 - **deny**: block.
 - **allowlist**: allow only if allowlist matches.
 - **full**: allow.
@@ -93,11 +102,13 @@ Patterns should resolve to **binary paths** (basename-only entries are ignored).
 Legacy `agents.default` entries are migrated to `agents.main` on load.
 
 Examples:
+
 - `~/Projects/**/bin/bird`
 - `~/.local/bin/*`
 - `/opt/homebrew/bin/rg`
 
 Each allowlist entry tracks:
+
 - **id** stable UUID used for UI identity (optional)
 - **last used** timestamp
 - **last used command**
@@ -146,6 +157,7 @@ correlate later system events (`Exec finished` / `Exec denied`). If no decision 
 timeout, the request is treated as an approval timeout and surfaced as a denial reason.
 
 The confirmation dialog includes:
+
 - command + args
 - cwd
 - agent id
@@ -153,6 +165,7 @@ The confirmation dialog includes:
 - host + policy metadata
 
 Actions:
+
 - **Allow once** → run now
 - **Always allow** → add to allowlist + run
 - **Deny** → block
@@ -163,6 +176,7 @@ You can forward exec approval prompts to any chat channel (including plugin chan
 them with `/approve`. This uses the normal outbound delivery pipeline.
 
 Config:
+
 ```json5
 {
   approvals: {
@@ -181,6 +195,7 @@ Config:
 ```
 
 Reply in chat:
+
 ```
 /approve <id> allow-once
 /approve <id> allow-always
@@ -188,6 +203,7 @@ Reply in chat:
 ```
 
 ### macOS IPC flow
+
 ```
 Gateway -> Node Service (WS)
                  |  IPC (UDS + token + HMAC + TTL)
@@ -196,6 +212,7 @@ Gateway -> Node Service (WS)
 ```
 
 Security notes:
+
 - Unix socket mode `0600`, token stored in `exec-approvals.json`.
 - Same-UID peer check.
 - Challenge/response (nonce + HMAC token + request hash) + short TTL.
@@ -203,6 +220,7 @@ Security notes:
 ## System events
 
 Exec lifecycle is surfaced as system messages:
+
 - `Exec running` (only if the command exceeds the running notice threshold)
 - `Exec finished`
 - `Exec denied`
@@ -221,6 +239,7 @@ Approval-gated execs reuse the approval id as the `runId` in these messages for 
   To hard-block host exec, set approvals security to `deny` or deny the `exec` tool via tool policy.
 
 Related:
+
 - [Exec tool](/tools/exec)
 - [Elevated mode](/tools/elevated)
 - [Skills](/tools/skills)

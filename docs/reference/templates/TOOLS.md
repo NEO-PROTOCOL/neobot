@@ -1,6 +1,7 @@
 ---
 summary: "Workspace template for TOOLS.md"
 read_when:
+
   - Bootstrapping a workspace manually
 ---
 # TOOLS.md - Local Notes
@@ -10,6 +11,7 @@ Skills define *how* tools work. This file is for *your* specifics — the stuff 
 ## What Goes Here
 
 Things like:
+
 - Camera names and locations
 - SSH hosts and aliases  
 - Preferred voices for TTS

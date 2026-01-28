@@ -1,6 +1,7 @@
 ---
 summary: "Moltbot on DigitalOcean (simple paid VPS option)"
 read_when:
+
   - Setting up Moltbot on DigitalOcean
   - Looking for cheap VPS hosting for Moltbot
 ---
@@ -41,6 +42,7 @@ If you want a $0/month option and don’t mind ARM + provider-specific setup, se
 1. Log into [DigitalOcean](https://cloud.digitalocean.com/)
 2. Click **Create → Droplets**
 3. Choose:
+
    - **Region:** Closest to you (or your users)
    - **Image:** Ubuntu 24.04 LTS
    - **Size:** Basic → Regular → **$6/mo** (1 vCPU, 1GB RAM, 25GB SSD)
@@ -78,6 +80,7 @@ moltbot onboard --install-daemon
 ```
 
 The wizard will walk you through:
+
 - Model auth (API keys or OAuth)
 - Channel setup (Telegram, WhatsApp, Discord, etc.)
 - Gateway token (auto-generated)
@@ -122,6 +125,7 @@ moltbot gateway restart
 Open: `https://<magicdns>/`
 
 Notes:
+
 - Serve keeps the Gateway loopback-only and authenticates via Tailscale identity headers.
 - To require token/password instead, set `gateway.auth.allowTailscale: false` or use `gateway.auth.mode: "password"`.
 
@@ -136,12 +140,14 @@ Open: `http://<tailscale-ip>:18789` (token required).
 ## 7) Connect Your Channels
 
 ### Telegram
+
 ```bash
 moltbot pairing list telegram
 moltbot pairing approve telegram <CODE>
 ```
 
 ### WhatsApp
+
 ```bash
 moltbot channels login whatsapp
 # Scan QR code
@@ -156,6 +162,7 @@ See [Channels](/channels) for other providers.
 The $6 droplet only has 1GB RAM. To keep things running smoothly:
 
 ### Add swap (recommended)
+
 ```bash
 fallocate -l 2G /swapfile
 chmod 600 /swapfile
@@ -165,11 +172,14 @@ echo '/swapfile none swap sw 0 0' >> /etc/fstab
 ```
 
 ### Use a lighter model
+
 If you're hitting OOMs, consider:
+
 - Using API-based models (Claude, GPT) instead of local models
 - Setting `agents.defaults.model.primary` to a smaller model
 
 ### Monitor memory
+
 ```bash
 free -h
 htop
@@ -180,10 +190,12 @@ htop
 ## Persistence
 
 All state lives in:
+
 - `~/.clawdbot/` — config, credentials, session data
 - `~/clawd/` — workspace (SOUL.md, memory, etc.)
 
 These survive reboots. Back them up periodically:
+
 ```bash
 tar -czvf moltbot-backup.tar.gz ~/.clawdbot ~/clawd
 ```
@@ -212,6 +224,7 @@ For the full setup guide, see [Oracle Cloud](/platforms/oracle). For signup tips
 ## Troubleshooting
 
 ### Gateway won't start
+
 ```bash
 moltbot gateway status
 moltbot doctor --non-interactive
@@ -219,12 +232,14 @@ journalctl -u moltbot --no-pager -n 50
 ```
 
 ### Port already in use
+
 ```bash
 lsof -i :18789
 kill <PID>
 ```
 
 ### Out of memory
+
 ```bash
 # Check memory
 free -h

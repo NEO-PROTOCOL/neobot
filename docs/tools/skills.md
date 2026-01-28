@@ -1,6 +1,7 @@
 ---
 summary: "Skills: managed vs workspace, gating rules, and config/env wiring"
 read_when:
+
   - Adding or modifying skills
   - Changing skill gating or load rules
 ---
@@ -54,10 +55,13 @@ Full guide: [ClawdHub](/tools/clawdhub).
 Common flows:
 
 - Install a skill into your workspace:
+
   - `clawdhub install <skill-slug>`
 - Update all installed skills:
+
   - `clawdhub update --all`
 - Sync (scan + publish updates):
+
   - `clawdhub sync --all`
 
 By default, `clawdhub` installs into `./skills` under your current working
@@ -84,11 +88,13 @@ description: Generate or edit images via Gemini 3 Pro Image
 ```
 
 Notes:
+
 - We follow the AgentSkills spec for layout/intent.
 - The parser used by the embedded agent supports **single-line** frontmatter keys only.
 - `metadata` should be a **single-line JSON object**.
 - Use `{baseDir}` in instructions to reference the skill folder path.
 - Optional frontmatter keys:
+
   - `homepage` — URL surfaced as “Website” in the macOS Skills UI (also supported via `metadata.clawdbot.homepage`).
   - `user-invocable` — `true|false` (default: `true`). When `true`, the skill is exposed as a user slash command.
   - `disable-model-invocation` — `true|false` (default: `false`). When `true`, the skill is excluded from the model prompt (still available via user invocation).
@@ -97,6 +103,7 @@ Notes:
   - `command-arg-mode` — `raw` (default). For tool dispatch, forwards the raw args string to the tool (no core parsing).
 
     The tool is invoked with params:
+
     `{ command: "<raw args>", commandName: "<slash command>", skillName: "<skill name>" }`.
 
 ## Gating (load-time filters)
@@ -112,6 +119,7 @@ metadata: {"moltbot":{"requires":{"bins":["uv"],"env":["GEMINI_API_KEY"],"config
 ```
 
 Fields under `metadata.clawdbot`:
+
 - `always: true` — always include the skill (skip other gates).
 - `emoji` — optional emoji used by the macOS Skills UI.
 - `homepage` — optional URL shown as “Website” in the macOS Skills UI.
@@ -124,6 +132,7 @@ Fields under `metadata.clawdbot`:
 - `install` — optional array of installer specs used by the macOS Skills UI (brew/node/go/uv/download).
 
 Note on sandboxing:
+
 - `requires.bins` is checked on the **host** at skill load time.
 - If an agent is sandboxed, the binary must also exist **inside the container**.
   Install it via `agents.defaults.sandbox.docker.setupCommand` (or a custom image).
@@ -143,6 +152,7 @@ metadata: {"moltbot":{"emoji":"♊️","requires":{"bins":["gemini"]},"install":
 ```
 
 Notes:
+
 - If multiple installers are listed, the gateway picks a **single** preferred option (brew when available, otherwise node).
 - If all installers are `download`, Moltbot lists each entry so you can see the available artifacts.
 - Installer specs can include `os: ["darwin"|"linux"|"win32"]` to filter options by platform.
@@ -187,6 +197,7 @@ Config keys match the **skill name** by default. If a skill defines
 `metadata.clawdbot.skillKey`, use that key under `skills.entries`.
 
 Rules:
+
 - `enabled: false` disables the skill even if it’s bundled/installed.
 - `env`: injected **only if** the variable isn’t already set in the process.
 - `apiKey`: convenience for skills that declare `metadata.clawdbot.primaryEnv`.
@@ -197,6 +208,7 @@ Rules:
 ## Environment injection (per agent run)
 
 When an agent run starts, Moltbot:
+
 1) Reads skill metadata.
 2) Applies any `skills.entries.<key>.env` or `skills.entries.<key>.apiKey` to
    `process.env`.
@@ -246,6 +258,7 @@ total = 195 + Σ (97 + len(name_escaped) + len(description_escaped) + len(locati
 ```
 
 Notes:
+
 - XML escaping expands `& < > " '` into entities (`&amp;`, `&lt;`, etc.), increasing length.
 - Token counts vary by model tokenizer. A rough OpenAI-style estimate is ~4 chars/token, so **97 chars ≈ 24 tokens** per skill plus your actual field lengths.
 

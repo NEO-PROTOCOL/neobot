@@ -1,6 +1,7 @@
 ---
 summary: "Sub-agents: spawning isolated agent runs that announce results back to the requester chat"
 read_when:
+
   - You want background/parallel work via the agent
   - You are changing sessions_spawn or sub-agent tool policy
 ---
@@ -12,6 +13,7 @@ Sub-agents are background agent runs spawned from an existing agent run. They ru
 ## Slash command
 
 Use `/subagents` to inspect or control sub-agent runs for the **current session**:
+
 - `/subagents list`
 - `/subagents stop <id|#|all>`
 - `/subagents log <id|#> [limit] [tools]`
@@ -21,6 +23,7 @@ Use `/subagents` to inspect or control sub-agent runs for the **current session*
 `/subagents info` shows run metadata (status, timestamps, session id, transcript path, cleanup).
 
 Primary goals:
+
 - Parallelize “research / long task / slow tool” work without blocking the main run.
 - Keep sub-agents isolated by default (session separation + optional sandboxing).
 - Keep the tool surface hard to misuse: sub-agents do **not** get session tools by default.
@@ -33,11 +36,13 @@ You can configure this via `agents.defaults.subagents.model` or per-agent overri
 ## Tool
 
 Use `sessions_spawn`:
+
 - Starts a sub-agent run (`deliver: false`, global lane: `subagent`)
 - Then runs an announce step and posts the announce reply to the requester chat channel
 - Default model: inherits the caller unless you set `agents.defaults.subagents.model` (or per-agent `agents.list[].subagents.model`); an explicit `sessions_spawn.model` still wins.
 
 Tool params:
+
 - `task` (required)
 - `label?` (optional)
 - `agentId?` (optional; spawn under another agent id if allowed)
@@ -47,12 +52,15 @@ Tool params:
 - `cleanup?` (`delete|keep`, default `keep`)
 
 Allowlist:
+
 - `agents.list[].subagents.allowAgents`: list of agent ids that can be targeted via `agentId` (`["*"]` to allow any). Default: only the requester agent.
 
 Discovery:
+
 - Use `agents_list` to see which agent ids are currently allowed for `sessions_spawn`.
 
 Auto-archive:
+
 - Sub-agent sessions are automatically archived after `agents.defaults.subagents.archiveAfterMinutes` (default: 60).
 - Archive uses `sessions.delete` and renames the transcript to `*.deleted.<timestamp>` (same folder).
 - `cleanup: "delete"` archives immediately after announce (still keeps the transcript via rename).
@@ -62,6 +70,7 @@ Auto-archive:
 ## Authentication
 
 Sub-agent auth is resolved by **agent id**, not by session type:
+
 - The sub-agent session key is `agent:<agentId>:subagent:<uuid>`.
 - The auth store is loaded from that agent’s `agentDir`.
 - The main agent’s auth profiles are merged in as a **fallback**; agent profiles override main profiles on conflicts.
@@ -71,17 +80,20 @@ Note: the merge is additive, so main profiles are always available as fallbacks.
 ## Announce
 
 Sub-agents report back via an announce step:
+
 - The announce step runs inside the sub-agent session (not the requester session).
 - If the sub-agent replies exactly `ANNOUNCE_SKIP`, nothing is posted.
 - Otherwise the announce reply is posted to the requester chat channel via a follow-up `agent` call (`deliver=true`).
 - Announce replies preserve thread/topic routing when available (Slack threads, Telegram topics, Matrix threads).
 - Announce messages are normalized to a stable template:
+
   - `Status:` derived from the run outcome (`success`, `error`, `timeout`, or `unknown`).
   - `Result:` the summary content from the announce step (or `(not available)` if missing).
   - `Notes:` error details and other useful context.
 - `Status` is not inferred from model output; it comes from runtime outcome signals.
 
 Announce payloads include a stats line at the end (even when wrapped):
+
 - Runtime (e.g., `runtime 5m12s`)
 - Token usage (input/output/total)
 - Estimated cost when model pricing is configured (`models.providers.*.models[].cost`)
@@ -90,6 +102,7 @@ Announce payloads include a stats line at the end (even when wrapped):
 ## Tool Policy (sub-agent tools)
 
 By default, sub-agents get **all tools except session tools**:
+
 - `sessions_list`
 - `sessions_history`
 - `sessions_send`
@@ -122,6 +135,7 @@ Override via config:
 ## Concurrency
 
 Sub-agents use a dedicated in-process queue lane:
+
 - Lane name: `subagent`
 - Concurrency: `agents.defaults.subagents.maxConcurrent` (default `8`)
 

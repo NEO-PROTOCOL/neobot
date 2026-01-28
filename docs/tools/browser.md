@@ -1,6 +1,7 @@
 ---
 summary: "Integrated browser control service + action commands"
 read_when:
+
   - Adding agent-controlled browser automation
   - Debugging why clawd is interfering with your own Chrome
   - Implementing browser settings + lifecycle in the macOS app
@@ -13,6 +14,7 @@ It is isolated from your personal browser and is managed through a small local
 control service inside the Gateway (loopback only).
 
 Beginner view:
+
 - Think of it as a **separate, agent-only browser**.
 - The `clawd` profile does **not** touch your personal browser profile.
 - The agent can **open tabs, read pages, click, and type** in a safe lane.
@@ -76,6 +78,7 @@ Browser settings live in `~/.clawdbot/moltbot.json`.
 ```
 
 Notes:
+
 - The browser control service binds to loopback on a port derived from `gateway.port`
   (default: `18791`, which is gateway + 2). The relay uses the next port (`18792`).
 - If you override the Gateway port (`gateway.port` or `CLAWDBOT_GATEWAY_PORT`),
@@ -132,6 +135,7 @@ moltbot config set browser.executablePath "/usr/bin/google-chrome"
   attach to a remote Chromium-based browser. In this case, Moltbot will not launch a local browser.
 
 Remote CDP URLs can include auth:
+
 - Query tokens (e.g., `https://provider.example?token=<token>`)
 - HTTP Basic auth (e.g., `https://user:pass@provider.example`)
 
@@ -146,9 +150,11 @@ auto-route browser tool calls to that node without any extra browser config.
 This is the default path for remote gateways.
 
 Notes:
+
 - The node host exposes its local browser control server via a **proxy command**.
 - Profiles come from the node’s own `browser.profiles` config (same as local).
 - Disable if you don’t want it:
+
   - On the node: `nodeHost.browserProxy.enabled=false`
   - On the gateway: `gateway.nodes.browser.mode="off"`
 
@@ -159,6 +165,7 @@ CDP endpoints over HTTPS. You can point a Moltbot browser profile at a
 Browserless region endpoint and authenticate with your API key.
 
 Example:
+
 ```json5
 {
   browser: {
@@ -177,28 +184,33 @@ Example:
 ```
 
 Notes:
+
 - Replace `<BROWSERLESS_API_KEY>` with your real Browserless token.
 - Choose the region endpoint that matches your Browserless account (see their docs).
 
 ## Security
 
 Key ideas:
+
 - Browser control is loopback-only; access flows through the Gateway’s auth or node pairing.
 - Keep the Gateway and any node hosts on a private network (Tailscale); avoid public exposure.
 - Treat remote CDP URLs/tokens as secrets; prefer env vars or a secrets manager.
 
 Remote CDP tips:
+
 - Prefer HTTPS endpoints and short-lived tokens where possible.
 - Avoid embedding long-lived tokens directly in config files.
 
 ## Profiles (multi-browser)
 
 Moltbot supports multiple named profiles (routing configs). Profiles can be:
+
 - **clawd-managed**: a dedicated Chromium-based browser instance with its own user data directory + CDP port
 - **remote**: an explicit CDP URL (Chromium-based browser running elsewhere)
 - **extension relay**: your existing Chrome tab(s) via the local relay + Chrome extension
 
 Defaults:
+
 - The `clawd` profile is auto-created if missing.
 - The `chrome` profile is built-in for the Chrome extension relay (points at `http://127.0.0.1:18792` by default).
 - Local CDP ports allocate from **18800–18899** by default.
@@ -213,6 +225,7 @@ Moltbot can also drive **your existing Chrome tabs** (no separate “clawd” Ch
 Full guide: [Chrome extension](/tools/chrome-extension)
 
 Flow:
+
 - The Gateway runs locally (same machine) or a node host runs on the browser machine.
 - A local **relay server** listens at a loopback `cdpUrl` (default: `http://127.0.0.1:18792`).
 - You click the **Moltbot Browser Relay** extension icon on a tab to attach (it does not auto-attach).
@@ -224,6 +237,7 @@ If the Gateway runs elsewhere, run a node host on the browser machine so the Gat
 
 If the agent session is sandboxed, the `browser` tool may default to `target="sandbox"` (sandbox browser).
 Chrome extension relay takeover requires host browser control, so either:
+
 - run the session unsandboxed, or
 - set `agents.defaults.sandbox.browser.allowHostControl: true` and use `target="host"` when calling the tool.
 
@@ -240,6 +254,7 @@ moltbot browser extension install
 - Pin the extension, then click it on the tab you want to control (badge shows `ON`).
 
 2) Use it:
+
 - CLI: `moltbot browser --browser-profile chrome tabs`
 - Agent tool: `browser` with `profile="chrome"`
 
@@ -254,6 +269,7 @@ moltbot browser create-profile \
 ```
 
 Notes:
+
 - This mode relies on Playwright-on-CDP for most operations (screenshots/snapshots/actions).
 - Detach by clicking the extension icon again.
 
@@ -266,6 +282,7 @@ Notes:
 ## Browser selection
 
 When launching locally, Moltbot picks the first available:
+
 1. Chrome
 2. Brave
 3. Edge
@@ -275,6 +292,7 @@ When launching locally, Moltbot picks the first available:
 You can override with `browser.executablePath`.
 
 Platforms:
+
 - macOS: checks `/Applications` and `~/Applications`.
 - Linux: looks for `google-chrome`, `brave`, `microsoft-edge`, `chromium`, etc.
 - Windows: checks common install locations.
@@ -312,6 +330,7 @@ Moltbot with browser support.
 ## How it works (internal)
 
 High-level flow:
+
 - A small **control server** accepts HTTP requests.
 - It connects to Chromium-based browsers (Chrome/Brave/Edge/Chromium) via **CDP**.
 - For advanced actions (click/type/snapshot/PDF), it uses **Playwright** on top
@@ -327,6 +346,7 @@ All commands accept `--browser-profile <name>` to target a specific profile.
 All commands also accept `--json` for machine-readable output (stable payloads).
 
 Basics:
+
 - `moltbot browser status`
 - `moltbot browser start`
 - `moltbot browser stop`
@@ -340,6 +360,7 @@ Basics:
 - `moltbot browser close abcd1234`
 
 Inspection:
+
 - `moltbot browser screenshot`
 - `moltbot browser screenshot --full-page`
 - `moltbot browser screenshot --ref 12`
@@ -358,6 +379,7 @@ Inspection:
 - `moltbot browser responsebody "**/api" --max-chars 5000`
 
 Actions:
+
 - `moltbot browser navigate https://example.com`
 - `moltbot browser resize 1280 720`
 - `moltbot browser click 12 --double`
@@ -381,6 +403,7 @@ Actions:
 - `moltbot browser trace stop`
 
 State:
+
 - `moltbot browser cookies`
 - `moltbot browser cookies set session abc123 --url "https://example.com"`
 - `moltbot browser cookies clear`
@@ -399,10 +422,12 @@ State:
 - `moltbot browser set device "iPhone 14"`
 
 Notes:
+
 - `upload` and `dialog` are **arming** calls; run them before the click/press
   that triggers the chooser/dialog.
 - `upload` can also set file inputs directly via `--input-ref` or `--element`.
 - `snapshot`:
+
   - `--format ai` (default when Playwright is installed): returns an AI snapshot with numeric refs (`aria-ref="<n>"`).
   - `--format aria`: returns the accessibility tree (no refs; inspection only).
   - `--efficient` (or `--mode efficient`): compact role snapshot preset (interactive + compact + depth + lower maxChars).
@@ -430,6 +455,7 @@ Moltbot supports two “snapshot” styles:
   - Add `--labels` to include a viewport screenshot with overlayed `e12` labels.
 
 Ref behavior:
+
 - Refs are **not stable across navigations**; if something fails, re-run `snapshot` and use a fresh ref.
 - If the role snapshot was taken with `--frame`, role refs are scoped to that iframe until the next role snapshot.
 
@@ -438,12 +464,16 @@ Ref behavior:
 You can wait on more than just time/text:
 
 - Wait for URL (globs supported by Playwright):
+
   - `moltbot browser wait --url "**/dash"`
 - Wait for load state:
+
   - `moltbot browser wait --load networkidle`
 - Wait for a JS predicate:
+
   - `moltbot browser wait --fn "window.ready===true"`
 - Wait for a selector to become visible:
+
   - `moltbot browser wait "#main"`
 
 These can be combined:
@@ -464,9 +494,11 @@ When an action fails (e.g. “not visible”, “strict mode violation”, “co
 2. Use `click <ref>` / `type <ref>` (prefer role refs in interactive mode)
 3. If it still fails: `moltbot browser highlight <ref>` to see what Playwright is targeting
 4. If the page behaves oddly:
+
    - `moltbot browser errors --clear`
    - `moltbot browser requests --filter api --clear`
 5. For deep debugging: record a trace:
+
    - `moltbot browser trace start`
    - reproduce the issue
    - `moltbot browser trace stop` (prints `TRACE:<path>`)
@@ -499,6 +531,7 @@ These are useful for “make the site behave like X” workflows:
 - Media: `set media dark|light|no-preference|none`
 - Timezone / locale: `set timezone ...`, `set locale ...`
 - Device / viewport:
+
   - `set device "iPhone 14"` (Playwright device presets)
   - `set viewport 1280 720`
 
@@ -520,13 +553,16 @@ For Linux-specific issues (especially snap Chromium), see
 ## Agent tools + how control works
 
 The agent gets **one tool** for browser automation:
+
 - `browser` — status/start/stop/tabs/open/focus/close/snapshot/screenshot/navigate/act
 
 How it maps:
+
 - `browser snapshot` returns a stable UI tree (AI or ARIA).
 - `browser act` uses the snapshot `ref` IDs to click/type/drag/select.
 - `browser screenshot` captures pixels (full page or element).
 - `browser` accepts:
+
   - `profile` to choose a named browser profile (clawd, chrome, or remote CDP).
   - `target` (`sandbox` | `host` | `node`) to select where the browser lives.
   - In sandboxed sessions, `target: "host"` requires `agents.defaults.sandbox.browser.allowHostControl=true`.

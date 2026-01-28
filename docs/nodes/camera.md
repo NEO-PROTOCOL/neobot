@@ -1,6 +1,7 @@
 ---
 summary: "Camera capture (iOS node + macOS app) for agent use: photos (jpg) and short video clips (mp4)"
 read_when:
+
   - Adding or modifying camera capture on iOS nodes or macOS
   - Extending agent-accessible MEDIA temp-file workflows
 ---
@@ -27,10 +28,12 @@ All camera access is gated behind **user-controlled settings**.
 
 - `camera.list`
   - Response payload:
+
     - `devices`: array of `{ id, name, position, deviceType }`
 
 - `camera.snap`
   - Params:
+
     - `facing`: `front|back` (default: `front`)
     - `maxWidth`: number (optional; default `1600` on the iOS node)
     - `quality`: `0..1` (optional; default `0.9`)
@@ -38,6 +41,7 @@ All camera access is gated behind **user-controlled settings**.
     - `delayMs`: number (optional; default `0`)
     - `deviceId`: string (optional; from `camera.list`)
   - Response payload:
+
     - `format: "jpg"`
     - `base64: "<...>"`
     - `width`, `height`
@@ -45,12 +49,14 @@ All camera access is gated behind **user-controlled settings**.
 
 - `camera.clip`
   - Params:
+
     - `facing`: `front|back` (default: `front`)
     - `durationMs`: number (default `3000`, clamped to a max of `60000`)
     - `includeAudio`: boolean (default `true`)
     - `format`: currently `mp4`
     - `deviceId`: string (optional; from `camera.list`)
   - Response payload:
+
     - `format: "mp4"`
     - `base64: "<...>"`
     - `durationMs`
@@ -74,6 +80,7 @@ moltbot nodes camera clip --node <id> --no-audio
 ```
 
 Notes:
+
 - `nodes camera snap` defaults to **both** facings to give the agent both views.
 - Output files are temporary (in the OS temp directory) unless you build your own wrapper.
 
@@ -88,6 +95,7 @@ Notes:
 ### Permissions
 
 - Android requires runtime permissions:
+
   - `CAMERA` for both `camera.snap` and `camera.clip`.
   - `RECORD_AUDIO` for `camera.clip` when `includeAudio=true`.
 
@@ -131,6 +139,7 @@ moltbot nodes camera clip --node <id> --no-audio
 ```
 
 Notes:
+
 - `moltbot nodes camera snap` defaults to `maxWidth=1600` unless overridden.
 - On macOS, `camera.snap` waits `delayMs` (default 2000ms) after warm-up/exposure settle before capturing.
 - Photo payloads are recompressed to keep base64 under 5 MB.
@@ -149,4 +158,5 @@ moltbot nodes screen record --node <id> --duration 10s --fps 15   # prints MEDIA
 ```
 
 Notes:
+
 - Requires macOS **Screen Recording** permission (TCC).

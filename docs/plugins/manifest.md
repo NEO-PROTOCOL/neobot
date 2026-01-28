@@ -1,6 +1,7 @@
 ---
 summary: "Plugin manifest + JSON schema requirements (strict config validation)"
 read_when:
+
   - You are building a Moltbot plugin
   - You need to ship a plugin config schema or debug plugin validation errors
 ---
@@ -27,10 +28,12 @@ See the full plugin system guide: [Plugins](/plugin).
 ```
 
 Required keys:
+
 - `id` (string): canonical plugin id.
 - `configSchema` (object): JSON Schema for plugin config (inline).
 
 Optional keys:
+
 - `kind` (string): plugin kind (example: `"memory"`).
 - `channels` (array): channel ids registered by this plugin (example: `["matrix"]`).
 - `providers` (array): provider ids registered by this plugin.

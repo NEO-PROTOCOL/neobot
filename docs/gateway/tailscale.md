@@ -1,6 +1,7 @@
 ---
 summary: "Integrated Tailscale Serve/Funnel for the Gateway dashboard"
 read_when:
+
   - Exposing the Gateway Control UI outside localhost
   - Automating tailnet or public dashboard access
 ---
@@ -63,6 +64,7 @@ Use this when you want the Gateway to listen directly on the Tailnet IP (no Serv
 ```
 
 Connect from another Tailnet device:
+
 - Control UI: `http://<tailscale-ip>:18789/`
 - WebSocket: `ws://<tailscale-ip>:18789`
 

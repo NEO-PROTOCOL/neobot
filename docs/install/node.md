@@ -2,6 +2,7 @@
 title: "Node.js + npm (PATH sanity)"
 summary: "Node.js + npm install sanity: versions, PATH, and global installs"
 read_when:
+
   - "You installed Moltbot but `moltbot` is “command not found”"
   - "You’re setting up Node.js/npm on a new machine"
   - "npm install -g ... fails with permissions or PATH issues"

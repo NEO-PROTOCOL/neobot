@@ -38,6 +38,7 @@ Key points extracted:
   `ItemParam[]`), `instructions`, `tools`, `tool_choice`, `stream`, `max_output_tokens`, and
   `max_tool_calls`.
 - `ItemParam` is a discriminated union of:
+
   - `message` items with roles `system`, `developer`, `user`, `assistant`
   - `function_call` and `function_call_output`
   - `reasoning`
@@ -45,11 +46,13 @@ Key points extracted:
 - Successful responses return a `ResponseResource` with `object: "response"`, `status`, and
   `output` items.
 - Streaming uses semantic events such as:
+
   - `response.created`, `response.in_progress`, `response.completed`, `response.failed`
   - `response.output_item.added`, `response.output_item.done`
   - `response.content_part.added`, `response.content_part.done`
   - `response.output_text.delta`, `response.output_text.done`
 - The spec requires:
+
   - `Content-Type: text/event-stream`
   - `event:` must match the JSON `type` field
   - terminal event must be literal `[DONE]`
@@ -86,6 +89,7 @@ Key points extracted:
 ## Validation Strategy (No SDK)
 
 - Implement Zod schemas for the supported subset of:
+
   - `CreateResponseBody`
   - `ItemParam` + message content part unions
   - `ResponseResource`
@@ -96,6 +100,7 @@ Key points extracted:
 
 - SSE lines with both `event:` and `data:`.
 - Required sequence (minimum viable):
+
   - `response.created`
   - `response.output_item.added`
   - `response.content_part.added`
@@ -108,6 +113,7 @@ Key points extracted:
 ## Tests and Verification Plan
 
 - Add e2e coverage for `/v1/responses`:
+
   - Auth required
   - Non-stream response shape
   - Stream event ordering and `[DONE]`

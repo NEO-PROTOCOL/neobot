@@ -1,6 +1,7 @@
 ---
 summary: "Pairing overview: approve who can DM you + which nodes can join"
 read_when:
+
   - Setting up DM access control
   - Pairing a new iOS/Android node
   - Reviewing Moltbot security posture
@@ -23,6 +24,7 @@ When a channel is configured with DM policy `pairing`, unknown senders get a sho
 Default DM policies are documented in: [Security](/gateway/security)
 
 Pairing codes:
+
 - 8 characters, uppercase, no ambiguous chars (`0O1I`).
 - **Expire after 1 hour**. The bot only sends the pairing message when a new request is created (roughly once per hour per sender).
 - Pending DM pairing requests are capped at **3 per channel** by default; additional requests are ignored until one expires or is approved.
@@ -39,6 +41,7 @@ Supported channels: `telegram`, `whatsapp`, `signal`, `imessage`, `discord`, `sl
 ### Where the state lives
 
 Stored under `~/.clawdbot/credentials/`:
+
 - Pending requests: `<channel>-pairing.json`
 - Approved allowlist store: `<channel>-allowFrom.json`
 
@@ -61,6 +64,7 @@ moltbot devices reject <requestId>
 ### Where the state lives
 
 Stored under `~/.clawdbot/devices/`:
+
 - `pending.json` (short-lived; pending requests expire)
 - `paired.json` (paired devices + tokens)
 
@@ -75,6 +79,7 @@ Stored under `~/.clawdbot/devices/`:
 - Security model + prompt injection: [Security](/gateway/security)
 - Updating safely (run doctor): [Updating](/install/updating)
 - Channel configs:
+
   - Telegram: [Telegram](/channels/telegram)
   - WhatsApp: [WhatsApp](/channels/whatsapp)
   - Signal: [Signal](/channels/signal)

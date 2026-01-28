@@ -1,6 +1,7 @@
 ---
 summary: "Deepgram transcription for inbound voice notes"
 read_when:
+
   - You want Deepgram speech-to-text for audio attachments
   - You need a quick Deepgram config example
 ---
@@ -19,11 +20,13 @@ Docs: https://developers.deepgram.com
 ## Quick start
 
 1) Set your API key:
+
 ```
 DEEPGRAM_API_KEY=dg_...
 ```
 
 2) Enable the provider:
+
 ```json5
 {
   tools: {
@@ -46,6 +49,7 @@ DEEPGRAM_API_KEY=dg_...
 - `tools.media.audio.providerOptions.deepgram.smart_format`: enable smart formatting (optional)
 
 Example with language:
+
 ```json5
 {
   tools: {
@@ -62,6 +66,7 @@ Example with language:
 ```
 
 Example with Deepgram options:
+
 ```json5
 {
   tools: {

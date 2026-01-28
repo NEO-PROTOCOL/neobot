@@ -1,6 +1,7 @@
 ---
 summary: "How Moltbot rotates auth profiles and falls back across models"
 read_when:
+
   - Diagnosing auth profile rotation, cooldowns, or model fallback behavior
   - Updating failover rules for auth profiles or models
 ---
@@ -8,6 +9,7 @@ read_when:
 # Model failover
 
 Moltbot handles failures in two stages:
+
 1) **Auth profile rotation** within the current provider.
 2) **Model fallback** to the next model in `agents.defaults.model.fallbacks`.
 
@@ -24,6 +26,7 @@ Moltbot uses **auth profiles** for both API keys and OAuth tokens.
 More detail: [/concepts/oauth](/concepts/oauth)
 
 Credential types:
+
 - `type: "api_key"` → `{ provider, key }`
 - `type: "oauth"` → `{ provider, access, refresh, expires, email? }` (+ `projectId`/`enterpriseUrl` for some providers)
 
@@ -44,6 +47,7 @@ When a provider has multiple profiles, Moltbot chooses an order like this:
 3) **Stored profiles**: entries in `auth-profiles.json` for the provider.
 
 If no explicit order is configured, Moltbot uses a round‑robin order:
+
 - **Primary key:** profile type (**OAuth before API keys**).
 - **Secondary key:** `usageStats.lastUsed` (oldest first, within each type).
 - **Cooldown/disabled profiles** are moved to the end, ordered by soonest expiry.
@@ -52,6 +56,7 @@ If no explicit order is configured, Moltbot uses a round‑robin order:
 
 Moltbot **pins the chosen auth profile per session** to keep provider caches warm.
 It does **not** rotate on every request. The pinned profile is reused until:
+
 - the session is reset (`/new` / `/reset`)
 - a compaction completes (compaction count increments)
 - the profile is in cooldown/disabled
@@ -60,6 +65,7 @@ Manual selection via `/model …@<profileId>` sets a **user override** for that 
 and is not auto‑rotated until a new session starts.
 
 Auto‑pinned profiles (selected by the session router) are treated as a **preference**:
+
 they are tried first, but Moltbot may rotate to another profile on rate limits/timeouts.
 User‑pinned profiles stay locked to that profile; if it fails and model fallbacks
 are configured, Moltbot moves to the next model instead of switching profiles.
@@ -67,6 +73,7 @@ are configured, Moltbot moves to the next model instead of switching profiles.
 ### Why OAuth can “look lost”
 
 If you have both an OAuth profile and an API key profile for the same provider, round‑robin can switch between them across messages unless pinned. To force a single profile:
+
 - Pin with `auth.order[provider] = ["provider:profileId"]`, or
 - Use a per-session override via `/model …` with a profile override (when supported by your UI/chat surface).
 
@@ -78,6 +85,7 @@ Format/invalid‑request errors (for example Cloud Code Assist tool call ID
 validation failures) are treated as failover‑worthy and use the same cooldowns.
 
 Cooldowns use exponential backoff:
+
 - 1 minute
 - 5 minutes
 - 25 minutes
@@ -115,6 +123,7 @@ State is stored in `auth-profiles.json`:
 ```
 
 Defaults:
+
 - Billing backoff starts at **5 hours**, doubles per billing failure, and caps at **24 hours**.
 - Backoff counters reset if the profile hasn’t failed for **24 hours** (configurable).
 
@@ -130,6 +139,7 @@ When a run starts with a model override (hooks or CLI), fallbacks still end at
 ## Related config
 
 See [Gateway configuration](/gateway/configuration) for:
+
 - `auth.profiles` / `auth.order`
 - `auth.cooldowns.billingBackoffHours` / `auth.cooldowns.billingBackoffHoursByProvider`
 - `auth.cooldowns.billingMaxHours` / `auth.cooldowns.failureWindowHours`

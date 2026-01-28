@@ -158,6 +158,7 @@ curl http://localhost:3000/api/health
 ```
 
 Resposta esperada:
+
 ```json
 {
   "status": "ok",
@@ -177,6 +178,7 @@ Olá! Como você está?
 ### 3. Criar Lembrete
 
 Clique em **Novo Lembrete** e configure:
+
 - Mensagem: "Beber água"
 - Quando: "Daqui a 15 minutos"
 
@@ -231,6 +233,7 @@ pnpm run build
 ### Automações não executam
 
 1. Verifique se foram inicializadas:
+
 ```typescript
 const manager = getAutomationManager();
 console.log(manager?.listTasks());
@@ -336,6 +339,7 @@ docker run -p 3000:3000 \
 Seu dashboard está configurado e rodando! 
 
 Agora você pode:
+
 - ✅ Conversar com Claude AI
 - ✅ Gerenciar lembretes
 - ✅ Enviar mensagens

@@ -3,16 +3,19 @@
 ## ❌ Problemas Identificados
 
 ### 1. **Versão do Node.js**
+
 - **Requerido:** Node ≥22.12.0
 - **Atual:** v20.19.6
 - **Impacto:** Warnings mas funciona (não crítico)
 
 ### 2. **TypeScript Compilation**
+
 - **Erro:** Private identifiers (#private) requerem ES2015+
 - **Causa:** SDK do Anthropic usa features modernas
 - **Status:** ✅ Resolvido (tsconfig já está em ES2022)
 
 ### 3. **Dependências Faltantes**
+
 - **Falta:** `telegraf` (para bot Telegram)
 - **Status:** ⚠️ Opcional (só se usar telegram-bot-example.ts)
 
@@ -33,6 +36,7 @@ npm tsx skills/ai/scripts/chat.ts
 ### 2. Compatibilidade com Projeto Existente
 
 Os arquivos criados são **compatíveis** com a estrutura atual:
+
 - ✅ Usam TypeScript ES2022 (igual ao projeto)
 - ✅ Usam ESM (type: "module")
 - ✅ Seguem padrão de skills existentes
@@ -112,6 +116,7 @@ bot.command('limpar', (ctx) => {
 ## 📝 Arquivos Criados (Status)
 
 ### ✅ Funcionando Perfeitamente
+
 - `PLANO_PERSONALIZACAO.md` - Roadmap completo
 - `RESUMO_CRIACAO.md` - Resumo do que foi criado
 - `EXEMPLOS_PRATICOS.md` - 15 exemplos de uso
@@ -121,6 +126,7 @@ bot.command('limpar', (ctx) => {
 - `skills/ai/scripts/chat.ts` - ✅ Chat CLI
 
 ### ⚠️ Exemplo (Não Obrigatório)
+
 - `skills/ai/scripts/telegram-bot-example.ts` - Exemplo de integração
   - **Requer:** `pnpm add -w telegraf`
   - **Alternativa:** Integrar no bot existente (recomendado)
@@ -128,11 +134,15 @@ bot.command('limpar', (ctx) => {
 ## 🎯 Próximos Passos (Atualizados)
 
 ### Hoje (5 minutos):
+
+
 1. ✅ Obter API key do Claude: https://console.anthropic.com/
 2. ✅ Adicionar no `.env`: `ANTHROPIC_API_KEY=sk-ant-...`
 3. ✅ Testar: `pnpm tsx skills/ai/scripts/chat.ts`
 
 ### Esta Semana:
+
+
 1. ⬜ Integrar comandos de IA no bot Telegram existente
 2. ⬜ Testar conversação com contexto
 3. ⬜ Experimentar geração de código
@@ -140,24 +150,28 @@ bot.command('limpar', (ctx) => {
 ## 🐛 Troubleshooting Atualizado
 
 ### Erro: "Cannot find module '@anthropic-ai/sdk'"
+
 ```bash
 # Já instalado! Se der erro:
 pnpm install
 ```
 
 ### Erro: "ANTHROPIC_API_KEY not found"
+
 ```bash
 # Adicione no .env
 echo "ANTHROPIC_API_KEY=sk-ant-..." >> .env
 ```
 
 ### Erro: "tsx: command not found"
+
 ```bash
 # Use pnpm (não npm)
 pnpm tsx skills/ai/scripts/chat.ts
 ```
 
 ### Erro: "Cannot find module 'telegraf'"
+
 ```bash
 # Só se quiser rodar telegram-bot-example.ts
 pnpm add -w telegraf
@@ -179,6 +193,7 @@ pnpm add -w telegraf
 ## 🎉 Conclusão
 
 **Tudo está funcionando!** Os "erros" eram:
+
 1. ✅ Warnings de versão Node (não crítico)
 2. ✅ TypeScript já configurado corretamente
 3. ✅ Dependências instaladas
