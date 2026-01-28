@@ -47,6 +47,7 @@ Como eu posso te ajudar hoje? Aqui está o que eu sei fazer:
   neobot ledger path                 Eu te digo onde guardo minha caixa preta
 
 ⏰  AGENDAMENTO (Cron)
+  neobot schedule "..."              Fala o que quer agendar em linguagem natural
   neobot cron list                   Vê o que eu tenho agendado para o futuro
   neobot cron run <job>              Me faz rodar uma tarefa agendada agora mesmo
   neobot cron start                  Coloca meu relógio para despertar sozinho
@@ -143,6 +144,69 @@ async function main() {
 
     usage();
     process.exit(1);
+  }
+
+  if (cmd === "schedule") {
+    const userInput = rest.join(" ").trim();
+    if (!userInput) {
+      console.log(
+        "Diga-me o que você quer agendar. Ex: 'neobot schedule agende um oi para Julia em 15 min'",
+      );
+      process.exit(1);
+    }
+
+    const { runCronIsolatedAgentTurn } = await import("../cron/isolated-agent/run.js");
+    const { loadConfig } = await import("../config/config.js");
+    const { createDefaultDeps } = await import("./deps.js");
+
+    const cfg = loadConfig();
+    const deps = createDefaultDeps();
+
+    console.log("⏳ Deixa que eu cuido disso...");
+
+    const prompt = `
+O usuário quer agendar uma tarefa. Analise o pedido dele e use a ferramenta 'scheduler' para agendar.
+Pedido: "${userInput}"
+
+Se o pedido envolver telegram para "Julia", use o contato @anacarolinamaia.
+Se o tempo for relativo (ex: 15 min), passe como "in 15 minutes".
+
+Importante: Use a skill 'scheduler' para efetivar o agendamento através do script 'skills/scheduler/scripts/scheduler.sh'.
+Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários diferentes.
+`.trim();
+
+    try {
+      const result = await runCronIsolatedAgentTurn({
+        cfg,
+        deps,
+        job: {
+          id: "adhoc-scheduler",
+          name: "Conversational Scheduler",
+          enabled: true,
+          createdAtMs: Date.now(),
+          updatedAtMs: Date.now(),
+          schedule: { kind: "at", atMs: Date.now() },
+          sessionTarget: "isolated",
+          wakeMode: "now",
+          payload: { kind: "systemEvent", text: "parse schedule" },
+          state: {},
+        },
+        message: prompt,
+        sessionKey: "cli:schedule:" + Date.now(),
+      });
+
+      if (result.status === "ok") {
+        console.log("\n✅ Tudo certo! Já está no meu calendário.");
+        if (result.outputText) console.log(`\nDetalhes: ${result.outputText}`);
+      } else {
+        console.error(`\n❌ Tive um problema ao agendar: ${result.error}`);
+      }
+    } catch (err) {
+      console.error(
+        `\n❌ Erro crítico no agendador: ${err instanceof Error ? err.message : String(err)}`,
+      );
+    }
+    process.exit(0);
   }
 
   if (cmd === "whoami") {
