@@ -7,7 +7,7 @@ export async function checkRuntimeConfigStatus(): Promise<HealthCheckResult> {
     return {
       key: "runtime_config",
       status: "ok",
-      summary: "Runtime configuration loaded successfully.",
+      summary: "Configuração de runtime carregada com sucesso.",
       details: {
         version: (config as any).version,
         governance: (config as any).governance_mode,
@@ -17,8 +17,8 @@ export async function checkRuntimeConfigStatus(): Promise<HealthCheckResult> {
     return {
       key: "runtime_config",
       status: "fail",
-      summary: `Failed to load runtime config: ${error.message}`,
-      recommendation: "Check config/neobot.runtime.json for JSON syntax errors.",
+      summary: `Falha ao carregar configuração: ${error.message}`,
+      recommendation: "Verifique o arquivo config/neobot.runtime.json para erros de sintaxe JSON.",
     };
   }
 }

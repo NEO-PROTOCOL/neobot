@@ -7,7 +7,7 @@ export async function checkSchedulerStatus(): Promise<HealthCheckResult> {
   return {
     key: "scheduler",
     status: jobCount > 0 ? "ok" : "warn",
-    summary: jobCount > 0 ? `${jobCount} jobs scheduled.` : "No active jobs in scheduler.",
+    summary: jobCount > 0 ? `${jobCount} tarefas agendadas.` : "Nenhuma tarefa ativa no agendador.",
     details: {
       active_jobs: jobs.map((j) => ({ name: j.name, schedule: j.schedule })),
     },

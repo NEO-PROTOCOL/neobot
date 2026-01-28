@@ -11,13 +11,13 @@ export async function checkChannelsStatus(): Promise<HealthCheckResult> {
   if (config.channels?.telegram?.enabled) {
     const hasToken = !!process.env.TELEGRAM_BOT_TOKEN;
     const hasChatId = !!process.env.TELEGRAM_CHAT_ID;
-    results.telegram = hasToken && hasChatId ? "ok" : "fail";
-    if (results.telegram === "fail") overallStatus = "fail";
+    results.telegram = hasToken && hasChatId ? "ok" : "fail (config missing)";
+    if (results.telegram !== "ok") overallStatus = "fail";
   } else {
     results.telegram = "disabled";
   }
 
-  // 2. Social Automation (X/Target dependent)
+  // 2. Social Automation
   if (config.social_browser_automation?.enabled) {
     let targets = Object.entries(config.social_browser_automation.targets)
       .filter(([_, enabled]) => enabled)
@@ -32,7 +32,7 @@ export async function checkChannelsStatus(): Promise<HealthCheckResult> {
     results.social = "disabled";
   }
 
-  // 3. Docker (Executor check)
+  // 3. Docker
   if (config.executors?.docker?.enabled) {
     try {
       execSync("docker --version", { stdio: "ignore" });
@@ -45,12 +45,12 @@ export async function checkChannelsStatus(): Promise<HealthCheckResult> {
     results.docker = "disabled";
   }
 
-  // 4. IPFS (Placeholder)
+  // 4. IPFS
   if (config.executors?.ipfs_local?.enabled) {
-    results.ipfs = "warn (presence check not implemented)";
+    results.ipfs = "warn (check not implemented)";
   }
 
-  // 5. Brave MCP (Exec check)
+  // 5. Brave MCP
   if (config.executors?.brave_mcp?.enabled) {
     results.brave = "ok";
   }
@@ -60,7 +60,7 @@ export async function checkChannelsStatus(): Promise<HealthCheckResult> {
     .join(" | ");
 
   return {
-    key: "channels_status",
+    key: "channels_executors",
     status: overallStatus,
     summary,
     details: results,

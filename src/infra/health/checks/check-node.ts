@@ -1,16 +1,15 @@
 import type { HealthCheckResult } from "../types.js";
-import os from "node:os";
 
 export async function checkNodeStatus(): Promise<HealthCheckResult> {
   return {
     key: "node_runtime",
     status: "ok",
-    summary: `Node ${process.version} on ${process.platform}`,
+    summary: `Node ${process.version} no sistema ${process.platform}`,
     details: {
       version: process.version,
       platform: process.platform,
       arch: process.arch,
-      uptime: process.uptime(),
+      uptime_seconds: process.uptime(),
       memory_usage: process.memoryUsage(),
     },
   };

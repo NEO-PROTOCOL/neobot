@@ -22,8 +22,8 @@ export async function checkLedgerIntegrity(): Promise<HealthCheckResult> {
     return {
       key: "ledger_integrity",
       status: "warn",
-      summary: "Ledger file missing",
-      recommendation: "Run any skill to initialize the ledger.",
+      summary: "Arquivo do Ledger ausente",
+      recommendation: "Execute qualquer skill para inicializar o ledger.",
     };
   }
 
@@ -43,23 +43,19 @@ export async function checkLedgerIntegrity(): Promise<HealthCheckResult> {
 
     // Check against checkpoint
     let status: "ok" | "fail" = "ok";
-    let summary = `Verified ${lineCount} events. Chain integrity intact.`;
+    let summary = `Verificados ${lineCount} eventos. Integridade da corrente intacta.`;
 
     if (fs.existsSync(checkpointPath)) {
       const checkpoint: LedgerCheckpoint = JSON.parse(fs.readFileSync(checkpointPath, "utf-8"));
-      // Basic check: if ledger is smaller than checkpoint, someone might have deleted lines
       if (lineCount < checkpoint.last_line) {
         status = "fail";
-        summary = `Ledger has fewer lines (${lineCount}) than last checkpoint (${checkpoint.last_line}). Possible truncation or tampering.`;
+        summary = `O Ledger possui menos eventos (${lineCount}) do que o último checkpoint (${checkpoint.last_line}). Possível truncamento ou violação.`;
       } else if (lineCount === checkpoint.last_line && currentHash !== checkpoint.last_hash) {
         status = "fail";
-        summary = "Ledger modified. Hash chain mismatch at checkpoint line.";
+        summary = "Ledger modificado. Incoerência de hash no checkpoint.";
       }
-      // If lineCount > checkpoint.last_line, we've added new events. We should verify up to checkpoint line if we want to be super strict,
-      // but for this MVP, we re-calculate the whole thing.
     }
 
-    // Update checkpoint if valid
     if (status === "ok") {
       const newCheckpoint: LedgerCheckpoint = {
         ledger_path: ledgerPath,
@@ -83,8 +79,8 @@ export async function checkLedgerIntegrity(): Promise<HealthCheckResult> {
     return {
       key: "ledger_integrity",
       status: "fail",
-      summary: `Failed to verify ledger: ${error.message}`,
-      recommendation: "Inspect ledger.jsonl for corruption.",
+      summary: `Falha ao verificar ledger: ${error.message}`,
+      recommendation: "Inspecione o arquivo ledger.jsonl para identificar corrupção.",
     };
   }
 }

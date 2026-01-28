@@ -1,5 +1,6 @@
 import { runShellSkill } from "../../infra/runner/run-shell-skill.js";
 import { sendTelegramNotification } from "../../infra/notifiers/telegram.js";
+import { createHealthAnchor } from "../../infra/health/anchor.js";
 
 export const dailyOpsStatusJob = {
   name: "daily-ops-status",
@@ -20,7 +21,15 @@ export const dailyOpsStatusJob = {
 
       // Notify via Telegram
       const reportDate = new Date().toLocaleDateString("pt-BR");
-      const telegramMessage = `📊 *Relatório Diário de Operações - ${reportDate}*\n\n${result.stdout.trim()}`;
+
+      // Create Health Anchor
+      const anchor = await createHealthAnchor();
+      let anchorInfo = "";
+      if (anchor) {
+        anchorInfo = `\n\n⚓ *Health Anchor (Local)*\nHash: \`${anchor.ledger_hash.substring(0, 16)}...\`\nLinha: ${anchor.checkpoint_line}`;
+      }
+
+      const telegramMessage = `📊 *Relatório Diário de Operações - ${reportDate}*\n\n${result.stdout.trim()}${anchorInfo}`;
       await sendTelegramNotification(telegramMessage);
     } else {
       console.error("❌ Falha no Relatório Diário de Operações.");

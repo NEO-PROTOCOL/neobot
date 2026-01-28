@@ -31,24 +31,23 @@ function usage() {
   console.log(
     `
 Usage:
-  neobot run <skill> [args...]
-  neobot whoami
-  neobot config show
-  neobot ledger path
-  neobot ledger tail [n]
-  neobot cron list
-  neobot cron run <job>
-  neobot cron start
-  neobot health [--full] [--json] [--since <hours>]
+  neobot run <skill> [args...]       Executar uma skill
+  neobot whoami                      Verificar identidade atual
+  neobot config show                 Mostrar configuração ativa
+  neobot ledger path                 Ver caminho do Ledger
+  neobot ledger tail [n]             Ver últimas entradas do Ledger
+  neobot cron list                   Listar tarefas agendadas
+  neobot cron run <job>              Executar tarefa manualmente
+  neobot cron start                  Iniciar o agendador (scheduler)
+  neobot health [--full] [--json]    Diagnóstico de saúde do sistema
+  neobot explain <id>                Explica um evento do ledger em PT-BR
 
-Examples:
+Exemplos:
   pnpm neobot run ops-status
   pnpm neobot whoami
-  pnpm neobot config show
-  pnpm neobot ledger tail 20
-  pnpm neobot cron list
-  pnpm neobot cron run daily-ops-status
   pnpm neobot health
+  pnpm neobot explain 2026-01-27T23:58:24.000Z
+  pnpm neobot cron list
 `.trim(),
   );
 }
@@ -78,8 +77,8 @@ async function main() {
 
     const statusIcons = { ok: "✅", warn: "⚠️", fail: "❌" };
 
-    console.log(`\nNEOBOT HEALTH ${statusIcons[report.overall_status]}`);
-    console.log(`Time: ${report.ts}`);
+    console.log(`\nSAÚDE DO SISTEMA NEOBOT ${statusIcons[report.overall_status]}`);
+    console.log(`Horário: ${report.ts}`);
     console.log("----------------------------------------------------------------");
 
     for (const check of report.checks) {
@@ -87,11 +86,11 @@ async function main() {
       if (isFull) {
         if (check.details) {
           console.log(
-            `   Details: ${JSON.stringify(check.details, null, 2).split("\n").join("\n   ")}`,
+            `   Detalhes: ${JSON.stringify(check.details, null, 2).split("\n").join("\n   ")}`,
           );
         }
         if (check.recommendation) {
-          console.log(`   💡 Recommendation: ${check.recommendation}`);
+          console.log(`   💡 Recomendação: ${check.recommendation}`);
         }
       }
     }
@@ -100,11 +99,23 @@ async function main() {
     process.exit(report.overall_status === "fail" ? 1 : 0);
   }
 
+  if (cmd === "explain") {
+    const { explainEvent } = await import("../infra/ledger/explain.js");
+    const eventId = subcmd;
+    if (!eventId) {
+      console.error("❌ Por favor, forneça o ID do evento (timestamp).");
+      process.exit(1);
+    }
+    const explanation = await explainEvent(eventId);
+    console.log(explanation);
+    process.exit(0);
+  }
+
   if (cmd === "cron") {
     const { jobs, startScheduler } = await import("../infra/scheduler/scheduler.js");
 
     if (subcmd === "list") {
-      console.log("📋 Scheduled Jobs:");
+      console.log("📋 Tarefas Agendadas:");
       jobs.forEach((j) => console.log(`- ${j.name}: ${j.schedule}`));
       process.exit(0);
     }
@@ -113,7 +124,7 @@ async function main() {
       const jobName = rest[0];
       const job = jobs.find((j) => j.name === jobName);
       if (!job) {
-        console.error(`❌ Job not found: ${jobName}`);
+        console.error(`❌ Tarefa não encontrada: ${jobName}`);
         process.exit(1);
       }
       await job.run();

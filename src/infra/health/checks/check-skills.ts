@@ -9,7 +9,7 @@ export async function checkSkillsStatus(sinceHours: number = 24): Promise<Health
     return {
       key: "skills_status",
       status: "ok",
-      summary: "No skills executed yet.",
+      summary: "Nenhuma skill executada ainda.",
     };
   }
 
@@ -30,7 +30,7 @@ export async function checkSkillsStatus(sinceHours: number = 24): Promise<Health
       return {
         key: "skills_status",
         status: "ok",
-        summary: `No skills executed in the last ${sinceHours}h.`,
+        summary: `Nenhuma skill executada nas últimas ${sinceHours}h.`,
       };
     }
 
@@ -58,7 +58,7 @@ export async function checkSkillsStatus(sinceHours: number = 24): Promise<Health
 
     const status: "ok" | "warn" | "fail" =
       totalFails > 0 ? "fail" : totalBlocked > 0 ? "warn" : "ok";
-    const summary = `${periodEvents.length} runs | ${totalFails} fails | ${totalBlocked} blocked (last ${sinceHours}h)`;
+    const summary = `${periodEvents.length} execuções | ${totalFails} falhas | ${totalBlocked} bloqueios (últimas ${sinceHours}h)`;
 
     return {
       key: "skills_status",
@@ -70,7 +70,7 @@ export async function checkSkillsStatus(sinceHours: number = 24): Promise<Health
     return {
       key: "skills_status",
       status: "fail",
-      summary: `Failed to analyze skills: ${error.message}`,
+      summary: `Falha ao analisar skills: ${error.message}`,
     };
   }
 }
