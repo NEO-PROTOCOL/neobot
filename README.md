@@ -31,7 +31,7 @@ O NEO BOT CLI é a sua interface de controle para o protocolo NEO. Aqui estão o
 
 
 <p align="center">
-  <img src="docs/assets/neo-bot-banner.png" alt="NEO BOT Banner" width="800">
+  <img src="docs/assets/neobot-logo.png" alt="NEØ BØT Logo" width="400">
 </p>
 
 <p align="center">
