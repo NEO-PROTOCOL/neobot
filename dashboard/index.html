@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NΞØ BOT Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <!-- Header -->
@@ -119,6 +122,53 @@
                     </div>
                 </div>
             </div>
+
+            <!-- AI Chat -->
+            <div class="bento-card card-wide card-tall">
+                <div class="card-header">
+                    <h2>🤖 Chat com Claude AI</h2>
+                    <button class="icon-btn" onclick="clearAIContext()">🗑️</button>
+                </div>
+                <div class="ai-chat-container">
+                    <div id="ai-messages" class="ai-messages">
+                        <div class="ai-welcome">
+                            👋 Olá! Sou o Claude AI. Como posso ajudar você hoje?
+                        </div>
+                    </div>
+                    <form id="ai-chat-form" onsubmit="sendAIMessage(event)" class="ai-input-form">
+                        <input type="text" id="ai-input" placeholder="Digite sua mensagem..." autocomplete="off">
+                        <button type="submit" class="ai-send-btn">
+                            <span>Enviar</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- AI Stats -->
+            <div class="bento-card card-accent">
+                <div class="card-header">
+                    <h2>📊 Estatísticas de IA</h2>
+                    <button class="icon-btn" onclick="loadAIStats()">↻</button>
+                </div>
+                <div class="health-metrics">
+                    <div class="metric">
+                        <span class="metric-label">Requests</span>
+                        <span class="metric-value" id="ai-requests">0</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Tokens</span>
+                        <span class="metric-value" id="ai-tokens">0</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Custo Total</span>
+                        <span class="metric-value" id="ai-cost">$0.00</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Tempo Médio</span>
+                        <span class="metric-value" id="ai-avg-time">0ms</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -179,4 +229,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

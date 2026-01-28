@@ -307,3 +307,163 @@ window.addEventListener('click', (e) => {
         e.target.classList.remove('active');
     }
 });
+
+// ============================================
+// AI CHAT FUNCTIONS
+// ============================================
+
+let aiChatHistory = [];
+
+// Send AI Message
+async function sendAIMessage(event) {
+    event.preventDefault();
+
+    const input = document.getElementById('ai-input');
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    // Clear input
+    input.value = '';
+
+    // Add user message to UI
+    addAIMessage('user', message);
+
+    // Show loading
+    const loadingId = addAIMessage('loading', 'Claude está pensando...');
+
+    // Disable input
+    const sendBtn = document.querySelector('.ai-send-btn');
+    sendBtn.disabled = true;
+
+    try {
+        const response = await fetch(`${API_BASE}/ai/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message,
+                userId: 'dashboard-user'
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+
+            // Remove loading message
+            removeAIMessage(loadingId);
+
+            // Add assistant response
+            addAIMessage('assistant', data.message);
+
+            // Update stats
+            loadAIStats();
+        } else {
+            throw new Error('Falha ao enviar mensagem');
+        }
+    } catch (error) {
+        removeAIMessage(loadingId);
+        addAIMessage('assistant', '❌ Erro ao processar mensagem. Verifique se a API do Claude está configurada.');
+        console.error(error);
+    } finally {
+        sendBtn.disabled = false;
+        input.focus();
+    }
+}
+
+// Add message to chat UI
+function addAIMessage(type, content) {
+    const messagesContainer = document.getElementById('ai-messages');
+
+    // Remove welcome message if exists
+    const welcome = messagesContainer.querySelector('.ai-welcome');
+    if (welcome) {
+        welcome.remove();
+    }
+
+    const messageId = `msg-${Date.now()}`;
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `ai-message ${type}`;
+    messageDiv.id = messageId;
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'ai-message-content';
+    contentDiv.textContent = content;
+
+    messageDiv.appendChild(contentDiv);
+
+    if (type !== 'loading') {
+        const timeDiv = document.createElement('div');
+        timeDiv.className = 'ai-message-time';
+        timeDiv.textContent = new Date().toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        messageDiv.appendChild(timeDiv);
+    }
+
+    messagesContainer.appendChild(messageDiv);
+
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    return messageId;
+}
+
+// Remove message from chat UI
+function removeAIMessage(messageId) {
+    const message = document.getElementById(messageId);
+    if (message) {
+        message.remove();
+    }
+}
+
+// Clear AI context
+async function clearAIContext() {
+    if (!confirm('Limpar histórico de conversa?')) return;
+
+    try {
+        await fetch(`${API_BASE}/ai/clear-context`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: 'dashboard-user' })
+        });
+
+        // Clear UI
+        const messagesContainer = document.getElementById('ai-messages');
+        messagesContainer.innerHTML = `
+            <div class="ai-welcome">
+                👋 Olá! Sou o Claude AI. Como posso ajudar você hoje?
+            </div>
+        `;
+
+        showNotification('✅ Contexto limpo!', 'success');
+    } catch (error) {
+        showNotification('❌ Erro ao limpar contexto', 'error');
+    }
+}
+
+// Load AI Stats
+async function loadAIStats() {
+    try {
+        const response = await fetch(`${API_BASE}/ai/stats`);
+        if (response.ok) {
+            const stats = await response.json();
+
+            document.getElementById('ai-requests').textContent = stats.totalRequests;
+            document.getElementById('ai-tokens').textContent = stats.totalTokens.toLocaleString();
+            document.getElementById('ai-cost').textContent = `$${stats.totalCost.toFixed(4)}`;
+            document.getElementById('ai-avg-time').textContent = `${stats.avgResponseTime}ms`;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar stats de IA:', error);
+    }
+}
+
+// Initialize AI features
+document.addEventListener('DOMContentLoaded', () => {
+    // Load AI stats on startup
+    loadAIStats();
+
+    // Refresh AI stats every 30 seconds
+    setInterval(loadAIStats, 30000);
+});

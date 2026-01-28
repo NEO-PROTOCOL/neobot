@@ -3,26 +3,26 @@
     --bg-secondary: #13131a;
     --bg-card: #1a1a24;
     --bg-card-hover: #21212e;
-    
+
     --accent-primary: #6366f1;
     --accent-secondary: #8b5cf6;
     --accent-success: #10b981;
     --accent-warning: #f59e0b;
-    
+
     --text-primary: #f9fafb;
     --text-secondary: #9ca3af;
     --text-muted: #6b7280;
-    
+
     --border-color: #2d2d3a;
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
-    
+
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    
+
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -71,8 +71,15 @@ body {
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .logo h1 {
@@ -105,8 +112,15 @@ body {
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 /* Bento Grid */
@@ -291,7 +305,8 @@ body {
     font-size: 13px;
 }
 
-.loading, .empty-state {
+.loading,
+.empty-state {
     text-align: center;
     color: var(--text-muted);
     padding: 40px 20px;
@@ -425,6 +440,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -515,16 +531,140 @@ body {
     transform: translateY(0);
 }
 
+
+/* AI Chat */
+.ai-chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.ai-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ai-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-messages::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: 3px;
+}
+
+.ai-messages::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 3px;
+}
+
+.ai-welcome {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px 20px;
+    font-size: 15px;
+}
+
+.ai-message {
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    max-width: 80%;
+    animation: slideIn 0.3s ease-out;
+}
+
+.ai-message.user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    margin-left: auto;
+}
+
+.ai-message.assistant {
+    align-self: flex-start;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.ai-message.loading {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.ai-message-content {
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.ai-message-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+}
+
+.ai-input-form {
+    display: flex;
+    gap: 12px;
+}
+
+.ai-input-form input {
+    flex: 1;
+    padding: 14px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 15px;
+    transition: var(--transition);
+}
+
+.ai-input-form input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.ai-send-btn {
+    padding: 14px 24px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    border: none;
+    border-radius: var(--radius-md);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.ai-send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.ai-send-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .bento-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .card-wide {
         grid-column: span 1;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
