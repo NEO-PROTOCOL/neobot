@@ -125,7 +125,10 @@ async function loadReminders() {
         if (response.ok) {
             reminders = await response.json();
             renderReminders();
-            document.getElementById('reminders-count').textContent = `${reminders.length} agendados`;
+            const countEl = document.getElementById('reminders-count');
+            if (countEl) {
+                countEl.textContent = `${reminders.length} agendados`;
+            }
         }
     } catch (error) {
         console.error('Erro ao carregar lembretes:', error);
@@ -136,6 +139,7 @@ async function loadReminders() {
 
 function renderReminders() {
     const container = document.getElementById('reminders-list');
+    if (!container) return;
 
     if (reminders.length === 0) {
         container.innerHTML = '<div class="empty-state">Nenhum lembrete agendado</div>';
@@ -152,6 +156,8 @@ function renderReminders() {
 
 function renderMockReminders() {
     const container = document.getElementById('reminders-list');
+    if (!container) return;
+    
     container.innerHTML = `
         <div class="reminder-item">
             <div class="reminder-text">🔔 Beber água</div>
@@ -162,7 +168,11 @@ function renderMockReminders() {
             <div class="reminder-time">Daqui a 2 horas</div>
         </div>
     `;
-    document.getElementById('reminders-count').textContent = '2 agendados';
+    
+    const countEl = document.getElementById('reminders-count');
+    if (countEl) {
+        countEl.textContent = '2 agendados';
+    }
 }
 
 // Load Messages
@@ -182,6 +192,7 @@ async function loadMessages() {
 
 function renderMessages() {
     const container = document.getElementById('messages-list');
+    if (!container) return;
 
     if (messages.length === 0) {
         container.innerHTML = '<div class="empty-state">Nenhuma mensagem ainda</div>';
@@ -201,6 +212,8 @@ function renderMessages() {
 
 function renderMockMessages() {
     const container = document.getElementById('messages-list');
+    if (!container) return;
+    
     container.innerHTML = `
         <div class="message-item">
             <div class="message-header">
@@ -221,8 +234,15 @@ function renderMockMessages() {
 
 // Update Stats
 function updateStats() {
-    document.getElementById('total-reminders').textContent = stats.totalReminders;
-    document.getElementById('total-messages').textContent = stats.totalMessages;
+    const totalRemindersEl = document.getElementById('total-reminders');
+    const totalMessagesEl = document.getElementById('total-messages');
+    
+    if (totalRemindersEl) {
+        totalRemindersEl.textContent = stats.totalReminders;
+    }
+    if (totalMessagesEl) {
+        totalMessagesEl.textContent = stats.totalMessages;
+    }
 }
 
 // Refresh Status
@@ -456,10 +476,15 @@ async function loadAIStats() {
         if (response.ok) {
             const stats = await response.json();
 
-            document.getElementById('ai-requests').textContent = stats.totalRequests;
-            document.getElementById('ai-tokens').textContent = stats.totalTokens.toLocaleString();
-            document.getElementById('ai-cost').textContent = `$${stats.totalCost.toFixed(4)}`;
-            document.getElementById('ai-avg-time').textContent = `${stats.avgResponseTime}ms`;
+            const requestsEl = document.getElementById('ai-requests');
+            const tokensEl = document.getElementById('ai-tokens');
+            const costEl = document.getElementById('ai-cost');
+            const avgTimeEl = document.getElementById('ai-avg-time');
+
+            if (requestsEl) requestsEl.textContent = stats.totalRequests;
+            if (tokensEl) tokensEl.textContent = stats.totalTokens.toLocaleString();
+            if (costEl) costEl.textContent = `$${stats.totalCost.toFixed(4)}`;
+            if (avgTimeEl) avgTimeEl.textContent = `${stats.avgResponseTime}ms`;
         }
     } catch (error) {
         console.error('Erro ao carregar stats de IA:', error);
@@ -570,12 +595,15 @@ async function loadAutomations() {
     } catch (error) {
         console.error('Error loading automations:', error);
         const container = document.getElementById('automations-list');
-        container.innerHTML = '<div class="empty-state">❌ Erro ao carregar automações</div>';
+        if (container) {
+            container.innerHTML = '<div class="empty-state">❌ Erro ao carregar automações</div>';
+        }
     }
 }
 
 function displayAutomations(tasks) {
     const container = document.getElementById('automations-list');
+    if (!container) return;
     
     if (!tasks || tasks.length === 0) {
         container.innerHTML = '<div class="empty-state">Nenhuma automação configurada</div>';
@@ -610,8 +638,11 @@ function displayAutomations(tasks) {
 }
 
 function updateAutomationStats(stats) {
-    document.getElementById('automation-total').textContent = stats.enabled;
-    document.getElementById('automation-runs').textContent = stats.totalRuns;
+    const totalEl = document.getElementById('automation-total');
+    const runsEl = document.getElementById('automation-runs');
+    
+    if (totalEl) totalEl.textContent = stats.enabled;
+    if (runsEl) runsEl.textContent = stats.totalRuns;
 }
 
 async function executeAutomation(taskId) {
@@ -676,8 +707,12 @@ async function generateReport() {
             const previewDiv = document.getElementById('report-preview');
             const contentDiv = document.getElementById('report-content');
             
-            contentDiv.textContent = data.report;
-            previewDiv.style.display = 'block';
+            if (contentDiv) {
+                contentDiv.textContent = data.report;
+            }
+            if (previewDiv) {
+                previewDiv.style.display = 'block';
+            }
             
             showNotification('✅ Relatório gerado com sucesso!', 'success');
         } else {

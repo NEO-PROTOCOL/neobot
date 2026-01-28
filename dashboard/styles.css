@@ -40,9 +40,9 @@
     --radius-lg: 22px;
     --radius-xl: 28px;
 
-    /* iOS-style Spring Animation */
-    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Optimized Fast Transitions */
+    --transition: all 0.15s ease;
+    --transition-smooth: all 0.15s ease;
 }
 
 * {
@@ -92,8 +92,6 @@ body {
 
 .header:hover {
     border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
 }
 
 .header-info {
@@ -219,18 +217,11 @@ body {
 }
 
 .bento-card:hover {
-    background: var(--bg-card-hover);
     border-color: var(--accent-primary);
-    box-shadow: var(--shadow-glow);
-    transform: translateY(-4px) scale(1.01);
-}
-
-.bento-card:hover::before {
-    opacity: 1;
 }
 
 .bento-card:active {
-    transform: translateY(-2px) scale(0.99);
+    opacity: 0.95;
 }
 
 /* iOS Dynamic Island inspired cards */
@@ -285,7 +276,6 @@ body {
 .icon-btn:hover {
     background: var(--accent-primary);
     color: white;
-    transform: rotate(180deg);
 }
 
 /* Quick Actions */
@@ -330,21 +320,13 @@ body {
     transition: left 0.5s;
 }
 
-.action-btn:hover::before {
-    left: 100%;
-}
-
 .action-btn:hover {
     background: var(--accent-primary);
     border-color: var(--accent-primary);
-    transform: translateX(4px) scale(1.02);
-    box-shadow: 
-        0 8px 24px rgba(0, 122, 255, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .action-btn:active {
-    transform: translateX(2px) scale(0.98);
+    opacity: 0.9;
 }
 
 .btn-icon {
@@ -410,7 +392,6 @@ body {
 
 .reminder-item:hover {
     border-color: var(--accent-primary);
-    transform: translateX(4px);
 }
 
 .reminder-text {
@@ -591,7 +572,6 @@ body {
 
 .close-btn:hover {
     color: var(--text-primary);
-    transform: rotate(90deg);
 }
 
 /* Forms */
@@ -643,8 +623,7 @@ body {
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    opacity: 0.9;
 }
 
 .submit-btn:active {
@@ -818,8 +797,7 @@ body {
 }
 
 .ai-send-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    opacity: 0.9;
 }
 
 .ai-send-btn:disabled {
@@ -850,7 +828,6 @@ body {
 
 .automation-item:hover {
     border-color: var(--accent-primary);
-    transform: translateX(4px);
 }
 
 .automation-info {
@@ -914,8 +891,7 @@ body {
 }
 
 .automation-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+    opacity: 0.9;
 }
 
 .automation-btn.toggle {

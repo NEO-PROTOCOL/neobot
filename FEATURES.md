@@ -16,6 +16,7 @@
 ```
 
 #### Efeitos Visuais
+
 - ✨ **Glassmorphism**: Blur backdrop + transparência
 - 🌈 **Gradient Overlays**: Gradientes sutis em cards
 - 💫 **Spring Animations**: Animações com cubic-bezier
@@ -23,6 +24,7 @@
 - 📊 **Dynamic Cards**: Adaptam tamanho automaticamente
 
 #### Tipografia
+
 - **Fonte**: SF Pro (iOS) / Inter (fallback)
 - **Pesos**: 300, 400, 500, 600, 700, 800
 - **Anti-aliasing**: Otimizado para retina displays
@@ -30,11 +32,13 @@
 ### 🧩 Componentes
 
 #### 1. Header Glassmorphic
+
 - Logo animado com float effect
 - Status badge com pulse animation
 - Blur backdrop + border glow no hover
 
 #### 2. Bento Grid System
+
 ```
 Layouts suportados:
 • Normal (1x1)
@@ -44,18 +48,21 @@ Layouts suportados:
 ```
 
 #### 3. Action Buttons
+
 - Ícone + texto
 - Shine effect no hover
 - Scale + translate animation
 - Glassmorphism background
 
 #### 4. Cards Temáticos
+
 - **Primary**: Azul - Ações importantes
 - **Accent**: Verde - Status/Saúde
 - **Stats**: Laranja - Métricas
 - **Default**: Neutro - Informações
 
 #### 5. Modais iOS-style
+
 - Blur backdrop overlay
 - Slide-up animation
 - Glassmorphic content
@@ -64,6 +71,7 @@ Layouts suportados:
 ### 📊 Seções do Dashboard
 
 #### 1. ⚡ Ações Rápidas
+
 ```typescript
 • Criar Lembrete
 • Enviar Mensagem
@@ -72,12 +80,14 @@ Layouts suportados:
 ```
 
 #### 2. 📅 Lembretes Agendados
+
 - Lista scrollável
 - Auto-refresh (30s)
 - Status visual
 - Contador de agendados
 
 #### 3. 💚 Saúde do Sistema
+
 ```
 Monitora:
 • Status Telegram
@@ -86,17 +96,20 @@ Monitora:
 ```
 
 #### 4. 📨 Mensagens Recentes
+
 - Últimas 10 mensagens
 - Timestamp relativo
 - Sender badge
 - Auto-scroll
 
 #### 5. 👥 Contatos
+
 - Lista de chat IDs
 - Copy-to-clipboard
 - Nome + ID visual
 
 #### 6. 📊 Estatísticas
+
 ```
 Métricas:
 • Total de lembretes
@@ -105,12 +118,14 @@ Métricas:
 ```
 
 #### 7. 🤖 Chat com Claude AI
+
 - Interface de chat real-time
 - Histórico persistente
 - Indicador de digitação
 - Estatísticas de uso integradas
 
 #### 8. 📊 Estatísticas de IA
+
 ```
 Métricas Claude:
 • Total requests
