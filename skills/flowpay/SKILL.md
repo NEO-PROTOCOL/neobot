@@ -1,114 +1,135 @@
-# 💳 FlowPay Skills
+# FlowPay Skills
 
-**Versão:** 1.0.0  
-**Status:** ✅ Estrutura criada  
-**Camada:** Valor & Token
+Payment gateway skills for PIX → Access Unlock
 
----
+## Overview
 
-## 📖 Descrição
+FlowPay is the CRITICAL revenue gateway
+for NEØ Protocol. It closes the loop:
 
-Skills para interagir com FlowPay Gateway (PIX → $NEOFLW/USDC). Permite iniciar compras, checar status de transações e gerenciar conversões.
+**Lead → Agency → Payment → Access**
 
----
+Model B (Access Unlock Primary):
 
-## 🎯 Casos de Uso
+- PIX payment → Unlock access
+- Token as invisible ledger
+- Web2 UX, Web3 infrastructure
 
-1. **Compra de Tokens**
-   - Gerar PIX para compra de $NEOFLW
-   - Gerar PIX para compra de USDC
-   - Receber QR Code e código PIX copia-e-cola
+## Available Commands
 
-2. **Status de Transação**
-   - Checar status de pagamento PIX
-   - Verificar conversão BRL → Crypto
-   - Confirmar entrega de tokens
+### Buy (Create Charge)
 
-3. **Histórico**
-   - Listar transações do usuário
-   - Ver histórico de conversões
-   - Exportar relatório
-
----
-
-## 📂 Arquivos
-
-```
-skills/flowpay/
-├── SKILL.md              # Este arquivo
-├── buy.ts                # Iniciar compra PIX
-├── status.ts             # Status de transação
-└── README.md             # Documentação de uso
-```
-
----
-
-## 🔧 Comandos CLI (Planejados)
+Create PIX charge for product/service.
 
 ```bash
-# Compra
-moltbot flowpay buy --amount 100 --token NEOFLW --wallet 0x...
-moltbot flowpay buy --amount 50 --token USDC
-
-# Status
-moltbot flowpay status --tx abc123
-moltbot flowpay history --wallet 0x...
-
-# Admin
-moltbot flowpay balance --check
-moltbot flowpay liquidity --status
+moltbot flowpay:buy \
+  --amount_brl 99.90 \
+  --product_ref "smart-factory-basic" \
+  --customer_ref "+5562983231110"
 ```
 
----
+Returns:
 
-## 🔗 Integração
+- PIX QR code
+- Copy-paste code
+- Checkout URL
+- Charge ID
 
-### Local
-- **FlowPay:** `/Users/nettomello/CODIGOS/flowpay/`
-- **Framework:** Astro (208 arquivos)
+### Status (Check Payment)
 
-### GitHub
-- [flowpay](https://github.com/neomello/flowpay) (repo vazio - código local)
+Check if payment was confirmed.
 
-### Notion
-- [FlowPay Page](https://www.notion.so/2f78c6e83be0816a9348e927c258ec0b)
-- [Projetos Database](https://www.notion.so/2f88c6e83be081709604fba3b7aef592)
-
----
-
-## 💰 Fluxo de Compra
-
-```
-1. Usuário: moltbot flowpay buy --amount 100 --token NEOFLW
-   ↓
-2. FlowPay Skill gera PIX
-   - Cotação atual: R$ 100 = X $NEOFLW
-   - QR Code gerado
-   - Código copia-e-cola retornado
-   ↓
-3. Usuário paga PIX via app bancário
-   ↓
-4. FlowPay recebe webhook de confirmação
-   ↓
-5. Smart Contract minta $NEOFLW
-   ↓
-6. Tokens entregues na wallet
-   ↓
-7. Notificação via Telegram: "✅ Recebido X $NEOFLW!"
+```bash
+moltbot flowpay:status \
+  --charge_id "woovi_abc123"
 ```
 
----
+Returns:
 
-## 🚀 Próximos Passos
+- Payment status (PAID, PENDING, etc)
+- Payment details
+- Timestamps
 
-1. Implementar `buy.ts` com geração de PIX
-2. Integrar com FlowPay local (Astro backend)
-3. Adicionar webhook listener para confirmações
-4. Criar notificações Telegram
-5. Registrar transações no Ledger
-6. Atualizar Notion Work Log
+### Unlock (Grant Access)
 
----
+Transform PAID status into access.
 
-**Criado em:** 29 Janeiro 2026  
-**Node Arquiteto:** Mellø
+```bash
+moltbot flowpay:unlock \
+  --charge_id "woovi_abc123"
+```
+
+Returns:
+
+- UNLOCK_RECEIPT (sovereign receipt)
+- unlock_token (JWT for auth)
+- access_url (where to access)
+- permissions (what user can do)
+
+## Integration
+
+FlowPay runs independently at:
+
+- **Production:** flowpaypix.netlify.app
+- **Local:** /CODIGOS/flowpay/
+- **GitHub:** neomello/flowpay
+- **Deploy:** Netlify (auto)
+- **Status:** 90% complete
+
+## Tech Stack
+
+- **Framework:** Astro
+- **Auth:** Web3Auth
+- **Payment:** Woovi/OpenPix (PIX)
+- **Blockchain:** QuickNode
+- **Deploy:** Netlify
+
+## Documentation
+
+Complete documentation:
+`docs/integrations/flowpay/`
+
+## Configuration
+
+Integration config:
+`extensions/flowpay/integration.json`
+
+## Architecture Decision
+
+See: `ADR-002-access-unlock-primary.md`
+
+**Decision:** Model B (Access Unlock)
+- PIX → Access (primary)
+- Token → Ledger (secondary)
+
+## Revenue Impact
+
+**CRITICAL:** This pays Mellø's bills! 💰
+
+Without FlowPay:
+- No agency revenue
+- No Smart Factory monetization
+- No WOD/FLUXX sales
+- No closed loop
+
+**Priority:** HIGHEST
+
+## Prerequisites
+
+- FlowPay running (local or production)
+- FLOWPAY_API_KEY configured
+- Woovi/OpenPix account
+- Product catalog defined
+
+────────────────────────────────────────
+
+▓▓▓ NΞØ MELLØ
+────────────────────────────────────────
+Core Architect · NΞØ Protocol
+neo@neoprotocol.space
+
+"Revenue first. Sovereignty follows.
+ Access is product. Token is proof."
+
+Closed loop > Open dream.
+────────────────────────────────────────

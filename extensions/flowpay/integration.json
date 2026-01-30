@@ -1,0 +1,39 @@
+{
+  "name": "FlowPay Gateway",
+  "version": "2.2.0",
+  "type": "remote",
+  "status": "critical",
+  "priority": "highest",
+  "location": {
+    "local": "/Users/nettomello/CODIGOS/flowpay",
+    "repository": "https://github.com/neomello/flowpay",
+    "production": "https://flowpaypix.netlify.app",
+    "deploy_platform": "netlify"
+  },
+  "tech_stack": {
+    "framework": "Astro",
+    "auth": "Web3Auth",
+    "payment": "Woovi/OpenPix",
+    "blockchain_rpc": "QuickNode",
+    "percentage_complete": 90
+  },
+  "endpoints": {
+    "buy": "/api/charges/create",
+    "status": "/api/charges/status",
+    "webhook": "/api/webhooks/pix",
+    "unlock": "/api/access/unlock"
+  },
+  "integration_model": "B",
+  "value_model": "access_unlock_primary",
+  "token_model": "ledger_secondary",
+  "description": "PIX → Access Unlock. Token as invisible ledger.",
+  "revenue_impact": "PAYS_BILLS",
+  "blocks": [
+    "Smart Factory revenue",
+    "Agency income",
+    "All ecosystem monetization"
+  ],
+  "ide": "Cursor",
+  "maintainer": "Mellø",
+  "last_updated": "2026-01-30"
+}

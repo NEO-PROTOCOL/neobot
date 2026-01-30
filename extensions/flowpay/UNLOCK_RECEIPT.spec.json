@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FlowPay Unlock Receipt",
+  "description": "Sovereign receipt for access unlock events (NEØ Protocol Standard)",
+  "type": "object",
+  "required": [
+    "receipt_id",
+    "charge_id",
+    "paid_at",
+    "customer_ref",
+    "product_ref",
+    "permissions",
+    "issuer",
+    "signature"
+  ],
+  "properties": {
+    "receipt_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this unlock receipt"
+    },
+    "charge_id": {
+      "type": "string",
+      "description": "FlowPay charge ID (Woovi/OpenPix)"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of payment"
+    },
+    "customer_ref": {
+      "type": "string",
+      "description": "Customer identifier (phone, email, instagram handle)"
+    },
+    "product_ref": {
+      "type": "string",
+      "description": "Product/service identifier"
+    },
+    "amount_brl": {
+      "type": "number",
+      "description": "Amount paid in BRL"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Access scopes granted (e.g., ['member', 'dashboard', 'api'])"
+    },
+    "access_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to access unlocked content/service"
+    },
+    "unlock_token": {
+      "type": "string",
+      "description": "JWT or signed payload for authentication"
+    },
+    "issuer": {
+      "type": "string",
+      "enum": ["FlowPay", "Neobot"],
+      "description": "System that issued this receipt"
+    },
+    "signature": {
+      "type": "string",
+      "description": "Cryptographic signature (future: EIP-712)"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional context (optional)",
+      "properties": {
+        "wallet_address": {
+          "type": "string"
+        },
+        "referral_code": {
+          "type": "string"
+        },
+        "campaign_id": {
+          "type": "string"
+        }
+      }
+    },
+    "blockchain_anchor": {
+      "type": "object",
+      "description": "Optional: Future onchain proof",
+      "properties": {
+        "tx_hash": {
+          "type": "string"
+        },
+        "network": {
+          "type": "string"
+        },
+        "token_id": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "example": {
+    "receipt_id": "550e8400-e29b-41d4-a716-446655440000",
+    "charge_id": "woovi_abc123",
+    "paid_at": "2026-01-30T15:30:00Z",
+    "customer_ref": "+5562983231110",
+    "product_ref": "smart-factory-basic",
+    "amount_brl": 99.90,
+    "permissions": ["member", "dashboard", "api:mint"],
+    "access_url": "https://smart-ui-delta.vercel.app/members/dashboard",
+    "unlock_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "issuer": "FlowPay",
+    "signature": "0x1234567890abcdef...",
+    "metadata": {
+      "wallet_address": "0x29f2154878435966eFa72a3CEd44Bd027F09a3A2",
+      "referral_code": "FLOW2026",
+      "campaign_id": "launch-week"
+    }
+  }
+}

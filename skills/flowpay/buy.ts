@@ -1,111 +1,152 @@
-#!/usr/bin/env tsx
-
 /**
- * 💳 FlowPay - Buy Skill
+ * FlowPay Buy Skill
+ * Creates PIX charge and returns payment details
  * 
- * Iniciar compra de tokens via PIX
- * 
- * Uso:
- *   moltbot flowpay buy --amount 100 --token NEOFLW --wallet 0x...
- * 
- * @version 1.0.0
- * @author Mellø (NEØ Protocol)
+ * Model B: PIX → Access Unlock
+ * Token as ledger (secondary)
  */
 
-interface BuyOptions {
-  amount: number; // R$ valor em BRL
-  token: 'NEOFLW' | 'USDC';
-  wallet: string; // Endereço de destino
-}
-
-interface PIXResponse {
-  qrCode: string; // QR Code base64
-  pixCopyPaste: string; // Código copia-e-cola
-  txId: string; // ID da transação
-  expiresAt: Date; // Expiração do PIX
-  estimatedTokens: number; // Estimativa de tokens a receber
-}
-
-/**
- * Cotação aproximada (mock - deve vir do FlowPay backend)
- */
-const EXCHANGE_RATES = {
-  NEOFLW: 0.55, // R$ 0.55 por NEOFLW
-  USDC: 5.50,   // R$ 5.50 por USDC (1 USD ~ R$ 5.50)
+export const metadata = {
+  name: 'flowpay:buy',
+  description: 'Create PIX charge for product/service purchase',
+  category: 'flowpay',
+  tags: ['payment', 'pix', 'checkout', 'revenue'],
+  version: '1.0.0',
+  author: 'NEØ Protocol',
+  priority: 'critical'
 };
 
-/**
- * Gerar PIX para compra de tokens
- */
-async function buyTokens(options: BuyOptions): Promise<PIXResponse> {
-  console.log(`💳 Generating PIX for R$ ${options.amount} → ${options.token}...`);
+interface BuyInput {
+  amount_brl: number;
+  product_ref: string;
+  customer_ref: string; // phone, email, instagram handle
+  wallet_address?: string; // optional for future token
+  callback_url?: string; // webhook destination
+  metadata?: Record<string, any>;
+}
+
+interface BuyOutput {
+  success: boolean;
+  charge_id: string;
+  pix_qr: string; // QR code data URL
+  pix_copy_paste: string; // PIX copia-e-cola
+  checkout_url: string; // Full checkout page
+  amount_brl: number;
+  expires_at: string; // ISO 8601
+  status: 'CREATED' | 'PENDING';
+  error?: string;
+}
+
+export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
+  const { amount_brl, product_ref, customer_ref, wallet_address, callback_url, metadata } = input;
+
+  // Validation
+  if (!amount_brl || amount_brl <= 0) {
+    return {
+      success: false,
+      error: 'Invalid amount_brl (must be > 0)'
+    } as BuyOutput;
+  }
+
+  if (!product_ref || !customer_ref) {
+    return {
+      success: false,
+      error: 'Missing required fields: product_ref, customer_ref'
+    } as BuyOutput;
+  }
 
   try {
-    // Calcular quantidade estimada de tokens
-    const rate = EXCHANGE_RATES[options.token];
-    const estimatedTokens = options.amount / rate;
+    // Call FlowPay API (Woovi/OpenPix)
+    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://flowpaypix.netlify.app/api';
+    const apiKey = process.env.FLOWPAY_API_KEY || process.env.OPENPIX_API_KEY;
 
-    console.log(`📊 Exchange rate: R$ ${rate} per ${options.token}`);
-    console.log(`🪙 Estimated tokens: ${estimatedTokens.toFixed(2)} ${options.token}`);
+    if (!apiKey) {
+      throw new Error('FLOWPAY_API_KEY or OPENPIX_API_KEY not configured');
+    }
 
-    // TODO: Chamar FlowPay backend para gerar PIX real
-    // const response = await fetch('http://localhost:3000/api/flowpay/generate-pix', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     amount: options.amount,
-    //     token: options.token,
-    //     wallet: options.wallet,
-    //   }),
-    // });
-    // const data = await response.json();
+    const response = await fetch(`${flowpayUrl}/charges/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': apiKey
+      },
+      body: JSON.stringify({
+        value: Math.round(amount_brl * 100), // cents
+        correlationID: `${product_ref}-${Date.now()}`,
+        comment: `NEØ Protocol - ${product_ref}`,
+        customer: {
+          name: customer_ref,
+          taxID: customer_ref // or phone
+        },
+        additionalInfo: [
+          { key: 'product_ref', value: product_ref },
+          { key: 'customer_ref', value: customer_ref },
+          { key: 'wallet_address', value: wallet_address || 'none' },
+          { key: 'source', value: 'neobot' }
+        ]
+      })
+    });
 
-    // Mock response (substituir por chamada real)
-    const mockResponse: PIXResponse = {
-      qrCode: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...', // Mock
-      pixCopyPaste: '00020126580014br.gov.bcb.pix01364e7a65f9-95a3-4f4d-9fc5-e7c66c6f73b05204000053039865802BR5913FlowPay Demo6008SAOPAULO62070503***6304ABCD',
-      txId: `TX-${Date.now()}`,
-      expiresAt: new Date(Date.now() + 30 * 60 * 1000), // 30 min
-      estimatedTokens,
+    if (!response.ok) {
+      throw new Error(`FlowPay API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    // Transform to our standard format
+    const result: BuyOutput = {
+      success: true,
+      charge_id: data.correlationID || data.txid,
+      pix_qr: data.brcode || data.qrCodeImage,
+      pix_copy_paste: data.brcode,
+      checkout_url: data.paymentLinkUrl || `${flowpayUrl}/../checkout?charge=${data.correlationID}`,
+      amount_brl,
+      expires_at: data.expiresDate || new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+      status: 'CREATED'
     };
 
-    console.log('\n📱 PIX Generated!');
-    console.log(`🔗 Transaction ID: ${mockResponse.txId}`);
-    console.log(`⏰ Expires at: ${mockResponse.expiresAt.toLocaleString('pt-BR')}`);
-    console.log(`\n🔑 PIX Copy-Paste Code:`);
-    console.log(mockResponse.pixCopyPaste);
-    console.log('\n📸 Scan this QR Code with your banking app');
+    // Log for audit trail
+    console.log(`[flowpay:buy] Created charge ${result.charge_id} for ${customer_ref}`);
 
-    // TODO: Registrar no Ledger
-    // TODO: Enviar QR Code via Telegram
-    // TODO: Atualizar Notion Work Log
+    // Store in Neobot ledger (if available)
+    if (ctx.ledger) {
+      await ctx.ledger.write({
+        actor: 'user',
+        channel: 'flowpay',
+        action: 'charge_created',
+        data: {
+          charge_id: result.charge_id,
+          product_ref,
+          customer_ref,
+          amount_brl
+        }
+      });
+    }
 
-    return mockResponse;
+    return result;
 
-  } catch (error) {
-    console.error('❌ Failed to generate PIX:', error);
-    throw error;
+  } catch (error: any) {
+    console.error('[flowpay:buy] Error:', error);
+    return {
+      success: false,
+      error: error.message
+    } as BuyOutput;
   }
 }
 
 /**
- * CLI Entry Point
+ * Usage example:
+ * 
+ * ```bash
+ * moltbot flowpay:buy \
+ *   --amount_brl 99.90 \
+ *   --product_ref "smart-factory-basic" \
+ *   --customer_ref "+5562983231110"
+ * ```
+ * 
+ * Returns:
+ * - PIX QR code
+ * - Copy-paste code
+ * - Checkout URL
+ * - Charge ID (for status tracking)
  */
-if (require.main === module) {
-  const args = process.argv.slice(2);
-  const amount = parseFloat(args.find((arg) => arg.startsWith('--amount='))?.split('=')[1] || '0');
-  const token = args.find((arg) => arg.startsWith('--token='))?.split('=')[1] as BuyOptions['token'];
-  const wallet = args.find((arg) => arg.startsWith('--wallet='))?.split('=')[1] || '';
-
-  if (!amount || !token || !wallet) {
-    console.error('Usage: moltbot flowpay buy --amount=<BRL> --token=<NEOFLW|USDC> --wallet=<address>');
-    process.exit(1);
-  }
-
-  buyTokens({ amount, token, wallet }).catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
-}
-
-export { buyTokens };
