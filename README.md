@@ -28,8 +28,9 @@
 ========================================================================
 ```
 
-NEØ Protocol is a decentralized AI assistant control plane that runs on
+NEØ.BOT is a decentralized AI assistant control plane that runs on
 your infrastructure, with your rules, following Web3 principles.
+A code managed by the NEØ protocol.
 
 Born from Moltbot's industrial-grade foundation. Hybrid architecture:
 
@@ -37,7 +38,7 @@ Born from Moltbot's industrial-grade foundation. Hybrid architecture:
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ STACK                                                      │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ 40% Moltbot Core  → Gateway, channels, agent runtime        │
+│ └─ 40% OpenClaw Core  → Gateway, channels, agent runtime       │
 │ └─ 60% NEØ Layer    → IPFS, Web3 identity, self-hosted         │
 └────────────────────────────────────────────────────────────────┘
 ```
@@ -60,7 +61,7 @@ sophisticated AI assistant control plane. NEØ extends that foundation.
 
 ```text
 ┌────────────────────────────────────────────────────────────────┐
-│ ▓▓▓ FROM MOLTBOT                                               │
+│ ▓▓▓ FROM OPENCLAW/MOLTBOT                                      │
 ├────────────────────────────────────────────────────────────────┤
 │ └─ Gateway (WebSocket), multi-channel (WhatsApp, Telegram, etc)│
 │ └─ Pi agent runtime, security-first, health & Ledger           │
