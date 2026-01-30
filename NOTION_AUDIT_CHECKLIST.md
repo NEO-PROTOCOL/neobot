@@ -7,7 +7,8 @@
 ```
 
 **Data:** 30 Janeiro 2026  
-**Status:** 🟡 Em progresso
+**Status:** 🟢 Auditoria FlowOFF Completa  
+**Descobertas:** FlowCloser encontrado!
 
 ────────────────────────────────────────
 
@@ -37,7 +38,7 @@ antes de decidir próximos passos.
 ## PROJETOS CONHECIDOS
 
 ```text
-▓▓▓ JÁ INTEGRADOS (10 projetos)
+▓▓▓ JÁ INTEGRADOS (14 projetos)
 ────────────────────────────────────────
 [####] neobot .................... OK
 └─ Core do NEØ Protocol
@@ -64,10 +65,14 @@ antes de decidir próximos passos.
 └─ GitHub: neomello/neo-agent-full
 └─ Status: 🟡 Desenvolvimento
 
-[####] flowcloser ................ OK
-└─ External services (Railway)
-└─ URL: flowcloser-*.railway.app
-└─ Status: 🟢 Ativo
+[####] flowcloser-agent .......... OK
+└─ Lead qualification (IA)
+└─ Local: bots_ia/flowcloser_adk-ts
+└─ Railway: ✅ DEPLOYED (100%)
+└─ URL: flowcloser-agent-production
+       .up.railway.app
+└─ Stack: TS, GPT-4o, Meta API
+└─ Status: 🟢 Produção
 
 [#---] smart-ui-mobile ......... WARN
 └─ MiniApp Telegram planejado
@@ -88,6 +93,31 @@ antes de decidir próximos passos.
 └─ Operations UI (backlog)
 └─ Local: neobot-dashboard/
 └─ Status: 🟡 Planejado
+
+[####] neo-flowoff-pwa ........... OK
+└─ Site oficial FlowOFF Agency
+└─ GitHub: neomello/neo-flowoff-pwa
+└─ Deploy: Vercel (production)
+└─ URL: flowoff.xyz
+└─ Status: 🟢 Produção
+
+[####] neo-one ................... OK
+└─ Agente ASI1 autônomo (MCP v1.1)
+└─ GitHub: neomello/neo-one
+└─ Stack: Python, ASI1, Thirdweb
+└─ Status: 🟡 Desenvolvimento
+
+[#---] neoflowoff-nodemello.run . WARN
+└─ Node runner infrastructure
+└─ GitHub: neomello/
+        neoflowoff-nodemello.run
+└─ Status: 🟡 Avaliação pendente
+
+[####] neo-smart-factory ......... OK
+└─ NEØ Smart Token Factory
+└─ 5 repos (core, docs, ui, cli,
+   landing)
+└─ Status: 🟢 Ativo
 ```
 
 ────────────────────────────────────────
@@ -143,37 +173,51 @@ foram mapeados.
 
 ```text
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ PROJETO #1
+┃ PROJETO #1: FLOWCLOSER AGENT
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ Nome: _____________________________
-┃ Desc: _____________________________
-┃ Stack: ____________________________
-┃ Status: ___________________________
-┃ Local: ____________________________
-┃ Integrar? [ ] Sim  [ ] Não
-┃ Prioridade: [ ]🔥 [ ]⚡ [ ]💤 [ ]⚫
+┃ Nome: flowcloser_adk-ts
+┃ Desc: Lead qualification agent
+┃      Instagram DM automation
+┃ Stack: TS, Express, GPT-4o, Gemini,
+┃       SQLite, Meta API, Thirdweb
+┃ Status: 🟢 100% OPERACIONAL
+┃ Local: /CODIGOS/bots_ia/
+┃       flowcloser_adk-ts/
+┃ Railway: ✅ DEPLOYED
+┃ URL: flowcloser-agent-production
+┃      .up.railway.app
+┃ Integrar? [X] Sim  [ ] Não
+┃ Prioridade: [X]🔥 [ ]⚡ [ ]💤 [ ]⚫
+┃ → Core da aquisição de clientes!
 
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ PROJETO #2
+┃ PROJETO #2: NEØ:ONE (ASI1)
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ Nome: _____________________________
-┃ Desc: _____________________________
-┃ Stack: ____________________________
-┃ Status: ___________________________
-┃ Local: ____________________________
-┃ Integrar? [ ] Sim  [ ] Não
-┃ Prioridade: [ ]🔥 [ ]⚡ [ ]💤 [ ]⚫
+┃ Nome: neo-one
+┃ Desc: Agente ASI1 autônomo com
+┃      MCP v1.1 (Model Context Protocol)
+┃ Stack: Python, ASI1 API, Thirdweb,
+┃       NEOFLW Token, Auth Layer
+┃ Status: 🟡 Desenvolvimento (Fase 2)
+┃ Local: Não encontrado localmente
+┃ GitHub: neomello/neo-one
+┃ Integrar? [X] Sim  [ ] Não
+┃ Prioridade: [ ]🔥 [X]⚡ [ ]💤 [ ]⚫
+┃ → Agente cognitivo ASI-first
 
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ PROJETO #3
+┃ PROJETO #3: NEO-AGENT-FULL
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ Nome: _____________________________
-┃ Desc: _____________________________
-┃ Stack: ____________________________
-┃ Status: ___________________________
-┃ Local: ____________________________
-┃ Integrar? [ ] Sim  [ ] Não
-┃ Prioridade: [ ]🔥 [ ]⚡ [ ]💤 [ ]⚫
+┃ Nome: neo-agent-full
+┃ Desc: LangChain + LangGraph Agent
+┃      Multi-layer orchestration
+┃ Stack: TS, LangChain, LangGraph
+┃ Status: 🟡 Em desenvolvimento
+┃ Local: /CODIGOS/neo-agent-full/
+┃ GitHub: neomello/neo-agent-full
+┃ Integrar? [X] Sim  [ ] Não
+┃ Prioridade: [ ]🔥 [X]⚡ [ ]💤 [ ]⚫
+┃ → Orquestração multi-agent
 ```
 
 ────────────────────────────────────────
@@ -221,15 +265,20 @@ foram mapeados.
 
 ```text
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ PROJETO #1
+┃ PROJETO #1: NEØ FLOWOFF PWA
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ Nome: _____________________________
-┃ Desc: _____________________________
-┃ Stack: ____________________________
-┃ Status: ___________________________
-┃ Local: ____________________________
-┃ Integrar? [ ] Sim  [ ] Não
-┃ Prioridade: [ ]🔥 [ ]⚡ [ ]💤 [ ]⚫
+┃ Nome: neo-flowoff-pwa
+┃ Desc: Site oficial da agência
+┃      FlowOFF (Marketing Digital)
+┃ Stack: HTML/CSS/JS, PWA, Web3Auth
+┃ Status: 🟢 Produção (Vercel)
+┃ Local: /CODIGOS/neo-flowoff-pwa/
+┃ GitHub: neomello/neo-flowoff-pwa
+┃ URL: https://www.flowoff.xyz/
+┃ Instagram: @neoflowoff.eth
+┃ Integrar? [X] Sim  [ ] Não
+┃ Prioridade: [X]🔥 [ ]⚡ [ ]💤 [ ]⚫
+┃ → Core da agência, traz clientes
 
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ┃ PROJETO #2
