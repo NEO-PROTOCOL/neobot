@@ -42,20 +42,20 @@ echo ""
 # PRODUCTION HEALTH CHECK
 # ────────────────────────────────────────
 
-echo "🌐 Production (Netlify):"
+echo "🌐 Production (Railway):"
 
-if curl -sf https://flowpaypix.netlify.app/health > /dev/null 2>&1; then
+if curl -sf https://flowpay-production-10d8.up.railway.app/ > /dev/null 2>&1; then
   echo -e "${GREEN}✅ UP${NC}"
   
   # Show health data if available
   if command -v jq &> /dev/null; then
-    curl -s https://flowpaypix.netlify.app/health | jq
+    curl -s https://flowpay-production-10d8.up.railway.app/ | jq
   else
-    curl -s https://flowpaypix.netlify.app/health
+    curl -s https://flowpay-production-10d8.up.railway.app/
   fi
 else
   echo -e "${RED}❌ DOWN${NC}"
-  echo "   Check: https://www.netlifystatus.com"
+  echo "   Check: https://railway.app/dashboard"
 fi
 
 echo ""
