@@ -25,7 +25,7 @@ get_secret() {
 }
 
 # Load main API keys (essenciais para gateway)
-export OPENROUTER_API_KEY=$(get_secret "ASI1AI_API_KEY")          # Primary (DeepSeek via OpenRouter)
+export ASI1AI_API_KEY=$(get_secret "ASI1AI_API_KEY")              # Primary (ASI1.AI)
 export ANTHROPIC_API_KEY=$(get_secret "ANTHROPIC_API_KEY")        # Fallback
 export TELEGRAM_BOT_TOKEN=$(get_secret "TELEGRAM_BOT_TOKEN")
 export TELEGRAM_CHAT_ID=$(get_secret "TELEGRAM_CHAT_ID")
