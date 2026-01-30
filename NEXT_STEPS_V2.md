@@ -1,21 +1,21 @@
 <!-- markdownlint-disable MD003 MD007 MD022 MD023 MD025 MD029 MD032 MD033 MD034 -->
-
+```
 ================================================================
                       NEO PROTOCOL ROADMAP
 ================================================================
 [####] Foundation Architecture ........................... OK
 [#---] Implementation Phase .............................. PREP
 ================================================================
-
+```
 **Versao:** 2.0.0
 **Data:** 30 Janeiro 2026
 **Arquiteto:** Mello
 **Timeline:** 8 semanas (release 27 Marco 2026)
-
+```
 ================================================================
                         VISAO GERAL
 ================================================================
-
+```
 O NEO Protocol Stack e uma camada descentralizada e autonoma
 construida sobre o Moltbot Core, seguindo principios Web3.
 
@@ -26,7 +26,7 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
 - Fase 1.0: INICIANDO (Foundation Architecture)
-
+```
 --------------------------------------------------------------
 COMPONENTES NEO LAYER
 --------------------------------------------------------------
@@ -73,11 +73,12 @@ COMPONENTES NEO LAYER
 │ └─ Identity Manager                                      │
 │ └─ IPFS Node Status                                      │
 └──────────────────────────────────────────────────────────┘
-
+```
+```
 ================================================================
                     PROXIMOS PASSOS IMEDIATOS
 ================================================================
-
+```
 ┌──────────────────────────────────────────────────────────┐
 │ ▓▓▓ CURTO PRAZO (1-2 SEMANAS)                            │
 └──────────────────────────────────────────────────────────┘
