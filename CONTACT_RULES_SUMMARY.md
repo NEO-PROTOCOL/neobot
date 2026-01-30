@@ -16,6 +16,7 @@
 ```
 
 **Comportamento:**
+
 - ❌ Sem vendas
 - ❌ Sem qualificação
 - ✅ Apenas saudação simples
