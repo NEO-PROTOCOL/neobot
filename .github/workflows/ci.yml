@@ -1,3 +1,8 @@
+# NEØ CI: flexible so it doesn't block day-to-day work.
+# - Default (slim): Node (lint, test, build, protocol, format) + install-check + secrets.
+# - Full: In Settings > Secrets and variables > Actions > Variables, add NEO_CI_FULL = true
+#   to enable checks-windows and android.
+# - Bun: uncomment the 2 "runtime: bun" entries in the checks matrix to run with Bun.
 name: CI
 
 on:
@@ -86,12 +91,13 @@ jobs:
           - runtime: node
             task: format
             command: pnpm format
-          - runtime: bun
-            task: test
-            command: pnpm canvas:a2ui:bundle && bunx vitest run
-          - runtime: bun
-            task: build
-            command: bunx tsc -p tsconfig.json
+          # NEØ: uncomment the 2 entries below to run checks with Bun
+          # - runtime: bun
+          #   task: test
+          #   command: pnpm canvas:a2ui:bundle && bunx vitest run
+          # - runtime: bun
+          #   task: build
+          #   command: bunx tsc -p tsconfig.json
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -132,6 +138,7 @@ jobs:
           exit 1
 
       - name: Setup Bun
+        if: matrix.runtime == 'bun'
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -140,8 +147,8 @@ jobs:
         run: |
           node -v
           npm -v
-          bun -v
           pnpm -v
+          [ "${{ matrix.runtime }}" = "bun" ] && bun -v || true
 
       - name: Capture node path
         run: echo "NODE_BIN=$(dirname \"$(node -p \"process.execPath\")\")" >> "$GITHUB_ENV"
@@ -185,6 +192,7 @@ jobs:
           fi
 
   checks-windows:
+    if: vars.NEO_CI_FULL == 'true'
     runs-on: blacksmith-4vcpu-windows-2025
     env:
       NODE_OPTIONS: --max-old-space-size=4096
@@ -590,6 +598,7 @@ jobs:
           PY
 
   android:
+    if: vars.NEO_CI_FULL == 'true'
     runs-on: blacksmith-4vcpu-ubuntu-2404
     strategy:
       fail-fast: false

@@ -109,6 +109,18 @@ Detalhes: [ARCHITECTURE_NEO_PROTOCOL.md](ARCHITECTURE_NEO_PROTOCOL.md)
 
 ---
 
+## CI / GitHub Actions
+
+CI runs in **slim** mode by default (fewer jobs per push) so it doesn’t block day-to-day work.
+
+- **Default:** Node (lint, test, build, protocol, format) + install-check + secrets. Audit fails only on critical vulns. Docker and Install Smoke do not run on push to `main` (Docker only on tag `v*`, Smoke only on PR).
+- **Full CI (Windows + Android):** In the repo go to **Settings > Secrets and variables > Actions > Variables** and add **NEO_CI_FULL** with value **true**. Remove or change it to go back to slim. Useful before a release or when syncing with upstream.
+- **Bun:** In [.github/workflows/ci.yml](.github/workflows/ci.yml), in the `checks` job matrix, uncomment the 2 `runtime: bun` entries if you want to run tests/build with Bun.
+
+Workflows stay flexible: CI weight is controlled by this variable (and by the matrix if you enable Bun).
+
+---
+
 ## Documentação
 
 - [README.md](README.md) — Visão, identidade e reconhecimento

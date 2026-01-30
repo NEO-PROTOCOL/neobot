@@ -1,8 +1,7 @@
 name: Install Smoke
 
+# NEØ: smoke só em PR e manual; push em main não dispara
 on:
-  push:
-    branches: [main]
   pull_request:
   workflow_dispatch:
 
