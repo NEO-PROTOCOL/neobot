@@ -9,7 +9,7 @@ import { initializeAutomations, AutomationConfig } from "./automation-manager.js
 
 // Exemplo de implementação do TelegramBot
 class ExampleTelegramBot {
-  async sendMessage(chatId: string, message: string, options?: any): Promise<void> {
+  async sendMessage(chatId: string, message: string, _options?: unknown): Promise<void> {
     console.log(`📤 Sending to ${chatId}:`, message);
 
     // Aqui você implementaria o envio real via Telegram API
@@ -63,7 +63,7 @@ async function main() {
 
 // Execute if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main();
+  void main();
 }
 
 export default main;

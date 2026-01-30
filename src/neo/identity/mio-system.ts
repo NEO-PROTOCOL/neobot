@@ -10,7 +10,6 @@
  */
 
 import { ethers } from "ethers";
-import * as crypto from "node:crypto";
 
 /**
  * Identidade NEO (mio-system)
@@ -68,7 +67,7 @@ export class MioIdentityManager {
     try {
       this.wallet = new ethers.Wallet(cleanKey);
     } catch (error) {
-      throw new Error(`Invalid private key: ${error}`);
+      throw new Error(`Invalid private key: ${String(error)}`);
     }
   }
 

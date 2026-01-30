@@ -122,7 +122,7 @@ export class TaskScheduler extends EventEmitter {
     const cronJob = this.cronJobs.get(taskId);
 
     if (cronJob) {
-      cronJob.stop();
+      void cronJob.stop();
       this.cronJobs.delete(taskId);
     }
 
@@ -172,8 +172,8 @@ export class TaskScheduler extends EventEmitter {
    * Parar todas as tarefas
    */
   stopAll(): void {
-    for (const [taskId, cronJob] of this.cronJobs.entries()) {
-      cronJob.stop();
+    for (const [_taskId, cronJob] of this.cronJobs.entries()) {
+      void cronJob.stop();
     }
 
     this.cronJobs.clear();

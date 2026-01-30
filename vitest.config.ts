@@ -35,6 +35,7 @@ export default defineConfig({
       "dist/Moltbot.app/**",
       "**/*.live.test.ts",
       "**/*.e2e.test.ts",
+      "**/*.disabled/**",
     ],
     coverage: {
       provider: "v8",

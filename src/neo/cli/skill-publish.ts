@@ -57,7 +57,7 @@ export async function skillPublishCommand(skillPath: string): Promise<void> {
     const content = await fs.readFile(skillJsonPath, "utf-8");
     skillJSON = JSON.parse(content);
   } catch (error) {
-    console.error(`❌ Failed to load skill.json: ${error}`);
+    console.error(`❌ Failed to load skill.json: ${String(error)}`);
     console.error(`   Expected at: ${skillJsonPath}`);
     process.exit(1);
   }

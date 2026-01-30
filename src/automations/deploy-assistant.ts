@@ -241,7 +241,7 @@ Seja crítico mas construtivo. Foque em problemas reais que podem causar impacto
 
     try {
       await fs.mkdir(reportsDir, { recursive: true });
-    } catch (error) {
+    } catch {
       // Directory already exists
     }
 

@@ -49,7 +49,7 @@ export class IntelligentReportService {
         "Claude AI conectado",
         "Telegram bot ativo",
       ];
-    } catch (error) {
+    } catch {
       return [];
     }
   }
@@ -61,7 +61,7 @@ export class IntelligentReportService {
     try {
       // Simular erros - em produção, ler de sistema de monitoramento
       return [];
-    } catch (error) {
+    } catch {
       return [];
     }
   }
@@ -143,7 +143,7 @@ Seja conciso, objetivo e forneça insights acionáveis.`;
     try {
       const response = await this.claude.chat(prompt, { model: "claude-sonnet-4-20250514" });
       return response;
-    } catch (error) {
+    } catch {
       return this.generateFallbackReport(stats, aiStats, reminders, logs, errors);
     }
   }
@@ -201,7 +201,7 @@ ${errors.length > 0 ? "⚠️ Erros detectados" : "✅ Sistema saudável"}
 
     try {
       await fs.mkdir(reportsDir, { recursive: true });
-    } catch (error) {
+    } catch {
       // Directory already exists
     }
 

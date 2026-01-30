@@ -213,7 +213,7 @@ export class NeoSkillsRegistry {
       chunks.push(chunk);
     }
 
-    const content = Buffer.concat(chunks);
+    const _content = Buffer.concat(chunks);
 
     // Cria diretório e salva conteúdo
     await fs.mkdir(installPath, { recursive: true });
@@ -258,7 +258,7 @@ export class NeoSkillsRegistry {
 
     const skills: NeoSkill[] = [];
 
-    for (const [skillId, skillVersions] of Object.entries(index.skills)) {
+    for (const [_skillId, skillVersions] of Object.entries(index.skills)) {
       const latestCID = skillVersions.latest;
       const skill = await this.loadSkillMetadata(latestCID);
 
@@ -283,7 +283,7 @@ export class NeoSkillsRegistry {
   /**
    * Verifica a assinatura de uma skill
    */
-  async verify(skill: NeoSkill): Promise<boolean> {
+  async verify(_skill: NeoSkill): Promise<boolean> {
     // TODO: Implementar verificação Web3 em Phase 1.3
     console.warn("Signature verification not implemented yet");
     return true;
@@ -400,7 +400,7 @@ export class NeoSkillsRegistry {
       index = await this.loadIndex();
     } catch {
       // Se não existe index, cria um novo
-      const newIndexCID = await this.createIndex();
+      await this.createIndex();
       index = await this.loadIndex();
     }
 
