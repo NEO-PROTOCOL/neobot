@@ -63,26 +63,34 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
   }
 
   try {
-    // Step 1: Verify payment status (unless forced)
+    // Step 1: Get order from database
+    const { getOrder, updateOrderStatus } = await import('../../src/infra/database/flowpay.js');
+    const order = getOrder(charge_id);
+    
+    if (!order) {
+      return {
+        success: false,
+        error: `Order not found: ${charge_id}`
+      };
+    }
+
+    // Step 2: Verify payment status (unless forced)
     if (!force) {
-      const statusCheck = await ctx.skills?.execute('flowpay:status', { charge_id });
-      
-      if (!statusCheck || statusCheck.status !== 'PAID') {
+      if (order.status !== 'PIX_PAID' && order.status !== 'PENDING_REVIEW' && order.status !== 'APPROVED') {
         return {
           success: false,
-          error: `Payment not confirmed. Status: ${statusCheck?.status || 'unknown'}`
+          error: `Payment not confirmed. Status: ${order.status}`
         };
       }
     }
 
-    // Step 2: Get payment details
-    // (In real implementation, fetch from FlowPay API or cache)
+    // Step 3: Get payment details from order
     const paymentDetails = {
-      charge_id,
-      paid_at: new Date().toISOString(),
-      customer_ref: '+5562983231110', // TODO: fetch real
-      product_ref: 'smart-factory-basic', // TODO: fetch real
-      amount_brl: 99.90 // TODO: fetch real
+      charge_id: order.charge_id,
+      paid_at: order.paid_at || new Date().toISOString(),
+      customer_ref: order.customer_ref,
+      product_ref: order.product_ref,
+      amount_brl: order.amount_brl
     };
 
     // Step 3: Determine permissions based on product
@@ -109,10 +117,40 @@ export async function execute(ctx: any, input: UnlockInput): Promise<UnlockOutpu
       signature: generateSignature(paymentDetails)
     };
 
-    // Step 7: Store receipt (file log for MVP)
+    // Step 7: Store receipt in database
+    const { createReceipt, logAudit } = await import('../../src/infra/database/flowpay.js');
+    
+    const receiptId = createReceipt({
+      receipt_id: receipt.receipt_id,
+      order_id: order.id!,
+      charge_id: receipt.charge_id,
+      paid_at: receipt.paid_at,
+      customer_ref: receipt.customer_ref,
+      product_ref: receipt.product_ref,
+      amount_brl: receipt.amount_brl,
+      permissions: JSON.stringify(receipt.permissions),
+      access_url: receipt.access_url,
+      unlock_token: receipt.unlock_token,
+      issuer: receipt.issuer,
+      signature: receipt.signature
+    });
+
+    // Step 8: Store receipt file (backup)
     await storeReceipt(receipt);
 
-    // Step 8: Log in Neobot ledger
+    // Step 9: Update order status
+    updateOrderStatus(charge_id, 'COMPLETED', {
+      receipt_cid: receipt.receipt_id // Will be updated with IPFS later
+    });
+
+    // Step 10: Audit log
+    logAudit('access_unlocked', 'system', 'flowpay:unlock', {
+      receipt_id: receipt.receipt_id,
+      customer_ref: receipt.customer_ref,
+      product_ref: receipt.product_ref
+    }, order.id);
+
+    // Step 11: Log in Neobot ledger
     if (ctx.ledger) {
       await ctx.ledger.write({
         actor: 'system',

@@ -56,6 +56,17 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
   }
 
   try {
+    // Check if product exists in local DB
+    const { getProduct } = await import('../../src/infra/database/flowpay.js');
+    const product = getProduct(product_ref);
+    
+    if (!product) {
+      return {
+        success: false,
+        error: `Product not found: ${product_ref}`
+      } as BuyOutput;
+    }
+
     // Call FlowPay API (Woovi/OpenPix)
     const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://flowpaypix.netlify.app/api';
     const apiKey = process.env.FLOWPAY_API_KEY || process.env.OPENPIX_API_KEY;
@@ -105,8 +116,33 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
       status: 'CREATED'
     };
 
-    // Log for audit trail
-    console.log(`[flowpay:buy] Created charge ${result.charge_id} for ${customer_ref}`);
+    // Store in local SQLite database
+    const { createOrder, logAudit } = await import('../../src/infra/database/flowpay.js');
+    
+    const orderId = createOrder({
+      charge_id: result.charge_id,
+      amount_brl,
+      product_ref,
+      product_name: product.name,
+      product_price: product.price_brl,
+      customer_ref,
+      customer_wallet: wallet_address,
+      customer_metadata: metadata ? JSON.stringify(metadata) : undefined,
+      status: 'CREATED',
+      pix_qr: result.pix_qr,
+      pix_copy_paste: result.pix_copy_paste,
+      checkout_url: result.checkout_url
+    });
+
+    // Audit log
+    logAudit('charge_created', 'user', 'flowpay:buy', {
+      charge_id: result.charge_id,
+      product_ref,
+      customer_ref,
+      amount_brl
+    }, orderId);
+
+    console.log(`[flowpay:buy] Order #${orderId} created for ${customer_ref}`);
 
     // Store in Neobot ledger (if available)
     if (ctx.ledger) {
@@ -115,6 +151,7 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
         channel: 'flowpay',
         action: 'charge_created',
         data: {
+          order_id: orderId,
           charge_id: result.charge_id,
           product_ref,
           customer_ref,
