@@ -6,11 +6,29 @@ Estratégia de integração loose-coupled
 mantendo FlowCloser independente e Neobot
 como orquestrador + centro de documentação.
 
+**CONTEXTO NEØ PROTOCOL:**
+
+FlowCloser é o PRIMEIRO projeto
+integrado ao Neobot. Representa o modelo
+de orchestration que será replicado para
+TODOS os projetos do ecossistema NEØ.
+
+Cada projeto mantém seu repositório,
+deploy independente, e ciclo de vida
+próprio. Neobot orquestra via skills.
+
 ========================================
    🎯 FILOSOFIA: "Orquestração, não Fusão"
 ========================================
 
 ## CONCEITO
+
+**FlowCloser Tech Stack:**
+
+- Intelligence: IQAI Agent (@iqai/adk)
+- Delivery: Express.js (Railway)
+- Channels: Instagram/WhatsApp (Meta API)
+- Storage: SQLite + IPFS (Storacha)
 
 ```text
 FlowCloser Agent                 Neobot
@@ -21,7 +39,7 @@ FlowCloser Agent                 Neobot
 🔧 Dev em Antigravity            🔧 Dev em Cursor
 💾 Código completo               🔗 Referências
 🌐 HTTP API                      🎯 Skills (client)
-📊 Database SQLite               📖 Documentação
+📊 IQAI Agent + SQLite           📖 Documentação
 ──────────────────────────────────────────────
          ↕️ HTTP / Filesystem
          ↕️ Skills orchestration
