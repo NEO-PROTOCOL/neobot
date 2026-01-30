@@ -30,15 +30,19 @@ Build: SUCCESS ✅
 ### 2. Endpoints Descobertos
 
 **Frontend:**
+
 - `GET /` → Landing page (HTML)
 
 **API:**
+
 - `GET /api/health` → Health check
+
   ```json
   {"status":"ok","time":"2026-01-30T22:18:19.677Z"}
   ```
 
 - `POST /api/create-charge` → Criar cobrança PIX
+
   - **Input:**
     ```json
     {
