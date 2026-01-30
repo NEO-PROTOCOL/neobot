@@ -10,5 +10,7 @@ dist/
 *.swp
 *.swo
 *~
-.cursor/
+.cursor/*
+!.cursor/standards/
+!.cursor/standards/**
 terminals/
