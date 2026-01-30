@@ -1,16 +1,55 @@
+# Identidades NEO (Private Keys)
+.neo-identities/.env
+.neo-identities/*.pem
+.neo-identities/*.key
+.neo-identities/private/
+
+# Environment variables
 .env
 .env.local
 .env.*.local
+
+# Node
 node_modules/
 dist/
-*.log
-.DS_Store
-.idea/
+.cache/
+
+# Tests
+coverage/
+.nyc_output/
+
+# IDE
 .vscode/
+.idea/
 *.swp
 *.swo
 *~
-.cursor/*
-!.cursor/standards/
-!.cursor/standards/**
-terminals/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Build
+build/
+out/
+
+# Keys & Secrets (redundância)
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/

@@ -18,6 +18,7 @@ Registra progresso de trabalho no Notion.
 ```
 
 ### ✅ /task - Criar Tarefa
+
 Adiciona nova tarefa ao backlog.
 
 ```bash

@@ -1,0 +1,26 @@
+{
+  "id": "mio-d28e1ea1",
+  "publicKey": "0xD28E1EA1ea98A61f44ca0887ec07b3F6641D820e",
+  "roles": [
+    "Telegram Bot"
+  ],
+  "permissions": {
+    "channels": [
+      "telegram"
+    ],
+    "skills": [
+      "telegram"
+    ],
+    "tools": [
+      "messaging",
+      "read",
+      "write"
+    ]
+  },
+  "metadata": {
+    "name": "NEO Telegram",
+    "bio": "Bot Telegram oficial do protocolo NEO. Interface de comandos e automações."
+  },
+  "createdAt": "2026-01-30T04:01:50.174Z",
+  "signature": "0x77c6e439427feae5f442a0d12629495ffc9922dfb475c2050df7b2d9851402e26d777ff45a1b326830ca0b59c7fe85992889df81df189792deebdfb3d88c347c1b"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "mio-3aff112a",
+  "publicKey": "0x3AfF112a0E6193229C15684cB17227d0637BCFAe",
+  "roles": [
+    "Smart Factory"
+  ],
+  "permissions": {
+    "channels": [
+      "telegram",
+      "whatsapp"
+    ],
+    "skills": [
+      "smart-factory"
+    ],
+    "tools": [
+      "blockchain",
+      "deploy",
+      "mint",
+      "read"
+    ]
+  },
+  "metadata": {
+    "name": "Smart Factory Manager",
+    "bio": "Gerenciador de contratos inteligentes na Flow Blockchain. Deploy, mint e verificação de NFTs."
+  },
+  "createdAt": "2026-01-30T04:01:50.140Z",
+  "signature": "0xa2799f9c4e854afec7b81f02d3dc11c8e9ad58d3e7b452e0330c27ed7f16875207870e9ae392c842339e777b4fee13267317ffdbe31d938d4cac080eeeb13f2c1b"
+}

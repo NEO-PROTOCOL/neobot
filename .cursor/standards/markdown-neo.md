@@ -1,134 +1,134 @@
-# Padrão Markdown NEO — Guia para IA
+# NEO Markdown Standard — Guide for AI
 
-Documento de referência para **qualquer agente de IA** que edite ou crie Markdown no contexto NEO. Seguir este padrão garante consistência visual retrô (anos 80/90) e alinhamento com a identidade do protocolo.
-
----
-
-## Regra geral: largura 64 caracteres
-
-- **Todas as linhas** de conteúdo, bordas e títulos devem respeitar **64 caracteres** de largura (incluindo os caracteres da borda).
-- Quebre parágrafos longos em linhas de até 64 caracteres.
-- Em caixas: conteúdo entre `│` ou `┃` deve caber na largura interna (62 caracteres entre as bordas).
-- **GitHub:** para o README (e qualquer doc exibido no GitHub), envolva blocos com bordas/ASCII em ` ```text ... ``` ` para que a fonte seja monoespaçada e o alinhamento seja preservado na renderização.
+Reference document for **any AI agent** that edits or creates Markdown in the NEO context. Following this standard ensures retro (80s/90s) visual consistency and alignment with the protocol identity.
 
 ---
 
-## 1. Avisos e status (relatórios)
+## General rule: 64-character width
 
-Use para cabeçalhos de documento, listas de verificação e itens com status (OK / WARN).
+- **All lines** of content, borders, and titles must respect **64 characters** in width (including border characters).
+- Break long paragraphs into lines of up to 64 characters.
+- In boxes: content between `│` or `┃` must fit the inner width (62 characters between borders).
+- **GitHub:** For the README (and any doc displayed on GitHub), wrap border/ASCII blocks in ` ```text ... ``` ` so the font is monospace and alignment is preserved in rendering.
 
-**Cabeçalho de relatório:**
+---
+
+## 1. Alerts and status (reports)
+
+Use for document headers, checklists, and items with status (OK / WARN).
+
+**Report header:**
 
 ```text
 ========================================================================
-                        TITULO CENTRALIZADO
+                        CENTERED TITLE
 ========================================================================
 ```
 
-- Linha de `=` com **64 caracteres** (exatamente 64).
-- Título centralizado na linha seguinte.
-- Nova linha de `=` fechando.
+- Line of `=` with **64 characters** (exactly 64).
+- Centered title on the next line.
+- Another line of `=` closing.
 
-**Itens com status:**
+**Status items:**
 
-- **Completo:** `[####] Descrição ............................... OK`
-- **Parcial / atenção:** `[#---] Descrição ............................... WARN`
+- **Complete:** `[####] Description ............................... OK`
+- **Partial / attention:** `[#---] Description ............................... WARN`
 
-Use pontos (`.`) para alinhar a coluna de status à direita. Mantenha a linha em 64 caracteres.
+Use dots (`.`) to align the status column on the right. Keep the line at 64 characters.
 
-**Exemplo:**
+**Example:**
 
 ```text
 ========================================================================
-              NEO PROTOCOL STACK - ARQUITETURA HIBRIDA
+              NEO PROTOCOL STACK - HYBRID ARCHITECTURE
 ========================================================================
-[####] Versao 1.0.0 .............................................. OK
+[####] Version 1.0.0 .............................................. OK
 [#---] Status Design Phase ........................................ WARN
 ========================================================================
 ```
 
 ---
 
-## 2. Dados estruturados (listas e seções)
+## 2. Structured data (lists and sections)
 
-Use caixas com bordas simples e seção em destaque com `▓▓▓`.
+Use boxes with simple borders and a section highlight with `▓▓▓`.
 
-**Molde:**
+**Template:**
 
 ```text
 ┌────────────────────────────────────────────────────────────────┐
-│ ▓▓▓ NOME DA SEÇÃO                                              │
+│ ▓▓▓ SECTION NAME                                                │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ Item principal                                               │
+│ └─ Main item                                                    │
 │    └─ Sub-item                                                  │
-│    └─ Outro sub-item                                            │
+│    └─ Another sub-item                                          │
 └────────────────────────────────────────────────────────────────┘
 ```
 
-- **Bordas:** `┌` `─` `┐` `│` `├` `┤` `└` `┘`.
-- **Largura:** 64 caracteres por linha (2 para bordas + 62 de conteúdo).
-- **Seção:** `▓▓▓` seguido de espaço e do nome da seção.
-- **Itens:** `└─` para item; quatro espaços + `└─` para sub-item.
-- Preencha com espaços até completar 62 caracteres de conteúdo por linha.
+- **Borders:** `┌` `─` `┐` `│` `├` `┤` `└` `┘`.
+- **Width:** 64 characters per line (2 for borders + 62 for content).
+- **Section:** `▓▓▓` followed by a space and the section name.
+- **Items:** `└─` for item; four spaces + `└─` for sub-item.
+- Pad with spaces to reach 62 characters of content per line.
 
 ---
 
-## 3. Arquitetura e diagramas de camadas
+## 3. Architecture and layer diagrams
 
-Use bordas pesadas e “dithering” para destacar blocos de arquitetura.
+Use heavy borders and “dithering” to highlight architecture blocks.
 
-**Molde:**
+**Template:**
 
 ```text
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ NOME DA CAMADA                                                 ┃
+┃ LAYER NAME                                                      ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 ┃ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ┃
-┃ ░ ░  Conteúdo com fundo pontilhado (dithering)           ░ ░ ┃
+┃ ░ ░  Content with dotted background (dithering)         ░ ░ ┃
 ┃ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
-- **Bordas:** `┏` `┓` `┃` `┣` `┫` `┗` `┛` e `━`.
-- **Dithering:** linhas com `░` nas bordas esquerda/direita para efeito de fundo.
-- **Largura:** 64 caracteres por linha.
-- Use para camadas (ex.: NEO Layer, Moltbot Core, Protocol Interface).
+- **Borders:** `┏` `┓` `┃` `┣` `┫` `┗` `┛` and `━`.
+- **Dithering:** lines with `░` on the left/right borders for background effect.
+- **Width:** 64 characters per line.
+- Use for layers (e.g. NEO Layer, Moltbot Core, Protocol Interface).
 
 ---
 
-## 4. Separadores de seção (subtópicos)
+## 4. Section separators (subtopics)
 
-Para subseções dentro do documento:
+For subsections within the document:
 
 ```text
 ----------------------------------------------------------------------
-1. Nome do bloco (opcional)
+1. Block name (optional)
 ----------------------------------------------------------------------
 ```
 
-- Linha de `-` com 64 caracteres.
-- Título opcional na linha central.
-- Nova linha de `-` fechando.
+- Line of `-` with 64 characters.
+- Optional title on the middle line.
+- Another line of `-` closing.
 
 ---
 
-## 5. Listas fora de caixas
+## 5. Lists outside boxes
 
-- Use **`-`** (dash) como marcador de lista, não `•` nem `+`, para compatibilidade com markdownlint (MD004).
-- Deixe uma linha em branco antes e depois da lista quando fizer sentido para leitura (respeitando exceções de lint abaixo).
-
----
-
-## 6. URLs e referências
-
-- Escreva URLs entre **angle brackets**: `<https://exemplo.com>`.
-- Evita que o linter trate como “URL nua” (MD034).
+- Use **`-`** (dash) as the list marker, not `•` or `+`, for markdownlint compatibility (MD004).
+- Add a blank line before and after the list when it improves readability (subject to lint exceptions below).
 
 ---
 
-## 7. Assinatura padrão dos documentos
+## 6. URLs and references
 
-Todo documento NEO deve encerrar com esta assinatura. Use-a **exatamente** como abaixo, ao final do corpo do texto.
+- Write URLs inside **angle brackets**: `<https://example.com>`.
+- Prevents the linter from treating them as “bare URLs” (MD034).
+
+---
+
+## 7. Standard document signature
+
+Every NEO document must end with this signature. Use it **exactly** as below, at the end of the body text.
 
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
@@ -142,39 +142,39 @@ Todo documento NEO deve encerrar com esta assinatura. Use-a **exatamente** como 
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-- **Onde:** ao final do documento, após licença/referências se houver.
-- **Não altere** texto, quebras de linha nem aspas da citação.
-- Largura da caixa: 65 caracteres (borda + 63 internos + borda).
+- **Where:** at the end of the document, after license/references if any.
+- **Do not change** the text, line breaks, or quote marks.
+- Box width: 65 characters (border + 63 inner + border).
 
 ---
 
-## 8. Markdownlint em documentos NEO
+## 8. Markdownlint in NEO documents
 
-Documentos que usam **integramente** este padrão (ex.: `ARCHITECTURE_NEO_PROTOCOL.md`) devem incluir no **início do arquivo**:
+Documents that use this standard **throughout** (e.g. `ARCHITECTURE_NEO_PROTOCOL.md`) must include at the **top of the file**:
 
 ```html
 <!-- markdownlint-disable MD003 MD007 MD022 MD023 MD025 MD029 MD032 MD033 MD034 -->
 ```
 
-Assim, o linter não conflita com:
+So the linter does not conflict with:
 
-- Títulos em estilo setext (`====` / `----`).
-- Múltiplos blocos que parecem “H1”.
-- Listas e indentação dentro de caixas ASCII.
-- Nomes de tipos (CID, NeoSkill, etc.) e URLs em `<>`.
+- Setext-style headings (`====` / `----`).
+- Multiple blocks that look like “H1”.
+- Lists and indentation inside ASCII boxes.
+- Type names (CID, NeoSkill, etc.) and URLs in `<>`.
 
 ---
 
-## 9. Resumo rápido para IA
+## 9. Quick reference for AI
 
-- **Título relatório:** `====` + título + `====` — largura 64
-- **Item OK:** `[####] texto ............... OK` — 64
-- **Item WARN:** `[#---] texto ............... WARN` — 64
-- **Caixa lista:** `┌─┐│├┤└┘` + `▓▓▓` + `└─` — 64
-- **Caixa arquitetura:** `┏┓┃┣┫┗┛` + `━` + `░` — 64
-- **Subtítulo:** `------` + título + `------` — 64
-- **Listas:** marcador `-` (não `•` nem `+`)
-- **URLs:** `<https://...>` (entre angle brackets)
-- **Assinatura:** caixa `▓▓▓ NΞØ MELLØ` ao final de todo documento (ver §7)
+- **Report title:** `====` + title + `====` — width 64
+- **Item OK:** `[####] text ............... OK` — 64
+- **Item WARN:** `[#---] text ............... WARN` — 64
+- **List box:** `┌─┐│├┤└┘` + `▓▓▓` + `└─` — 64
+- **Architecture box:** `┏┓┃┣┫┗┛` + `━` + `░` — 64
+- **Subtitle:** `------` + title + `------` — 64
+- **Lists:** marker `-` (not `•` or `+`)
+- **URLs:** `<https://...>` (inside angle brackets)
+- **Signature:** box `▓▓▓ NΞØ MELLØ` at the end of every document (see §7)
 
-Ao criar ou editar Markdown NEO: manter **64 caracteres**, usar os símbolos acima, incluir a **assinatura padrão** ao final e, em arquivos “full NEO”, o comentário de disable do markdownlint no topo.
+When creating or editing NEO Markdown: keep **64 characters**, use the symbols above, include the **standard signature** at the end, and in “full NEO” files add the markdownlint disable comment at the top.

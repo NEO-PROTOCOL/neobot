@@ -1,0 +1,5 @@
+# NEO Identities - Private files
+.env
+*.pem
+*.key
+private/

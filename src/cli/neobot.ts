@@ -442,8 +442,9 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
     process.exit(1);
   }
 
-  usage();
-  process.exit(1);
+  // Commands not handled above (message, channels, gateway, neo:*, etc.) delegate to full Moltbot CLI
+  const { runCli } = await import("./run-main.js");
+  await runCli(process.argv);
 }
 
 main().catch((err) => {

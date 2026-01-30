@@ -1,0 +1,24 @@
+{
+  "id": "mio-b1dd5e2d",
+  "publicKey": "0xb1dd5e2df26D9D350869287B5462128996690ec6",
+  "roles": [
+    "Skills Registry"
+  ],
+  "permissions": {
+    "channels": [],
+    "skills": [
+      "*"
+    ],
+    "tools": [
+      "ipfs",
+      "read",
+      "write"
+    ]
+  },
+  "metadata": {
+    "name": "NEO Skills Manager",
+    "bio": "Gerenciador do registro descentralizado de skills (IPFS). Publica, instala e verifica skills."
+  },
+  "createdAt": "2026-01-30T04:01:50.128Z",
+  "signature": "0x7ea3b1a368f928c78807f9598b400ea2fa10d52ef9f10bc487f0a1bfa02b3c5f2a481d2d708cb9f1027c3aee50b6ad966f610e991bb10756a1f3604a8d564bbe1b"
+}

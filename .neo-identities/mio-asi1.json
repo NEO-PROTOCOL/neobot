@@ -1,0 +1,27 @@
+{
+  "id": "mio-d4c70a50",
+  "publicKey": "0xd4C70A50F37570b17fDaad54a3b3bA78BA8e97DA",
+  "roles": [
+    "ASI1 LLM"
+  ],
+  "permissions": {
+    "channels": [
+      "telegram",
+      "whatsapp"
+    ],
+    "skills": [
+      "asi1-llm"
+    ],
+    "tools": [
+      "ai",
+      "inference",
+      "read"
+    ]
+  },
+  "metadata": {
+    "name": "ASI1 LLM Agent",
+    "bio": "Modelo de linguagem local (llama.cpp). Inferência AI descentralizada e privada."
+  },
+  "createdAt": "2026-01-30T04:01:50.159Z",
+  "signature": "0x56263f38a9dc15db08f9b8d4b330a0d76c99d40bce1cdb3decbb677bd7a7b41f26f6ad03c78b948208276195e69e5791037718c19f45fea98daa09e8964b2aaa1b"
+}

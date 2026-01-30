@@ -1,0 +1,24 @@
+{
+  "id": "mio-0e2106ba",
+  "publicKey": "0x0E2106Ba425B78CD3D92662475408005017ffbbA",
+  "roles": [
+    "System Core"
+  ],
+  "permissions": {
+    "channels": [
+      "*"
+    ],
+    "skills": [
+      "*"
+    ],
+    "tools": [
+      "*"
+    ]
+  },
+  "metadata": {
+    "name": "NEO Core System",
+    "bio": "Sistema principal do protocolo NEO. Gerencia inicialização, health checks e coordenação geral."
+  },
+  "createdAt": "2026-01-30T04:01:50.082Z",
+  "signature": "0xc482e0e28d756433b3877be86cb4679cd3eb73a4b9e23603290af4ae5f03dc6d32ac263c860e1db55463400c5bdb3d1a5f4866a237d06e60cf01a3df2fa154f31c"
+}

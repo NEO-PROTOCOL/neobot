@@ -1,0 +1,26 @@
+{
+  "id": "mio-a4e1a8b3",
+  "publicKey": "0xa4e1A8b3b2dFd8fD1342d9E5cf1312b09E9e0DD8",
+  "roles": [
+    "Gateway Manager"
+  ],
+  "permissions": {
+    "channels": [
+      "*"
+    ],
+    "skills": [
+      "*"
+    ],
+    "tools": [
+      "routing",
+      "sessions",
+      "websocket"
+    ]
+  },
+  "metadata": {
+    "name": "NEO Gateway",
+    "bio": "Gerenciador de canais, roteamento e sessões. Interface principal entre usuários e o protocolo."
+  },
+  "createdAt": "2026-01-30T04:01:50.116Z",
+  "signature": "0xdfa61edc8c637aacb969e89041d69684130979191260f4af5d2e6ac5fee6404763726a48f54a45a4e51aa2c6e669cc773df133a932df753ec6083423e6ed94731b"
+}

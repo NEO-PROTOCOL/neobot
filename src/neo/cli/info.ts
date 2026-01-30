@@ -1,15 +1,15 @@
 /**
  * NEO CLI: neo:info command
- * 
+ *
  * Exibe informações do NEO Protocol Stack
  */
 
-import { NEO_PROTOCOL_INFO } from '../sdk/index'
-import { listIdentities } from '../identity/registry'
+import { NEO_PROTOCOL_INFO } from "../sdk/index.js";
+import { listIdentities } from "../identity/registry.js";
 
 /**
  * Comando: neo:info
- * 
+ *
  * Exibe informações gerais do NEO Protocol
  */
 export async function neoInfoCommand(): Promise<void> {
@@ -26,12 +26,12 @@ export async function neoInfoCommand(): Promise<void> {
   Dashboard:    ${NEO_PROTOCOL_INFO.components.dashboard}
 
 🔐 Identidades mio-system
-───────────────────────────────────────────────────────────`)
+───────────────────────────────────────────────────────────`);
 
-  const identities = listIdentities()
-  identities.forEach(id => {
-    console.log(`  ${id.id.padEnd(15)} │ ${id.role}`)
-  })
+  const identities = listIdentities();
+  identities.forEach((id: { id: string; role: string; name: string }) => {
+    console.log(`  ${id.id.padEnd(15)} │ ${id.role}`);
+  });
 
   console.log(`
 📊 Autonomia
@@ -60,12 +60,12 @@ export async function neoInfoCommand(): Promise<void> {
   4. Deploy NEO docs
 
 Para mais informações: pnpm neobot neo:help
-`)
+`);
 }
 
 /**
  * Executa comando
  */
 if (import.meta.url === `file://${process.argv[1]}`) {
-  neoInfoCommand().catch(console.error)
+  neoInfoCommand().catch(console.error);
 }

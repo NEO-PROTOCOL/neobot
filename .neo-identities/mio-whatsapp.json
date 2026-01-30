@@ -1,0 +1,27 @@
+{
+  "id": "mio-725d0c58",
+  "publicKey": "0x725d0c5885D34238B70DE8901AE435737f5a6061",
+  "roles": [
+    "WhatsApp Gateway"
+  ],
+  "permissions": {
+    "channels": [
+      "whatsapp"
+    ],
+    "skills": [
+      "whatsapp"
+    ],
+    "tools": [
+      "media",
+      "messaging",
+      "read",
+      "write"
+    ]
+  },
+  "metadata": {
+    "name": "NEO WhatsApp",
+    "bio": "Gateway WhatsApp do protocolo NEO. Comunicação end-to-end encrypted."
+  },
+  "createdAt": "2026-01-30T04:01:50.190Z",
+  "signature": "0xf6cf7534d2e7336c9a90229531a7bb6e2b2222b46701437c2a01d0ec7779797470c04923ddf947a130774dcf4a8eb8cae721a3ae60f3931f09eeef6b09e018c31c"
+}
