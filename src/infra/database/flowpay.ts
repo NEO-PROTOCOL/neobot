@@ -26,9 +26,11 @@ let db: DatabaseInstance | null = null;
 
 export function getDatabase(): DatabaseInstance {
   if (!db) {
-    db = new (Database as any).default(DB_PATH);
-    db.pragma("journal_mode = WAL");
-    db.pragma("foreign_keys = ON");
+    const newDb = new (Database as any).default(DB_PATH);
+    newDb.pragma("journal_mode = WAL");
+    newDb.pragma("foreign_keys = ON");
+
+    db = newDb;
 
     // Initialize schema if needed
     initializeSchema();
