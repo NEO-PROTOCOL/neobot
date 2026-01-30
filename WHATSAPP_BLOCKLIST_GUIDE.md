@@ -29,12 +29,14 @@ O sistema só tem **whitelist** (`allowFrom`). Para bloquear números específic
 ```
 
 ### Vantagens:
+
 - ✅ Controle total (só quem você autorizar)
 - ✅ Seguro por padrão
 - ✅ Nativo do Moltbot
 - ✅ Sem código adicional
 
 ### Desvantagens:
+
 - ❌ Precisa adicionar manualmente cada cliente novo
 - ❌ Não serve para tráfego pago (todos seriam bloqueados)
 

@@ -24,6 +24,7 @@
 ### What Was Found
 
 Repository `neomello/neobot` was:
+
 - ✅ Fork of `openclaw/openclaw`
 - ❌ **PUBLIC** (anyone could view)
 - ⚠️ Contained sensitive files locally

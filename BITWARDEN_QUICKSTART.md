@@ -30,6 +30,7 @@ open "https://vault.bitwarden.com/#/register"
 ```
 
 **Preencher:**
+
 - Email: `mello.neoprotocol@gmail.com` (ou outro)
 - Name: `Mellø`
 - Master Password: **FORTE** (min 12 chars)

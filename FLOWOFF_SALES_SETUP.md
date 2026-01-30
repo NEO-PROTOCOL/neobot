@@ -37,6 +37,7 @@
 **Criado:** `AGENTS_FLOWOFF_SALES.md`
 
 **Contém:**
+
 - ✅ Sistema de 2 camadas (Oferta Pública vs Real)
 - ✅ 4 produtos FlowOFF (START, SALES, SYSTEMS, LEDGER)
 - ✅ Roteiro operacional em 5 etapas
@@ -92,11 +93,13 @@ OPÇÃO B: Escalona pro Mellø
 **Para:** Quem roda tráfego, precisa automação/CRM/sistemas
 
 **1) FlowOFF START (MVP)**
+
 - Landing + WhatsApp OS + Tracking
 - Prazo: 7-10 dias
 - Faixa: R$ 2k-5k
 
 **2) FlowOFF SALES (Money Maker)**
+
 - CRM + Automação + Pipeline
 - Prazo: 10-15 dias
 - Faixa: R$ 5k-12k
