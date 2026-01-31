@@ -50,7 +50,7 @@ TELEGRAM_BOT_TOKEN=seu_token_do_botfather
 TELEGRAM_ADMIN_CHAT=seu_chat_id
 
 # Claude AI
-ANTHROPIC_API_KEY=sk-ant-api03-...
+ANTHROPIC_API_KEY=SUA_CHAVE_AQUI
 
 # Dashboard (opcional)
 DASHBOARD_PORT=3000
@@ -285,7 +285,7 @@ console.log(manager?.listTasks());
 
 ## 🎯 Checklist de Setup
 
-- [ ] Node.js 22+ instalado
+- [ ] Node.js 25+ instalado(a)
 - [ ] Dependências instaladas
 - [ ] `.env` configurado
 - [ ] Projeto compilado (`pnpm build`)
@@ -324,7 +324,7 @@ docker build -t neobot-dashboard .
 # Run
 docker run -p 3000:3000 \
   -e TELEGRAM_BOT_TOKEN=xxx \
-  -e ANTHROPIC_API_KEY=xxx \
+  -e ANTHROPIC_API_KEY=SUA_CHAVE_AQUI \
   neobot-dashboard
 ```
 
@@ -502,7 +502,7 @@ TELEGRAM_BOT_TOKEN=seu-token-aqui
 TELEGRAM_CHAT_ID=seu-chat-id
 
 # Anthropic (Claude AI) - Necessário para agendamento inteligente
-ANTHROPIC_API_KEY=sk-ant-sua-chave-aqui
+ANTHROPIC_API_KEY=SUA_CHAVE_AQUI
 ```
 
 **Onde conseguir:**
