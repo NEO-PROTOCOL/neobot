@@ -1,91 +1,91 @@
-# 🚀 Bitwarden Setup RÁPIDO - 5 Minutos
+# 🚀 Bitwarden QUICK Setup - 5 Minutes
 
 ```text
 ╔════════════════════════════════════════╗
-║  BITWARDEN: GRATUITO FOREVER           ║
-║  Melhor que 1Password mesmo            ║
+║  BITWARDEN: FREE FOREVER               ║
+║  Better than 1Password for sure        ║
 ╚════════════════════════════════════════╝
 ```
 
 ---
 
-## ✅ JÁ INSTALADO
+## ✅ ALREADY INSTALED
 
 ```bash
 ✓ Bitwarden CLI 2025.12.1
-✓ Bitwarden App (baixando...)
+✓ Bitwarden App (downloading...)
 ```
 
 ---
 
-## 🚀 SETUP EM 3 PASSOS
+## 🚀 SETUP IN 3 STEPS
 
-### PASSO 1: Criar Conta (2 min)
+### STEP 1: Create Account (2 min)
 
-**Opção A: Via Web (Mais rápido)**
+**Option A: Via Web (Faster)**
 
 ```bash
-# Abrir página de registro
+# Open registration page
 open "https://vault.bitwarden.com/#/register"
 ```
 
-**Preencher:**
+**Fill in:**
 
-- Email: `mello.neoprotocol@gmail.com` (ou outro)
+- Email: `mello.neoprotocol@gmail.com` (or other)
 - Name: `Mellø`
-- Master Password: **FORTE** (min 12 chars)
+- Master Password: **STRONG** (min 12 chars)
 - ✅ Create Account
 
-**Opção B: Via App**
+**Option B: Via App**
 
 ```bash
-# Esperar download terminar, depois:
+# Wait for download to finish, then:
 open -a "Bitwarden"
 # Click "Create Account"
 ```
 
 ---
 
-### PASSO 2: Login no CLI (30 seg)
+### STEP 2: CLI Login (30 sec)
 
 ```bash
 # Login
 bw login
 
-# Vai pedir:
+# It will ask:
 # Email: mello.neoprotocol@gmail.com
 # Master password: ******
 
-# Depois, desbloquear e salvar session:
+# Then, unlock and save session:
 export BW_SESSION=$(bw unlock --raw)
 
-# Salvar session (persist)
+# Save session (persist)
 echo "export BW_SESSION=$(bw unlock --raw)" >> ~/.zshrc
 ```
 
-**Teste:**
+**Test:**
 
 ```bash
 bw status
-# Esperado: "status":"unlocked"
+# Expected: "status":"unlocked"
 
 bw list items --search test
-# Esperado: [] (vazio, ainda não tem items)
+# Expected: [] (empty, no items yet)
 ```
 
 ---
 
-### PASSO 3: Migrar Secrets (2 min)
+### STEP 3: Migrate Secrets (2 min)
 
-**Script automático:**
+**Automatic Script:**
 
 ```bash
-# Criar script de migração
+# Create migration script
 cat > scripts/migrate-to-bitwarden.sh << 'EOF'
 #!/bin/bash
 set -e
 
-echo "Migrando .env → Bitwarden..."
+echo "Migrating .env → Bitwarden..."
 
 # Check session
 if ! bw status | grep -q "unlocked"; then
@@ -99,33 +99,33 @@ while IFS='=' read -r key value; do
     
     value=$(echo "$value" | tr -d '"' | tr -d "'")
     
-    echo "Criando: $key"
+    echo "Creating: $key"
     bw create item \
         --session "$BW_SESSION" \
         --name "$key" \
         --notes "$value" \
         --type 2 \
-        2>/dev/null || echo "  ⚠️  Já existe"
+        2>/dev/null || echo "  ⚠️  Already exists"
 done < .env
 
 bw sync --session "$BW_SESSION"
-echo "✅ Migração completa!"
+echo "✅ Migration complete!"
 EOF
 
 chmod +x scripts/migrate-to-bitwarden.sh
 
-# Executar
+# Execute
 ./scripts/migrate-to-bitwarden.sh
 ```
 
 ---
 
-## 🎯 USO DIÁRIO
+## 🎯 DAILY USE
 
-### Script de Load (usar sempre):
+### Load Script (always use):
 
 ```bash
-# Criar script
+# Create script
 cat > scripts/load-secrets-bitwarden.sh << 'EOF'
 #!/bin/bash
 set -e
@@ -157,7 +157,7 @@ EOF
 chmod +x scripts/load-secrets-bitwarden.sh
 ```
 
-**Usar:**
+**Use:**
 
 ```bash
 source scripts/load-secrets-bitwarden.sh
@@ -166,41 +166,41 @@ pnpm moltbot gateway
 
 ---
 
-## 📋 Checklist Rápido
+## 📋 Quick Checklist
 
 ```text
-[ ] Criar conta Bitwarden (web ou app)
-[ ] Login no CLI (bw login)
-[ ] Desbloquear (export BW_SESSION=...)
-[ ] Migrar secrets (./scripts/migrate-to-bitwarden.sh)
-[ ] Testar load (source scripts/load-secrets-bitwarden.sh)
-[ ] Verificar vars (env | grep ANTHROPIC)
-[ ] Testar gateway (pnpm moltbot gateway)
-[ ] Se OK: deletar .env (mv .env .env.backup)
+[ ] Create Bitwarden account (web or app)
+[ ] CLI Login (bw login)
+[ ] Unlock (export BW_SESSION=...)
+[ ] Migrate secrets (./scripts/migrate-to-bitwarden.sh)
+[ ] Test load (source scripts/load-secrets-bitwarden.sh)
+[ ] Verify vars (env | grep ANTHROPIC)
+[ ] Test gateway (pnpm moltbot gateway)
+[ ] If OK: delete .env (mv .env .env.backup)
 ```
 
 ---
 
-## 🆘 Problemas?
+## 🆘 Problems?
 
-### Erro: "session key is invalid"
+### Error: "session key is invalid"
 
 ```bash
 # Re-unlock
 export BW_SESSION=$(bw unlock --raw)
 ```
 
-### Erro: "not found"
+### Error: "not found"
 
 ```bash
-# Listar items
+# List items
 bw list items --session "$BW_SESSION"
 
-# Verificar nome exato
+# Verify exact name
 bw list items --search "ANTHROPIC" --session "$BW_SESSION"
 ```
 
-### Erro: "You are not logged in"
+### Error: "You are not logged in"
 
 ```bash
 bw login
@@ -209,25 +209,25 @@ export BW_SESSION=$(bw unlock --raw)
 
 ---
 
-## 💰 1Password Reembolso
+## 💰 1Password Refund
 
-Se quiser pedir reembolso da Apple:
+If you want to request a refund from Apple:
 
 ```bash
-# Abrir página de compras
+# Open purchase page
 open "https://reportaproblem.apple.com"
 
-# Ou via App Store
+# Or via App Store
 # App Store → Account → Purchase History
-# Encontre 1Password → Report a Problem
-# Motivo: "Doesn't work as expected"
+# Find 1Password → Report a Problem
+# Reason: "Doesn't work as expected"
 ```
 
 ---
 
-## ✅ Pronto!
+## ✅ Done!
 
-**Depois de setup:**
+**After setup:**
 
 1. Delete .env:
    ```bash
@@ -259,5 +259,5 @@ open "https://reportaproblem.apple.com"
 ────────────────────────────────────────
 Core Architect · NΞØ Protocol
 
-"Gratuito > Pago quando ambos funcionam."
+"Free > Paid when both work."
 ────────────────────────────────────────
