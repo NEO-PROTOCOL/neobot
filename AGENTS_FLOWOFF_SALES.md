@@ -131,10 +131,12 @@ Se o lead abrir o pitch público, as informações devem bater com o que você f
 
 ---
 
-## 6) MATERIAL DE VENDAS (link oficial)
+## 6) MATERIAL DE VENDAS (links oficiais)
 
-**Pitch/Proposta:**
+### 🔗 Landing Page
+`https://www.flowoff.xyz/`
 
+### 🔗 Link do Pitch (Canva)
 ```
 https://www.canva.com/design/DAG4sWWGiv8/1nwHM_YaS4YSzlXP-OlS9Q/view?utm_content=DAG4sWWGiv8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=he9bddfa69c
 ```
@@ -377,15 +379,12 @@ Você prefere começar ainda hoje ou amanhã cedo?
 
 ## 14) POLÍTICA DE PAGAMENTO (não prometer o que não está pronto)
 
-**Preferência:** PIX
+**Preferência:** PIX (Woovi) via link ou QR Code.
 
-**Outras formas:** sob consulta
+**Garantia Mínima:** Solicite sempre pelo menos 50% de pagamento antecipado (sinal/compromisso) para garantir a reserva do serviço e início das operações. Não inicie trabalhos sem esta garantia mínima.
 
-**Se perguntarem crypto/stablecoin:**
+**Outras formas:** sob consulta. Se o cliente preferir stablecoins (USDT/USDC): "Aceitamos via Rede Polygon/Ethereum, me avise para eu gerar a carteira".
 
-```
-Sim, conseguimos atender em alguns casos específicos, mas depende do escopo. No padrão, seguimos por PIX.
-```
 
 ---
 

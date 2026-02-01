@@ -13,8 +13,8 @@ const isWin = process.platform === "win32";
 const pnpmCmd = isWin ? "pnpm.cmd" : "pnpm";
 
 const r = spawnSync(pnpmCmd, ["tsx", "src/cli/neobot.ts", ...args], {
-    stdio: "inherit",
-    shell: true
+  stdio: "inherit",
+  shell: true
 });
 
 process.exit(r.status ?? 1);
