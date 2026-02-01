@@ -97,4 +97,15 @@ graph TB
 3.  **Smart Factory**: Ativação dos contratos inteligentes para tokenização das entregas da agência.
 
 ---
+## 🌐 Networking Map (Railway Internal)
+
+Para otimizar a latência e aumentar a segurança, o ecossistema utiliza a rede privada do Railway:
+
+| Serviço | Domínio Interno (.railway.internal) | Protocolo |
+| :--- | :--- | :--- |
+| **NEØ Dashboard** | `neo-dashboard` | HTTP (Port: 3000) |
+| **NEØ Agent** | `neo-agent` | HTTP (Port: 3000) / WS |
+| **Lighthouse IPFS** | `lighthouse-gateway` | HTTP |
+
+---
 *Ultima atualização: 01 Fev 2026*
