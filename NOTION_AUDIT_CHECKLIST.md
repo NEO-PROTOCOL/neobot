@@ -104,7 +104,8 @@ antes de decidir próximos passos.
 [####] neo-one ................... OK
 └─ Agente ASI1 autônomo (MCP v1.1)
 └─ GitHub: neomello/neo-one
-└─ Stack: Python, ASI1, Thirdweb
+└─ Stack: Python, ASI1
+└─ Web3: Smart Factory NEØ
 └─ Status: 🟡 Desenvolvimento
 
 [#---] neoflowoff-nodemello.run . WARN
@@ -179,7 +180,8 @@ foram mapeados.
 ┃ Desc: Lead qualification agent
 ┃      Instagram DM automation
 ┃ Stack: TS, Express, GPT-4o, Gemini,
-┃       SQLite, Meta API, Thirdweb
+┃       SQLite, Meta API
+┃ Web3: Smart Factory NEØ
 ┃ Status: 🟢 100% OPERACIONAL
 ┃ Local: /CODIGOS/bots_ia/
 ┃       flowcloser_adk-ts/
@@ -196,8 +198,9 @@ foram mapeados.
 ┃ Nome: neo-one
 ┃ Desc: Agente ASI1 autônomo com
 ┃      MCP v1.1 (Model Context Protocol)
-┃ Stack: Python, ASI1 API, Thirdweb,
+┃ Stack: Python, ASI1 API,
 ┃       NEOFLW Token, Auth Layer
+┃ Web3: Smart Factory NEØ (own arch)
 ┃ Status: 🟡 Desenvolvimento (Fase 2)
 ┃ Local: Não encontrado localmente
 ┃ GitHub: neomello/neo-one

@@ -649,9 +649,12 @@ chmod +x scripts/register-identity.sh
 
 **Conteúdo:**
 - `liquidez/` (8 arquivos MD) - Estratégias de liquidez, DEX listing
-- `upgrade/` (6 arquivos MD) - Análise de upgrade, taxas Thirdweb
+- `upgrade/` (6 arquivos MD) - Análise de upgrade (Thirdweb legacy)
 - `verificacao/` (10 arquivos MD) - Verificação de contratos, Sourcify
 - `conclusao/` (4 arquivos MD) - Sucesso de liquidez, verificação
+
+**Note:** Docs de upgrade mencionam Thirdweb (removido).
+Substituído por Smart Factory NEØ (FEV 2026).
 
 **Objetivos:**
 - [ ] Ler todos os docs

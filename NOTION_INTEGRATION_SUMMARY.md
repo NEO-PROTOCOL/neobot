@@ -254,8 +254,11 @@ Conteúdo:
   - Frontend: HTML/CSS/JS, Astro, React
   - Backend: TypeScript, Express
   - AI: GPT-4o, Gemini 2.5 Flash
-  - Web3: Thirdweb, Web3Auth
+  - Web3: Smart Factory NEØ, Web3Auth
   - Deploy: Vercel, Railway, Netlify
+  
+  **Note:** Thirdweb removido em favor
+  da Smart Factory (arquitetura própria)
   
   ## Links
   
@@ -297,7 +300,10 @@ Conteúdo:
   - GPT-4o (fallback: Gemini)
   - SQLite database
   - Meta Business API
-  - Thirdweb wallets
+  - Smart Factory NEØ (Web3)
+  
+  **Note:** Thirdweb removido em favor
+  da arquitetura NEØ Protocol própria
   
   **Monitoring:**
   - Health: /health (70ms)

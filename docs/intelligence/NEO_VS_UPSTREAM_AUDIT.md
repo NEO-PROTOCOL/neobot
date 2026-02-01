@@ -64,7 +64,9 @@ oportunidades de mercado.
 ✅ Zero localhost trust issues
 
 **Narrative:**
-> "Upstream expôs 1.000+ painéis.
+> "Upstream expôs 1.000+ painéis
+>  (descoberto JAN 2026, pós-launch).
+>  
 >  NEØ implementou auth desde o
 >  primeiro dia. Security by design."
 
@@ -96,10 +98,12 @@ oportunidades de mercado.
 [####] FlowPay PIX→Crypto ......... OK
 [####] $NEOFLW token .............. OK
 [####] QuickNode RPC .............. OK
-[####] Thirdweb integration ....... OK
 [####] Web3Auth wallets ........... OK
 [####] TON contracts .............. OK
 [####] Nostr channel .............. OK
+[----] Thirdweb .............. REMOVED
+       └─ Substituído por Smart Factory
+          (arquitetura NEØ própria)
 ```
 
 **Arquivos principais:**
@@ -161,7 +165,7 @@ Lead (Instagram/WhatsApp)
   ↓
 FlowCloser qualifies
   ↓
-FlowOFF closes deal
+NEØFlowOFF closes deal
   ↓
 Client pays PIX (BRL)
   ↓

@@ -57,7 +57,8 @@
 └─ Repo: /CODIGOS/bots_ia/
         flowcloser_adk-ts/
 └─ Stack: TS, Express, GPT-4o, Gemini,
-         SQLite, Meta API, Thirdweb
+         SQLite, Meta API
+└─ Web3: Smart Factory NEØ (own arch)
 └─ Deploy: Railway
 └─ Status: ✅ 100% OPERACIONAL
 
@@ -159,10 +160,11 @@
 
 ▓▓▓ CAMADA WEB3
 ────────────────────────────────────────
-└─ Thirdweb (wallet abstraction)
+└─ Smart Factory NEØ (own architecture)
 └─ Web3Auth (social login)
 └─ QuickNode (RPC provider)
 └─ Base Mainnet ($NEOFLW token)
+└─ Note: Thirdweb removido (FEV 2026)
 
 ▓▓▓ CAMADA DATABASE
 ────────────────────────────────────────
@@ -179,7 +181,7 @@
 ▓▓▓ CAMADA PAYMENT
 ────────────────────────────────────────
 └─ PIX: Woovi/OpenPix API
-└─ Crypto: Thirdweb Connect
+└─ Crypto: Smart Factory NEØ
 └─ Token: $NEOFLW (Base)
 ```
 
@@ -257,10 +259,13 @@
 
 ▓▓▓ WEB3 SERVICES
 ────────────────────────────────────────
-└─ Thirdweb
-   └─ Client: 80c33540b0e40af...
-   └─ Embedded Wallets
-   └─ NFT/Token management
+└─ Smart Factory NEØ (8 repos)
+   └─ Tokenization FaaS
+   └─ Deploy/Mint/Bridge
+   └─ Base + Polygon support
+   
+└─ Thirdweb (REMOVIDO FEV 2026)
+   └─ Substituído por arquitetura própria
 
 └─ QuickNode
    └─ RPC endpoints

@@ -272,7 +272,8 @@ Integrate CEO automation platform.
 **External:**
 - Moltbot (Fork origin)
 - IQAI Agent (FlowCloser brain)
-- Thirdweb (Evaluated, not adopted)
+- ~Thirdweb (Evaluated~ → Removed)
+  └─ Substituído por NEØ Smart Factory
 
 ────────────────────────────────────────
 
