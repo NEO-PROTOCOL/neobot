@@ -147,7 +147,8 @@
     "canvas:a2ui:bundle": "bash scripts/bundle-a2ui.sh",
     "check:loc": "node --import tsx scripts/check-ts-max-loc.ts --max 500",
     "neo:skill:publish": "node --import tsx scripts/neo-skill-cli.ts publish",
-    "neo:skill:install": "node --import tsx scripts/neo-skill-cli.ts install"
+    "neo:skill:install": "node --import tsx scripts/neo-skill-cli.ts install",
+    "neo:notion:sync": "node --import tsx scripts/notion-sync.ts"
   },
   "keywords": [],
   "author": "",

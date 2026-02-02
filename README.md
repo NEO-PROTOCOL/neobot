@@ -8,8 +8,11 @@
 ========================================================================
 [####] Built on Moltbot ............................................ OK
 [####] Web3 · Decentralized · Self-hosted .......................... OK
+[####] Modular Ecosystem (New Protocol) ............................ OK
 ========================================================================
 ```
+
+> **[📜 LEIA O MANIFESTO MODULAR](docs/neo-protocol/MODULAR_MANIFESTO.md)**: "Um sistema modular entre projetos que se falam."
 
 <p align="center">
   <img src="docs/assets/neobot-logo.png" alt="NEØ Protocol" width="400">

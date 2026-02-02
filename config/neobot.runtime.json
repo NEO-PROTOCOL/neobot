@@ -36,6 +36,7 @@
         "imessage": {
             "enabled": false
         },
+        "dashboard_public_url": "https://neo-dashboard-production-2e56.up.railway.app",
         "bluebubbles": {
             "enabled": false
         },
