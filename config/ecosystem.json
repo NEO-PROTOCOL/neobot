@@ -3,7 +3,7 @@
         "id": "flowcloser-agent",
         "name": "FlowCloser Agent (Neobot Core)",
         "description": "Agente de Qualificação e Vendas (CRM Nativo). Orquestrador Interplanetário.",
-        "localPath": ".",
+        "localPath": "../neo-node-interplanetary",
         "repository": "https://github.com/NEO-PROTOCOL/neo-node-interplanetary.git",
         "role": "Agent Node / Orchestrator",
         "hosting": {
@@ -339,21 +339,6 @@
         "hosting": {
             "platform": "Mainnet / Base",
             "adminEmail": "neo@neoprotocol.space"
-        }
-    },
-    {
-        "id": "flowpay",
-        "name": "FlowPay Sovereign",
-        "description": "Gateway Financeiro Soberano (PIX ↔ Crypto) com liquidação on-chain e recorrência.",
-        "localPath": "../flowpay",
-        "repository": "https://github.com/flowpaycash/flowpay",
-        "role": "Financial Sovereign Node",
-        "hosting": {
-            "platform": "Railway (Sovereign Node)",
-            "productionUrl": "https://flowpay-production-10d8.up.railway.app",
-            "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "pay.flowoff.xyz",
-            "governance": "NEØ SMART CONTRACT"
         }
     }
 ]
