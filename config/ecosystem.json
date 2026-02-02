@@ -1,32 +1,17 @@
 [
     {
-        "id": "neobot-core",
-        "name": "Neobot Core (Interplanetary)",
-        "description": "Orquestrador Central e Gateway Local da NEØ - Responsável por atendimento e automação via WhatsApp/Telegram.",
+        "id": "flowcloser-agent",
+        "name": "FlowCloser Agent (Neobot Core)",
+        "description": "Agente de Qualificação e Vendas (CRM Nativo). Orquestrador Interplanetário.",
         "localPath": ".",
         "repository": "https://github.com/NEO-PROTOCOL/neo-node-interplanetary.git",
-        "role": "Orchestrator",
+        "role": "Agent Node / Orchestrator",
         "hosting": {
             "platform": "Railway",
             "productionUrl": "https://flowcloser-agent-production.up.railway.app",
             "projectLink": "https://railway.com/project/95ed3bcd-2e20-4477-b50c-43cd9ec04c41",
             "adminEmail": "neo@neoprotocol.space",
             "targetCustomDomain": "core.neoprotocol.space"
-        }
-    },
-    {
-        "id": "flowcloser-agent",
-        "name": "FlowCloser Agent",
-        "description": "Agente de Qualificação e Vendas (CRM Nativo)",
-        "localPath": "../bots_ia/flowcloser_adk-ts",
-        "repository": "git@github.com:NEO-FlowOFF/flowcloser-agent.git",
-        "role": "Agent Node",
-        "hosting": {
-            "platform": "Railway",
-            "productionUrl": "https://flowcloser-agent-production.up.railway.app",
-            "projectLink": "https://railway.com/project/95ed3bcd-2e20-4477-b50c-43cd9ec04c41",
-            "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "agent.flowcloser.ai"
         }
     },
     {
