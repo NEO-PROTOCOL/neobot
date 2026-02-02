@@ -111,19 +111,6 @@ const WOD_PROJECT = {
     url: "https://github.com/wodxpro/wod-x-pro" // Guessing based on folder structure
 };
 
-async function main() {
-    try {
-        const dbId = "29fb6f21-b534-41c0-8a2a-88dbefedc498";
-        await checkWodProject(dbId);
-
-        // If we want to force create it if missing, we can do it here.
-        // Re-using createPage function from above (need to make sure it's accessible or copy it)
-        // Since I modified the file to remove createPage call in main(), I need to update main() to logic.
-    } catch (e) {
-        console.error(e);
-    }
-}
-
 // Check WOD and Create if Missing
 async function ensureWodProject(dbId: string) {
     console.log(`🔍 Checking "WOD [X] PRO" in DB ${dbId}...`);
@@ -145,7 +132,6 @@ async function ensureWodProject(dbId: string) {
 
     if (project) {
         console.log(`✅ FOUND: ${project.properties["Nome"].title[0].plain_text} (ID: ${project.id})`);
-        // Maybe update it?
     } else {
         console.log("❌ NOT FOUND: WOD [X] PRO. Creating...");
         await createPage(dbId, WOD_PROJECT);
@@ -155,7 +141,17 @@ async function ensureWodProject(dbId: string) {
 async function main() {
     try {
         const dbId = "29fb6f21-b534-41c0-8a2a-88dbefedc498";
+
+        // Check WOD
         await ensureWodProject(dbId);
+
+        // Optional: Sync other projects if needed
+        /*
+        for (const proj of PROJECTS) {
+             await createPage(dbId, proj);
+        }
+        */
+
     } catch (e) {
         console.error(e);
     }
