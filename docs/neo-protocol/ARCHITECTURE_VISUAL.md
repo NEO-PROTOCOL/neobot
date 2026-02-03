@@ -9,6 +9,7 @@ graph TB
         SKILLS[NEO Skills Registry - IPFS]
         CLI[CLI: neobot command]
         ID[mio-system Identity]
+        WARRIOR[Node Warrior: Sovereign Exec]
     end
 
     subgraph ACTIVE_SKILLS["✅ SKILLS ATIVAS"]
@@ -47,11 +48,13 @@ graph TB
     CORE --- SKILLS
     CORE --- CLI
     CORE --- ID
+    CORE --- WARRIOR
     
     SKILLS --- FC_SKILL
     SKILLS --- TG_SKILL
     SKILLS --- PAY
     SKILLS --- FACTORY
+    FACTORY --- |Registry| NEO_CONTRACTS[NEO Protocol Contracts]
 
     CORE --> ANTHROPIC
     SKILLS --> IPFS_NODE
@@ -75,7 +78,7 @@ graph TB
     classDef future fill:#8888ff,stroke:#0000ff,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
     classDef active_node fill:#00ffcc,stroke:#00aba9,stroke-width:3px,color:#000
     
-    class CORE,CLI,ID,SKILLS,TG_SKILL,ANTHROPIC,IPFS_NODE,LIGHTHOUSE connected
+    class CORE,CLI,ID,WARRIOR,SKILLS,TG_SKILL,ANTHROPIC,IPFS_NODE,LIGHTHOUSE connected
     class FC_SKILL,WA_SKILL,FACTORY,PAY,NOTION_SKILL warning
     class KWIL,STORAGE future
     class FC_AGENT,FLOWPAY active_node

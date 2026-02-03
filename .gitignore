@@ -1,8 +1,10 @@
-# Identidades NEO (Private Keys)
-.neo-identities/.env
-.neo-identities/*.pem
-.neo-identities/*.key
-.neo-identities/private/
+# Identidades NEO (Private Keys & Public IDs)
+.neo-identities/*
+!.neo-identities/.env.example
+
+# Debug & State
+.state-debug/
+.tmp-debug/
 
 # Environment variables
 .env

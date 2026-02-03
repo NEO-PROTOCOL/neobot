@@ -1,0 +1,101 @@
+# 🔷 NEO Protocol Stack - Estrutura de Arquivos
+
+## Criados AGORA (30 Jan 2026):
+
+ARCHITECTURE_NEO_PROTOCOL.md       # Arquitetura completa (787 linhas)
+NEO_PROTOCOL_KICKOFF.md            # Resumo executivo & próximos passos
+NEXT_STEPS.md                      # Atualizado com Fase 1.0 roadmap
+
+neo/                               # 🔷 NEO PROTOCOL LAYER (NOVO)
+├── README.md                      # Overview do NEO layer
+├── registry/
+│   └── index.ts                   # IPFS Skills Registry (esqueleto)
+├── identity/
+│   ├── mio-system.ts             # Identity Manager (esqueleto)
+│   └── registry.ts               # 9 identidades NEO
+├── sdk/
+│   └── index.ts                  # Public SDK
+└── cli/
+    └── info.ts                   # Comando: neo:info
+
+## Já Existentes (Fase 0.1):
+
+src/                              # ⬆️ MOLTBOT CORE (sincronizado)
+├── gateway/                      # Gateway WebSocket
+├── channels/                     # WhatsApp, Telegram, etc
+├── agents/                       # Agent runtime (Pi RPC)
+├── sessions/                     # Session management
+├── infra/                        # Health, Ledger, Notifiers
+└── ...
+
+skills/                           # 🔷 NEO SKILLS (18 implementadas)
+├── ipfs/                         # IPFS Status Checker
+├── asi1/                         # ASI1 LLM local
+├── smart-factory/                # Flow Smart Contracts
+├── flowpay/                      # FlowPay System
+├── telegram/                     # Telegram Bot
+└── ...
+
+dashboard/                        # 🔷 NEO DASHBOARD (iOS-style)
+├── index.html
+├── server.js
+├── app.js
+└── ...
+
+## A Criar (Fase 1-4):
+
+neo/registry/
+├── ipfs-client.ts                # IPFS wrapper
+└── skill-manager.ts              # Publish/Install logic
+
+neo/gateway/
+├── extensions.ts                 # Extension interface
+├── ipfs-channel.ts               # IPFS PubSub adapter
+├── web3-signer.ts                # Web3 signature layer
+└── nostr-relay.ts                # Nostr integration (opcional)
+
+neo/cli/
+├── skill-commands.ts             # neo:skill:*
+├── identity-commands.ts          # neo:identity:*
+└── ipfs-commands.ts              # neo:ipfs:*
+
+docs-neo/                         # 🔷 NEO DOCS (self-hosted)
+├── protocol/
+│   ├── architecture.md
+│   ├── identity.md
+│   └── skills-registry.md
+├── skills/
+│   ├── ipfs.md
+│   ├── asi1.md
+│   └── ...
+└── api/
+    ├── gateway.md
+    └── sdk.md
+
+## Configuração:
+
+.env.neo                          # Private keys mio-system (NÃO COMMITAR)
+config/neobot.runtime.json        # NEO runtime config
+
+## Stats:
+
+Arquivos criados:    7
+Linhas escritas:     ~2,500
+Tempo investido:     ~90 minutos
+Autonomia NEO:       60% (target)
+Timeline release:    ~8 semanas (27 Mar 2026)
+
+## Next Actions:
+
+1. pnpm add ipfs-http-client multiformats ethers
+2. Gerar 9 private keys (mio-system)
+3. Implementar neo/registry/ipfs-client.ts
+4. Migrar primeira skill para IPFS
+5. Testar: pnpm neobot neo:info
+
+═══════════════════════════════════════════════════════════
+
+🎯 STATUS: Foundation Architecture Complete ✅
+🚀 PRONTO PARA: Fase 1.2 - NEO Skills Registry (IPFS)
+
+═══════════════════════════════════════════════════════════

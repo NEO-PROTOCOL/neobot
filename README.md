@@ -41,8 +41,8 @@ Born from Moltbot's industrial-grade foundation. Hybrid architecture:
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ STACK                                                      │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ 40% OpenClaw Core  → Gateway, channels, agent runtime       │
-│ └─ 60% NEØ Layer    → IPFS, Web3 identity, self-hosted         │
+│ └─ 30% OpenClaw Core  → Gateway, agent runtime (Stable)       │
+│ └─ 70% NEØ Layer      → Warrior Node, IPFS, MIO Identity       │
 └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -51,9 +51,9 @@ platforms. NEØ gives you self-sovereignty, decentralization,
 transparency, resilience, and privacy.
 
 ```text
-========================================================================
-                      RECOGNITION & FOUNDATION
-========================================================================
+=======================================================
+          RECOGNITION & FOUNDATION
+=======================================================
 ```
 
 We recognize Moltbot and Peter Steinberger for building the most
@@ -66,23 +66,23 @@ sophisticated AI assistant control plane. NEØ extends that foundation.
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ FROM OPENCLAW/MOLTBOT                                      │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ Gateway (WebSocket), multi-channel (WhatsApp, Telegram, etc)│
+│ └─ Gateway (WebSocket), Sovereign Channels (WA, TG)           │
 │ └─ Pi agent runtime, security-first, health & Ledger           │
 └────────────────────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ NEØ ADDS                                                   │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ IPFS Skills Registry, mio-system Identity                   │
-│ └─ Web3 Extensions (PubSub, Nostr, signer), NEØ Dashboard      │
-│ └─ Lighthouse Storage (perpetual IPFS storage)                 │
+│ └─ IPFS Skills Registry, Node Warrior Execution Environment   │
+│ └─ MIO Identity Layer (mio-system), Web3 Signatures           │
+│ └─ Lighthouse Storage (Perpetual Data Pinning)                 │
 └────────────────────────────────────────────────────────────────┘
 ```
 
 ```text
-========================================================================
-                    STORAGE PARTNERSHIP
-========================================================================
+=======================================================
+                STORAGE PARTNERSHIP
+=======================================================
 ```
 
 NEØ Protocol uses **Lighthouse Storage** for decentralized, perpetual
@@ -97,9 +97,9 @@ for our Skills Registry and content.
 **Learn more:** [Lighthouse Storage](https://files.lighthouse.storage/?referBy=cf37bdc80bcf4ff2bd162671c3f6b3fa)
 
 ```text
-========================================================================
-                         CORE FEATURES (RESUMO)
-========================================================================
+=======================================================
+                CORE FEATURES (RESUMO)
+=======================================================
 ```
 
 - IPFS Skills Registry (content-addressed, verifiable, censorship-
@@ -111,9 +111,9 @@ for our Skills Registry and content.
 Setup e comandos: ver [**Guia de Início Rápido**](docs/core/QUICKSTART.md).
 
 ```text
-========================================================================
-                    WHAT MAKES NEØ DIFFERENT?
-========================================================================
+=======================================================
+             WHAT MAKES NEØ DIFFERENT?
+=======================================================
 ```
 
 - Hosting: your infrastructure (no vendor lock-in)
@@ -125,94 +125,115 @@ Vision: decentralized AI mesh, federated learning, blockchain
 integration, NFT-based skills, DAO governance. Phase 1 in progress.
 
 ```text
-========================================================================
-                      ARCHITECTURE OVERVIEW
-========================================================================
+=======================================================
+             ARCHITECTURE OVERVIEW
+=======================================================
 ```
 
 ```mermaid
 graph TB
-    subgraph NEOBOT["🎯 NEOBOT (Protocol Center)"]
+    subgraph NEOBOT["🎯 NEOBOT CORE (Interplanetary Warrior)"]
         CORE[Core: Gateway + Routing + Sessions]
-        SKILLS[NEO Skills Registry - IPFS]
+        MIO[MIO System: Identity ID]
+        WARRIOR[Node Warrior: Sovereign Exec]
         CLI[CLI: neobot command]
-        ID[mio-system Identity]
     end
 
-    subgraph ACTIVE_SKILLS["✅ SKILLS ATIVAS"]
-        FC_SKILL[FlowCloser Orchestrator]
-        NOTION_SKILL[Notion Integration]
-        WA_SKILL[WhatsApp Channel]
-        TG_SKILL[Telegram Channel]
-        FACTORY[Smart Factory Skill]
-        PAY[FlowPay Skill]
+    subgraph ACTIVE_NODES["✅ ECOSYSTEM NODES"]
+        subgraph FACTORY_STACK["🏭 NEO SMART FACTORY"]
+            FACTORY[Smart Factory Hub]
+            S_CORE[Smart Core]
+            S_CLI[Smart CLI]
+            S_UI[Smart UI PWA]
+        end
+        
+        subgraph FLOWPAY_OS["💰 FLOWPAY"]
+            FLOWPAY[FlowPay Sovereign]
+            FP_CORE["FlowPay-core (OSS)"]
+        end
+
+        subgraph FLUXX_DAO["🌊 FLUXX DAO"]
+            F_CONTRACTS[Fluxx Contracts]
+            F_APP[Fluxx DAO App]
+        end
+        
+        subgraph FLOWOFF_AREA["🚀 FLOWOFF AGENCY"]
+            AGENT_FO[Agent FlowOFF]
+            CEO_MINI["CEO Escalável MiniApp"]
+            FO_LANDING[FlowOFF Landing/PWA]
+        end
     end
 
-    subgraph CLOUD_INFRA["☁️ PROVEDORES & INFRA"]
-        ANTHROPIC[Anthropic: Claude 3.5 Sonnet]
-        IPFS_NODE[Local/Remote IPFS Node]
-        LIGHTHOUSE[Lighthouse Pinning]
-        RAILWAY[Railway: Agent Deployment]
+    subgraph DAPPS["🎮 DApps & Satellites"]
+        WOD["WOD [X] PRO"]
+        NEO_CONTRACTS[NEO Protocol Contracts]
+        SUI_LAND["Smart UI Landing"]
+        SUI_MOB["Smart UI Mobile"]
     end
 
-    subgraph FLOWCLOSER["🟢 FLOWCLOSER - Lead Qualification"]
-        FC_AGENT[FlowCloser Agent]
-        FC_INSTA[Instagram DM]
-        FC_WA[WhatsApp API]
+    subgraph INFRA_SERVICES["☁️ INFRASTRUCTURE"]
+        ANTHROPIC[Anthropic: Claude 3.5]
+        RAILWAY[Railway: Deployment]
+        LIGHTHOUSE[Lighthouse: IPFS Storage]
+        BASE[Base Chain: Settlement L2]
     end
 
-    subgraph REVENUE_NODES["💰 REVENUE NODES"]
-        FLOWPAY[FlowPay: Gateway PIX]
-        FLOWOFF[FlowOFF: Agency Leads]
-    end
-
-    subgraph FUTURE["🔮 SOVEREIGN FUTURE"]
-        KWIL[Kwil DB: Decentralized Memory]
-        STORAGE[Storacha / Ceramic]
-    end
-
-    %% Conexões Ativas (Sólidas)
-    CORE --- SKILLS
+    %% Connections
+    CORE --- MIO
     CORE --- CLI
-    CORE --- ID
+    CORE --- WARRIOR
     
-    SKILLS --- FC_SKILL
-    SKILLS --- TG_SKILL
-    SKILLS --- PAY
-    SKILLS --- FACTORY
-
+    %% AI & Hosting
     CORE --> ANTHROPIC
-    SKILLS --> IPFS_NODE
-    SKILLS --> LIGHTHOUSE
+    NEOBOT -.->|Hosted on| RAILWAY
+    CORE -.->|Registry| LIGHTHOUSE
     
-    FC_SKILL -.->|Orchestration| RAILWAY
-    RAILWAY --- FC_AGENT
-    FC_AGENT --- FC_INSTA
-    FC_AGENT --- FC_WA
+    %% Orchestration
+    CORE <-->|Orchestration| FACTORY
+    CORE <-->|Payments| FLOWPAY
+    CORE <-->|Coordination| AGENT_FO
+    CORE <-->|Governance| FLUXX_DAO
+    
+    %% Blockchain Layer
+    S_CORE -.->|Base L2| BASE
+    FLOWPAY -.->|Base L2| BASE
+    F_CONTRACTS -.->|Base L2| BASE
+    NEO_CONTRACTS -.->|Base L2| BASE
+    
+    %% App Relationships
+    WOD -.->|Uses| FACTORY
+    NEO_CONTRACTS <-->|Governance/Registry| FACTORY
+    F_APP -.->|Uses| F_CONTRACTS
+    SUI_LAND -.->|Drives to| S_UI
+    SUI_MOB -.->|Interacts| S_UI
+    CEO_MINI -.->|Connected to| AGENT_FO
+    
+    %% Revenue Loop
+    FLOWPAY --- FP_GATE
+    FO_LANDING -->|Leads| AGENT_FO
 
-    PAY -.->|Triggers| FLOWPAY
+    %% Styling
+    classDef core fill:#ff4444,stroke:#aa0000,stroke-width:2px,color:#fff
+    classDef factory fill:#00ccff,stroke:#0088aa,stroke-width:2px,color:#000
+    classDef flowpay fill:#00ffcc,stroke:#00aba9,stroke-width:2px,color:#000
+    classDef fluxx fill:#4488ff,stroke:#0055aa,stroke-width:2px,color:#fff
+    classDef flowoff fill:#ff00ff,stroke:#aa00aa,stroke-width:2px,color:#fff
+    classDef infra fill:#dddddd,stroke:#999,stroke-width:1px,color:#000
+    classDef dapp fill:#ffcc00,stroke:#aa8800,stroke-width:2px,color:#000
     
-    %% Fluxo de Receita (The Loop)
-    FLOWOFF -->|Leads| FC_AGENT
-    FC_AGENT -->|Qualified| FLOWOFF
-    FLOWOFF -->|Payments| FLOWPAY
-    
-    %% Status Visual
-    classDef connected fill:#44ff44,stroke:#00aa00,stroke-width:2px,color:#000
-    classDef warning fill:#ffcc00,stroke:#aa8800,stroke-width:2px,color:#000
-    classDef future fill:#8888ff,stroke:#0000ff,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
-    classDef active_node fill:#00ffcc,stroke:#00aba9,stroke-width:3px,color:#000
-    
-    class CORE,CLI,ID,SKILLS,TG_SKILL,ANTHROPIC,IPFS_NODE,LIGHTHOUSE connected
-    class FC_SKILL,WA_SKILL,FACTORY,PAY,NOTION_SKILL warning
-    class KWIL,STORAGE future
-    class FC_AGENT,FLOWPAY active_node
+    class CORE,MIO,CLI,WARRIOR core
+    class FACTORY,S_CORE,S_CLI,S_UI factory
+    class FLOWPAY,FP_CORE flowpay
+    class F_CONTRACTS,F_APP fluxx
+    class AGENT_FO,CEO_MINI,FO_LANDING flowoff
+    class ANTHROPIC,RAILWAY,BASE,LIGHTHOUSE infra
+    class WOD,NEO_CONTRACTS,SUI_LAND,SUI_MOB dapp
 ```
 
 ```text
-========================================================================
-                          DOCUMENTATION
-========================================================================
+=======================================================
+             DOCUMENTATION
+=======================================================
 ```
 
 - **[REPOSITÓRIO DE DOCS (ÍNDICE)](docs/INDEX.md)** — Navegação centralizada
@@ -224,9 +245,9 @@ graph TB
 Upstream: <https://docs.molt.bot>
 
 ```text
-========================================================================
-                    COMMUNITY & ROADMAP (RESUMO)
-========================================================================
+=======================================================
+             COMMUNITY & ROADMAP (RESUMO)
+=======================================================
 ```
 
 - Twitter/X: @neoprotocol | Telegram: @neoprotocol
@@ -236,9 +257,9 @@ Roadmap: Phase 1.0 IN PROGRESS (Foundation, Extensions, Docs, Release
 v1.0.0). Detalhes em [NEXT_STEPS_V2.md](docs/core/NEXT_STEPS_V2.md).
 
 ```text
-========================================================================
-                          LICENSE & DISCLAIMER
-========================================================================
+=======================================================
+             LICENSE & DISCLAIMER
+=======================================================
 ```
 
 - Moltbot Core (src/): MIT (upstream)
@@ -249,9 +270,9 @@ Feb 2026. Some features experimental. Production use at your own risk
 until v1.0.0.
 
 ```text
-========================================================================
-                           CALL TO ACTION
-========================================================================
+=======================================================
+             CALL TO ACTION
+=======================================================
 ```
 
 Star the repo · Read [INDEX.md](docs/INDEX.md) · Check
