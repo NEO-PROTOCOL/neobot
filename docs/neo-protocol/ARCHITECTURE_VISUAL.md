@@ -66,6 +66,7 @@ graph TB
     FC_AGENT --- FC_WA
 
     PAY -.->|Triggers| FLOWPAY
+    FLOWPAY <-->|Audit & Security| FACTORY
     
     %% Fluxo de Receita (The Loop)
     FLOWOFF -->|Leads| FC_AGENT

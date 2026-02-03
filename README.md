@@ -202,6 +202,7 @@ graph TB
     
     %% App Relationships
     WOD -.->|Uses| FACTORY
+    FLOWPAY <-->|Audit & Security| FACTORY
     NEO_CONTRACTS <-->|Governance/Registry| FACTORY
     F_APP -.->|Uses| F_CONTRACTS
     SUI_LAND -.->|Drives to| S_UI
