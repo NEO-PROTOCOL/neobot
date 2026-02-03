@@ -145,6 +145,7 @@ graph TB
             S_CORE[Smart Core]
             S_CLI[Smart CLI]
             S_UI[Smart UI PWA]
+            NEO_CONTRACTS[NEO Protocol Contracts]
         end
         
         subgraph FLOWPAY_OS["💰 FLOWPAY"]
@@ -166,7 +167,6 @@ graph TB
 
     subgraph DAPPS["🎮 DApps & Satellites"]
         WOD["WOD [X] PRO"]
-        NEO_CONTRACTS[NEO Protocol Contracts]
         SUI_LAND["Smart UI Landing"]
         SUI_MOB["Smart UI Mobile"]
     end
@@ -222,12 +222,12 @@ graph TB
     classDef dapp fill:#ffcc00,stroke:#aa8800,stroke-width:2px,color:#000
     
     class CORE,MIO,CLI,WARRIOR core
-    class FACTORY,S_CORE,S_CLI,S_UI factory
+    class FACTORY,S_CORE,S_CLI,S_UI,NEO_CONTRACTS factory
     class FLOWPAY,FP_CORE flowpay
     class F_CONTRACTS,F_APP fluxx
     class AGENT_FO,CEO_MINI,FO_LANDING flowoff
     class ANTHROPIC,RAILWAY,BASE,LIGHTHOUSE infra
-    class WOD,NEO_CONTRACTS,SUI_LAND,SUI_MOB dapp
+    class WOD,SUI_LAND,SUI_MOB dapp
 ```
 
 ```text
