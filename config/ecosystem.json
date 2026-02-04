@@ -18,9 +18,9 @@
     {
         "id": "mio-system",
         "org": "NEO Protocol",
-        "name": "MIO System",
-        "description": "Protocolo de Identidade e Autenticação do Ecossistema",
-        "localPath": "../bots_ia/mio-system",
+        "name": "MIO System (Identity)",
+        "description": "Modelo de Identidade Operacional - Backend Security Layer (Substitui Auth Tradicional)",
+        "localPath": "../mio-system",
         "repository": "https://github.com/neomello/mio-system.git",
         "role": "Identity Layer",
         "hosting": {
@@ -33,7 +33,7 @@
         "id": "neo-dashboard",
         "org": "NEO Protocol",
         "name": "Neo Dashboard",
-        "description": "Interface Visual do Sistema (Next.js)",
+        "description": "Interface Visual do Sistema (Next.js) - iOS Style Control Center",
         "localPath": "../neo-dashboard-deploy",
         "repository": "https://github.com/neomello/neo-dashboard",
         "role": "Interface",
@@ -45,83 +45,43 @@
         }
     },
     {
-        "id": "neo-protocol-landing",
-        "org": "NEO Protocol",
-        "name": "Neo Protocol Landing",
-        "description": "Landing page principal do Protocolo NEO",
-        "localPath": "../neo-protocol-landing",
-        "repository": "https://github.com/neomello/neo-protcl.git",
-        "role": "Landing Page",
-        "hosting": {
-            "platform": "Vercel",
-            "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "neoprotocol.space"
-        }
-    },
-    {
-        "id": "neo-protocol-contracts",
-        "org": "NEO Protocol",
-        "name": "NEO Protocol Contracts",
-        "description": "Smart Contracts do Protocolo NEO (Staking, Governance)",
-        "localPath": "../neo-protocol-contracts",
-        "repository": "https://github.com/NEO-PROTOCOL/neo-protocol-contracts.git",
-        "role": "Protocol Layer / Contracts",
-        "hosting": {
-            "platform": "Mainnet / Base",
-            "adminEmail": "neo@neoprotocol.space"
-        }
-    },
-    {
-        "id": "neoflw-token-ops",
-        "org": "NEO Protocol",
-        "name": "NeoFLW Token Ops",
-        "description": "Operações e Orquestração do Protocolo NEOFLOW (Ape Framework)",
-        "localPath": "../neoflw-token",
-        "repository": "https://github.com/neomello/neoflw-token.git",
-        "role": "Protocol Ops",
-        "hosting": {
-            "platform": "Local / Infura / Alchemy",
-            "adminEmail": "neo@neoprotocol.space"
-        }
-    },
-    {
-        "id": "smart-token-neoflw",
-        "org": "NEO Protocol",
-        "name": "Smart Token NeoFLW",
-        "description": "Contratos inteligentes do Token NeoFLW",
-        "localPath": "../contracts",
-        "repository": "https://github.com/NEO-FlowOFF/smart_token_neoflw.git",
-        "role": "Protocol Layer",
-        "hosting": {
-            "platform": "Mainnet / Base",
-            "adminEmail": "neo@neoprotocol.space"
-        }
-    },
-    {
-        "id": "neo-agent-full",
-        "org": "NEO Protocol",
-        "name": "Neo Agent Full",
-        "description": "Template de Agente com State Layer v2.5 (Base para NEO:One)",
-        "localPath": "../neo-agent-full",
-        "repository": "git@github.com:neomello/neo-agent-full.git",
-        "role": "Agent Template",
-        "hosting": {
-            "platform": "N/A",
-            "adminEmail": "neo@neoprotocol.space"
-        }
-    },
-    {
-        "id": "neo-smart-factory",
+        "id": "smart-factory",
         "org": "Neo Smart Factory",
-        "name": "Neo Smart Factory",
-        "description": "Hub de Tokenização e Smart Contracts Factory",
-        "localPath": "../neo-smart-factory",
+        "name": "NEO Smart Factory Hub",
+        "description": "Fábrica de Tokens e Contratos Inteligentes. Reduz fricção Web3.",
+        "localPath": "../neo-smart-token-factory",
         "repository": "https://github.com/neomello/neo_smart_factory.git",
-        "role": "Infrastructure",
+        "role": "Web3 Engineering",
         "hosting": {
             "platform": "Railway",
-            "adminEmail": "neo@neoprotocol.space",
+            "productionUrl": "https://smart.neoprotocol.space",
+            "adminEmail": "factory@neoprotocol.space",
             "targetCustomDomain": "factory.neoprotocol.space"
+        }
+    },
+    {
+        "id": "fluxx-dao",
+        "org": "FluXX DAO",
+        "name": "FluXX DAO",
+        "description": "Governança Descentralizada e Arbitragem do Protocolo.",
+        "localPath": "../fluxx-dao",
+        "repository": "https://github.com/fluxx-dao/core",
+        "role": "Governance Node",
+        "hosting": {
+            "platform": "Vercel",
+            "productionUrl": "https://fluxx.neoprotocol.space"
+        }
+    },
+    {
+        "id": "wod-x-pro",
+        "org": "WOD[x] Pro",
+        "name": "WOD[x] Pro",
+        "description": "Protocolo de Competição Física e Performance (Move-to-Earn).",
+        "localPath": "../wod-pro",
+        "repository": "https://github.com/wod-pro/core",
+        "role": "Product Node",
+        "hosting": {
+            "platform": "Mobile / PWA"
         }
     },
     {
@@ -129,7 +89,7 @@
         "org": "Neo Smart Factory",
         "name": "Smart Core",
         "description": "Smart contracts and deployment scripts for NΞØ SMART FACTORY (Core Protocol)",
-        "localPath": "../neo-smart-token/smart-core",
+        "localPath": "../neo-smart-token-factory/smart-core",
         "repository": "https://github.com/neo-smart-token-factory/smart-core.git",
         "role": "Protocol Layer / Contracts",
         "hosting": {
@@ -276,7 +236,7 @@
         "hosting": {
             "platform": "Vercel",
             "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "app.flowoff.xyz"
+            "targetCustomDomain": "https://flowoff.xyz"
         }
     },
     {

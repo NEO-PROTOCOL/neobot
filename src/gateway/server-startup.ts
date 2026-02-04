@@ -23,6 +23,7 @@ import {
   shouldWakeFromRestartSentinel,
 } from "./server-restart-sentinel.js";
 import { identityLoader } from "../neo/identity/loader.js";
+import { setupNexusReactors } from "../nexus/index.js";
 import chalk from "chalk";
 
 export async function startGatewaySidecars(params: {
@@ -43,6 +44,9 @@ export async function startGatewaySidecars(params: {
   logChannels: { info: (msg: string) => void; error: (msg: string) => void };
   logBrowser: { error: (msg: string) => void };
 }) {
+  // Initialize Protocol Nexus (Event Bus)
+  setupNexusReactors();
+
   // Initialize MIO Sovereign Identities
   try {
     const loadedCount = await identityLoader.loadAll();
