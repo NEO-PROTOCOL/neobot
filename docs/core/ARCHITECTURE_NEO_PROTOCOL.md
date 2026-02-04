@@ -81,8 +81,9 @@ Vantagem: Recebemos bugfixes, novas channels, melhorias de performance
 │ └─ 1. NEO Skills Registry (IPFS-First)                         │
 │ └─ 2. NEO Identity System (mio-system)                         │
 │ └─ 3. NEO Docs (Self-Hosted)                                   │
-│ └─ 4. NEO Gateway Extensions                                   │
-│ └─ 5. NEO Dashboard (Ja Existente)                              │
+│ └─ 4. NEO Protocol Nexus (Orchestration)                       │
+│ └─ 5. NEO Gateway Extensions                                   │
+│ └─ 6. NEO Dashboard (Ja Existente)                              │
 └────────────────────────────────────────────────────────────────┘
 ```
 
@@ -177,7 +178,20 @@ Hosting: Build estatico (Vitepress) -> ipfs add -r dist/
          Alias DNS: neo-docs.mellø.eth -> ipfs://QmNeoDocsV1...
 
 ----------------------------------------------------------------------
-4. NEO Gateway Extensions (Web3-Native)
+4. NEO Protocol Nexus (Orchestration)
+----------------------------------------------------------------------
+O sistema nervoso central do NEØBOT. Um barramento de eventos (Event Bus)
+que coordena a comunicacao entre os nos soberanos.
+
+Implementacao: `src/nexus/index.ts`
+Documentacao: `docs/neo-protocol/NEXUS_OPERATIONS_MANUAL.md`
+
+Fluxos principais:
+- `PAYMENT_RECEIVED` -> Trigger `MINT_REQUESTED`
+- `MINT_CONFIRMED` -> Trigger `NOTIFICATION_DISPATCH`
+
+----------------------------------------------------------------------
+5. NEO Gateway Extensions (Web3-Native)
 ----------------------------------------------------------------------
 ```
 neo/gateway/extensions.ts
@@ -207,6 +221,14 @@ Features NEO-Specific:
 Melhorias: NeoDashboardService - loadSkills(), loadIdentities(),
            getIPFSStatus() (neo-integration.ts)
 
+----------------------------------------------------------------------
+6. Sovereign Adapter Pattern
+----------------------------------------------------------------------
+Garante a independencia de bibliotecas externas (upstream).
+Implementacao: `src/infra/pi-adapter.ts`
+- Substitui deps instaveis (ex: pi-coding-agent) por adaptadores locais.
+- Mantem o No operacional mesmo se o upstream desaparecer.
+
 ========================================================================
                     ESTRUTURA DE DIRETORIOS
 ========================================================================
@@ -226,6 +248,7 @@ Melhorias: NeoDashboardService - loadSkills(), loadIdentities(),
 ┃ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ░ ┃
 ┃ ░ ░  registry/     Skills Registry (IPFS)                      ░ ┃
 ┃ ░ ░  identity/     mio-system (mio-system, registry, verifier) ░ ┃
+┃ ░ ░  nexus/        Protocol Nexus (Event Bus / Orchestrator)   ░ ┃
 ┃ ░ ░  gateway/      Extensions (ipfs-channel, web3-signer, etc) ░ ┃
 ┃ ░ ░  cli/          neo:skill, neo:identity, protocol-info      ░ ┃
 ┃ ░ ░  sdk/          index, types                                ░ ┃
@@ -285,10 +308,11 @@ config/neobot.runtime.json:
 │ └─ Agent Runtime          100%       0%     Sync               │
 │ └─ Skills Registry        0%         100%   NEO                │
 │ └─ Identity System        0%         100%   NEO                │
+│ └─ Protocol Nexus         0%         100%   NEO                │
 │ └─ Documentation          0%         100%   NEO                │
 │ └─ Dashboard              0%         100%   NEO                │
 │ └─ Gateway Extensions     0%         100%   NEO                │
-│ └─ Autonomia Total        40%        60%    Objetivo            │
+│ └─ Autonomia Total        30%        70%    Objetivo            │
 └────────────────────────────────────────────────────────────────┘
 
 ========================================================================
