@@ -16,6 +16,20 @@
         }
     },
     {
+        "id": "neo-nexus",
+        "org": "NEO Protocol",
+        "name": "NEO Nexus (Orchestrator)",
+        "description": "Orquestrador de Eventos Soberano do Protocolo NEØ. Sistema nervoso central.",
+        "localPath": "../neo-nexus",
+        "repository": "git@github.com:NEO-PROTOCOL/neo-nexus.git",
+        "role": "Orchestration Layer",
+        "hosting": {
+            "platform": "Railway / VPS",
+            "adminEmail": "neo@neoprotocol.space",
+            "targetCustomDomain": "nexus.neoprotocol.space"
+        }
+    },
+    {
         "id": "mio-system",
         "org": "NEO Protocol",
         "name": "MIO System (Identity)",
