@@ -1,8 +1,8 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import type { Api, AssistantMessage, ImageContent, Model } from "@mariozechner/pi-ai";
-// import type { discoverAuthStorage, discoverModels } from "../../../pi-stub.js";
-type discoverAuthStorageFn = (agentDir: string) => any;
-type discoverModelsFn = (auth: any, agentDir: string) => any;
+import type { discoverAuthStorage, discoverModels } from "../../../infra/pi-adapter.js";
+type discoverAuthStorageFn = typeof discoverAuthStorage;
+type discoverModelsFn = typeof discoverModels;
 
 import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.js";
 import type { MoltbotConfig } from "../../../config/config.js";

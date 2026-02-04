@@ -9,26 +9,7 @@ import {
   type Model,
 } from "@mariozechner/pi-ai";
 // import { discoverAuthStorage, discoverModels } from "../../pi-stub.js";
-const discoverAuthStorage = (agentDir: string) => ({
-  setRuntimeApiKey: () => { },
-  getApiKey: (p: string) => process.env[`${p.toUpperCase()}_API_KEY`],
-  load: () => { },
-  save: () => { }
-});
-const discoverModels = (auth: any, agentDir: string) => ({
-  find: (p: string, m: string) => ({
-    id: m,
-    provider: p,
-    input: ["text", "image"],
-    name: m,
-    baseUrl: undefined,
-    api: undefined as any,
-    contextWindow: 128000,
-    maxTokens: 4096,
-    cost: { input: 0, output: 0 }
-  }),
-  getAll: () => []
-});
+import { discoverAuthStorage, discoverModels } from "../../infra/pi-adapter.js";
 import { Type } from "@sinclair/typebox";
 
 import type { MoltbotConfig } from "../../config/config.js";

@@ -10,9 +10,10 @@ type ModelEntry = { id: string; contextWindow?: number };
 const MODEL_CACHE = new Map<string, number>();
 const loadPromise = (async () => {
   try {
-    // const { discoverAuthStorage, discoverModels } = await import("../pi-stub.js");
-    const discoverAuthStorage = (agentDir: string) => ({ setRuntimeApiKey: () => { }, getApiKey: () => null });
-    const discoverModels = (auth: any, agentDir: string) => ({ getAll: () => [] });
+    // Load sovereign adapter instead of broken upstream dependency
+    const { discoverAuthStorage, discoverModels } = await import("../infra/pi-adapter.js");
+    // const discoverAuthStorage = (_agentDir: string) => ({ setRuntimeApiKey: () => {}, getApiKey: () => null });
+    // const discoverModels = (_auth: any, _agentDir: string) => ({ getAll: () => [] });
     const cfg = loadConfig();
     await ensureMoltbotModelsJson(cfg);
     const agentDir = resolveMoltbotAgentDir();
