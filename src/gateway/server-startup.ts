@@ -22,6 +22,8 @@ import {
   scheduleRestartSentinelWake,
   shouldWakeFromRestartSentinel,
 } from "./server-restart-sentinel.js";
+import { identityLoader } from "../neo/identity/loader.js";
+import chalk from "chalk";
 
 export async function startGatewaySidecars(params: {
   cfg: ReturnType<typeof loadConfig>;
@@ -29,7 +31,10 @@ export async function startGatewaySidecars(params: {
   defaultWorkspaceDir: string;
   deps: CliDeps;
   startChannels: () => Promise<void>;
-  log: { warn: (msg: string) => void };
+  log: {
+    info: (msg: string, meta?: Record<string, unknown>) => void;
+    warn: (msg: string) => void;
+  };
   logHooks: {
     info: (msg: string) => void;
     warn: (msg: string) => void;
@@ -38,6 +43,32 @@ export async function startGatewaySidecars(params: {
   logChannels: { info: (msg: string) => void; error: (msg: string) => void };
   logBrowser: { error: (msg: string) => void };
 }) {
+  // Initialize MIO Sovereign Identities
+  try {
+    const loadedCount = await identityLoader.loadAll();
+    if (loadedCount > 0) {
+      const warrior = identityLoader.getWarrior();
+      const status = warrior ? `Active (${warrior.identity.id})` : "Active (No Warrior)";
+      const loadedIds = identityLoader.listLoaded().join(", ");
+
+      params.log.info(`MIO System: Identity Loader initialized. ${loadedCount} identities active.`, {
+        consoleMessage: `${chalk.cyan("MIO System:")} Sovereign Identities ${chalk.green("Active")} (${chalk.yellow(loadedCount)}) [${chalk.dim(loadedIds)}]`,
+      });
+
+      if (warrior) {
+        // Sign startup "pulse" to prove consciousness
+        const pulse = `MIO-PULSE:${new Date().toISOString()}:GATEWAY_STARTUP:${process.pid}`;
+        const signature = await warrior.manager.signMessage(pulse);
+        params.log.info(`MIO Warrior: Signed startup pulse.`, {
+          consoleMessage: `${chalk.red("MIO Warrior:")} Identity ${chalk.whiteBright(warrior.identity.id)} attested. Pulse signed: ${chalk.dim(signature?.slice(0, 20))}...`,
+        });
+      }
+    } else {
+      params.log.warn("MIO System: No sovereign identities loaded. Running in legacy mode.");
+    }
+  } catch (err) {
+    params.log.warn(`MIO System: Identity initialization failed: ${String(err)}`);
+  }
   // Start clawd browser control server (unless disabled via config).
   let browserControl: Awaited<ReturnType<typeof startBrowserControlServerIfEnabled>> = null;
   try {

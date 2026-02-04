@@ -193,6 +193,10 @@ CREATE TABLE IF NOT EXISTS audit_log (
   action TEXT NOT NULL,
   details TEXT, -- JSON
   
+  -- Sovereign Proof
+  signature TEXT,
+  mio_id TEXT,
+  
   -- Timestamp
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -49,6 +49,15 @@ function initializeSchema(): void {
     const schema = fs.readFileSync(SCHEMA_PATH, "utf-8");
     db.exec(schema);
     console.log("[FlowPay DB] Schema initialized ✓");
+  } else {
+    // Audit log hardening: Ensure signature and mio_id columns exist
+    try {
+      db.exec("ALTER TABLE audit_log ADD COLUMN signature TEXT");
+      db.exec("ALTER TABLE audit_log ADD COLUMN mio_id TEXT");
+      console.log("[FlowPay DB] Sovereign Audit columns verified/added ✓");
+    } catch (e) {
+      // Column might already exist, safe to ignore
+    }
   }
 }
 
@@ -261,10 +270,20 @@ export function logAudit(
   action: string,
   details?: any,
   order_id?: number,
+  signature?: string,
+  mio_id?: string,
 ): void {
   const db = getDatabase();
   const stmt = db.prepare(
-    `INSERT INTO audit_log (event_type, actor, action, details, order_id) VALUES (?, ?, ?, ?, ?)`,
+    `INSERT INTO audit_log (event_type, actor, action, details, order_id, signature, mio_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
   );
-  stmt.run(event_type, actor, action, details ? JSON.stringify(details) : null, order_id || null);
+  stmt.run(
+    event_type,
+    actor,
+    action,
+    details ? JSON.stringify(details) : null,
+    order_id || null,
+    signature || null,
+    mio_id || null,
+  );
 }

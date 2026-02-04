@@ -8,7 +8,27 @@ import {
   complete,
   type Model,
 } from "@mariozechner/pi-ai";
-import { discoverAuthStorage, discoverModels } from "@mariozechner/pi-coding-agent";
+// import { discoverAuthStorage, discoverModels } from "../../pi-stub.js";
+const discoverAuthStorage = (agentDir: string) => ({
+  setRuntimeApiKey: () => { },
+  getApiKey: (p: string) => process.env[`${p.toUpperCase()}_API_KEY`],
+  load: () => { },
+  save: () => { }
+});
+const discoverModels = (auth: any, agentDir: string) => ({
+  find: (p: string, m: string) => ({
+    id: m,
+    provider: p,
+    input: ["text", "image"],
+    name: m,
+    baseUrl: undefined,
+    api: undefined as any,
+    contextWindow: 128000,
+    maxTokens: 4096,
+    cost: { input: 0, output: 0 }
+  }),
+  getAll: () => []
+});
 import { Type } from "@sinclair/typebox";
 
 import type { MoltbotConfig } from "../../config/config.js";
@@ -221,15 +241,15 @@ async function runImagePrompt(params: {
 }> {
   const effectiveCfg: MoltbotConfig | undefined = params.cfg
     ? {
-        ...params.cfg,
-        agents: {
-          ...params.cfg.agents,
-          defaults: {
-            ...params.cfg.agents?.defaults,
-            imageModel: params.imageModelConfig,
-          },
+      ...params.cfg,
+      agents: {
+        ...params.cfg.agents,
+        defaults: {
+          ...params.cfg.agents?.defaults,
+          imageModel: params.imageModelConfig,
         },
-      }
+      },
+    }
     : undefined;
 
   await ensureMoltbotModelsJson(effectiveCfg, params.agentDir);
@@ -385,14 +405,14 @@ export function createImageTool(options?: {
         ? { resolved: "" }
         : sandboxRoot
           ? await resolveSandboxedImagePath({
-              sandboxRoot,
-              imagePath: resolvedImage,
-            })
+            sandboxRoot,
+            imagePath: resolvedImage,
+          })
           : {
-              resolved: resolvedImage.startsWith("file://")
-                ? resolvedImage.slice("file://".length)
-                : resolvedImage,
-            };
+            resolved: resolvedImage.startsWith("file://")
+              ? resolvedImage.slice("file://".length)
+              : resolvedImage,
+          };
       const resolvedPath = isDataUrl ? null : resolvedPathInfo.resolved;
 
       const media = isDataUrl

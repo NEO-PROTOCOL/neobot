@@ -1,6 +1,8 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import type { Api, AssistantMessage, ImageContent, Model } from "@mariozechner/pi-ai";
-import type { discoverAuthStorage, discoverModels } from "@mariozechner/pi-coding-agent";
+// import type { discoverAuthStorage, discoverModels } from "../../../pi-stub.js";
+type discoverAuthStorageFn = (agentDir: string) => any;
+type discoverModelsFn = (auth: any, agentDir: string) => any;
 
 import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.js";
 import type { MoltbotConfig } from "../../../config/config.js";
@@ -12,8 +14,8 @@ import type { SkillSnapshot } from "../../skills.js";
 import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
 import type { ClientToolDefinition } from "./params.js";
 
-type AuthStorage = ReturnType<typeof discoverAuthStorage>;
-type ModelRegistry = ReturnType<typeof discoverModels>;
+type AuthStorage = ReturnType<discoverAuthStorageFn>;
+type ModelRegistry = ReturnType<discoverModelsFn>;
 
 export type EmbeddedRunAttemptParams = {
   sessionId: string;

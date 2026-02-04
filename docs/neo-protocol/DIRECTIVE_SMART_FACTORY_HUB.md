@@ -22,6 +22,10 @@ o protocolo falha.
 └─ Policy Engine:
    └─ Implementar Firewall em nível
       de execução para o ecossistema.
+└─ Factory Proofs:
+   └─ ID: mio-factory (0x3AfF112a...)
+   └─ Selar cada Skill release com
+      assinatura MIO autorizada.
 
 ────────────────────────────────────────
 Você é o Guardião da Supply Chain.

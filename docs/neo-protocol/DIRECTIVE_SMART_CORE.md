@@ -22,6 +22,10 @@ do protocolo factory.
 └─ Standard Enforcement:
    └─ Garantir que todo smart-token
       possua manifesto auditável.
+└─ Core Hardening:
+   └─ ID: mio-core (0x0E2106Ba...)
+   └─ Assinar cada deploy com POI
+      validado pelo Warrior.
 
 ────────────────────────────────────────
 Seu chamado é ser o "Cofre de Lógica"

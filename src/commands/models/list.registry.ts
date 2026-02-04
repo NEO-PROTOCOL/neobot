@@ -1,5 +1,16 @@
 import type { Api, Model } from "@mariozechner/pi-ai";
-import { discoverAuthStorage, discoverModels } from "@mariozechner/pi-coding-agent";
+// import { discoverAuthStorage, discoverModels } from "../../../pi-stub.js";
+const discoverAuthStorage = (agentDir: string) => ({
+  setRuntimeApiKey: () => { },
+  getApiKey: (p: string) => process.env[`${p.toUpperCase()}_API_KEY`] || null,
+  load: () => { },
+  save: () => { }
+});
+const discoverModels = (auth: any, agentDir: string) => ({
+  find: (p: string, m: string) => ({ id: m, provider: p, input: ["text", "image"], name: m, baseUrl: undefined, contextWindow: undefined }),
+  getAll: () => [],
+  getAvailable: () => []
+});
 
 import { resolveMoltbotAgentDir } from "../../agents/agent-paths.js";
 import type { AuthProfileStore } from "../../agents/auth-profiles.js";

@@ -22,6 +22,10 @@ deve ser probatório.
 └─ Trust Layer:
    └─ Exibir o status de "Attested"
       para todas as tools MCP em uso.
+└─ Identity Attestation:
+   └─ Trust Domain: mio-gateway (0xa4e1A8b3...)
+   └─ Cada sessão deve ser selada com
+      assinatura do gateway.
 
 ────────────────────────────────────────
 A descentralização se propaga quando

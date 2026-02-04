@@ -19,6 +19,10 @@ e publicamente verificável.
 └─ Fraud Prevention:
    └─ Usar as Security Proofs da
       Factory para cada liquidação.
+└─ Sovereign Logging:
+   └─ ID: mio-flowpay (0x02470998...)
+   └─ Integrar SovereignAudit (PoI)
+      em cada registro de transação.
 └─ Compliance 2026:
    └─ Preparar relatórios de integridade
       baseados em Proof-of-Execution.

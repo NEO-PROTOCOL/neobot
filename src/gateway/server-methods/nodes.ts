@@ -31,6 +31,8 @@ import {
 import { loadConfig } from "../../config/config.js";
 import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
 import type { GatewayRequestHandlers } from "./types.js";
+import { identityLoader } from "../../neo/identity/loader.js";
+import { SovereignAudit } from "../../neo/identity/audit.js";
 
 function isNodeEntry(entry: { role?: string; roles?: string[] }) {
   if (entry.role === "node") return true;
@@ -405,10 +407,36 @@ export const nodeHandlers: GatewayRequestHandlers = {
         );
         return;
       }
+
+      // MIO-Warrior Signature (Proof of Intent)
+      let warriorSignature: string | undefined;
+      let mioId: string | undefined;
+
+      try {
+        const warrior = identityLoader.getWarrior();
+        if (warrior) {
+          const poiPayload = `MIO-INVOKE:${nodeId}:${command}:${Date.now()}`;
+          warriorSignature = await warrior.manager.signMessage(poiPayload);
+          mioId = warrior.identity.id;
+        }
+      } catch (err) {
+        // Non-blocking signature failure
+        context.logGateway.warn(`MIO: Failed to sign node invoke: ${err}`);
+      }
+
+      // Audit Log
+      await SovereignAudit.log({
+        eventType: "NODE_INVOKE",
+        actor: "GATEWAY",
+        action: command,
+        details: { nodeId, command, params: p.params },
+        identityId: "mio-warrior"
+      });
+
       const res = await context.nodeRegistry.invoke({
         nodeId,
         command,
-        params: p.params,
+        params: { ...((p.params as object) || {}), _mio_sig: warriorSignature, _mio_id: mioId },
         timeoutMs: p.timeoutMs,
         idempotencyKey: p.idempotencyKey,
       });

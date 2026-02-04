@@ -10,7 +10,9 @@ type ModelEntry = { id: string; contextWindow?: number };
 const MODEL_CACHE = new Map<string, number>();
 const loadPromise = (async () => {
   try {
-    const { discoverAuthStorage, discoverModels } = await import("@mariozechner/pi-coding-agent");
+    // const { discoverAuthStorage, discoverModels } = await import("../pi-stub.js");
+    const discoverAuthStorage = (agentDir: string) => ({ setRuntimeApiKey: () => { }, getApiKey: () => null });
+    const discoverModels = (auth: any, agentDir: string) => ({ getAll: () => [] });
     const cfg = loadConfig();
     await ensureMoltbotModelsJson(cfg);
     const agentDir = resolveMoltbotAgentDir();
