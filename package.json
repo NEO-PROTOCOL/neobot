@@ -12,7 +12,8 @@
     "lint": "oxlint --type-aware src test",
     "tsgo": "tsc -p tsconfig.json --noEmit",
     "test": "node scripts/test-parallel.mjs",
-    "test:live": "CLAWDBOT_LIVE_TEST=1 vitest run --config vitest.live.config.ts"
+    "test:live": "CLAWDBOT_LIVE_TEST=1 vitest run --config vitest.live.config.ts",
+    "analyze": "node --import tsx scripts/code-analysis.ts"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "latest",
