@@ -1,0 +1,39 @@
+{
+    "name": "@neo-protocol/flowcloser",
+    "version": "1.0.0",
+    "description": "Lightweight webhook notifier for NEO Protocol",
+    "type": "module",
+    "main": "dist/server.js",
+    "scripts": {
+        "dev": "tsx watch src/server.ts",
+        "build": "tsc",
+        "start": "node dist/server.js"
+    },
+    "keywords": [
+        "neo-protocol",
+        "webhook",
+        "whatsapp",
+        "notifier"
+    ],
+    "author": "NEO Protocol <neo@neoprotocol.space>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/NEO-PROTOCOL/neo-node-interplanetary.git"
+    },
+    "dependencies": {
+        "express": "^5.2.1",
+        "@whiskeysockets/baileys": "^6.7.9",
+        "dotenv": "^17.2.3",
+        "pino": "^9.6.0"
+    },
+    "devDependencies": {
+        "typescript": "^5.9.3",
+        "tsx": "^4.21.0",
+        "@types/node": "^25.2.0",
+        "@types/express": "^5.0.0"
+    },
+    "engines": {
+        "node": ">=22.0.0"
+    }
+}
