@@ -1,4 +1,14 @@
-# 🚀 NeoBot - Features Implementadas
+# 🚀 Neobot (Architect) - Features Implementadas
+
+> **Identidade:** Este documento descreve as features do **Neobot Architect** (ferramenta de dev).  
+> **NÃO confundir com:**  
+> - FlowCloser (webhook notifier)  
+> - Neo-Agent-Full (atendimento WhatsApp completo)  
+>  
+> Veja: [PROJECT_IDENTITY_MAP.md](../PROJECT_IDENTITY_MAP.md)
+
+---
+
 
 ## 📱 Dashboard iOS-Style com Bento Grid
 
