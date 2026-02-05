@@ -41,7 +41,7 @@ Born from Moltbot's industrial-grade foundation. Hybrid architecture:
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ STACK                                                      │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ 30% OpenClaw Core  → Gateway, agent runtime (Stable)       │
+│ └─ 30% OpenClaw Core  → Gateway, agent runtime (Stable)        │
 │ └─ 70% NEØ Layer      → Warrior Node, IPFS, MIO Identity       │
 └────────────────────────────────────────────────────────────────┘
 ```
@@ -66,15 +66,15 @@ sophisticated AI assistant control plane. NEØ extends that foundation.
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ FROM OPENCLAW/MOLTBOT                                      │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ Gateway (WebSocket), Sovereign Channels (WA, TG)           │
+│ └─ Gateway (WebSocket), Sovereign Channels (WA, TG)            │
 │ └─ Pi agent runtime, security-first, health & Ledger           │
 └────────────────────────────────────────────────────────────────┘
 
 ┌────────────────────────────────────────────────────────────────┐
 │ ▓▓▓ NEØ ADDS                                                   │
 ├────────────────────────────────────────────────────────────────┤
-│ └─ IPFS Skills Registry, Node Warrior Execution Environment   │
-│ └─ MIO Identity Layer (mio-system), Web3 Signatures           │
+│ └─ IPFS Skills Registry, Node Warrior Execution Environment    │
+│ └─ MIO Identity Layer (mio-system), Web3 Signatures            │
 │ └─ Lighthouse Storage (Perpetual Data Pinning)                 │
 └────────────────────────────────────────────────────────────────┘
 ```
