@@ -21,8 +21,10 @@ Lead → FlowCloser → FlowOFF → FlowPay (PIX) → Unlock → Client 💰
 NEXT 7 DAYS: Ship FlowPay integration (first real sale)
 
 REPOS:
-- neomello/neobot (orchestrator)
-- neomello/flowcloser-agent (active)
+- neomello/neobot (this repo - architect tool)
+- NEO-PROTOCOL/neo-nexus (orchestrator)
+- NEO-PROTOCOL/neo-node-interplanetary (flowcloser notifier)
+- neomello/neo-agent-full (full whatsapp agent)
 - neo-smart-token-factory/* (8 repos)
 - FlowPay: /CODIGOS/flowpay/ (local)
 
