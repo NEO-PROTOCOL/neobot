@@ -7,10 +7,10 @@
 [#---] Implementation Phase .............................. PREP
 ================================================================
 ```
-**Versao:** 2.0.0
-**Data:** 30 Janeiro 2026
+**Versao:** 2.1.0
+**Data:** 05 Fevereiro 2026
 **Arquiteto:** NODE NEØ
-**Timeline:** 8 semanas (release 27 Marco 2026)
+**Timeline:** 7 semanas (release 27 Marco 2026)
 ```
 ================================================================
                         VISAO GERAL
@@ -25,8 +25,9 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
-- Fase 1.0: COMPLETA (Foundation Architecture: IPFS, CLI, Keys)
-- Fase 2.0: INICIANDO (Dashboard & Extensions)
+- Fase 1.0: COMPLETA (Foundation: IPFS, CLI, Keys, Identity Map)
+- Fase 2.0: EM PROGRESSO (Sovereignty & Orchestration: Nexus, FlowCloser)
+- Fase 3.0: PREVISTA (Dashboard & Global Deploy)
 ```
 --------------------------------------------------------------
 COMPONENTES NEO LAYER
@@ -81,7 +82,7 @@ COMPONENTES NEO LAYER
 ================================================================
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CURTO PRAZO (1-2 SEMANAS)                            │
+│ ▓▓▓ CURTO PRAZO (05 - 12 FEV)                            │
 └──────────────────────────────────────────────────────────┘
 
 --------------------------------------------------------------
@@ -198,7 +199,7 @@ COMPONENTES NEO LAYER
     └─ Semana 3: Build-up para anuncio publico
 
 ┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MEDIO PRAZO (1 MES)                                  │
+│ ▓▓▓ MEDIO PRAZO (MARCO 2026)                             │
 └──────────────────────────────────────────────────────────┘
 
 --------------------------------------------------------------

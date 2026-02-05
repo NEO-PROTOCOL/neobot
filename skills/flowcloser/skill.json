@@ -3,58 +3,52 @@
   "name": "FlowCloser Integration",
   "version": "1.0.0",
   "author": "mio-skills",
-  "category": ["integration", "crm", "lead-qualification", "revenue"],
-  
+  "category": [
+    "integration",
+    "crm",
+    "lead-qualification",
+    "revenue"
+  ],
   "metadata": {
-    "description": "Remote integration skills for FlowCloser Agent - lead qualification with Instagram DM automation. Orchestrates FlowCloser without tight coupling in modular NEØ stack.",
+    "description": "Integration skill for FlowCloser - a lightweight webhook notifier (Nexus -> WhatsApp).",
     "dependencies": [],
-    "permissions": ["http", "read", "write"],
+    "permissions": [
+      "http",
+      "read"
+    ],
     "repository": "https://github.com/neomello/neobot",
     "license": "MIT",
     "architecture": {
-      "type": "modular",
-      "pattern": "orchestration",
+      "type": "micro-service",
+      "pattern": "webhook-notifier",
       "nodes": [
         {
-          "id": "flowcloser-agent",
-          "name": "FlowCloser Agent",
-          "role": "executor",
-          "repository": "https://github.com/neomello/flowcloser-agent",
-          "description": "Lead qualification agent with Instagram DM automation. Executes with dual LLM architecture (primary + fallback opinion)",
-          "tech": ["GPT-4o", "Gemini 2.5 Flash", "Express.js", "SQLite", "IPFS"],
-          "deployment": "Railway",
-          "note": "IQAI discontinued (JAN 2026) - now uses direct LLM access"
+          "id": "flowcloser",
+          "name": "FlowCloser",
+          "role": "notifier",
+          "repository": "https://github.com/NEO-PROTOCOL/neo-closer",
+          "description": "Webhook receiver for WhatsApp notifications.",
+          "tech": [
+            "Express.js",
+            "Baileys",
+            "TypeScript"
+          ],
+          "deployment": "Railway"
         },
         {
-          "id": "mio-system",
-          "name": "MIO System",
-          "role": "identity-registry",
-          "repository": "https://github.com/neomello/mio-system",
-          "description": "Sistema de Identidade Operacional - gerenciamento de identidades de agentes e plataformas",
-          "tech": ["Identity Management", "Web3 Signatures"]
-        },
-        {
-          "id": "neo-agent-full",
-          "name": "NEO Agent Full",
-          "role": "sovereign-entity",
-          "repository": "https://github.com/neomello/neo-agent-full",
-          "description": "Sovereign Entity ideal - State Layer v2.5 com memória descentralizada (Kwil DB, IPFS, GUN DB, Ceramic)",
-          "tech": ["LangGraph", "Kwil DB", "IPFS", "GUN DB", "Ceramic", "MCP"],
-          "status": "target-architecture"
+          "id": "neo-nexus",
+          "name": "NEØ Nexus",
+          "role": "orchestrator",
+          "repository": "https://github.com/NEO-PROTOCOL/neo-nexus",
+          "description": "Event bus that dispatches to FlowCloser."
         }
-      ],
-      "llm": {
-        "primary": "GPT-4o (OpenAI)",
-        "fallback": "Gemini 2.5 Flash (Google)",
-        "architecture": "dual-llm-with-fallback",
-        "legacy": "IQAI Agent (discontinued JAN 2026)"
-      }
+      ]
     },
     "commands": [
       {
-        "name": "health",
-        "file": "health.ts",
-        "description": "Check if FlowCloser is running (local + production)"
+        "name": "check-health",
+        "file": "check-health.ts",
+        "description": "Check FlowCloser health status"
       },
       {
         "name": "dashboard",
@@ -73,7 +67,6 @@
       }
     ]
   },
-  
   "files": {
     "main": "health.ts",
     "readme": "SKILL.md"

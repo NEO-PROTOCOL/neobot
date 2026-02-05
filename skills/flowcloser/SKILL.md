@@ -1,95 +1,38 @@
-# FlowCloser Skills
+# Skill: FlowCloser Integration
+> **Meta-ID:** flowcloser  
+> **Role:** Notification Gateway
 
-Remote integration skills for FlowCloser Agent.
+---
 
-## Overview
+## 🎯 Purpose
 
-FlowCloser Agent is a lead qualification agent
-with Instagram DM automation, integrated to
-Neobot via loose-coupled architecture.
+This skill allows Neobot to monitor and interact with the **FlowCloser** micro-service. 
+FlowCloser is the dedicated notifier that sends WhatsApp messages when events occur in the NEØ Nexus.
 
-These skills allow Neobot to orchestrate
-FlowCloser without tight coupling.
+---
 
-## Available Commands
+## 🏗️ Architecture
 
-### Health Check
-
-Check if FlowCloser is running (local + production).
-
-```bash
-moltbot flowcloser:health
-moltbot flowcloser:health --verbose
+```
+[ NEØ Nexus ] --(Webhook)--> [ FlowCloser ] --(WhatsApp)--> [ User ]
+      ^                          ^
+      |                          |
+[ Neobot Skill ] ----------------/
 ```
 
-### Dashboard
+- **FlowCloser Repo:** `NEO-PROTOCOL/neo-closer`
+- **Role:** Webhook Notifier
+- **Status:** Independent micro-service
 
-Open FlowCloser dashboard in browser.
+---
 
-```bash
-# Open local dashboard
-moltbot flowcloser:dashboard
+## 🔧 Commands
 
-# Open production dashboard
-moltbot flowcloser:dashboard --production
-```
+- `check-health`: Verifies if the FlowCloser service is alive.
+- `dashboard`: Quick access to the sales dashboard.
 
-### Qualify Lead
+---
 
-Qualify a specific lead by ID.
+## 📂 Reference
 
-```bash
-moltbot flowcloser:qualify --leadId=<uuid>
-moltbot flowcloser:qualify --leadId=<uuid> --verbose
-```
-
-### Backup
-
-Trigger IPFS backup (placeholder for future implementation).
-
-```bash
-moltbot flowcloser:backup
-moltbot flowcloser:backup --production
-```
-
-## Integration
-
-FlowCloser runs independently at:
-- **Local:** `/Users/nettomello/CODIGOS/flowcloser-local/`
-- **GitHub:** `neomello/flowcloser-agent`
-- **Deploy:** Railway (auto)
-- **Production:** `flowcloser-agent-production.up.railway.app`
-
-## Documentation
-
-Complete documentation available at:
-`docs/integrations/flowcloser/`
-
-## Configuration
-
-Integration config:
-`extensions/flowcloser/integration.json`
-
-## Prerequisites
-
-- FlowCloser Agent running (local or production)
-- Integration config exists
-- Leads data accessible
-
-## Architecture Decision Records
-
-- ADR-001: Why FlowCloser is independent project
-
-────────────────────────────────────────
-
-▓▓▓ NΞØ MELLØ
-────────────────────────────────────────
-Core Architect · NΞØ Protocol
-neo@neoprotocol.space
-
-"Code is law. Expand until
- chaos becomes protocol."
-
-Security by design.
-Exploits find no refuge here.
-────────────────────────────────────────
+See `docs/PROJECT_IDENTITY_MAP.md` for full ecosystem context.
