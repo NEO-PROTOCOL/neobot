@@ -4,8 +4,13 @@ Este diagrama reflete o estado atual ("Organismo Vivo") do projeto, mapeando con
 
 ```mermaid
 graph TB
-    subgraph NEOBOT["🎯 NEOBOT (Protocol Center)"]
-        CORE[Core: Gateway + Routing + Sessions]
+    subgraph NEXUS["🌌 NEO NEXUS (Heart/Orchestrator)"]
+        HUB[Core Hub: Event Bus]
+        WEBHOOK[Webhook Dispatcher]
+    end
+
+    subgraph ARCHITECT["🎯 NEOBOT (Mind/Architect)"]
+        DEV[Dev Tool: Coding Assistant]
         SKILLS[NEO Skills Registry - IPFS]
         CLI[CLI: neobot command]
         ID[mio-system Identity]
@@ -13,25 +18,20 @@ graph TB
     end
 
     subgraph ACTIVE_SKILLS["✅ SKILLS ATIVAS"]
-        FC_SKILL[FlowCloser Orchestrator]
-        NOTION_SKILL[Notion Integration]
-        WA_SKILL[WhatsApp Channel]
-        TG_SKILL[Telegram Channel]
+        FC_SKILL[FlowCloser Integration]
+        AG_SKILL[Neo-Agent-Full Integration]
         FACTORY[Smart Factory Skill]
         PAY[FlowPay Skill]
     end
 
-    subgraph CLOUD_INFRA["☁️ PROVEDORES & INFRA"]
-        ANTHROPIC[Anthropic: Claude 3.5 Sonnet]
-        IPFS_NODE[Local/Remote IPFS Node]
-        LIGHTHOUSE[Lighthouse Pinning]
-        RAILWAY[Railway: Agent Deployment]
+    subgraph FLOWCLOSER["🔔 FLOWCLOSER (Notifier)"]
+        FC_SRV[Minimalist Notifier]
+        FC_WA[WhatsApp API]
     end
 
-    subgraph FLOWCLOSER["🟢 FLOWCLOSER - Lead Qualification"]
-        FC_AGENT[FlowCloser Agent]
-        FC_INSTA[Instagram DM]
-        FC_WA[WhatsApp API]
+    subgraph NEO_AGENT_FULL["🤖 NEO-AGENT-FULL (Agent)"]
+        AG_SRV[Full AI Agent]
+        AG_WA[WhatsApp + Web3]
     end
 
     subgraph REVENUE_NODES["💰 REVENUE NODES"]
@@ -45,44 +45,35 @@ graph TB
     end
 
     %% Conexões Ativas (Sólidas)
-    CORE --- SKILLS
-    CORE --- CLI
-    CORE --- ID
-    CORE --- WARRIOR
+    HUB --- SKILLS
+    HUB --- CLI
+    HUB --- ID
+    HUB --- WARRIOR
     
-    SKILLS --- FC_SKILL
-    SKILLS --- TG_SKILL
-    SKILLS --- PAY
+    HUB -->|Dipatch| FC_SRV
+    HUB <-->|Orchestrate| AG_SRV
+    
     SKILLS --- FACTORY
     FACTORY --- |Registry| NEO_CONTRACTS[NEO Protocol Contracts]
 
-    CORE --> ANTHROPIC
-    SKILLS --> IPFS_NODE
-    SKILLS --> LIGHTHOUSE
+    HUB -.->|Hosted on| RAILWAY[Railway]
+    SKILLS --> LIGHTHOUSE[Lighthouse Pinning]
     
-    FC_SKILL -.->|Orchestration| RAILWAY
-    RAILWAY --- FC_AGENT
-    FC_AGENT --- FC_INSTA
-    FC_AGENT --- FC_WA
 
     PAY -.->|Triggers| FLOWPAY
     FLOWPAY <-->|Audit & Security| FACTORY
     
-    %% Fluxo de Receita (The Loop)
-    FLOWOFF -->|Leads| FC_AGENT
-    FC_AGENT -->|Qualified| FLOWOFF
-    FLOWOFF -->|Payments| FLOWPAY
     
     %% Status Visual
     classDef connected fill:#44ff44,stroke:#00aa00,stroke-width:2px,color:#000
     classDef warning fill:#ffcc00,stroke:#aa8800,stroke-width:2px,color:#000
     classDef future fill:#8888ff,stroke:#0000ff,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
-    classDef active_node fill:#00ffcc,stroke:#00aba9,stroke-width:3px,color:#000
+    classDef nexus fill:#6b46c1,stroke:#553c9a,stroke-width:3px,color:#fff
     
-    class CORE,CLI,ID,WARRIOR,SKILLS,TG_SKILL,ANTHROPIC,IPFS_NODE,LIGHTHOUSE connected
-    class FC_SKILL,WA_SKILL,FACTORY,PAY,NOTION_SKILL warning
+    class HUB,CLI,ID,WARRIOR,SKILLS,LIGHTHOUSE connected
+    class FC_SRV,AG_SRV,FACTORY,PAY warning
     class KWIL,STORAGE future
-    class FC_AGENT,FLOWPAY active_node
+    class NEXUS nexus
 ```
 
 ## 🗺️ Legenda de Status

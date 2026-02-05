@@ -132,36 +132,39 @@ integration, NFT-based skills, DAO governance. Phase 1 in progress.
 
 ```mermaid
 graph TB
-    subgraph NEOBOT["🎯 NEOBOT CORE (Interplanetary Warrior)"]
-        CORE[Core: Gateway + Routing + Sessions]
-        MIO[MIO System: Identity ID]
-        WARRIOR[Node Warrior: Sovereign Exec]
+    subgraph NEXUS["🌌 NEO NEXUS (Heart/Orchestrator)"]
+        CORE[Core Hub: Event Bus]
+        ROUTING[Routing: Webhook Dispatcher]
+        SESSIONS[Session Manager]
+    end
+
+    subgraph ARCHITECT["🎯 NEOBOT (Mind/Architect)"]
+        DEV[Dev Tool: Coding Assistant]
+        WARRIOR[Node Warrior: Execution]
         CLI[CLI: neobot command]
+        ASI1[ASI1: Local AI]
     end
 
     subgraph ACTIVE_NODES["✅ ECOSYSTEM NODES"]
+        subgraph NOTIFIER["🔔 FLOWCLOSER"]
+            FC_SRV[Minimalist Notifier]
+            FC_WA[WhatsApp Notification]
+        end
+
+        subgraph FULL_AGENT["🤖 NEO-AGENT-FULL"]
+            AG_WA[AI WhatsApp Agent]
+            AG_WEB3[Web3 Capabilities]
+        end
+
         subgraph FACTORY_STACK["🏭 NEO SMART FACTORY"]
             FACTORY[Smart Factory Hub]
             S_CORE[Smart Core]
-            S_CLI[Smart CLI]
-            S_UI[Smart UI PWA]
             NEO_CONTRACTS[NEO Protocol Contracts]
         end
         
-        subgraph FLOWPAY_OS["💰 FLOWPAY"]
+        subgraph DECENTRALIZED_FINANCE["� FLOWPAY & FLOWOFF"]
             FLOWPAY[FlowPay Sovereign]
-            FP_CORE["FlowPay-core (OSS)"]
-        end
-
-        subgraph FLUXX_DAO["🌊 FLUXX DAO"]
-            F_CONTRACTS[Fluxx Contracts]
-            F_APP[Fluxx DAO App]
-        end
-        
-        subgraph FLOWOFF_AREA["🚀 FLOWOFF AGENCY"]
-            AGENT_FO[Agent FlowOFF]
-            CEO_MINI["CEO Escalável MiniApp"]
-            FO_LANDING[FlowOFF Landing/PWA]
+            FLOWOFF[FlowOFF: Agency Leads]
         end
     end
 
@@ -172,63 +175,34 @@ graph TB
     end
 
     subgraph INFRA_SERVICES["☁️ INFRASTRUCTURE"]
-        ANTHROPIC[Anthropic: Claude 3.5]
         RAILWAY[Railway: Deployment]
         LIGHTHOUSE[Lighthouse: IPFS Storage]
         BASE[Base Chain: Settlement L2]
     end
 
     %% Connections
-    CORE --- MIO
-    CORE --- CLI
-    CORE --- WARRIOR
+    NEXUS <-->|Events| ARCHITECT
+    NEXUS -->|Webhook| NOTIFIER
+    NEXUS <-->|AI Interaction| FULL_AGENT
+    NEXUS <-->|Mint Events| FACTORY
+    NEXUS <-->|Payments| FLOWPAY
     
-    %% AI & Hosting
-    CORE --> ANTHROPIC
-    NEOBOT -.->|Hosted on| RAILWAY
-    CORE -.->|Registry| LIGHTHOUSE
-    
-    %% Orchestration
-    CORE <-->|Orchestration| FACTORY
-    CORE <-->|Payments| FLOWPAY
-    CORE <-->|Coordination| AGENT_FO
-    CORE <-->|Governance| FLUXX_DAO
-    
-    %% Blockchain Layer
-    S_CORE -.->|Base L2| BASE
+    %% Hosting & Storage
+    NEXUS -.->|Hosted on| RAILWAY
+    ARCHITECT -.->|Registry| LIGHTHOUSE
+    FACTORY -.->|Base L2| BASE
     FLOWPAY -.->|Base L2| BASE
-    F_CONTRACTS -.->|Base L2| BASE
-    NEO_CONTRACTS -.->|Base L2| BASE
-    
-    %% App Relationships
-    WOD -.->|Uses| FACTORY
-    FLOWPAY <-->|Audit & Security| FACTORY
-    NEO_CONTRACTS <-->|Governance/Registry| FACTORY
-    F_APP -.->|Uses| F_CONTRACTS
-    SUI_LAND -.->|Drives to| S_UI
-    SUI_MOB -.->|Interacts| S_UI
-    CEO_MINI -.->|Connected to| AGENT_FO
-    
-    %% Revenue Loop
-    FLOWPAY --- FP_GATE
-    FO_LANDING -->|Leads| AGENT_FO
 
     %% Styling
-    classDef core fill:#ff4444,stroke:#aa0000,stroke-width:2px,color:#fff
-    classDef factory fill:#00ccff,stroke:#0088aa,stroke-width:2px,color:#000
-    classDef flowpay fill:#00ffcc,stroke:#00aba9,stroke-width:2px,color:#000
-    classDef fluxx fill:#4488ff,stroke:#0055aa,stroke-width:2px,color:#fff
-    classDef flowoff fill:#ff00ff,stroke:#aa00aa,stroke-width:2px,color:#fff
+    classDef nexus fill:#6b46c1,stroke:#553c9a,stroke-width:3px,color:#fff
+    classDef architect fill:#ff4444,stroke:#aa0000,stroke-width:2px,color:#fff
+    classDef nodes fill:#00ccff,stroke:#0088aa,stroke-width:2px,color:#000
     classDef infra fill:#dddddd,stroke:#999,stroke-width:1px,color:#000
-    classDef dapp fill:#ffcc00,stroke:#aa8800,stroke-width:2px,color:#000
     
-    class CORE,MIO,CLI,WARRIOR core
-    class FACTORY,S_CORE,S_CLI,S_UI,NEO_CONTRACTS factory
-    class FLOWPAY,FP_CORE flowpay
-    class F_CONTRACTS,F_APP fluxx
-    class AGENT_FO,CEO_MINI,FO_LANDING flowoff
-    class ANTHROPIC,RAILWAY,BASE,LIGHTHOUSE infra
-    class WOD,SUI_LAND,SUI_MOB dapp
+    class NEXUS nexus
+    class ARCHITECT architect
+    class ACTIVE_NODES nodes
+    class INFRA_SERVICES infra
 ```
 
 ```text

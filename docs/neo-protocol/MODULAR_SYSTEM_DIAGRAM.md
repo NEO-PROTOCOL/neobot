@@ -3,13 +3,13 @@ graph TB
     subgraph NEW_PROTOCOL_MODULAR_SYSTEM["NΞØ PROTOCOL: SISTEMA MODULAR SOBERANO"]
         direction TB
 
-        %% ORQUESTRAÇÃO CENTRAL (O Cérebro)
-        subgraph ORCHESTRATION["🧠 ORQUESTRAÇÃO CENTRAL (Neobot)"]
-            NEOBOT[("Neobot Core (Moltbot Fork)<br/>Local Gateway")]
+        %% ORQUESTRAÇÃO CENTRAL (O Cérebro & Coração)
+        subgraph ORCHESTRATION["🧠 ORQUESTRAÇÃO (Nexus & Neobot)"]
+            NEXUS["NΞØ NEXUS<br/>Event Orchestrator"]
+            NEOBOT["Neobot Architect<br/>Dev Tool & CLI"]
             SKILLS["Skill Registry (IPFS)<br/>Habilidades Dinâmicas"]
-            CLI["CLI Toolkit (nxf/neo)<br/>Comandos de Terminal"]
+            NEXUS <--> NEOBOT
             NEOBOT --> SKILLS
-            NEOBOT --> CLI
         end
 
         %% CAMADA DE VALOR (O Dinheiro)
@@ -20,33 +20,32 @@ graph TB
         end
 
         %% CAMADA DE INTERAÇÃO (A Frente)
-        subgraph FRONT_LAYER["📲 CAMADA DE INTERAÇÃO (Clientes/Users)"]
+        subgraph FRONT_LAYER["📲 CAMADA DE INTERAÇÃO (Interfaces)"]
             FLOWOFF["FlowOFF Agency<br/>(Landing/Proposals)"]
-            FLOWCLOSER["FlowCloser Agent<br/>(Lead Qualification)"]
-            WOD["WOD [X] PRO<br/>(Fitness Game)"]
+            FLOWCLOSER["FlowCloser Notifier<br/>(Webhook -> WA)"]
+            SOVEREIGN_UI["Sovereign UI<br/>(PWA Dashboard)"]
         end
 
-        %% INTEGRAÇÃO INTELIGENTE (A Rede Neural)
-        subgraph INTELLIGENCE["🤖 INTELIGÊNCIA DISTRIBUÍDA"]
-            NEO_ONE["NΞØ:One (ASI1)<br/>Agentic Node"]
-            AGENT_FULL["Agent-Full (LTM)<br/>Memória de Longo Prazo"]
+        %% AGENTES & INTELIGÊNCIA (A Rede Neural)
+        subgraph INTELLIGENCE["🤖 AGENTES SOBERANOS"]
+            NEO_AGENT_FULL["Neo-Agent-Full<br/>(Full WA Agent)"]
+            ASI1["ASI1 (Local LLM)<br/>Neobot Logic"]
         end
 
         %% PROTOCOLOS & CONEXÕES (As Sinapses)
         %% Comunicação Assíncrona via Protocolo
+        NEXUS -.->|Protocol: Dispatch| FLOWCLOSER
         SKILLS -.->|Protocol: neo:pay| FLOWPAY
         SKILLS -.->|Protocol: neo:mint| SMART_FACTORY
-        SKILLS -.->|Protocol: neo:qualify| FLOWCLOSER
 
         %% Fluxo de Negócio (O Ciclo de Vida)
-        FLOWCLOSER -->|Leads Qualificados| FLOWOFF
         FLOWOFF -->|Pagamento| FLOWPAY
         FLOWPAY -->|Taxas/Mint| SMART_FACTORY
-        SMART_FACTORY -->|Tokens| WOD
+        SMART_FACTORY -->|Token Proof| SOVEREIGN_UI
 
         %% Memória e Contexto
-        NEOBOT <-->|Context Sync| NEO_ONE
-        NEO_ONE <-->|Knowledge Graph| AGENT_FULL
+        NEOBOT <-->|Local AI| ASI1
+        ASI1 <-->|Sync| NEO_AGENT_FULL
 
     end
 
@@ -56,10 +55,10 @@ graph TB
     classDef front fill:#003,stroke:#0cf,stroke-width:2px,color:#fff
     classDef ai fill:#202,stroke:#f0f,stroke-width:2px,color:#fff
     
-    class NEOBOT,SKILLS,CLI core
+    class NEOBOT,SKILLS,NEXUS core
     class FLOWPAY,SMART_FACTORY,TREASURY money
-    class FLOWOFF,FLOWCLOSER,WOD front
-    class NEO_ONE,AGENT_FULL ai
+    class FLOWOFF,FLOWCLOSER,SOVEREIGN_UI front
+    class ASI1,NEO_AGENT_FULL ai
 ```
 
 ### 📜 Regras de Ouro do Sistema Modular (A Lei de Ferro)
