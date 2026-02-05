@@ -9,7 +9,7 @@
 | Project Name | Repository | Local Path | Role | Deploy |
 |--------------|-----------|------------|------|--------|
 | **Neobot** | `neomello/neobot` | `/Users/nettomello/CODIGOS/neobot` | Dev Tool, Architect | Local/Dev |
-| **FlowCloser** | `NEO-PROTOCOL/neo-node-interplanetary` | `/Users/nettomello/CODIGOS/neo-protocol-stack/flowcloser` | Webhook Notifier | Railway (sales.neoprotocol.space) |
+| **FlowCloser** | `NEO-PROTOCOL/neo-closer` | `/Users/nettomello/CODIGOS/neo-protocol-stack/flowcloser` | Webhook Notifier | Railway (sales.neoprotocol.space) |
 | **Neo-Agent-Full** | `neomello/neo-agent-full` | `/Users/nettomello/CODIGOS/neo-agent-full` | Full WhatsApp Agent | Railway (existing) |
 | **Neo-Nexus** | `NEO-PROTOCOL/neo-nexus` | `/Users/nettomello/CODIGOS/neo-nexus` | Event Orchestrator | Railway (nexus.neoprotocol.space) |
 
@@ -24,7 +24,7 @@
 
 ### ❌ OLD: `neo-node-interplanetary` as "Neobot Core"
 - **Old Identity:** Was confused with Neobot
-- **New Identity:** Now hosts **FlowCloser** (webhook notifier)
+- **New Identity:** Renamed to `neo-closer`, hosts **FlowCloser** (webhook notifier)
 
 ---
 
@@ -46,7 +46,7 @@
 {
   "id": "flowcloser",
   "name": "FlowCloser (Sales Agent)",
-  "repository": "https://github.com/NEO-PROTOCOL/neo-node-interplanetary.git",
+  "repository": "https://github.com/NEO-PROTOCOL/neo-closer.git",
   "localPath": "/Users/nettomello/CODIGOS/neo-protocol-stack/flowcloser",
   "role": "Webhook Notifier",
   "hosting": {

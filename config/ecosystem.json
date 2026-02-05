@@ -18,7 +18,7 @@
         "name": "FlowCloser (Sales Agent)",
         "description": "Agente de Qualificação e Vendas WhatsApp. Micro-agente focado em atendimento.",
         "localPath": "../flowcloser",
-        "repository": "https://github.com/NEO-PROTOCOL/neo-node-interplanetary.git",
+        "repository": "https://github.com/NEO-PROTOCOL/neo-closer.git",
         "role": "Sales Agent / Customer Service",
         "hosting": {
             "platform": "Railway",
