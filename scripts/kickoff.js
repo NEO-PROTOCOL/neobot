@@ -53,28 +53,7 @@ try {
     console.log(`${RED}✘ Error reading .env: ${e.message}${RESET}`);
 }
 
-// 3. Bitwarden Check
-try {
-    const bwVersion = execSync('bw --version', { stdio: 'pipe' }).toString().trim();
-    console.log(`${GREEN}✔ Bitwarden CLI Detected (${bwVersion})${RESET}`);
-
-    // Check login status
-    try {
-        const bwStatus = JSON.parse(execSync('bw status', { stdio: 'pipe' }).toString());
-        if (bwStatus.status === 'unlocked') {
-            console.log(`${GREEN}✔ Bitwarden Vault: Unlocked${RESET}`);
-        } else if (bwStatus.status === 'locked') {
-            console.log(`${YELLOW}⚠ Bitwarden Vault: Locked (Run 'bw unlock')${RESET}`);
-        } else {
-            console.log(`${YELLOW}⚠ Bitwarden Vault: ${bwStatus.status} (Run 'bw login')${RESET}`);
-        }
-    } catch (e) {
-        console.log(`${YELLOW}⚠ Bitwarden Status Check Failed${RESET}`);
-    }
-
-} catch (e) {
-    console.log(`${YELLOW}⚠ Bitwarden CLI not found. Install for enhanced security.${RESET}`);
-}
+// 3. API Keys Check (Direct from .env)
 
 // 4. Token Check (Bitwarden / Env)
 const notionKey = process.env.NOTION_API_KEY || envVars.NOTION_API_KEY;
@@ -94,11 +73,6 @@ if (linearKey) {
     console.log(`${YELLOW}⚠ Linear API Key missing${RESET}`);
 }
 
-// 5. Security Audit (.env presence)
-if (fs.existsSync(path.join(process.cwd(), '.env')) && process.env.BW_SESSION) {
-    console.log(`\n${YELLOW}⚠ SECURITY WARNING: .env file exists while Bitwarden is active.${RESET}`);
-    console.log(`  Suggestion: Run 'mv .env .env.backup' to secure your credentials.`);
-}
 
 // 5. Build Status (Optional - just checking if dist exists)
 if (fs.existsSync(path.join(process.cwd(), 'dist'))) {

@@ -1,65 +1,34 @@
 #!/bin/bash
-# Load secrets from Bitwarden into environment
+# Load secrets from .env file into environment
 set -e
 
-# Check session
-if [ -z "$BW_SESSION" ]; then
-    echo "🔓 Desbloqueando Bitwarden..."
-    export BW_SESSION=$(bw unlock --raw)
-    
-    if [ -z "$BW_SESSION" ]; then
-        echo "❌ Falha ao desbloquear"
-        exit 1
-    fi
-    
-    echo "✅ Desbloqueado!"
-fi
+echo "🔐 Carregando secrets do .env..."
 
-# Verify status
-if ! bw status --session "$BW_SESSION" | grep -q "unlocked"; then
-    echo "❌ Vault não está desbloqueado"
-    echo "Execute: export BW_SESSION=\$(bw unlock --raw)"
+# Check if .env exists
+if [ ! -f .env ]; then
+    echo "❌ Arquivo .env não encontrado!"
+    echo "Crie um arquivo .env na raiz do projeto com as variáveis necessárias."
     exit 1
 fi
 
-echo "🔐 Carregando secrets do Bitwarden..."
-
-# Function to get secret
-get_secret() {
-    local key=$1
-    bw get item "$key" --session "$BW_SESSION" 2>/dev/null | jq -r '.notes // empty'
-}
-
-# Load main API keys
-export ANTHROPIC_API_KEY=$(get_secret "ANTHROPIC_API_KEY")
-export TELEGRAM_BOT_TOKEN=$(get_secret "TELEGRAM_BOT_TOKEN")
-export TELEGRAM_CHAT_ID=$(get_secret "TELEGRAM_CHAT_ID")
-export NOTION_API_KEY=$(get_secret "NOTION_API_KEY")
-export LINEAR_API_KEY=$(get_secret "LINEAR_API_KEY")
-
-# Load NEO Protocol keys
-export NEO_CORE_PRIVATE_KEY=$(get_secret "NEO_CORE_PRIVATE_KEY")
-export NEO_GATEWAY_PRIVATE_KEY=$(get_secret "NEO_GATEWAY_PRIVATE_KEY")
-export NEO_SKILLS_PRIVATE_KEY=$(get_secret "NEO_SKILLS_PRIVATE_KEY")
-export NEO_FACTORY_PRIVATE_KEY=$(get_secret "NEO_FACTORY_PRIVATE_KEY")
-export NEO_FLOWPAY_PRIVATE_KEY=$(get_secret "NEO_FLOWPAY_PRIVATE_KEY")
-export NEO_ASI1_PRIVATE_KEY=$(get_secret "NEO_ASI1_PRIVATE_KEY")
-export NEO_TELEGRAM_PRIVATE_KEY=$(get_secret "NEO_TELEGRAM_PRIVATE_KEY")
-export NEO_WHATSAPP_PRIVATE_KEY=$(get_secret "NEO_WHATSAPP_PRIVATE_KEY")
-export NEO_IPFS_PRIVATE_KEY=$(get_secret "NEO_IPFS_PRIVATE_KEY")
+# Load .env file
+set -a
+source .env
+set +a
 
 # Count loaded secrets
 LOADED=0
+[ -n "$NOTION_API_KEY" ] && LOADED=$((LOADED + 1))
+[ -n "$LINEAR_API_KEY" ] && LOADED=$((LOADED + 1))
 [ -n "$ANTHROPIC_API_KEY" ] && LOADED=$((LOADED + 1))
 [ -n "$TELEGRAM_BOT_TOKEN" ] && LOADED=$((LOADED + 1))
-[ -n "$ASI1AI_API_KEY" ] && LOADED=$((LOADED + 1))
-[ -n "$NEO_CORE_PRIVATE_KEY" ] && LOADED=$((LOADED + 1))
 
-echo "✅ $LOADED secrets carregados!"
+echo "✅ $LOADED secrets carregados do .env!"
 echo ""
 echo "Verificação rápida:"
-echo "  ANTHROPIC_API_KEY: [LOADED]"
-echo "  TELEGRAM_BOT_TOKEN: [LOADED]"
-echo "  NEO_CORE_PRIVATE_KEY: [LOADED]"
+[ -n "$NOTION_API_KEY" ] && echo "  ✓ NOTION_API_KEY: [LOADED]" || echo "  ✗ NOTION_API_KEY: [MISSING]"
+[ -n "$LINEAR_API_KEY" ] && echo "  ✓ LINEAR_API_KEY: [LOADED]" || echo "  ✗ LINEAR_API_KEY: [MISSING]"
+[ -n "$ANTHROPIC_API_KEY" ] && echo "  ✓ ANTHROPIC_API_KEY: [LOADED]" || echo "  ✗ ANTHROPIC_API_KEY: [MISSING]"
+[ -n "$TELEGRAM_BOT_TOKEN" ] && echo "  ✓ TELEGRAM_BOT_TOKEN: [LOADED]" || echo "  ✗ TELEGRAM_BOT_TOKEN: [MISSING]"
 echo ""
 echo "✅ Pronto para usar!"
