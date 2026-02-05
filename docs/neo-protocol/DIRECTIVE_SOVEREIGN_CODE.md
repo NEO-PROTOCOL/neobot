@@ -5,7 +5,7 @@
 
 ## 1. O Princípio da Autossuficiência
 
-Um Nó NEØ não pode falhar porque uma biblioteca de terceiros (upstream) mudou, quebrou ou desapareceu. A dependência direta de código instável é uma vulnerabilidade inaceitável para uma infraestrutura interplanetária.
+Um Nó NEØBOT não pode falhar porque uma biblioteca de terceiros (upstream) mudou, quebrou ou desapareceu. A dependência direta de código instável é uma vulnerabilidade inaceitável para uma infraestrutura interplanetária.
 
 **A Regra de Ouro:**
 > *"Se uma funcionalidade é crítica para a sobrevivência do Nó, ela não pode ser terceirizada diretamente. Ela deve ser mediada."*

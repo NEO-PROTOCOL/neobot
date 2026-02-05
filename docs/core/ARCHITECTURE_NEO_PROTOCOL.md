@@ -83,7 +83,7 @@ Vantagem: Recebemos bugfixes, novas channels, melhorias de performance
 │ └─ 3. NEO Docs (Self-Hosted)                                   │
 │ └─ 4. NEO Protocol Nexus (Orchestration)                       │
 │ └─ 5. NEO Gateway Extensions                                   │
-│ └─ 6. NEO Dashboard (Ja Existente)                              │
+│ └─ 6. NEO Dashboard (Ja Existente)                             │
 └────────────────────────────────────────────────────────────────┘
 ```
 
