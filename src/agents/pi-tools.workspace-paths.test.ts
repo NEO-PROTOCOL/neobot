@@ -11,7 +11,19 @@ vi.mock("../infra/shell-env.js", () => ({
 }));
 
 vi.mock("./tools/gateway.js", () => ({
-  callGatewayTool: vi.fn().mockResolvedValue({}),
+  callGatewayTool: vi.fn((toolName, args, options) => {
+    if (toolName === "exec") {
+      return Promise.resolve({
+        content: [{ type: "text", text: "ok" }],
+        details: {
+          status: "completed",
+          exitCode: 0,
+          cwd: args.workdir || options?.workspaceDir || process.cwd(),
+        },
+      });
+    }
+    return Promise.resolve({});
+  }),
   resolveGatewayOptions: vi.fn(),
 }));
 
