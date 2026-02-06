@@ -115,13 +115,15 @@
         "id": "smart-core",
         "org": "Neo Smart Factory",
         "name": "Smart Core",
-        "description": "Smart contracts and deployment scripts for NΞØ SMART FACTORY (Core Protocol)",
+        "description": "Smart contracts and deployment scripts for NΞØ SMART FACTORY (Core Protocol Engine)",
         "localPath": "../neo-smart-token-factory/smart-core",
         "repository": "https://github.com/neo-smart-token-factory/smart-core.git",
         "role": "Protocol Layer / Contracts",
         "hosting": {
-            "platform": "N/A (NPM Package)",
-            "adminEmail": "neo@neoprotocol.space"
+            "platform": "Railway",
+            "productionUrl": "https://smart.neoprotocol.space",
+            "adminEmail": "neo@neoprotocol.space",
+            "targetCustomDomain": "smart.neoprotocol.space"
         }
     },
     {

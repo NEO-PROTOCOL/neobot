@@ -27,6 +27,8 @@ import { applyHookMappings } from "./hooks-mapping.js";
 import { handleOpenAiHttpRequest } from "./openai-http.js";
 import { handleOpenResponsesHttpRequest } from "./openresponses-http.js";
 import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.js";
+import { handleEcosystemHttpRequest } from "./ecosystem-http.js";
+
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 
@@ -83,8 +85,8 @@ export function createHooksRequestHandler(
     if (fromQuery) {
       logHooks.warn(
         "Hook token provided via query parameter is deprecated for security reasons. " +
-          "Tokens in URLs appear in logs, browser history, and referrer headers. " +
-          "Use Authorization: Bearer <token> or X-Moltbot-Token header instead.",
+        "Tokens in URLs appear in logs, browser history, and referrer headers. " +
+        "Use Authorization: Bearer <token> or X-Moltbot-Token header instead.",
       );
     }
 
@@ -220,11 +222,11 @@ export function createGatewayHttpServer(opts: {
   } = opts;
   const httpServer: HttpServer = opts.tlsOptions
     ? createHttpsServer(opts.tlsOptions, (req, res) => {
-        void handleRequest(req, res);
-      })
+      void handleRequest(req, res);
+    })
     : createHttpServer((req, res) => {
-        void handleRequest(req, res);
-      });
+      void handleRequest(req, res);
+    });
 
   async function handleRequest(req: IncomingMessage, res: ServerResponse) {
     // Railway/Infra Health Check
@@ -254,7 +256,9 @@ export function createGatewayHttpServer(opts: {
     try {
       const configSnapshot = loadConfig();
       const trustedProxies = configSnapshot.gateway?.trustedProxies ?? [];
+      if (await handleEcosystemHttpRequest(req, res)) return;
       if (await handleHooksRequest(req, res)) return;
+
       if (
         await handleToolsInvokeHttpRequest(req, res, {
           auth: resolvedAuth,
