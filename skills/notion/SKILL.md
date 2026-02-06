@@ -148,9 +148,26 @@ Common property formats for database items:
 - **Parent in responses:** Pages show `parent.data_source_id` alongside `parent.database_id`
 - **Finding the data_source_id:** Search for the database, or call `GET /v1/data_sources/{data_source_id}`
 
-## Notes
+## NΞØ PROTOCOL :: GOVERNANCE & MASTER IDs
 
-- Page/database IDs are UUIDs (with or without dashes)
-- The API cannot set database view filters — that's UI-only
-- Rate limit: ~3 requests/second average
-- Use `is_inline: true` when creating data sources to embed them in pages
+To prevent clutter in the root workspace, ALWAYS use the following parent IDs for new content. **DO NOT CREATE PAGES AT THE ROOT.**
+
+### Masters & Databases
+- **Documentation Hub:** `2f88c6e8-3be0-8120-971c-ee616b52e5ff` (For new technical docs)
+- **Decisões Estratégicas:** `5041cdeb-1d58-4029-bdfc-6e7271a3a20b` (For ADRs and architectural decisions)
+- **Work Log · Diário:** `93f062cd-fb28-4c48-a370-d67579b9c902` (For automated daily logs)
+- **Tarefas & Ações:** `73b8b7cc-b818-45b9-8907-fc7066b4c2da` (For bug tracking and tasks)
+
+### Module Hubs
+- **Smart Factory:** `2f78c6e8-3be0-8129-bcfc-f52c91ebc00a`
+- **FlowPay Gateway:** `2f78c6e8-3be0-816a-9348-e927c258ec0b`
+
+### Instructions for AI Writing
+1. **Logs:** Append to 'Work Log' database using `database_id: "93f062cd-fb28-4c48-a370-d67579b9c902"`.
+2. **Docs:** Create as a child of 'Documentation Hub' using `parent: {"page_id": "2f88c6e8-3be0-8120-971c-ee616b52e5ff"}`.
+3. **Decisions:** Add to 'Decisões Estratégicas' database.
+
+### 🚫 SWORDFISH RESTRICTION
+**STRICTLY FORBIDDEN:** Accessing, listing, moving, or deleting any page/block containing the name "swordfish". If encountered, redact all metadata and ignore the item.
+
+*Refest: Antigravity - Notion Guard v1.0*
