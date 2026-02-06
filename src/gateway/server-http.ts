@@ -28,6 +28,7 @@ import { handleOpenAiHttpRequest } from "./openai-http.js";
 import { handleOpenResponsesHttpRequest } from "./openresponses-http.js";
 import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.js";
 import { handleEcosystemHttpRequest } from "./ecosystem-http.js";
+import { handleNexusWebhookHttpRequest } from "./nexus-webhook-http.js";
 
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
@@ -257,6 +258,7 @@ export function createGatewayHttpServer(opts: {
       const configSnapshot = loadConfig();
       const trustedProxies = configSnapshot.gateway?.trustedProxies ?? [];
       if (await handleEcosystemHttpRequest(req, res)) return;
+      if (await handleNexusWebhookHttpRequest(req, res)) return;
       if (await handleHooksRequest(req, res)) return;
 
       if (

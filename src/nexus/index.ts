@@ -19,6 +19,7 @@ export enum ProtocolEvent {
     // Smart Factory Events
     MINT_REQUESTED = "FACTORY:MINT_REQUESTED",
     MINT_CONFIRMED = "FACTORY:MINT_CONFIRMED", // On-Chain Success
+    MINT_FAILED = "FACTORY:MINT_FAILED",       // On-Chain Failure
     CONTRACT_DEPLOYED = "FACTORY:CONTRACT_DEPLOYED",
 
     // Fluxx Governance Events
@@ -35,7 +36,7 @@ export enum ProtocolEvent {
 // --- 2. Payload Types ---
 
 export interface PaymentPayload {
-    transactionId: string;
+    orderId: string;
     amount: number;
     currency: "BRL" | "USDC" | "NEOFLW";
     payerId: string; // MIO ID
@@ -118,7 +119,7 @@ export function setupNexusReactors() {
             tokenId: "NEOFLW",
             amount: payload.amount.toString(),
             reason: "purchase",
-            refTransactionId: payload.transactionId
+            refTransactionId: payload.orderId
         };
 
         // Dispatch the Mint Request (Smart Factory Node would listen to this)
