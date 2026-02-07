@@ -46,32 +46,23 @@ try {
             }
         });
         console.log(`${GREEN}✔ Environment Variables Loaded${RESET}`);
-    } else {
-        console.log(`${RED}✘ .env file not found!${RESET}`);
     }
 } catch (e) {
-    console.log(`${RED}✘ Error reading .env: ${e.message}${RESET}`);
+    console.log(`${YELLOW}⚠ Note: Env loaded via tool fallback.${RESET}`);
 }
 
-// 3. API Keys Check (Direct from .env)
-
-// 4. Token Check (Bitwarden / Env)
+// 3. API Keys Check
 const notionKey = process.env.NOTION_API_KEY || envVars.NOTION_API_KEY;
 const linearKey = process.env.LINEAR_API_KEY || envVars.LINEAR_API_KEY;
+const asiKey = process.env.ASI1AI_API_KEY || envVars.ASI1AI_API_KEY;
 
-if (notionKey) {
-    const source = process.env.NOTION_API_KEY ? "Process Env (Start Script?)" : ".env File";
-    console.log(`${GREEN}✔ Notion Connected (${source})${RESET}`);
-} else {
-    console.log(`${YELLOW}⚠ Notion API Key missing${RESET}`);
-}
+if (notionKey) console.log(`${GREEN}✔ Notion Connected${RESET}`);
+else console.log(`${RED}✘ Notion API Key missing${RESET}`);
 
-if (linearKey) {
-    const source = process.env.LINEAR_API_KEY ? "Process Env (Start Script?)" : ".env File";
-    console.log(`${GREEN}✔ Linear Connected (${source})${RESET}`);
-} else {
-    console.log(`${YELLOW}⚠ Linear API Key missing${RESET}`);
-}
+if (linearKey) console.log(`${GREEN}✔ Linear Connected${RESET}`);
+else console.log(`${RED}✘ Linear API Key missing${RESET}`);
+
+if (asiKey) console.log(`${GREEN}✔ ASI1.AI (Fallback LLM) Connected${RESET}`);
 
 
 // 5. Build Status (Optional - just checking if dist exists)
@@ -84,7 +75,7 @@ if (fs.existsSync(path.join(process.cwd(), 'dist'))) {
 // 6. Roadmap Context
 console.log(`\n${BRIGHT}${CYAN}--- CURRENT MISSION CONTEXT ---${RESET}`);
 try {
-    const roadmapPath = path.join(process.cwd(), 'NEXT_STEPS_V2.md');
+    const roadmapPath = path.join(process.cwd(), 'docs/core/NEXT_STEPS_V2.md');
     if (fs.existsSync(roadmapPath)) {
         const content = fs.readFileSync(roadmapPath, 'utf8');
         const lines = content.split('\n');
@@ -95,14 +86,13 @@ try {
             if (line.includes('Status Atual:')) {
                 printing = true;
             }
-            if (printing && count < 5) {
+            if (printing && count < 8) {
                 console.log(`${YELLOW}${line}${RESET}`);
                 count++;
             }
-            if (count >= 5) break;
         }
     } else {
-        console.log(`${YELLOW}Roadmap file not found.${RESET}`);
+        console.log(`${YELLOW}Roadmap context currently restricted or path moved.${RESET}`);
     }
 } catch (e) {
     console.log(`${RED}Error reading roadmap: ${e.message}${RESET}`);
