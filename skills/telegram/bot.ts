@@ -50,9 +50,9 @@ Available commands:
 bot.onText(/\/status/, async (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, '⏳ Checking status...');
-  
+
   try {
-    const { stdout } = await execAsync('cd /Users/nettomello/CODIGOS/neobot && pnpm moltbot factory status --network all');
+    const { stdout } = await execAsync('cd /Users/nettomello/neomello/01-neo-protocol-org/neobot && pnpm moltbot factory status --network all');
     bot.sendMessage(chatId, `📊 NEØ Protocol Status:\n\n\`\`\`\n${stdout}\n\`\`\``, {
       parse_mode: 'Markdown',
     });
@@ -64,11 +64,11 @@ bot.onText(/\/status/, async (msg) => {
 bot.onText(/\/factory (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const args = match![1];
-  
+
   bot.sendMessage(chatId, '⏳ Executing factory command...');
-  
+
   try {
-    const { stdout } = await execAsync(`cd /Users/nettomello/CODIGOS/neobot && pnpm moltbot factory ${args}`);
+    const { stdout } = await execAsync(`cd /Users/nettomello/neomello/01-neo-protocol-org/neobot && pnpm moltbot factory ${args}`);
     bot.sendMessage(chatId, `🏭 Smart Factory:\n\n\`\`\`\n${stdout}\n\`\`\``, {
       parse_mode: 'Markdown',
     });
@@ -80,11 +80,11 @@ bot.onText(/\/factory (.+)/, async (msg, match) => {
 bot.onText(/\/flowpay (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const args = match![1];
-  
+
   bot.sendMessage(chatId, '⏳ Executing FlowPay command...');
-  
+
   try {
-    const { stdout } = await execAsync(`cd /Users/nettomello/CODIGOS/neobot && pnpm moltbot flowpay ${args}`);
+    const { stdout } = await execAsync(`cd /Users/nettomello/neomello/01-neo-protocol-org/neobot && pnpm moltbot flowpay ${args}`);
     bot.sendMessage(chatId, `💳 FlowPay:\n\n\`\`\`\n${stdout}\n\`\`\``, {
       parse_mode: 'Markdown',
     });
@@ -96,9 +96,9 @@ bot.onText(/\/flowpay (.+)/, async (msg, match) => {
 bot.onText(/\/log (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const message = match![1];
-  
+
   bot.sendMessage(chatId, '⏳ Adding work log...');
-  
+
   try {
     // Call Notion API to add work log (placeholder)
     bot.sendMessage(chatId, `✅ Work log added:\n"${message}"`);
@@ -110,7 +110,7 @@ bot.onText(/\/log (.+)/, async (msg, match) => {
 bot.onText(/\/projetos/, async (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, '⏳ Fetching projects from Notion...');
-  
+
   try {
     // Fetch from Notion (placeholder)
     const projects = `

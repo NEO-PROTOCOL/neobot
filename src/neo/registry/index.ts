@@ -34,7 +34,8 @@ export class NeoSkillsRegistry {
 
   constructor(config: NeoRegistryConfig = {}) {
     this.config = config;
-    this.ipfs = createIpfsClient({ url: config.ipfsApiUrl || "http://127.0.0.1:5001" });
+    const ipfsUrl = process.env.NEO_IPFS_API_URL || config.ipfsApiUrl || "http://127.0.0.1:5001";
+    this.ipfs = createIpfsClient({ url: ipfsUrl });
   }
 
   /**

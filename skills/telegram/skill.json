@@ -1,0 +1,79 @@
+{
+    "id": "telegram",
+    "name": "Telegram Bot Integration",
+    "version": "1.0.0",
+    "author": "mio-skills",
+    "category": [
+        "communication",
+        "management",
+        "automation",
+        "bot"
+    ],
+    "metadata": {
+        "description": "Comprehensive Telegram Bot integration for the NEØ Protocol, allowing control over Smart Factory, FlowPay, and Notion.",
+        "dependencies": [
+            "node-telegram-bot-api",
+            "dotenv"
+        ],
+        "permissions": [
+            "http",
+            "read",
+            "write"
+        ],
+        "repository": "https://github.com/neomello/neobot",
+        "license": "MIT",
+        "architecture": {
+            "type": "bot-service",
+            "pattern": "command-listener",
+            "nodes": [
+                {
+                    "id": "telegram-bot",
+                    "name": "Telegram Bot",
+                    "role": "interface",
+                    "description": "Main interface for controlling the protocol via chat.",
+                    "tech": [
+                        "node-telegram-bot-api",
+                        "TypeScript"
+                    ],
+                    "deployment": "Railway"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "name": "start",
+                "file": "bot.ts",
+                "description": "Start the Telegram bot"
+            },
+            {
+                "name": "status",
+                "file": "bot.ts",
+                "description": "Check general ecosystem status"
+            },
+            {
+                "name": "factory",
+                "file": "bot.ts",
+                "description": "Smart Factory management"
+            },
+            {
+                "name": "flowpay",
+                "file": "bot.ts",
+                "description": "FlowPay transaction management"
+            },
+            {
+                "name": "log",
+                "file": "bot.ts",
+                "description": "Add work log to Notion"
+            },
+            {
+                "name": "projetos",
+                "file": "bot.ts",
+                "description": "List projects from Notion"
+            }
+        ]
+    },
+    "files": {
+        "main": "bot.ts",
+        "readme": "SKILL.md"
+    }
+}
