@@ -177,8 +177,8 @@ export function collectHooksHardeningFindings(cfg: MoltbotConfig): SecurityAudit
   });
   const gatewayToken =
     gatewayAuth.mode === "token" &&
-    typeof gatewayAuth.token === "string" &&
-    gatewayAuth.token.trim()
+      typeof gatewayAuth.token === "string" &&
+      gatewayAuth.token.trim()
       ? gatewayAuth.token.trim()
       : null;
   if (token && gatewayToken && token === gatewayToken) {
@@ -553,16 +553,6 @@ export async function collectPluginsTrustFindings(params: {
       ) ||
       hasString(process.env.DISCORD_BOT_TOKEN);
 
-    const telegramConfigured =
-      hasString(params.cfg.channels?.telegram?.botToken) ||
-      hasString(params.cfg.channels?.telegram?.tokenFile) ||
-      Boolean(
-        params.cfg.channels?.telegram?.accounts &&
-        Object.values(params.cfg.channels.telegram.accounts).some(
-          (a) => hasAccountStringKey(a, "botToken") || hasAccountStringKey(a, "tokenFile"),
-        ),
-      ) ||
-      hasString(process.env.TELEGRAM_BOT_TOKEN);
 
     const slackConfigured =
       hasString(params.cfg.channels?.slack?.botToken) ||
@@ -581,12 +571,6 @@ export async function collectPluginsTrustFindings(params: {
         resolveNativeSkillsEnabled({
           providerId: "discord",
           providerSetting: params.cfg.channels?.discord?.commands?.nativeSkills,
-          globalSetting: params.cfg.commands?.nativeSkills,
-        })) ||
-      (telegramConfigured &&
-        resolveNativeSkillsEnabled({
-          providerId: "telegram",
-          providerSetting: params.cfg.channels?.telegram?.commands?.nativeSkills,
           globalSetting: params.cfg.commands?.nativeSkills,
         })) ||
       (slackConfigured &&
@@ -798,8 +782,8 @@ export async function collectStateDeepFilesystemFindings(params: {
 
   const agentIds = Array.isArray(params.cfg.agents?.list)
     ? params.cfg.agents?.list
-        .map((a) => (a && typeof a === "object" && typeof a.id === "string" ? a.id.trim() : ""))
-        .filter(Boolean)
+      .map((a) => (a && typeof a === "object" && typeof a.id === "string" ? a.id.trim() : ""))
+      .filter(Boolean)
     : [];
   const defaultAgentId = resolveDefaultAgentId(params.cfg);
   const ids = Array.from(new Set([defaultAgentId, ...agentIds])).map((id) => normalizeAgentId(id));

@@ -10,7 +10,6 @@ export type QueueDropPolicy = "old" | "new" | "summarize";
 
 export type QueueModeByProvider = {
   whatsapp?: QueueMode;
-  telegram?: QueueMode;
   discord?: QueueMode;
   googlechat?: QueueMode;
   slack?: QueueMode;

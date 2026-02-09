@@ -4,12 +4,12 @@ import {
   setupMorningBriefing,
   setupWeeklySummary,
   setupHealthCheck,
-  TelegramBot,
+  WhatsAppBot,
 } from "./intelligent-daily-report.js";
 
 export interface AutomationConfig {
   enabledAutomations: string[];
-  telegram?: TelegramBot;
+  whatsapp?: WhatsAppBot;
 }
 
 export class AutomationManager {
@@ -27,28 +27,28 @@ export class AutomationManager {
   async initialize(): Promise<void> {
     console.log("🤖 Inicializando Automações Avançadas...");
 
-    const { telegram } = this.config;
+    const { whatsapp } = this.config;
 
-    if (!telegram) {
-      console.warn("⚠️ Telegram não configurado, algumas automações podem não funcionar");
+    if (!whatsapp) {
+      console.warn("⚠️ WhatsApp não configurado, algumas automações podem não funcionar");
       return;
     }
 
     // Setup automations based on config
     if (this.isEnabled("intelligent-report")) {
-      setupIntelligentReport(this.scheduler, telegram);
+      setupIntelligentReport(this.scheduler, whatsapp);
     }
 
     if (this.isEnabled("morning-briefing")) {
-      setupMorningBriefing(this.scheduler, telegram);
+      setupMorningBriefing(this.scheduler, whatsapp);
     }
 
     if (this.isEnabled("weekly-summary")) {
-      setupWeeklySummary(this.scheduler, telegram);
+      setupWeeklySummary(this.scheduler, whatsapp);
     }
 
     if (this.isEnabled("health-check")) {
-      setupHealthCheck(this.scheduler, telegram);
+      setupHealthCheck(this.scheduler, whatsapp);
     }
 
     // Listen to scheduler events

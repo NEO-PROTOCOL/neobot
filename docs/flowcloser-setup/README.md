@@ -24,18 +24,18 @@ FlowCloser is a lightweight, focused agent designed exclusively for:
 │         FLOWCLOSER AGENT                │
 ├─────────────────────────────────────────┤
 │                                         │
-│  ┌──────────────┐   ┌──────────────┐   │
-│  │   Baileys    │   │  Nexus       │   │
-│  │  (WhatsApp)  │   │  Client      │   │
-│  └──────────────┘   └──────────────┘   │
+│  ┌──────────────┐   ┌──────────────┐    │
+│  │   Baileys    │   │  Nexus       │    │
+│  │  (WhatsApp)  │   │  Client      │    │
+│  └──────────────┘   └──────────────┘    │
 │         │                   │           │
 │         ▼                   ▼           │
-│  ┌─────────────────────────────────┐   │
-│  │     Message Handler             │   │
-│  │  - Lead Qualification           │   │
-│  │  - Payment Confirmations        │   │
-│  │  - Token Delivery Notices       │   │
-│  └─────────────────────────────────┘   │
+│  ┌─────────────────────────────────┐    │
+│  │     Message Handler             │    │
+│  │  - Lead Qualification           │    │
+│  │  - Payment Confirmations        │    │
+│  │  - Token Delivery Notices       │    │
+│  └─────────────────────────────────┘    │
 │                                         │
 └─────────────────────────────────────────┘
 ```

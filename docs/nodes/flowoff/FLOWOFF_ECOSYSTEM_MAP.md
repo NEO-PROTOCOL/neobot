@@ -79,7 +79,7 @@
 
 ▓▓▓ 3. FLOWPAY (PAYMENT GATEWAY)
 ────────────────────────────────────────
-└─ URL: https://flowpaypix.netlify.app/
+└─ URL: https://flowpaypix.netlify.app/ <-- // errado 
 └─ Repo: github.com/neomello/flowpay
 └─ Local: /CODIGOS/flowpay/
 └─ Stack: Astro, Web3Auth, Woovi/

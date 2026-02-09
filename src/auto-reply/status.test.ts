@@ -12,7 +12,7 @@ import {
 } from "./status.js";
 
 const { listPluginCommands } = vi.hoisted(() => ({
-  listPluginCommands: vi.fn(() => []),
+  listPluginCommands: vi.fn(() => [] as any[]),
 }));
 
 vi.mock("../plugins/commands.js", () => ({
@@ -30,10 +30,17 @@ describe("buildStatusMessage", () => {
         models: {
           providers: {
             anthropic: {
+              baseUrl: "https://api.anthropic.com",
               apiKey: "test-key",
               models: [
                 {
                   id: "pi:opus",
+                  name: "Claude Opus",
+                  api: "anthropic-messages",
+                  reasoning: false,
+                  input: ["text"],
+                  contextWindow: 128000,
+                  maxTokens: 4096,
                   cost: {
                     input: 1,
                     output: 1,
@@ -47,7 +54,7 @@ describe("buildStatusMessage", () => {
         },
       } as MoltbotConfig,
       agent: {
-        model: "anthropic/pi:opus",
+        model: { primary: "anthropic/pi:opus" },
         contextTokens: 32_000,
       },
       sessionEntry: {
@@ -108,7 +115,7 @@ describe("buildStatusMessage", () => {
 
   it("shows verbose/elevated labels only when enabled", () => {
     const text = buildStatusMessage({
-      agent: { model: "anthropic/claude-opus-4-5" },
+      agent: { model: { primary: "anthropic/claude-opus-4-5" } },
       sessionEntry: { sessionId: "v1", updatedAt: 0 },
       sessionKey: "agent:main:main",
       sessionScope: "per-sender",
@@ -177,7 +184,7 @@ describe("buildStatusMessage", () => {
 
   it("omits media line when all decisions are none", () => {
     const text = buildStatusMessage({
-      agent: { model: "anthropic/claude-opus-4-5" },
+      agent: { model: { primary: "anthropic/claude-opus-4-5" } },
       sessionEntry: { sessionId: "media-none", updatedAt: 0 },
       sessionKey: "agent:main:main",
       queue: { mode: "none" },
@@ -193,7 +200,7 @@ describe("buildStatusMessage", () => {
 
   it("does not show elevated label when session explicitly disables it", () => {
     const text = buildStatusMessage({
-      agent: { model: "anthropic/claude-opus-4-5", elevatedDefault: "on" },
+      agent: { model: { primary: "anthropic/claude-opus-4-5" }, elevatedDefault: "on" },
       sessionEntry: { sessionId: "v1", updatedAt: 0, elevatedLevel: "off" },
       sessionKey: "agent:main:main",
       sessionScope: "per-sender",
@@ -210,7 +217,7 @@ describe("buildStatusMessage", () => {
   it("prefers model overrides over last-run model", () => {
     const text = buildStatusMessage({
       agent: {
-        model: "anthropic/claude-opus-4-5",
+        model: { primary: "anthropic/claude-opus-4-5" },
         contextTokens: 32_000,
       },
       sessionEntry: {
@@ -234,7 +241,7 @@ describe("buildStatusMessage", () => {
   it("keeps provider prefix from configured model", () => {
     const text = buildStatusMessage({
       agent: {
-        model: "google-antigravity/claude-sonnet-4-5",
+        model: { primary: "google-antigravity/claude-sonnet-4-5" },
       },
       sessionScope: "per-sender",
       queue: { mode: "collect", depth: 0 },
@@ -298,7 +305,10 @@ describe("buildStatusMessage", () => {
 
   it("inserts usage summary beneath context line", () => {
     const text = buildStatusMessage({
-      agent: { model: "anthropic/claude-opus-4-5", contextTokens: 32_000 },
+      agent: {
+        model: { primary: "anthropic/claude-opus-4-5" },
+        contextTokens: 32_000,
+      },
       sessionEntry: { sessionId: "u1", updatedAt: 0, totalTokens: 1000 },
       sessionKey: "agent:main:main",
       sessionScope: "per-sender",
@@ -319,9 +329,16 @@ describe("buildStatusMessage", () => {
         models: {
           providers: {
             anthropic: {
+              baseUrl: "https://api.anthropic.com",
               models: [
                 {
                   id: "claude-opus-4-5",
+                  name: "Claude Opus",
+                  api: "anthropic-messages",
+                  reasoning: false,
+                  input: ["text"],
+                  contextWindow: 128000,
+                  maxTokens: 4096,
                   cost: {
                     input: 1,
                     output: 1,
@@ -385,7 +402,7 @@ describe("buildStatusMessage", () => {
 
         const text = buildStatusMessageDynamic({
           agent: {
-            model: "anthropic/claude-opus-4-5",
+            model: { primary: "anthropic/claude-opus-4-5" },
             contextTokens: 32_000,
           },
           sessionEntry: {
@@ -444,6 +461,7 @@ describe("buildHelpMessage", () => {
   it("hides config/debug when disabled", () => {
     const text = buildHelpMessage({
       commands: { config: false, debug: false },
+      models: { providers: {} },
     } as MoltbotConfig);
     expect(text).toContain("Skills");
     expect(text).toContain("/skill <name> [input]");
@@ -453,7 +471,7 @@ describe("buildHelpMessage", () => {
 });
 
 describe("buildCommandsMessagePaginated", () => {
-  it("formats telegram output with pages", () => {
+  it("formats telegram output as standard list", () => {
     const result = buildCommandsMessagePaginated(
       {
         commands: { config: false, debug: false },
@@ -461,9 +479,10 @@ describe("buildCommandsMessagePaginated", () => {
       undefined,
       { surface: "telegram", page: 1 },
     );
-    expect(result.text).toContain("ℹ️ Commands (1/");
+    expect(result.text).toContain("ℹ️ Slash commands");
     expect(result.text).toContain("Session");
     expect(result.text).toContain("/stop - Stop the current run.");
+    expect(result.totalPages).toBe(1);
   });
 
   it("includes plugin commands in the paginated list", () => {

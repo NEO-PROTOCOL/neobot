@@ -4,7 +4,7 @@ import { requireActivePluginRegistry } from "../plugins/runtime.js";
 
 // Channel docking: add new core channels here (order + meta + aliases), then
 // register the plugin in its extension entrypoint and keep protocol IDs in sync.
-export const CHAT_CHANNEL_ORDER = ["telegram", "whatsapp"] as const;
+export const CHAT_CHANNEL_ORDER = ["whatsapp"] as const;
 
 export type ChatChannelId = (typeof CHAT_CHANNEL_ORDER)[number];
 
@@ -17,19 +17,6 @@ export type ChatChannelMeta = ChannelMeta;
 const WEBSITE_URL = "https://molt.bot";
 
 const CHAT_CHANNEL_META: Record<ChatChannelId, ChannelMeta> = {
-  telegram: {
-    id: "telegram",
-    label: "Telegram",
-    selectionLabel: "Telegram (Bot API)",
-    detailLabel: "Telegram Bot",
-    docsPath: "/channels/telegram",
-    docsLabel: "telegram",
-    blurb: "simplest way to get started — register a bot with @BotFather and get going.",
-    systemImage: "paperplane",
-    selectionDocsPrefix: "",
-    selectionDocsOmitLabel: true,
-    selectionExtras: [WEBSITE_URL],
-  },
   whatsapp: {
     id: "whatsapp",
     label: "WhatsApp",

@@ -36,6 +36,8 @@ const registryState = vi.hoisted(() => ({
   registry: {
     plugins: [],
     tools: [],
+    hooks: [],
+    typedHooks: [],
     channels: [],
     providers: [],
     gatewayHandlers: {},
@@ -43,6 +45,7 @@ const registryState = vi.hoisted(() => ({
     httpRoutes: [],
     cliRegistrars: [],
     services: [],
+    commands: [],
     diagnostics: [],
   } as PluginRegistry,
 }));
@@ -78,6 +81,8 @@ function expectChannels(call: Record<string, unknown>, channel: string) {
 const createRegistry = (channels: PluginRegistry["channels"]): PluginRegistry => ({
   plugins: [],
   tools: [],
+  hooks: [],
+  typedHooks: [],
   channels,
   providers: [],
   gatewayHandlers: {},
@@ -85,6 +90,7 @@ const createRegistry = (channels: PluginRegistry["channels"]): PluginRegistry =>
   httpRoutes: [],
   cliRegistrars: [],
   services: [],
+  commands: [],
   diagnostics: [],
 });
 
@@ -140,11 +146,6 @@ const defaultRegistry = createRegistry([
         return Array.isArray(allow) ? allow.map((value) => String(value)) : [];
       },
     }),
-  },
-  {
-    pluginId: "telegram",
-    source: "test",
-    plugin: createStubChannelPlugin({ id: "telegram", label: "Telegram" }),
   },
   {
     pluginId: "discord",
@@ -519,37 +520,6 @@ describe("gateway server agent", () => {
     expect(call.sessionId).toBe("sess-main-whatsapp");
   });
 
-  test("agent routes main last-channel telegram", async () => {
-    setRegistry(defaultRegistry);
-    const dir = await fs.mkdtemp(path.join(os.tmpdir(), "moltbot-gw-"));
-    testState.sessionStorePath = path.join(dir, "sessions.json");
-    await writeSessionStore({
-      entries: {
-        main: {
-          sessionId: "sess-main",
-          updatedAt: Date.now(),
-          lastChannel: "telegram",
-          lastTo: "123",
-        },
-      },
-    });
-    const res = await rpcReq(ws, "agent", {
-      message: "hi",
-      sessionKey: "main",
-      channel: "last",
-      deliver: true,
-      idempotencyKey: "idem-agent-last",
-    });
-    expect(res.ok).toBe(true);
-
-    const spy = vi.mocked(agentCommand);
-    const call = spy.mock.calls.at(-1)?.[0] as Record<string, unknown>;
-    expectChannels(call, "telegram");
-    expect(call.to).toBe("123");
-    expect(call.deliver).toBe(true);
-    expect(call.bestEffortDeliver).toBe(true);
-    expect(call.sessionId).toBe("sess-main");
-  });
 
   test("agent routes main last-channel discord", async () => {
     setRegistry(defaultRegistry);

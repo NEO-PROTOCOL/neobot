@@ -10,13 +10,13 @@ describe("resolveConversationLabel", () => {
   });
 
   it("uses SenderName for direct chats when available", () => {
-    const ctx: MsgContext = { ChatType: "direct", SenderName: "Ada", From: "telegram:99" };
+    const ctx: MsgContext = { ChatType: "direct", SenderName: "Ada", From: "whatsapp:12345678@s.whatsapp.net" };
     expect(resolveConversationLabel(ctx)).toBe("Ada");
   });
 
-  it("derives Telegram-like group labels with numeric id suffix", () => {
-    const ctx: MsgContext = { ChatType: "group", GroupSubject: "Ops", From: "telegram:group:42" };
-    expect(resolveConversationLabel(ctx)).toBe("Ops id:42");
+  it("derives channel-like group labels with id suffix", () => {
+    const ctx: MsgContext = { ChatType: "group", GroupSubject: "Ops", From: "whatsapp:group:123456@g.us" };
+    expect(resolveConversationLabel(ctx)).toBe("Ops id:123456@g.us");
   });
 
   it("does not append ids for #rooms/channels", () => {

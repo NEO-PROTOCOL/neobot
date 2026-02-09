@@ -1,5 +1,5 @@
 import type { ChannelId } from "../channels/plugins/types.js";
-import type { StickerMetadata } from "../telegram/bot/types.js";
+
 import type { InternalMessageChannel } from "../utils/message-channel.js";
 import type { CommandArgs } from "./commands-registry.types.js";
 import type {
@@ -66,8 +66,7 @@ export type MsgContext = {
   MediaPaths?: string[];
   MediaUrls?: string[];
   MediaTypes?: string[];
-  /** Telegram sticker metadata (emoji, set name, file IDs, cached description). */
-  Sticker?: StickerMetadata;
+
   OutputDir?: string;
   OutputBase?: string;
   /** Remote host for SCP when media lives on a different machine (e.g., moltbot@192.168.64.3). */
@@ -101,10 +100,7 @@ export type MsgContext = {
   CommandAuthorized?: boolean;
   CommandSource?: "text" | "native";
   CommandTargetSessionKey?: string;
-  /** Thread identifier (Telegram topic id or Matrix thread event id). */
-  MessageThreadId?: string | number;
-  /** Telegram forum supergroup marker. */
-  IsForum?: boolean;
+
   /**
    * Originating channel for reply routing.
    * When set, replies should be routed back to this provider

@@ -28,12 +28,9 @@ export async function scheduleRestartSentinelWake(params: { deps: CliDeps }) {
     return;
   }
 
-  // Extract topic/thread ID from sessionKey (supports both :topic: and :thread:)
-  // Telegram uses :topic:, other platforms use :thread:
-  const topicIndex = sessionKey.lastIndexOf(":topic:");
-  const threadIndex = sessionKey.lastIndexOf(":thread:");
-  const markerIndex = Math.max(topicIndex, threadIndex);
-  const marker = topicIndex > threadIndex ? ":topic:" : ":thread:";
+  // Extract thread ID from sessionKey (supports :thread:)
+  const marker = ":thread:";
+  const markerIndex = sessionKey.lastIndexOf(marker);
 
   const baseSessionKey = markerIndex === -1 ? sessionKey : sessionKey.slice(0, markerIndex);
   const threadIdRaw =

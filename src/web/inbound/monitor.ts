@@ -1,4 +1,5 @@
-import type { AnyMessageContent, proto, WAMessage } from "@whiskeysockets/baileys";
+import type { AnyMessageContent, WAMessage } from "@whiskeysockets/baileys";
+import { proto } from "@whiskeysockets/baileys";
 import { DisconnectReason, isJidGroup } from "@whiskeysockets/baileys";
 import { formatLocationText } from "../../channels/location.js";
 import { logVerbose, shouldLogVerbose } from "../../globals.js";
@@ -255,9 +256,17 @@ export async function monitorWebInbox(options: {
         }
       };
       const reply = async (text: string) => {
+        if (!checkEgress(chatJid)) {
+          inboundLogger.warn({ chatJid }, "Egress limit reached, blocking outgoing message");
+          return;
+        }
         await sock.sendMessage(chatJid, { text });
       };
       const sendMedia = async (payload: AnyMessageContent) => {
+        if (!checkEgress(chatJid)) {
+          inboundLogger.warn({ chatJid }, "Egress limit reached, blocking outgoing media");
+          return;
+        }
         await sock.sendMessage(chatJid, payload);
       };
       const timestamp = messageTimestampMs;
@@ -312,6 +321,32 @@ export async function monitorWebInbox(options: {
     }
   };
   sock.ev.on("messages.upsert", handleMessagesUpsert);
+
+  const egressTracker = new Map<string, number>();
+  const EGRESS_LIMIT = 5; // messages per minute per conversation
+  const EGRESS_WINDOW = 60000;
+
+  const checkEgress = (chatId: string): boolean => {
+    const now = Date.now();
+    const last = egressTracker.get(chatId) || 0;
+    if (now - last < 2000) return false; // hard throttle 2s
+    egressTracker.set(chatId, now);
+    return true;
+  };
+
+  sock.ev.on("messages.update", async (updates) => {
+    for (const { key, update } of updates) {
+      if (update.status === proto.WebMessageInfo.Status.ERROR) {
+        const forensicId = (await import("node:crypto"))
+          .createHash("sha256")
+          .update(JSON.stringify(key))
+          .digest("hex")
+          .slice(0, 12);
+        inboundConsoleLog.error(`[Forensic ${forensicId}] WhatsApp Delivery Failure for message ${key.id}`);
+        inboundLogger.warn({ forensicId, key, update }, "whatsapp delivery failure");
+      }
+    }
+  });
 
   const handleConnectionUpdate = (
     update: Partial<import("@whiskeysockets/baileys").ConnectionState>,

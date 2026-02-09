@@ -5,7 +5,7 @@ const WHATSAPP_LID_RE = /^(\d+)@lid$/i;
 
 function stripWhatsAppTargetPrefixes(value: string): string {
   let candidate = value.trim();
-  for (;;) {
+  for (; ;) {
     const before = candidate;
     candidate = candidate.replace(/^whatsapp:/i, "").trim();
     if (candidate === before) return candidate;
@@ -61,4 +61,16 @@ export function normalizeWhatsAppTarget(value: string): string | null {
   if (candidate.includes("@")) return null;
   const normalized = normalizeE164(candidate);
   return normalized.length > 1 ? normalized : null;
+}
+
+/**
+ * Normalizes a JID for Baileys v7 compatibility.
+ * "41796666864:0@s.whatsapp.net" -> "41796666864@s.whatsapp.net"
+ */
+export function normalizeJid(jid: string): string {
+  if (!jid) return jid;
+  if (jid.includes(":")) {
+    return jid.split(":")[0] + (jid.includes("@") ? "@" + jid.split("@")[1] : "");
+  }
+  return jid;
 }

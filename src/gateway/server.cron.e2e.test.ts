@@ -15,7 +15,7 @@ installGatewayTestHooks({ scope: "suite" });
 
 async function yieldToEventLoop() {
   // Avoid relying on timers (fake timers can leak between tests).
-  await fs.stat(process.cwd()).catch(() => {});
+  await fs.stat(process.cwd()).catch(() => { });
 }
 
 async function rmTempDir(dir: string) {
@@ -37,7 +37,7 @@ async function rmTempDir(dir: string) {
 
 async function waitForNonEmptyFile(pathname: string, timeoutMs = 2000) {
   const startedAt = process.hrtime.bigint();
-  for (;;) {
+  for (; ;) {
     const raw = await fs.readFile(pathname, "utf-8").catch(() => "");
     if (raw.trim().length > 0) return raw;
     const elapsedMs = Number(process.hrtime.bigint() - startedAt) / 1e6;
@@ -162,28 +162,28 @@ describe("gateway server cron", () => {
       const mergeUpdateRes = await rpcReq(ws, "cron.update", {
         id: mergeJobId,
         patch: {
-          payload: { kind: "agentTurn", deliver: true, channel: "telegram", to: "19098680" },
+          payload: { kind: "agentTurn", deliver: true, channel: "whatsapp", to: "12345678" },
         },
       });
       expect(mergeUpdateRes.ok).toBe(true);
       const merged = mergeUpdateRes.payload as
         | {
-            payload?: {
-              kind?: unknown;
-              message?: unknown;
-              model?: unknown;
-              deliver?: unknown;
-              channel?: unknown;
-              to?: unknown;
-            };
-          }
+          payload?: {
+            kind?: unknown;
+            message?: unknown;
+            model?: unknown;
+            deliver?: unknown;
+            channel?: unknown;
+            to?: unknown;
+          };
+        }
         | undefined;
       expect(merged?.payload?.kind).toBe("agentTurn");
       expect(merged?.payload?.message).toBe("hello");
       expect(merged?.payload?.model).toBe("opus");
       expect(merged?.payload?.deliver).toBe(true);
-      expect(merged?.payload?.channel).toBe("telegram");
-      expect(merged?.payload?.to).toBe("19098680");
+      expect(merged?.payload?.channel).toBe("whatsapp");
+      expect(merged?.payload?.to).toBe("12345678");
 
       const rejectRes = await rpcReq(ws, "cron.add", {
         name: "patch reject",

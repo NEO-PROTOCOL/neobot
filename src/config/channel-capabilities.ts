@@ -1,9 +1,7 @@
 import { normalizeChannelId } from "../channels/plugins/index.js";
 import { normalizeAccountId } from "../routing/session-key.js";
 import type { MoltbotConfig } from "./config.js";
-import type { TelegramCapabilitiesConfig } from "./types.telegram.js";
-
-type CapabilitiesConfig = TelegramCapabilitiesConfig;
+type CapabilitiesConfig = string[] | Record<string, any>;
 
 const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every((entry) => typeof entry === "string");
@@ -56,9 +54,9 @@ export function resolveChannelCapabilities(params: {
   const channelsConfig = cfg.channels as Record<string, unknown> | undefined;
   const channelConfig = (channelsConfig?.[channel] ?? (cfg as Record<string, unknown>)[channel]) as
     | {
-        accounts?: Record<string, { capabilities?: CapabilitiesConfig }>;
-        capabilities?: CapabilitiesConfig;
-      }
+      accounts?: Record<string, { capabilities?: CapabilitiesConfig }>;
+      capabilities?: CapabilitiesConfig;
+    }
     | undefined;
   return resolveAccountCapabilities({
     cfg: channelConfig,

@@ -8,7 +8,6 @@ import {
   MSTeamsConfigSchema,
   SignalConfigSchema,
   SlackConfigSchema,
-  TelegramConfigSchema,
 } from "./zod-schema.providers-core.js";
 import { WhatsAppConfigSchema } from "./zod-schema.providers-whatsapp.js";
 import { GroupPolicySchema } from "./zod-schema.core.js";
@@ -28,7 +27,6 @@ export const ChannelsSchema = z
       .strict()
       .optional(),
     whatsapp: WhatsAppConfigSchema.optional(),
-    telegram: TelegramConfigSchema.optional(),
     discord: DiscordConfigSchema.optional(),
     googlechat: GoogleChatConfigSchema.optional(),
     slack: SlackConfigSchema.optional(),

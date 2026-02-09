@@ -162,12 +162,12 @@ const readUsageFromSessionLog = (
   sessionEntry?: SessionEntry,
 ):
   | {
-      input: number;
-      output: number;
-      promptTokens: number;
-      total: number;
-      model?: string;
-    }
+    input: number;
+    output: number;
+    promptTokens: number;
+    total: number;
+    model?: string;
+  }
   | undefined => {
   // Transcripts are stored at the session file path (fallback: ~/.clawdbot/sessions/<SessionId>.jsonl)
   if (!sessionId) return undefined;
@@ -384,21 +384,21 @@ export function buildStatusMessage(args: StatusArgs): string {
   const showCost = authLabelValue === "api-key" || authLabelValue === "mixed";
   const costConfig = showCost
     ? resolveModelCostConfig({
-        provider,
-        model,
-        config: args.config,
-      })
+      provider,
+      model,
+      config: args.config,
+    })
     : undefined;
   const hasUsage = typeof inputTokens === "number" || typeof outputTokens === "number";
   const cost =
     showCost && hasUsage
       ? estimateUsageCost({
-          usage: {
-            input: inputTokens ?? undefined,
-            output: outputTokens ?? undefined,
-          },
-          cost: costConfig,
-        })
+        usage: {
+          input: inputTokens ?? undefined,
+          output: outputTokens ?? undefined,
+        },
+        cost: costConfig,
+      })
       : undefined;
   const costLabel = showCost && hasUsage ? formatUsd(cost) : undefined;
 
@@ -592,43 +592,19 @@ export function buildCommandsMessagePaginated(
   skillCommands?: SkillCommandSpec[],
   options?: CommandsMessageOptions,
 ): CommandsMessageResult {
-  const page = Math.max(1, options?.page ?? 1);
-  const surface = options?.surface?.toLowerCase();
-  const isTelegram = surface === "telegram";
-
   const commands = cfg
     ? listChatCommandsForConfig(cfg, { skillCommands })
     : listChatCommands({ skillCommands });
   const pluginCommands = listPluginCommands();
   const items = buildCommandItems(commands, pluginCommands);
 
-  if (!isTelegram) {
-    const lines = ["ℹ️ Slash commands", ""];
-    lines.push(formatCommandList(items));
-    return {
-      text: lines.join("\n").trim(),
-      totalPages: 1,
-      currentPage: 1,
-      hasNext: false,
-      hasPrev: false,
-    };
-  }
-
-  const totalCommands = items.length;
-  const totalPages = Math.max(1, Math.ceil(totalCommands / COMMANDS_PER_PAGE));
-  const currentPage = Math.min(page, totalPages);
-  const startIndex = (currentPage - 1) * COMMANDS_PER_PAGE;
-  const endIndex = startIndex + COMMANDS_PER_PAGE;
-  const pageItems = items.slice(startIndex, endIndex);
-
-  const lines = [`ℹ️ Commands (${currentPage}/${totalPages})`, ""];
-  lines.push(formatCommandList(pageItems));
-
+  const lines = ["ℹ️ Slash commands", ""];
+  lines.push(formatCommandList(items));
   return {
     text: lines.join("\n").trim(),
-    totalPages,
-    currentPage,
-    hasNext: currentPage < totalPages,
-    hasPrev: currentPage > 1,
+    totalPages: 1,
+    currentPage: 1,
+    hasNext: false,
+    hasPrev: false,
   };
 }

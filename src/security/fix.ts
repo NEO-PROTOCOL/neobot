@@ -267,7 +267,6 @@ function applyConfigFixes(params: { cfg: MoltbotConfig; env: NodeJS.ProcessEnv }
   }
 
   for (const channel of [
-    "telegram",
     "whatsapp",
     "discord",
     "signal",

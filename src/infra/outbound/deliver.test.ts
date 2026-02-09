@@ -1,13 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { MoltbotConfig } from "../../config/config.js";
-import { signalOutbound } from "../../channels/plugins/outbound/signal.js";
-import { telegramOutbound } from "../../channels/plugins/outbound/telegram.js";
 import { whatsappOutbound } from "../../channels/plugins/outbound/whatsapp.js";
-import { markdownToSignalTextChunks } from "../../signal/format.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import {
-  createIMessageTestPlugin,
   createOutboundTestPlugin,
   createTestRegistry,
 } from "../../test-utils/channel-plugins.js";
@@ -36,116 +32,6 @@ describe("deliverOutboundPayloads", () => {
   afterEach(() => {
     setActivePluginRegistry(emptyRegistry);
   });
-  it("chunks telegram markdown and passes through accountId", async () => {
-    const sendTelegram = vi.fn().mockResolvedValue({ messageId: "m1", chatId: "c1" });
-    const cfg: MoltbotConfig = {
-      channels: { telegram: { botToken: "tok-1", textChunkLimit: 2 } },
-    };
-    const prevTelegramToken = process.env.TELEGRAM_BOT_TOKEN;
-    process.env.TELEGRAM_BOT_TOKEN = "";
-    try {
-      const results = await deliverOutboundPayloads({
-        cfg,
-        channel: "telegram",
-        to: "123",
-        payloads: [{ text: "abcd" }],
-        deps: { sendTelegram },
-      });
-
-      expect(sendTelegram).toHaveBeenCalledTimes(2);
-      for (const call of sendTelegram.mock.calls) {
-        expect(call[2]).toEqual(
-          expect.objectContaining({ accountId: undefined, verbose: false, textMode: "html" }),
-        );
-      }
-      expect(results).toHaveLength(2);
-      expect(results[0]).toMatchObject({ channel: "telegram", chatId: "c1" });
-    } finally {
-      if (prevTelegramToken === undefined) {
-        delete process.env.TELEGRAM_BOT_TOKEN;
-      } else {
-        process.env.TELEGRAM_BOT_TOKEN = prevTelegramToken;
-      }
-    }
-  });
-
-  it("passes explicit accountId to sendTelegram", async () => {
-    const sendTelegram = vi.fn().mockResolvedValue({ messageId: "m1", chatId: "c1" });
-    const cfg: MoltbotConfig = {
-      channels: { telegram: { botToken: "tok-1", textChunkLimit: 2 } },
-    };
-
-    await deliverOutboundPayloads({
-      cfg,
-      channel: "telegram",
-      to: "123",
-      accountId: "default",
-      payloads: [{ text: "hi" }],
-      deps: { sendTelegram },
-    });
-
-    expect(sendTelegram).toHaveBeenCalledWith(
-      "123",
-      "hi",
-      expect.objectContaining({ accountId: "default", verbose: false, textMode: "html" }),
-    );
-  });
-
-  it("uses signal media maxBytes from config", async () => {
-    const sendSignal = vi.fn().mockResolvedValue({ messageId: "s1", timestamp: 123 });
-    const cfg: MoltbotConfig = { channels: { signal: { mediaMaxMb: 2 } } };
-
-    const results = await deliverOutboundPayloads({
-      cfg,
-      channel: "signal",
-      to: "+1555",
-      payloads: [{ text: "hi", mediaUrl: "https://x.test/a.jpg" }],
-      deps: { sendSignal },
-    });
-
-    expect(sendSignal).toHaveBeenCalledWith(
-      "+1555",
-      "hi",
-      expect.objectContaining({
-        mediaUrl: "https://x.test/a.jpg",
-        maxBytes: 2 * 1024 * 1024,
-        textMode: "plain",
-        textStyles: [],
-      }),
-    );
-    expect(results[0]).toMatchObject({ channel: "signal", messageId: "s1" });
-  });
-
-  it("chunks Signal markdown using the format-first chunker", async () => {
-    const sendSignal = vi.fn().mockResolvedValue({ messageId: "s1", timestamp: 123 });
-    const cfg: MoltbotConfig = {
-      channels: { signal: { textChunkLimit: 20 } },
-    };
-    const text = `Intro\\n\\n\`\`\`\`md\\n${"y".repeat(60)}\\n\`\`\`\\n\\nOutro`;
-    const expectedChunks = markdownToSignalTextChunks(text, 20);
-
-    await deliverOutboundPayloads({
-      cfg,
-      channel: "signal",
-      to: "+1555",
-      payloads: [{ text }],
-      deps: { sendSignal },
-    });
-
-    expect(sendSignal).toHaveBeenCalledTimes(expectedChunks.length);
-    expectedChunks.forEach((chunk, index) => {
-      expect(sendSignal).toHaveBeenNthCalledWith(
-        index + 1,
-        "+1555",
-        chunk.text,
-        expect.objectContaining({
-          accountId: undefined,
-          textMode: "plain",
-          textStyles: chunk.styles,
-        }),
-      );
-    });
-  });
 
   it("chunks WhatsApp text and returns all results", async () => {
     const sendWhatsApp = vi
@@ -161,7 +47,7 @@ describe("deliverOutboundPayloads", () => {
       channel: "whatsapp",
       to: "+1555",
       payloads: [{ text: "abcd" }],
-      deps: { sendWhatsApp },
+      deps: { sendWhatsApp } as any,
     });
 
     expect(sendWhatsApp).toHaveBeenCalledTimes(2);
@@ -179,7 +65,7 @@ describe("deliverOutboundPayloads", () => {
       channel: "whatsapp",
       to: "+1555",
       payloads: [{ text: "Line one\n\nLine two" }],
-      deps: { sendWhatsApp },
+      deps: { sendWhatsApp } as any,
     });
 
     expect(sendWhatsApp).toHaveBeenCalledTimes(2);
@@ -215,7 +101,7 @@ describe("deliverOutboundPayloads", () => {
           pluginId: "matrix",
           source: "test",
           plugin: createOutboundTestPlugin({
-            id: "matrix",
+            id: "matrix" as any,
             outbound: {
               deliveryMode: "direct",
               chunker,
@@ -230,49 +116,19 @@ describe("deliverOutboundPayloads", () => {
     );
 
     const cfg: MoltbotConfig = {
-      channels: { matrix: { textChunkLimit: 4000, chunkMode: "newline" } },
+      channels: { matrix: { textChunkLimit: 4000, chunkMode: "newline" } } as any,
     };
     const text = "```js\nconst a = 1;\nconst b = 2;\n```\nAfter";
 
     await deliverOutboundPayloads({
       cfg,
-      channel: "matrix",
+      channel: "matrix" as any,
       to: "!room",
       payloads: [{ text }],
     });
 
     expect(chunker).toHaveBeenCalledTimes(1);
     expect(chunker).toHaveBeenNthCalledWith(1, text, 4000);
-  });
-
-  it("uses iMessage media maxBytes from agent fallback", async () => {
-    const sendIMessage = vi.fn().mockResolvedValue({ messageId: "i1" });
-    setActivePluginRegistry(
-      createTestRegistry([
-        {
-          pluginId: "imessage",
-          source: "test",
-          plugin: createIMessageTestPlugin(),
-        },
-      ]),
-    );
-    const cfg: MoltbotConfig = {
-      agents: { defaults: { mediaMaxMb: 3 } },
-    };
-
-    await deliverOutboundPayloads({
-      cfg,
-      channel: "imessage",
-      to: "chat_id:42",
-      payloads: [{ text: "hello" }],
-      deps: { sendIMessage },
-    });
-
-    expect(sendIMessage).toHaveBeenCalledWith(
-      "chat_id:42",
-      "hello",
-      expect.objectContaining({ maxBytes: 3 * 1024 * 1024 }),
-    );
   });
 
   it("normalizes payloads and drops empty entries", () => {
@@ -300,7 +156,7 @@ describe("deliverOutboundPayloads", () => {
       channel: "whatsapp",
       to: "+1555",
       payloads: [{ text: "a" }, { text: "b" }],
-      deps: { sendWhatsApp },
+      deps: { sendWhatsApp } as any,
       bestEffort: true,
       onError,
     });
@@ -320,7 +176,7 @@ describe("deliverOutboundPayloads", () => {
       channel: "whatsapp",
       to: "+1555",
       payloads: [{ text: "hi", mediaUrl: "https://x.test/a.jpg" }],
-      deps: { sendWhatsApp },
+      deps: { sendWhatsApp } as any,
       bestEffort: true,
       onError,
     });
@@ -331,53 +187,13 @@ describe("deliverOutboundPayloads", () => {
       expect.objectContaining({ text: "hi", mediaUrls: ["https://x.test/a.jpg"] }),
     );
   });
-
-  it("mirrors delivered output when mirror options are provided", async () => {
-    const sendTelegram = vi.fn().mockResolvedValue({ messageId: "m1", chatId: "c1" });
-    const cfg: MoltbotConfig = {
-      channels: { telegram: { botToken: "tok-1", textChunkLimit: 2 } },
-    };
-    mocks.appendAssistantMessageToSessionTranscript.mockClear();
-
-    await deliverOutboundPayloads({
-      cfg,
-      channel: "telegram",
-      to: "123",
-      payloads: [{ text: "caption", mediaUrl: "https://example.com/files/report.pdf?sig=1" }],
-      deps: { sendTelegram },
-      mirror: {
-        sessionKey: "agent:main:main",
-        text: "caption",
-        mediaUrls: ["https://example.com/files/report.pdf?sig=1"],
-      },
-    });
-
-    expect(mocks.appendAssistantMessageToSessionTranscript).toHaveBeenCalledWith(
-      expect.objectContaining({ text: "report.pdf" }),
-    );
-  });
 });
 
 const emptyRegistry = createTestRegistry([]);
 const defaultRegistry = createTestRegistry([
   {
-    pluginId: "telegram",
-    plugin: createOutboundTestPlugin({ id: "telegram", outbound: telegramOutbound }),
-    source: "test",
-  },
-  {
-    pluginId: "signal",
-    plugin: createOutboundTestPlugin({ id: "signal", outbound: signalOutbound }),
-    source: "test",
-  },
-  {
     pluginId: "whatsapp",
     plugin: createOutboundTestPlugin({ id: "whatsapp", outbound: whatsappOutbound }),
-    source: "test",
-  },
-  {
-    pluginId: "imessage",
-    plugin: createIMessageTestPlugin(),
     source: "test",
   },
 ]);

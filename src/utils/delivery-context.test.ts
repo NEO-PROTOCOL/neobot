@@ -65,12 +65,12 @@ describe("delivery context helpers", () => {
 
     expect(
       deliveryContextFromSession({
-        channel: "telegram",
+        channel: "whatsapp",
         lastTo: " 123 ",
         lastThreadId: " 999 ",
       }),
     ).toEqual({
-      channel: "telegram",
+      channel: "whatsapp",
       to: "123",
       accountId: undefined,
       threadId: "999",

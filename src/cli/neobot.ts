@@ -128,7 +128,7 @@ async function main() {
     const gatewayCron = buildGatewayCronService({
       cfg,
       deps,
-      broadcast: () => {},
+      broadcast: () => { },
     });
 
     if (subcmd === "list") {
@@ -196,7 +196,7 @@ async function main() {
     const userInput = rest.join(" ").trim();
     if (!userInput) {
       console.log(
-        "Diga-me o que você quer agendar. Ex: 'neobot schedule agende um oi para Julia em 15 min'",
+        "Diga-me o que você quer agendar. Ex: 'neobot schedule agende uma tarefa em 15 min'",
       );
       process.exit(1);
     }
@@ -214,7 +214,6 @@ async function main() {
 O usuário quer agendar uma tarefa. Analise o pedido dele e use a ferramenta 'scheduler' para agendar.
 Pedido: "${userInput}"
 
-Se o pedido envolver telegram para "Julia", use o contato @anacarolinamaia.
 Se o tempo for relativo (ex: 15 min), passe como "in 15 minutes".
 
 Importante: Use a skill 'scheduler' para efetivar o agendamento através do script 'skills/scheduler/scripts/scheduler.sh'.

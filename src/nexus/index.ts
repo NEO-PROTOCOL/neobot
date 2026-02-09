@@ -127,9 +127,9 @@ export function setupNexusReactors() {
     });
 
     // REACTOR: Mint -> Notification
-    // When Mint is confirmed on-chain, notify the user via FlowCloser.
+    // When Mint is confirmed on-chain, notify the user via NΞØ Sovereign Cloud Engine.
     Nexus.onEvent(ProtocolEvent.MINT_CONFIRMED, (payload: any) => {
-        console.log(`[REACTOR] ✅ Mint Confirmed! Triggering FlowCloser notification...`);
+        console.log(`[REACTOR] ✅ Mint Confirmed! Triggering Sovereign Cloud Engine notification...`);
         // Here we would call the WhatsApp/Telegram sender
     });
 

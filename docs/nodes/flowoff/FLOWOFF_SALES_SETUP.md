@@ -2,7 +2,7 @@
 
 ```text
 ╔════════════════════════════════════════╗
-║  NEØ FLOWCLOSER → MÁQUINA DE VENDAS    ║
+║  NEØ AGENT FULL → MÁQUINA DE VENDAS    ║
 ║  LLM qualifica + fecha vendas          ║
 ╚════════════════════════════════════════╝
 ```

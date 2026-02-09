@@ -1,21 +1,21 @@
 import { TaskScheduler } from "./scheduler.js";
 import { getReportService } from "./intelligent-report-service.js";
 
-export interface TelegramBot {
-  sendMessage(chatId: string, message: string, options?: any): Promise<void>;
+export interface WhatsAppBot {
+  sendMessage(to: string, message: string, options?: any): Promise<void>;
 }
 
 export interface ClaudeService {
   chat(message: string, context?: string): Promise<{ message: string }>;
 }
 
-const ADMIN_CHAT = process.env.TELEGRAM_ADMIN_CHAT || "[CHAT_ID]";
+const ADMIN_CHAT = process.env.WHATSAPP_ADMIN_JID || "[JID]";
 
 /**
  * Setup Intelligent Daily Report Automation
  * Envia relatório diário inteligente às 18h
  */
-export function setupIntelligentReport(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupIntelligentReport(scheduler: TaskScheduler, whatsapp: WhatsAppBot) {
   scheduler.add({
     id: "intelligent-report",
     name: "Relatório Diário Inteligente",
@@ -34,17 +34,14 @@ export function setupIntelligentReport(scheduler: TaskScheduler, telegram: Teleg
         const filepath = await reportService.saveReport(report);
         console.log(`💾 Relatório salvo em: ${filepath}`);
 
-        // Enviar via Telegram com formatação
-        await telegram.sendMessage(
+        // Enviar via WhatsApp
+        await whatsapp.sendMessage(
           ADMIN_CHAT,
           `
 📊 *Relatório Inteligente - ${new Date().toLocaleDateString("pt-BR")}*
 
 ${report}
                 `.trim(),
-          {
-            parse_mode: "Markdown",
-          },
         );
 
         console.log("✅ Relatório enviado com sucesso!");
@@ -52,7 +49,7 @@ ${report}
         console.error("❌ Erro ao gerar relatório:", error);
 
         // Enviar notificação de erro
-        await telegram.sendMessage(
+        await whatsapp.sendMessage(
           ADMIN_CHAT,
           `
 ⚠️ *Erro ao gerar relatório diário*
@@ -61,9 +58,6 @@ ${error instanceof Error ? error.message : "Erro desconhecido"}
 
 Timestamp: ${new Date().toISOString()}
                 `.trim(),
-          {
-            parse_mode: "Markdown",
-          },
         );
 
         throw error;
@@ -78,7 +72,7 @@ Timestamp: ${new Date().toISOString()}
  * Setup Morning Briefing
  * Envia briefing matinal às 8h
  */
-export function setupMorningBriefing(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupMorningBriefing(scheduler: TaskScheduler, whatsapp: WhatsAppBot) {
   scheduler.add({
     id: "morning-briefing",
     name: "Briefing Matinal",
@@ -106,15 +100,13 @@ export function setupMorningBriefing(scheduler: TaskScheduler, telegram: Telegra
 📅 *Lembretes*
 • ${data.reminders} agendados para hoje
 
-${data.errors.length > 0 ? `\n⚠️ *Atenção*\n${data.errors.map((e) => `• ${e}`).join("\n")}` : "✅ Sistema 100% operacional"}
+${data.errors.length > 0 ? `\n⚠️ *Atenção*\n${data.errors.map((e: any) => `• ${e}`).join("\n")}` : "✅ Sistema 100% operacional"}
 
 ---
 Tenha um ótimo dia! 🚀
                 `.trim();
 
-        await telegram.sendMessage(ADMIN_CHAT, message, {
-          parse_mode: "Markdown",
-        });
+        await whatsapp.sendMessage(ADMIN_CHAT, message);
 
         console.log("✅ Briefing matinal enviado!");
       } catch (error) {
@@ -131,7 +123,7 @@ Tenha um ótimo dia! 🚀
  * Setup Weekly Summary
  * Envia resumo semanal toda segunda às 9h
  */
-export function setupWeeklySummary(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupWeeklySummary(scheduler: TaskScheduler, whatsapp: WhatsAppBot) {
   scheduler.add({
     id: "weekly-summary",
     name: "Resumo Semanal",
@@ -166,9 +158,7 @@ Foco em otimização e novas features!
 Ótima semana pela frente! 💪
                 `.trim();
 
-        await telegram.sendMessage(ADMIN_CHAT, message, {
-          parse_mode: "Markdown",
-        });
+        await whatsapp.sendMessage(ADMIN_CHAT, message);
 
         console.log("✅ Resumo semanal enviado!");
       } catch (error) {
@@ -185,7 +175,7 @@ Foco em otimização e novas features!
  * Setup Health Check
  * Verifica saúde do sistema a cada 5 minutos
  */
-export function setupHealthCheck(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupHealthCheck(scheduler: TaskScheduler, whatsapp: WhatsAppBot) {
   let lastAlertTime = 0;
   const ALERT_COOLDOWN = 15 * 60 * 1000; // 15 minutos
 
@@ -206,7 +196,7 @@ export function setupHealthCheck(scheduler: TaskScheduler, telegram: TelegramBot
           const now = Date.now();
 
           if (now - lastAlertTime > ALERT_COOLDOWN) {
-            await telegram.sendMessage(
+            await whatsapp.sendMessage(
               ADMIN_CHAT,
               `
 ⚠️ *Alerta: Memória Alta*
@@ -217,9 +207,6 @@ Heap total: ${Math.round(stats.memoryUsage.heapTotal / 1024 / 1024)}MB
 
 Recomendação: Considere reiniciar o sistema.
                         `.trim(),
-              {
-                parse_mode: "Markdown",
-              },
             );
 
             lastAlertTime = now;

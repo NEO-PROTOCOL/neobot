@@ -8,7 +8,6 @@ import type { ReplyPayload } from "../../auto-reply/types.js";
 import { loadChannelOutboundAdapter } from "../../channels/plugins/outbound/load.js";
 import type { ChannelOutboundAdapter } from "../../channels/plugins/types.js";
 import type { MoltbotConfig } from "../../config/config.js";
-import type { sendMessageTelegram } from "../../telegram/send.js";
 import type { sendMessageWhatsApp } from "../../web/outbound.js";
 import {
   appendAssistantMessageToSessionTranscript,
@@ -23,7 +22,6 @@ export { normalizeOutboundPayloads } from "./payloads.js";
 
 export type OutboundSendDeps = {
   sendWhatsApp?: typeof sendMessageWhatsApp;
-  sendTelegram?: typeof sendMessageTelegram;
 };
 
 export type OutboundDeliveryResult = {
@@ -110,18 +108,18 @@ function createPluginHandler(params: {
     textChunkLimit: outbound.textChunkLimit,
     sendPayload: outbound.sendPayload
       ? async (payload) =>
-          outbound.sendPayload!({
-            cfg: params.cfg,
-            to: params.to,
-            text: payload.text ?? "",
-            mediaUrl: payload.mediaUrl,
-            accountId: params.accountId,
-            replyToId: params.replyToId,
-            threadId: params.threadId,
-            gifPlayback: params.gifPlayback,
-            deps: params.deps,
-            payload,
-          })
+        outbound.sendPayload!({
+          cfg: params.cfg,
+          to: params.to,
+          text: payload.text ?? "",
+          mediaUrl: payload.mediaUrl,
+          accountId: params.accountId,
+          replyToId: params.replyToId,
+          threadId: params.threadId,
+          gifPlayback: params.gifPlayback,
+          deps: params.deps,
+          payload,
+        })
       : undefined,
     sendText: async (text) =>
       sendText({
@@ -187,8 +185,8 @@ export async function deliverOutboundPayloads(params: {
   });
   const textLimit = handler.chunker
     ? resolveTextChunkLimit(cfg, channel, accountId, {
-        fallbackLimit: handler.textChunkLimit,
-      })
+      fallbackLimit: handler.textChunkLimit,
+    })
     : undefined;
   const chunkMode = handler.chunker ? resolveChunkMode(cfg, channel, accountId) : "length";
 

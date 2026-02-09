@@ -1,7 +1,31 @@
 import type { AnyMessageContent, WAPresence } from "@whiskeysockets/baileys";
 import { recordChannelActivity } from "../../infra/channel-activity.js";
 import { toWhatsappJid } from "../../utils.js";
+import { normalizeJid } from "../../whatsapp/normalize.js";
 import type { ActiveWebSendOptions } from "../active-listener.js";
+
+async function sendMessageWithRetry(
+  jid: string,
+  content: AnyMessageContent,
+  sock: {
+    sendMessage: (jid: string, content: AnyMessageContent) => Promise<unknown>;
+  },
+  maxRetries = 3,
+): Promise<unknown> {
+  let lastErr: any;
+  const normalizedJid = normalizeJid(jid);
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await sock.sendMessage(normalizedJid, content);
+    } catch (err) {
+      lastErr = err;
+      const delay = Math.pow(2, attempt) * 1000;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+  throw lastErr;
+}
 
 export function createWebSendApi(params: {
   sock: {
@@ -10,6 +34,8 @@ export function createWebSendApi(params: {
   };
   defaultAccountId: string;
 }) {
+  const { sock } = params;
+
   return {
     sendMessage: async (
       to: string,
@@ -48,7 +74,9 @@ export function createWebSendApi(params: {
       } else {
         payload = { text };
       }
-      const result = await params.sock.sendMessage(jid, payload);
+
+      const result = await sendMessageWithRetry(jid, payload, sock);
+
       const accountId = sendOptions?.accountId ?? params.defaultAccountId;
       recordChannelActivity({
         channel: "whatsapp",
@@ -66,13 +94,17 @@ export function createWebSendApi(params: {
       poll: { question: string; options: string[]; maxSelections?: number },
     ): Promise<{ messageId: string }> => {
       const jid = toWhatsappJid(to);
-      const result = await params.sock.sendMessage(jid, {
-        poll: {
-          name: poll.question,
-          values: poll.options,
-          selectableCount: poll.maxSelections ?? 1,
-        },
-      } as AnyMessageContent);
+      const result = await sendMessageWithRetry(
+        jid,
+        {
+          poll: {
+            name: poll.question,
+            values: poll.options,
+            selectableCount: poll.maxSelections ?? 1,
+          },
+        } as AnyMessageContent,
+        sock,
+      );
       recordChannelActivity({
         channel: "whatsapp",
         accountId: params.defaultAccountId,
@@ -92,21 +124,25 @@ export function createWebSendApi(params: {
       participant?: string,
     ): Promise<void> => {
       const jid = toWhatsappJid(chatJid);
-      await params.sock.sendMessage(jid, {
-        react: {
-          text: emoji,
-          key: {
-            remoteJid: jid,
-            id: messageId,
-            fromMe,
-            participant: participant ? toWhatsappJid(participant) : undefined,
+      await sendMessageWithRetry(
+        jid,
+        {
+          react: {
+            text: emoji,
+            key: {
+              remoteJid: normalizeJid(jid),
+              id: messageId,
+              fromMe,
+              participant: participant ? normalizeJid(toWhatsappJid(participant)) : undefined,
+            },
           },
-        },
-      } as AnyMessageContent);
+        } as AnyMessageContent,
+        sock,
+      );
     },
     sendComposingTo: async (to: string): Promise<void> => {
       const jid = toWhatsappJid(to);
-      await params.sock.sendPresenceUpdate("composing", jid);
+      await sock.sendPresenceUpdate("composing", normalizeJid(jid));
     },
   } as const;
 }

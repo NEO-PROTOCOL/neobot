@@ -3,7 +3,6 @@ import type { MoltbotConfig } from "../../config/config.js";
 
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createTestRegistry } from "../../test-utils/channel-plugins.js";
-import { telegramPlugin } from "../../../extensions/telegram/src/channel.js";
 import { whatsappPlugin } from "../../../extensions/whatsapp/src/channel.js";
 import { resolveOutboundTarget, resolveSessionDeliveryTarget } from "./targets.js";
 
@@ -12,7 +11,6 @@ describe("resolveOutboundTarget", () => {
     setActivePluginRegistry(
       createTestRegistry([
         { pluginId: "whatsapp", plugin: whatsappPlugin, source: "test" },
-        { pluginId: "telegram", plugin: telegramPlugin, source: "test" },
       ]),
     );
   });
@@ -86,15 +84,7 @@ describe("resolveOutboundTarget", () => {
     }
     expect(res.ok).toBe(false);
     if (!res.ok) {
-      expect(res.error.message).toContain(expectedErrorIncludes);
-    }
-  });
-
-  it("rejects telegram with missing target", () => {
-    const res = resolveOutboundTarget({ channel: "telegram", to: " " });
-    expect(res.ok).toBe(false);
-    if (!res.ok) {
-      expect(res.error.message).toContain("Telegram");
+      expect((res as any).error.message).toContain(expectedErrorIncludes);
     }
   });
 
@@ -102,7 +92,7 @@ describe("resolveOutboundTarget", () => {
     const res = resolveOutboundTarget({ channel: "webchat", to: "x" });
     expect(res.ok).toBe(false);
     if (!res.ok) {
-      expect(res.error.message).toContain("WebChat");
+      expect((res as any).error.message).toContain("WebChat");
     }
   });
 });
@@ -141,11 +131,11 @@ describe("resolveSessionDeliveryTarget", () => {
         lastChannel: "whatsapp",
         lastTo: "+1555",
       },
-      requestedChannel: "telegram",
+      requestedChannel: "signal",
     });
 
     expect(resolved).toEqual({
-      channel: "telegram",
+      channel: "signal",
       to: undefined,
       accountId: undefined,
       threadId: undefined,
@@ -165,12 +155,12 @@ describe("resolveSessionDeliveryTarget", () => {
         lastChannel: "whatsapp",
         lastTo: "+1555",
       },
-      requestedChannel: "telegram",
+      requestedChannel: "signal",
       allowMismatchedLastTo: true,
     });
 
     expect(resolved).toEqual({
-      channel: "telegram",
+      channel: "signal",
       to: "+1555",
       accountId: undefined,
       threadId: undefined,

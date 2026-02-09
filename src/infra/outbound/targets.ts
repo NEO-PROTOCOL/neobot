@@ -127,7 +127,7 @@ export function resolveOutboundTarget(params: {
     return {
       ok: false,
       error: new Error(
-        `Delivering to WebChat is not supported via \`${formatCliCommand("moltbot agent")}\`; use WhatsApp/Telegram or run with --deliver=false.`,
+        `Delivering to WebChat is not supported via \`${formatCliCommand("moltbot agent")}\`; use WhatsApp or run with --deliver=false.`,
       ),
     };
   }
@@ -144,9 +144,9 @@ export function resolveOutboundTarget(params: {
     params.allowFrom ??
     (params.cfg && plugin.config.resolveAllowFrom
       ? plugin.config.resolveAllowFrom({
-          cfg: params.cfg,
-          accountId: params.accountId ?? undefined,
-        })
+        cfg: params.cfg,
+        accountId: params.accountId ?? undefined,
+      })
       : undefined);
 
   const resolveTarget = plugin.outbound?.resolveTarget;
@@ -297,10 +297,10 @@ export function resolveHeartbeatSenderContext(params: {
     params.delivery.channel !== "none" ? params.delivery.channel : params.delivery.lastChannel;
   const allowFrom = provider
     ? (getChannelPlugin(provider)?.config.resolveAllowFrom?.({
-        cfg: params.cfg,
-        accountId:
-          provider === params.delivery.lastChannel ? params.delivery.lastAccountId : undefined,
-      }) ?? [])
+      cfg: params.cfg,
+      accountId:
+        provider === params.delivery.lastChannel ? params.delivery.lastAccountId : undefined,
+    }) ?? [])
     : [];
 
   const sender = resolveHeartbeatSenderId({

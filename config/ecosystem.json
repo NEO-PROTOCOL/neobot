@@ -10,23 +10,34 @@
         "hosting": {
             "platform": "Local / Railway (Dev)",
             "adminEmail": "neo@neoprotocol.space"
-        }
+        },
+        "dependsOn": [
+            "neo-agent-full",
+            "neo-nexus",
+            "mio-system"
+        ]
     },
     {
-        "id": "flowcloser-agent",
+        "id": "neo-agent-full",
         "org": "NEO Protocol",
-        "name": "FlowCloser (Sales Agent)",
-        "description": "Agente de Qualificação e Vendas WhatsApp. Micro-agente focado em atendimento.",
-        "localPath": "../flowcloser",
-        "repository": "https://github.com/NEO-PROTOCOL/neo-closer.git",
-        "role": "Sales Agent / Customer Service",
+        "name": "NΞØ Sovereign Cloud Engine",
+        "description": "Template de Agente com State Layer v2.5 (Core Orchestrator - Sovereign GCloud Edition).",
+        "localPath": "../neo-agent-full",
+        "repository": "git@github.com:neomello/neo-agent-full.git",
+        "role": "Agent Node / Sales & Orchestration",
         "hosting": {
-            "platform": "Railway",
+            "platform": "Railway / Modal (HF Token)",
             "productionUrl": "https://flowcloser-agent-production.up.railway.app",
             "projectLink": "https://railway.com/project/95ed3bcd-2e20-4477-b50c-43cd9ec04c41",
             "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "sales.neoprotocol.space"
-        }
+            "targetCustomDomain": "core.neoprotocol.space",
+            "brain": "Modal V3 (V7-FastAPI)",
+            "hf_status": "Enabled (hf_sJyn...)"
+        },
+        "dependsOn": [
+            "neo-nexus",
+            "mio-system"
+        ]
     },
     {
         "id": "neo-nexus",
@@ -40,7 +51,10 @@
             "platform": "Railway / VPS",
             "adminEmail": "neo@neoprotocol.space",
             "targetCustomDomain": "nexus.neoprotocol.space"
-        }
+        },
+        "dependsOn": [
+            "mio-system"
+        ]
     },
     {
         "id": "mio-system",
@@ -59,8 +73,8 @@
     {
         "id": "neo-dashboard",
         "org": "NEO Protocol",
-        "name": "Neo Dashboard",
-        "description": "Interface Visual do Sistema (Next.js) - iOS Style Control Center",
+        "name": "NΞØ Sovereign Mission Control",
+        "description": "Interface Visual do Sistema - Centro de Comando Soberano (iOS Style / Glassmorphism)",
         "localPath": "../neo-dashboard-deploy",
         "repository": "https://github.com/neomello/neo-dashboard",
         "role": "Interface",
@@ -222,9 +236,13 @@
             "platform": "Railway (Sovereign Node)",
             "productionUrl": "https://flowpay-production-10d8.up.railway.app",
             "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "pay.flowoff.xyz",
+            "targetCustomDomain": "flowpay.cash",
             "governance": "NEØ SMART CONTRACT"
-        }
+        },
+        "dependsOn": [
+            "neo-nexus",
+            "smart-core"
+        ]
     },
     {
         "id": "flowpay-core",

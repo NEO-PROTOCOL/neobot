@@ -18,7 +18,6 @@ describe("runBootOnce", () => {
 
   const makeDeps = () => ({
     sendMessageWhatsApp: vi.fn(),
-    sendMessageTelegram: vi.fn(),
     sendMessageDiscord: vi.fn(),
     sendMessageSlack: vi.fn(),
     sendMessageSignal: vi.fn(),

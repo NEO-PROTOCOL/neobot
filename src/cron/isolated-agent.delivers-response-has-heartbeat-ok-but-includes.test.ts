@@ -69,6 +69,7 @@ function makeJob(payload: CronJob["payload"]): CronJob {
   const now = Date.now();
   return {
     id: "job-1",
+    name: "test-job",
     enabled: true,
     createdAtMs: now,
     updatedAtMs: now,
@@ -91,15 +92,14 @@ describe("runCronIsolatedAgentTurn", () => {
     await withTempHome(async (home) => {
       const storePath = await writeSessionStore(home);
       const deps: CliDeps = {
-        sendMessageWhatsApp: vi.fn(),
-        sendMessageTelegram: vi.fn().mockResolvedValue({
-          messageId: "t1",
+        sendMessageWhatsApp: vi.fn().mockResolvedValue({
+          messageId: "w1",
           chatId: "123",
         }),
         sendMessageDiscord: vi.fn(),
         sendMessageSignal: vi.fn(),
         sendMessageIMessage: vi.fn(),
-      };
+      } as any;
       // Media should still be delivered even if text is just HEARTBEAT_OK.
       vi.mocked(runEmbeddedPiAgent).mockResolvedValue({
         payloads: [{ text: "HEARTBEAT_OK", mediaUrl: "https://example.com/img.png" }],
@@ -116,7 +116,7 @@ describe("runCronIsolatedAgentTurn", () => {
           kind: "agentTurn",
           message: "do it",
           deliver: true,
-          channel: "telegram",
+          channel: "whatsapp",
           to: "123",
         }),
         message: "do it",
@@ -125,7 +125,7 @@ describe("runCronIsolatedAgentTurn", () => {
       });
 
       expect(res.status).toBe("ok");
-      expect(deps.sendMessageTelegram).toHaveBeenCalledWith(
+      expect(deps.sendMessageWhatsApp).toHaveBeenCalledWith(
         "123",
         "HEARTBEAT_OK",
         expect.objectContaining({ mediaUrl: "https://example.com/img.png" }),
@@ -137,15 +137,14 @@ describe("runCronIsolatedAgentTurn", () => {
     await withTempHome(async (home) => {
       const storePath = await writeSessionStore(home);
       const deps: CliDeps = {
-        sendMessageWhatsApp: vi.fn(),
-        sendMessageTelegram: vi.fn().mockResolvedValue({
-          messageId: "t1",
+        sendMessageWhatsApp: vi.fn().mockResolvedValue({
+          messageId: "w1",
           chatId: "123",
         }),
         sendMessageDiscord: vi.fn(),
         sendMessageSignal: vi.fn(),
         sendMessageIMessage: vi.fn(),
-      };
+      } as any;
       vi.mocked(runEmbeddedPiAgent).mockResolvedValue({
         payloads: [{ text: "HEARTBEAT_OK 🦞" }],
         meta: {
@@ -170,7 +169,7 @@ describe("runCronIsolatedAgentTurn", () => {
           kind: "agentTurn",
           message: "do it",
           deliver: true,
-          channel: "telegram",
+          channel: "whatsapp",
           to: "123",
         }),
         message: "do it",
@@ -179,7 +178,7 @@ describe("runCronIsolatedAgentTurn", () => {
       });
 
       expect(res.status).toBe("ok");
-      expect(deps.sendMessageTelegram).toHaveBeenCalled();
+      expect(deps.sendMessageWhatsApp).toHaveBeenCalled();
     });
   });
 });
