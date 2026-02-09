@@ -29,7 +29,7 @@ try {
         }
     }
 } catch (error) {
-    console.error(chalk.red(`❌ Failed to load .neo-identities/.env: ${error}`));
+    console.error(chalk.red(`❌ Failed to load .neo-identities/.env: ${String(error)}`));
     process.exit(1);
 }
 

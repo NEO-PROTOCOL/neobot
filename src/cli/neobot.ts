@@ -355,12 +355,18 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
     if (skill === "ops-status") {
       // load runtime config early (gatekeeper)
       loadRuntimeConfig();
-      const readline = await import("readline-sync");
+      const { text, isCancel } = await import("@clack/prompts");
 
       const argsArray = rest;
       if (argsArray.includes("--confirm-required")) {
-        const answer = readline.question("⚠️  Confirmation required. Type 'CONFIRM' to proceed: ");
-        if (answer !== "CONFIRM") {
+        const answer = await text({
+          message: "⚠️  Confirmation required. Type 'CONFIRM' to proceed:",
+          validate: (value) => {
+            if (value !== "CONFIRM") return "You must type 'CONFIRM' exactly or Ctrl+C to cancel.";
+          },
+        });
+
+        if (isCancel(answer) || answer !== "CONFIRM") {
           console.error("❌ Aborted by user.");
           process.exit(1);
         }

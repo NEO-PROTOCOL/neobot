@@ -30,15 +30,15 @@ export type BrowserNetworkRequest = {
   failureText?: string;
 };
 
-export function rememberRoleRefsForTarget(opts: any): void { }
-export function storeRoleRefsForTarget(opts: any): void { }
-export function restoreRoleRefsForTarget(opts: any): void { }
-export function ensurePageState(page: any): any { return {}; }
-export function ensureContextState(context: any): any { return {}; }
-export async function getPageForTargetId(opts: any): Promise<any> { throw new Error("Playwright disabled in this environment"); }
-export function refLocator(page: any, ref: string): any { throw new Error("Playwright disabled"); }
+export function rememberRoleRefsForTarget(_opts: any): void { }
+export function storeRoleRefsForTarget(_opts: any): void { }
+export function restoreRoleRefsForTarget(_opts: any): void { }
+export function ensurePageState(_page: any): any { return {}; }
+export function ensureContextState(_context: any): any { return {}; }
+export async function getPageForTargetId(_opts: any): Promise<any> { throw new Error("Playwright disabled in this environment"); }
+export function refLocator(_page: any, _ref: string): any { throw new Error("Playwright disabled"); }
 export async function closePlaywrightBrowserConnection(): Promise<void> { }
-export async function listPagesViaPlaywright(opts: any): Promise<any[]> { return []; }
-export async function createPageViaPlaywright(opts: any): Promise<any> { throw new Error("Playwright disabled"); }
-export async function closePageByTargetIdViaPlaywright(opts: any): Promise<void> { }
-export async function focusPageByTargetIdViaPlaywright(opts: any): Promise<void> { }
+export async function listPagesViaPlaywright(_opts: any): Promise<any[]> { return []; }
+export async function createPageViaPlaywright(_opts: any): Promise<any> { throw new Error("Playwright disabled"); }
+export async function closePageByTargetIdViaPlaywright(_opts: any): Promise<void> { }
+export async function focusPageByTargetIdViaPlaywright(_opts: any): Promise<void> { }

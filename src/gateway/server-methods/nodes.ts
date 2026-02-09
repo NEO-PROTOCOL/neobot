@@ -421,7 +421,7 @@ export const nodeHandlers: GatewayRequestHandlers = {
         }
       } catch (err) {
         // Non-blocking signature failure
-        context.logGateway.warn(`MIO: Failed to sign node invoke: ${err}`);
+        context.logGateway.warn(`MIO: Failed to sign node invoke: ${String(err)}`);
       }
 
       // Audit Log
