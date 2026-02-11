@@ -11,6 +11,8 @@ description: Check status of all stack projects and ensure clean exit.
 
 - node --import tsx scripts/wrapup.ts
 
+**Note on macOS Permissions**: If `pnpm audit`, `build`, or other validations fail due to `EPERM` or permission locks, request the USER (Executor User) to run the command manually in their terminal.
+
 3. **Manual Actions (if needed)**
    - If the script above shows ⚠️ warnings, navigate to the specific folders and commit your changes.
    - Separate commits by context (Agência, Agent, Protocol, etc.).
