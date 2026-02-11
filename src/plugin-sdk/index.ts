@@ -171,11 +171,16 @@ export { formatLocationText, toLocationContext } from "../channels/location.js";
 export { resolveControlCommandGate } from "../channels/command-gating.js";
 export {
   resolveBlueBubblesGroupRequireMention,
+  resolveBlueBubblesGroupToolPolicy,
   resolveDiscordGroupRequireMention,
+  resolveDiscordGroupToolPolicy,
   resolveGoogleChatGroupRequireMention,
+  resolveGoogleChatGroupToolPolicy,
   resolveIMessageGroupRequireMention,
+  resolveIMessageGroupToolPolicy,
   resolveSlackGroupRequireMention,
   resolveSlackGroupToolPolicy,
+  resolveWhatsAppGroupRequireMention,
   resolveWhatsAppGroupToolPolicy,
 } from "../channels/plugins/group-mentions.js";
 export { recordInboundSession } from "../channels/session.js";
