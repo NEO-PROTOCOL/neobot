@@ -365,7 +365,7 @@ FASE 1: FOUNDATION (2 SEMANAS)
 │ └─ [####] Migrar skill: flowpay │
 │ └─ [####] Migrar skill: smart-factory │
 │ └─ [ ] Migrar skill: asi1-llm │
-│ └─ [ ] Migrar skill: telegram │
+│ └─ [####] Migrar skill: telegram │
 │ └─ [ ] Migrar 13 skills restantes │
 └──────────────────────────────────────────────────────────┘
 
@@ -665,7 +665,7 @@ FASE 3: DOCUMENTATION (2 SEMANAS)
 │ └─ [ ] api/gateway.md │
 │ └─ [ ] api/sdk.md │
 │ └─ [ ] guides/quickstart.md │
-│ └─ [ ] guides/telegram-setup.md │
+│ └─ [####] guides/telegram-setup.md │
 │ └─ [ ] guides/whatsapp-setup.md │
 └──────────────────────────────────────────────────────────┘
 

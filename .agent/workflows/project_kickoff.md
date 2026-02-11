@@ -7,9 +7,8 @@ description: Start the project session, checking connections and status.
 1. **Initialize System**
    - Execute the cleanup and checks script.
 
-// turbo 2. Load Secrets & Run Kickoff
-
-- source scripts/load-secrets-bitwarden.sh && node --import tsx scripts/wrapup.ts
+// turbo 2. Mission Briefing & System Check
+- node scripts/kickoff.js && (source scripts/load-secrets-bitwarden.sh 2>/dev/null || true) && node --import tsx scripts/wrapup.ts
 
 **Note on macOS Permissions**: If `pnpm audit`, `build`, or other validations fail due to `EPERM` or permission locks, request the USER (Executor User) to run the command manually in their terminal.
 

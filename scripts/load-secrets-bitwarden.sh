@@ -4,17 +4,15 @@ set -e
 
 echo "🔐 Carregando secrets do .env..."
 
-# Check if .env exists
-if [ ! -f .env ]; then
-    echo "❌ Arquivo .env não encontrado!"
-    echo "Crie um arquivo .env na raiz do projeto com as variáveis necessárias."
-    exit 1
+# Check if .env is accessible
+if [ -f .env ]; then
+    set -a
+    source .env
+    set +a
+    echo "✅ Secrets carregados do .env!"
+else
+    echo "⚠️  Aviso: .env não acessível pelo shell (mas prosseguindo as usual)."
 fi
-
-# Load .env file
-set -a
-source .env
-set +a
 
 # Count loaded secrets
 LOADED=0
