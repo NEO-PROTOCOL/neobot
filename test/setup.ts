@@ -25,8 +25,6 @@ const pickSendFn = (id: ChannelId, deps?: OutboundSendDeps) => {
       return deps?.sendDiscord;
     case "slack":
       return deps?.sendSlack;
-    case "telegram":
-      return deps?.sendTelegram;
     case "whatsapp":
       return deps?.sendWhatsApp;
     case "signal":
@@ -122,19 +120,7 @@ const createDefaultRegistry = () =>
       plugin: createStubPlugin({ id: "slack", label: "Slack" }),
       source: "test",
     },
-    {
-      pluginId: "telegram",
-      plugin: {
-        ...createStubPlugin({ id: "telegram", label: "Telegram" }),
-        status: {
-          buildChannelSummary: async () => ({
-            configured: false,
-            tokenSource: process.env.TELEGRAM_BOT_TOKEN ? "env" : "none",
-          }),
-        },
-      },
-      source: "test",
-    },
+
     {
       pluginId: "whatsapp",
       plugin: createStubPlugin({

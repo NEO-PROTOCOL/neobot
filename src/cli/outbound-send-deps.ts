@@ -2,7 +2,6 @@ import type { OutboundSendDeps } from "../infra/outbound/deliver.js";
 
 export type CliDeps = {
   sendMessageWhatsApp: NonNullable<OutboundSendDeps["sendWhatsApp"]>;
-  sendMessageTelegram: NonNullable<OutboundSendDeps["sendTelegram"]>;
   sendMessageDiscord: NonNullable<OutboundSendDeps["sendDiscord"]>;
   sendMessageSlack: NonNullable<OutboundSendDeps["sendSlack"]>;
   sendMessageSignal: NonNullable<OutboundSendDeps["sendSignal"]>;
@@ -13,7 +12,6 @@ export type CliDeps = {
 export function createOutboundSendDeps(deps: CliDeps): OutboundSendDeps {
   return {
     sendWhatsApp: deps.sendMessageWhatsApp,
-    sendTelegram: deps.sendMessageTelegram,
     sendDiscord: deps.sendMessageDiscord,
     sendSlack: deps.sendMessageSlack,
     sendSignal: deps.sendMessageSignal,
