@@ -6,7 +6,6 @@ import type { IrcConfig } from "./types.irc.js";
 import type { MSTeamsConfig } from "./types.msteams.js";
 import type { SignalConfig } from "./types.signal.js";
 import type { SlackConfig } from "./types.slack.js";
-import type { TelegramConfig } from "./types.telegram.js";
 import type { WhatsAppConfig } from "./types.whatsapp.js";
 
 export type ChannelHeartbeatVisibilityConfig = {
@@ -40,7 +39,6 @@ export type ExtensionChannelConfig = {
 export type ChannelsConfig = {
   defaults?: ChannelDefaultsConfig;
   whatsapp?: WhatsAppConfig;
-  telegram?: TelegramConfig;
   discord?: DiscordConfig;
   irc?: IrcConfig;
   googlechat?: GoogleChatConfig;

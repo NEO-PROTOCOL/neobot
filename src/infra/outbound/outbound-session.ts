@@ -18,9 +18,6 @@ import { resolveSlackAccount } from "../../slack/accounts.js";
 import { createSlackWebClient } from "../../slack/client.js";
 import { normalizeAllowListLower } from "../../slack/monitor/allow-list.js";
 import { parseSlackTarget } from "../../slack/targets.js";
-import { buildTelegramGroupPeerId } from "../../telegram/bot/helpers.js";
-import { resolveTelegramTargetChatType } from "../../telegram/inline-buttons.js";
-import { parseTelegramTarget } from "../../telegram/targets.js";
 import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.js";
 
 export type OutboundSessionRoute = {
@@ -284,49 +281,6 @@ function resolveDiscordSession(
     from: isDm ? `discord:${parsed.id}` : `discord:channel:${parsed.id}`,
     to: isDm ? `user:${parsed.id}` : `channel:${parsed.id}`,
     threadId: explicitThreadId ?? undefined,
-  };
-}
-
-function resolveTelegramSession(
-  params: ResolveOutboundSessionRouteParams,
-): OutboundSessionRoute | null {
-  const parsed = parseTelegramTarget(params.target);
-  const chatId = parsed.chatId.trim();
-  if (!chatId) {
-    return null;
-  }
-  const parsedThreadId = parsed.messageThreadId;
-  const fallbackThreadId = normalizeThreadId(params.threadId);
-  const resolvedThreadId =
-    parsedThreadId ?? (fallbackThreadId ? Number.parseInt(fallbackThreadId, 10) : undefined);
-  // Telegram topics are encoded in the peer id (chatId:topic:<id>).
-  const chatType = resolveTelegramTargetChatType(params.target);
-  // If the target is a username and we lack a resolvedTarget, default to DM to avoid group keys.
-  const isGroup =
-    chatType === "group" ||
-    (chatType === "unknown" &&
-      params.resolvedTarget?.kind &&
-      params.resolvedTarget.kind !== "user");
-  const peerId = isGroup ? buildTelegramGroupPeerId(chatId, resolvedThreadId) : chatId;
-  const peer: RoutePeer = {
-    kind: isGroup ? "group" : "direct",
-    id: peerId,
-  };
-  const baseSessionKey = buildBaseSessionKey({
-    cfg: params.cfg,
-    agentId: params.agentId,
-    channel: "telegram",
-    accountId: params.accountId,
-    peer,
-  });
-  return {
-    sessionKey: baseSessionKey,
-    baseSessionKey,
-    peer,
-    chatType: isGroup ? "group" : "direct",
-    from: isGroup ? `telegram:group:${peerId}` : `telegram:${chatId}`,
-    to: `telegram:${chatId}`,
-    threadId: resolvedThreadId,
   };
 }
 
@@ -918,8 +872,6 @@ export async function resolveOutboundSessionRoute(
       return await resolveSlackSession({ ...params, target });
     case "discord":
       return resolveDiscordSession({ ...params, target });
-    case "telegram":
-      return resolveTelegramSession({ ...params, target });
     case "whatsapp":
       return resolveWhatsAppSession({ ...params, target });
     case "signal":

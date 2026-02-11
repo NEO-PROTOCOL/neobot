@@ -60,8 +60,6 @@ export {
   listDiscordDirectoryPeersFromConfig,
   listSlackDirectoryGroupsFromConfig,
   listSlackDirectoryPeersFromConfig,
-  listTelegramDirectoryGroupsFromConfig,
-  listTelegramDirectoryPeersFromConfig,
   listWhatsAppDirectoryGroupsFromConfig,
   listWhatsAppDirectoryPeersFromConfig,
 } from "./directory-config.js";

@@ -4,7 +4,6 @@ import type { OpenClawConfig } from "../../config/config.js";
 import type { sendMessageDiscord } from "../../discord/send.js";
 import type { sendMessageIMessage } from "../../imessage/send.js";
 import type { sendMessageSlack } from "../../slack/send.js";
-import type { sendMessageTelegram } from "../../telegram/send.js";
 import type { sendMessageWhatsApp } from "../../web/outbound.js";
 import type { NormalizedOutboundPayload } from "./payloads.js";
 import type { OutboundChannel } from "./targets.js";
@@ -37,7 +36,6 @@ type SendMatrixMessage = (
 
 export type OutboundSendDeps = {
   sendWhatsApp?: typeof sendMessageWhatsApp;
-  sendTelegram?: typeof sendMessageTelegram;
   sendDiscord?: typeof sendMessageDiscord;
   sendSlack?: typeof sendMessageSlack;
   sendSignal?: typeof sendMessageSignal;

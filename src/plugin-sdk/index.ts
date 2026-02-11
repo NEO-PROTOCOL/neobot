@@ -106,7 +106,6 @@ export {
   MSTeamsConfigSchema,
   SignalConfigSchema,
   SlackConfigSchema,
-  TelegramConfigSchema,
 } from "../config/zod-schema.providers-core.js";
 export { WhatsAppConfigSchema } from "../config/zod-schema.providers-whatsapp.js";
 export {
@@ -176,14 +175,7 @@ export {
   resolveGoogleChatGroupRequireMention,
   resolveIMessageGroupRequireMention,
   resolveSlackGroupRequireMention,
-  resolveTelegramGroupRequireMention,
-  resolveWhatsAppGroupRequireMention,
-  resolveBlueBubblesGroupToolPolicy,
-  resolveDiscordGroupToolPolicy,
-  resolveGoogleChatGroupToolPolicy,
-  resolveIMessageGroupToolPolicy,
   resolveSlackGroupToolPolicy,
-  resolveTelegramGroupToolPolicy,
   resolveWhatsAppGroupToolPolicy,
 } from "../channels/plugins/group-mentions.js";
 export { recordInboundSession } from "../channels/session.js";
@@ -199,8 +191,6 @@ export {
   listDiscordDirectoryPeersFromConfig,
   listSlackDirectoryGroupsFromConfig,
   listSlackDirectoryPeersFromConfig,
-  listTelegramDirectoryGroupsFromConfig,
-  listTelegramDirectoryPeersFromConfig,
   listWhatsAppDirectoryGroupsFromConfig,
   listWhatsAppDirectoryPeersFromConfig,
 } from "../channels/plugins/directory-config.js";
@@ -309,21 +299,6 @@ export {
   normalizeSlackMessagingTarget,
 } from "../channels/plugins/normalize/slack.js";
 export { buildSlackThreadingToolContext } from "../slack/threading-tool-context.js";
-
-// Channel: Telegram
-export {
-  listTelegramAccountIds,
-  resolveDefaultTelegramAccountId,
-  resolveTelegramAccount,
-  type ResolvedTelegramAccount,
-} from "../telegram/accounts.js";
-export { telegramOnboardingAdapter } from "../channels/plugins/onboarding/telegram.js";
-export {
-  looksLikeTelegramTargetId,
-  normalizeTelegramMessagingTarget,
-} from "../channels/plugins/normalize/telegram.js";
-export { collectTelegramStatusIssues } from "../channels/plugins/status-issues/telegram.js";
-export { type TelegramProbe } from "../telegram/probe.js";
 
 // Channel: Signal
 export {

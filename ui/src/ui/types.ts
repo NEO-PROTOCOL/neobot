@@ -83,37 +83,6 @@ export type WhatsAppStatus = {
   lastError?: string | null;
 };
 
-export type TelegramBot = {
-  id?: number | null;
-  username?: string | null;
-};
-
-export type TelegramWebhook = {
-  url?: string | null;
-  hasCustomCert?: boolean | null;
-};
-
-export type TelegramProbe = {
-  ok: boolean;
-  status?: number | null;
-  error?: string | null;
-  elapsedMs?: number | null;
-  bot?: TelegramBot | null;
-  webhook?: TelegramWebhook | null;
-};
-
-export type TelegramStatus = {
-  configured: boolean;
-  tokenSource?: string | null;
-  running: boolean;
-  mode?: string | null;
-  lastStartAt?: number | null;
-  lastStopAt?: number | null;
-  lastError?: string | null;
-  probe?: TelegramProbe | null;
-  lastProbeAt?: number | null;
-};
-
 export type DiscordBot = {
   id?: string | null;
   username?: string | null;

@@ -1,0 +1,2353 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "block",
+      "id": "3fe088cb-5219-45cb-95cb-342bceacdf0e",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🎯 Resumo Executivo", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🎯 Resumo Executivo",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c7153df1-2cea-4700-a6bf-c21086242d44",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Implementação completa da Phase 1 do NEO Protocol, incluindo:",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Implementação completa da Phase 1 do NEO Protocol, incluindo:",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c38b91d5-a277-4866-8c88-7b8783493cba",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "NEO Skills Registry (IPFS-based) - Sistema descentralizado para publicação/instalação de skills",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "NEO Skills Registry (IPFS-based) - Sistema descentralizado para publicação/instalação de skills",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7ba1b2d0-a152-46ac-b4ba-2c1a5448773b",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "mio-system Identity - Web3-native identity com 9 identidades oficiais geradas",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-system Identity - Web3-native identity com 9 identidades oficiais geradas",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "3d270616-72fd-49a9-b89f-469ece93ec2c",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Primeira skill NEO (neo-ipfs-status) com metadata, docs e configuração",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Primeira skill NEO (neo-ipfs-status) com metadata, docs e configuração",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "61c7de4d-d066-432b-b89d-4f4a59f79599",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "CLI Commands completos (neo:info, neo:skill:*, neo:index:create)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "CLI Commands completos (neo:info, neo:skill:*, neo:index:create)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7432b562-06b2-437a-a277-7f2242a982b5",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Análise completa da migração upstream (moltbot → openclaw)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Análise completa da migração upstream (moltbot → openclaw)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2e017da3-9118-4aca-bc27-901d29666855",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📦 Componentes Implementados", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📦 Componentes Implementados",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "98a35407-18e6-4d96-a5e6-5954888c3ba4",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "1. NEO Skills Registry (IPFS)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "1. NEO Skills Registry (IPFS)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "47c189d9-4ac1-4690-bcf7-d660021e9f93",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "// src/neo/registry/index.ts\nconst registry = await createNeoRegistry({\n  ipfsApi: 'http://127.0.0.1:5001'\n});\n\nawait registry.publish(skillPath);\nawait registry.install(cid, './skills');\nconst skills = await registry.list();",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "// src/neo/registry/index.ts\nconst registry = await createNeoRegistry({\n  ipfsApi: 'http://127.0.0.1:5001'\n});\n\nawait registry.publish(skillPath);\nawait registry.install(cid, './skills');\nconst skills = await registry.list();",
+            "href": null
+          }
+        ],
+        "language": "typescript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9508a5f8-16eb-4ec0-95c9-a1164002b908",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Features", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Features",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": ": publish(), install(), list(), search(), createIndex(), updateIndex()",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ": publish(), install(), list(), search(), createIndex(), updateIndex()",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2cf24765-13f2-4e19-9c9d-ed1a92b198e3",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Dependencies", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Dependencies",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ": kubo-rpc-client, multiformats", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ": kubo-rpc-client, multiformats",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "b6df46f0-cf98-49fe-92fd-8c3e819a61e4",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "2. mio-system Identity", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "2. mio-system Identity",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "1568ed24-48a6-4869-8051-ba2ad302f9e9",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "// src/neo/identity/mio-system.ts\nconst identity = await createIdentity({\n  name: 'mio-orchestrator',\n  role: 'orchestrator',\n  permissions: { channels: ['*'], skills: ['*'] }\n});\n\nconst signature = await signMessage(identity, 'message');\nconst valid = await verifyIdentity(identity, signature, 'message');",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "// src/neo/identity/mio-system.ts\nconst identity = await createIdentity({\n  name: 'mio-orchestrator',\n  role: 'orchestrator',\n  permissions: { channels: ['*'], skills: ['*'] }\n});\n\nconst signature = await signMessage(identity, 'message');\nconst valid = await verifyIdentity(identity, signature, 'message');",
+            "href": null
+          }
+        ],
+        "language": "typescript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "01f6775b-0d8b-4b4f-8dc6-3ba4a1f49c57",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "9 Identidades Oficiais", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "9 Identidades Oficiais",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ":", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ":",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "070839eb-46d4-4118-8305-af0da243b3b0",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-orchestrator (Full permissions)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-orchestrator (Full permissions)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d9b6a732-cba0-46b2-a08e-631475b4671d",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-gateway (Channel management)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-gateway (Channel management)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "3f669eca-5add-4eab-924a-04d84e91dbf8",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-skill-manager (Skills)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-skill-manager (Skills)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d97da6f2-6320-4a3c-99c9-7cc939cf41af",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-security (Security ops)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-security (Security ops)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "f0d49d1d-5cd2-46e1-a239-b6e81dd884b1",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-analytics (Read-only)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-analytics (Read-only)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "84fc1ee5-bf82-4b28-a71e-b53607d040d0",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-backup (Backup/recovery)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-backup (Backup/recovery)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "4fe8ea46-625a-4e1e-8620-68b56a2a434f",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-dev (Development)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-dev (Development)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "442236e9-8bf6-469a-a66f-8094e96e0b3b",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-prod (Production)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-prod (Production)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "ee04ef97-ff40-481f-8e76-b93b9d038530",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "mio-audit (Audit trails)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "mio-audit (Audit trails)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "54f74d0d-39dc-4cbb-ae39-09fbd2af8b36",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "3. CLI Commands", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "3. CLI Commands",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "5790d9de-75c0-4cc8-a9bd-2ef6b6742843",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "pnpm moltbot neo:info\npnpm moltbot neo:skill:publish ./skills/neo-ipfs-status\npnpm moltbot neo:skill:install <CID>\npnpm moltbot neo:skill:list\npnpm moltbot neo:index:create",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "pnpm moltbot neo:info\npnpm moltbot neo:skill:publish ./skills/neo-ipfs-status\npnpm moltbot neo:skill:install <CID>\npnpm moltbot neo:skill:list\npnpm moltbot neo:index:create",
+            "href": null
+          }
+        ],
+        "language": "bash"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9949ea12-6573-4e5c-9a16-9c74b6d79a78",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "4. Security & Backup", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "4. Security & Backup",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "90e52ae6-ada1-47c5-a5bc-2ca1b061ad6f",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Private keys armazenadas em iCloud Keychain (security add-generic-password)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Private keys armazenadas em iCloud Keychain (security add-generic-password)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e182ba54-6b10-4be5-8603-e930f8a7a4dc",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Backup encriptado com OpenSSL (AES-256-CBC)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Backup encriptado com OpenSSL (AES-256-CBC)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "f1880c29-861d-41ee-8aaa-eb421930c3a2",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Scripts de recovery (.neo-identities/", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Scripts de recovery (.neo-identities/",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "recover-from-keychain.sh",
+              "link": { "url": "http://recover-from-keychain.sh/" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "recover-from-keychain.sh",
+            "href": "http://recover-from-keychain.sh/"
+          },
+          {
+            "type": "text",
+            "text": { "content": ")", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ")",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d68ea348-b2ba-439b-b4ac-bbafe3aae2fa",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": ".gitignore atualizado (", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ".gitignore atualizado (",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ".key, ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": true,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ".key, ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ".pem, .env, private/)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ".pem, .env, private/)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e29bbb76-41b9-4f33-844c-c6038d9d5d62",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🔍 Análise Upstream (moltbot → openclaw)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🔍 Análise Upstream (moltbot → openclaw)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9b223782-9ab4-48d0-a2ba-466e0f4285ad",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Análise completa da migração upstream confirmou:", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Análise completa da migração upstream confirmou:",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "8888d05a-56e9-451d-9b33-d1b821ba47ce",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "NEO Protocol é independente (60% código próprio)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "NEO Protocol é independente (60% código próprio)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e2a5ef5b-da2b-4505-83a0-8432bd2b0baf",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Impacto mínimo na operação (apenas nome de pacotes npm)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Impacto mínimo na operação (apenas nome de pacotes npm)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "53bfb0b0-ffa4-44f2-90c0-9805f096339b",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Política de sync seletivo estabelecida (bugfixes críticos apenas)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Política de sync seletivo estabelecida (bugfixes críticos apenas)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "0ec4bf8f-cc57-463c-ba48-6075144cf5e0",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Documentado em UPSTREAM_MIGRATION_", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Documentado em UPSTREAM_MIGRATION_",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": "OPENCLAW.md", "link": { "url": "http://openclaw.md/" } },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "OPENCLAW.md",
+            "href": "http://openclaw.md/"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "55b63933-afbf-4947-a230-41587521b4c5",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📁 Arquivos Criados/Modificados", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📁 Arquivos Criados/Modificados",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "6465977b-6a60-4527-9d1b-6ba3ab4eb48b",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": true,
+      "archived": false,
+      "in_trash": false,
+      "type": "toggle",
+      "toggle": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Core Implementation", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Core Implementation",
+            "href": null
+          }
+        ],
+        "color": "purple"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9c0e9812-07fb-4419-8474-245f1a7cfa06",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": true,
+      "archived": false,
+      "in_trash": false,
+      "type": "toggle",
+      "toggle": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "CLI Commands", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "CLI Commands",
+            "href": null
+          }
+        ],
+        "color": "blue"
+      }
+    },
+    {
+      "object": "block",
+      "id": "be7d8867-bb93-44b4-b71b-fe975057a2a8",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": true,
+      "archived": false,
+      "in_trash": false,
+      "type": "toggle",
+      "toggle": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Skills & Scripts", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Skills & Scripts",
+            "href": null
+          }
+        ],
+        "color": "green"
+      }
+    },
+    {
+      "object": "block",
+      "id": "509e3f01-4673-4ffe-a16f-77384285babb",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": true,
+      "archived": false,
+      "in_trash": false,
+      "type": "toggle",
+      "toggle": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Security & Identities", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Security & Identities",
+            "href": null
+          }
+        ],
+        "color": "red"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e5001980-c175-4e73-97e0-f546687eee88",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": true,
+      "archived": false,
+      "in_trash": false,
+      "type": "toggle",
+      "toggle": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Documentation", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Documentation",
+            "href": null
+          }
+        ],
+        "color": "orange"
+      }
+    },
+    {
+      "object": "block",
+      "id": "974d6843-b1fa-4bab-ae1b-0f48afbdf04e",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🧪 Testing Realizado", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🧪 Testing Realizado",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "465e1eb9-7ec5-429e-adfa-2bbd3a055c87",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ TypeScript compilation (pnpm build)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ TypeScript compilation (pnpm build)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9bb80711-9556-43bf-b9f5-27cfe25b2908",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Identity generation (9 identities + keys)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Identity generation (9 identities + keys)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "ec68a4c5-0b28-4a71-b863-180120058c21",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Signature verification (ethers.js)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Signature verification (ethers.js)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "decca421-fd36-4cdc-97d7-7c784dfca026",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ iCloud Keychain storage (security CLI)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ iCloud Keychain storage (security CLI)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c2ffbf2a-005d-449d-96a6-f90516400ac0",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Encrypted backup (OpenSSL AES-256)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Encrypted backup (OpenSSL AES-256)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "259078d1-3cc3-406a-a4de-2a90783ebd0f",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "⏳ IPFS publish/install (requires IPFS node running)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "⏳ IPFS publish/install (requires IPFS node running)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "94ad4667-8e94-44a9-9c9f-4efb0f9844ab",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📊 Métricas", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📊 Métricas",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "29ae1d0f-27a3-4c46-b6c9-dd85e7c037c3",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "LOC adicionadas", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "LOC adicionadas",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ": ~2,500+ linhas", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ": ~2,500+ linhas",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "4c1deb92-a0a9-4307-a3d2-7618d3477ebc",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Arquivos criados", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Arquivos criados",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ": 30+", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ": 30+",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "a1793e5c-a842-4e8c-9100-fc6a139a8854",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Documentação", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Documentação",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ": 8 arquivos markdown", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ": 8 arquivos markdown",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "f476dbff-8033-42ed-be45-271193c4fff2",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Dependencies", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Dependencies",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": ": ethers, kubo-rpc-client, multiformats", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": ": ethers, kubo-rpc-client, multiformats",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "fad0db95-01ba-409c-9b86-67be978afc99",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🎯 Próximos Passos", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🎯 Próximos Passos",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e09e7230-5ab6-49a3-a32e-91d24b9dcf33",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Testar IPFS publish/install com nó local", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Testar IPFS publish/install com nó local",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "28ba5e71-2b74-45d1-a4ab-a93d5470346d",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Criar dashboard NEØ (UI components)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Criar dashboard NEØ (UI components)",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c7935816-9278-4408-9211-dc253682dd76",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Demo video (curto prazo roadmap)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Demo video (curto prazo roadmap)",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7d53ee52-62e3-4265-ab41-fb2f7ac09d69",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Screenshots oficiais", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Screenshots oficiais",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9bf0d56b-bae9-4776-9f0e-95515648cd4f",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Website ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Website ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "neoprotocol.space",
+              "link": { "url": "http://neoprotocol.space/" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "neoprotocol.space",
+            "href": "http://neoprotocol.space/"
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "53dcd385-1ade-48fe-9c0d-279e1b7e6bb4",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🔗 Links Relevantes", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🔗 Links Relevantes",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "f971339b-da53-46fe-bef1-2434706f5afd",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Arquitetura 5 Camadas",
+              "link": {
+                "url": "https://www.notion.so/neoflw/Arquitetura-5-Camadas-do-NE-Protocol-2f78c6e83be081ceb074c43d73f14e14"
+              }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Arquitetura 5 Camadas",
+            "href": "https://www.notion.so/neoflw/Arquitetura-5-Camadas-do-NE-Protocol-2f78c6e83be081ceb074c43d73f14e14"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "081d184f-c62a-405f-908c-a8902965c1b0",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Mapeamento UCs",
+              "link": {
+                "url": "https://www.notion.so/neoflw/Mapeamento-UCs-NE-Protocol-V1-1-2f88c6e83be0812f9051e6247050fe8f"
+              }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Mapeamento UCs",
+            "href": "https://www.notion.so/neoflw/Mapeamento-UCs-NE-Protocol-V1-1-2f88c6e83be0812f9051e6247050fe8f"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "ba3d5cfd-b682-4de9-b7b6-b3b94b840470",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81d3-9e07-e8be92273d96" },
+      "created_time": "2026-01-30T05:16:00.000Z",
+      "last_edited_time": "2026-01-30T05:16:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "GitHub Repo",
+              "link": { "url": "https://github.com/neomello/neobot" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "GitHub Repo",
+            "href": "https://github.com/neomello/neobot"
+          }
+        ],
+        "color": "default"
+      }
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false,
+  "type": "block",
+  "block": {},
+  "request_id": "3592d419-3ec4-45e1-8b17-6ee3f77db594"
+}

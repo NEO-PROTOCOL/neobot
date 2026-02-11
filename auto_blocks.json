@@ -1,0 +1,3282 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "block",
+      "id": "853bca77-6ae3-431a-8885-80f4a65a367d",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Sistema de comandos para gerenciar o NEØ Command Center via Telegram",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": true,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Sistema de comandos para gerenciar o NEØ Command Center via Telegram",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2b0aa3e3-ed7a-4745-8a01-e205b0ae9207",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "7035510e-85af-439a-ad26-13764471a357",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Status da Implementação", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Status da Implementação",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "05c63266-d34f-4f82-8cc5-12cd3e5f1097",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "💚 Completo", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "💚 Completo",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "ce577c56-d10d-41d1-a5c3-a9dc924f09df",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "✅ Sistema Notion montado (4 databases conectados)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Sistema Notion montado (4 databases conectados)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "6e22c6c2-978b-459e-8613-b5aa11ae1ac9",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ 10 projetos migrados com links GitHub", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ 10 projetos migrados com links GitHub",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "8cfac0af-f34e-4281-b6eb-0bc6ec05d1d2",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Documentação completa (Guia + Cheat Sheet)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Documentação completa (Guia + Cheat Sheet)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "357cf9bc-0b7e-4311-995c-f11b43357016",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Quick Access com links diretos", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Quick Access com links diretos",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d1ab8fc9-2319-47d7-83f0-333e4777c927",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ Estrutura de comandos criada", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Estrutura de comandos criada",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "32fe31ea-2d28-4729-9884-0370bb8466d4",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🟡 Em Desenvolvimento", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🟡 Em Desenvolvimento",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9b7f049e-1566-417d-a502-498be4e9ddbb",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🟡 Integração MCP → Telegram", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🟡 Integração MCP → Telegram",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "59726d89-dbc9-4b87-8224-a5adf2411f05",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🟡 Bot listener", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🟡 Bot listener",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "bf14a14d-b6ef-4864-bf6d-adeca146df37",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🟡 Comandos avançados", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🟡 Comandos avançados",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "f1a6d94a-dc04-4226-a4fc-1ecad2286bbf",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "9329503a-2811-4720-8788-5a66171474a6",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📝 Comandos Planejados", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📝 Comandos Planejados",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "1f758159-589b-423a-8b9c-43b86804ffea",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Comandos Básicos (Implementados)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Comandos Básicos (Implementados)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "86e455a6-6ff7-45d8-99bd-407ae1e2b4d1",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📝 /log", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📝 /log",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Criar Work Log", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Criar Work Log",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e7662b57-9537-4a1d-b7bc-2c5985505c34",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Sintaxe: /log <projeto> <texto>\nExemplo: /log NodeMello \"Integrei MCP com Telegram\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Sintaxe: /log <projeto> <texto>\nExemplo: /log NodeMello \"Integrei MCP com Telegram\"",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7bbb811e-fd6a-45a8-916a-e3665d323d77",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ /task", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ /task",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Criar Tarefa", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Criar Tarefa",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e05abb77-7921-4e79-bfe5-4cf88a93457a",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Sintaxe: /task \"<título>\" <projeto> [prioridade]\nExemplo: /task \"Revisar docs\" neo-agent \"🔥 Alta\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Sintaxe: /task \"<título>\" <projeto> [prioridade]\nExemplo: /task \"Revisar docs\" neo-agent \"🔥 Alta\"",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "4420f6c9-e1b8-4147-b8d9-5cacae81b118",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📊 /status", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📊 /status",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Ver Resumo", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Ver Resumo",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "72f9c99d-93bf-42d3-9561-19bd2c6b2adb",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Retorna: Projetos ativos, tarefas em progresso, decisões pendentes",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Retorna: Projetos ativos, tarefas em progresso, decisões pendentes",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e06bd873-43dc-4b15-9c2a-464f3e4bb48f",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📁 /projetos", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📁 /projetos",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Listar Projetos", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Listar Projetos",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "55ab0e88-9bd3-47aa-aadd-8385348301b7",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Lista todos os projetos ativos com links", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Lista todos os projetos ativos com links",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c9b5d40d-e2c7-4a2b-8cb7-1531b67edb9f",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Comandos Avançados (Próxima Fase)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Comandos Avançados (Próxima Fase)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "766dea8a-5e36-4e5e-ac37-58f6efbacb39",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "✅ /done", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ /done",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Marcar Tarefa Concluída", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Marcar Tarefa Concluída",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "6863ba31-e314-4640-9f04-9ab726f40816",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Sintaxe: /done <id_tarefa>\nExemplo: /done 123", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Sintaxe: /done <id_tarefa>\nExemplo: /done 123",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "28ef1b56-bced-490e-a05d-edd735b46af7",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🧠 /decidir", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🧠 /decidir",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Marcar Decisão", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Marcar Decisão",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "56aa0c5b-e8fc-4878-9313-09f674d04180",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Sintaxe: /decidir <id_decisão> <escolha>\nExemplo: /decidir 45 \"Opção 2\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Sintaxe: /decidir <id_decisão> <escolha>\nExemplo: /decidir 45 \"Opção 2\"",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "330998fb-6f1b-400e-a80f-d94936bdb553",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🔔 /lembrar", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🔔 /lembrar",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " - Criar Lembrete", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " - Criar Lembrete",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "929f0c99-589f-4321-bfeb-dfcefe3f2157",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Sintaxe: /lembrar <texto> <quando>\nExemplo: /lembrar \"Review PR\" \"in 2 hours\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Sintaxe: /lembrar <texto> <quando>\nExemplo: /lembrar \"Review PR\" \"in 2 hours\"",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "0fec740b-43e7-4d80-88e6-e910d7662fde",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "cb8be15d-33e0-4f2a-95c8-4c7aa5857aaa",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🔧 Arquitetura Técnica", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🔧 Arquitetura Técnica",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "5259a43d-0cba-481e-8273-8228df309b23",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Stack", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Stack",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "3ae517bb-35b1-4ee6-8279-7202388f9a78",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Cursor MCP (Notion) → TypeScript Scripts → Telegram Bot",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Cursor MCP (Notion) → TypeScript Scripts → Telegram Bot",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "aaa99efe-99fd-4c37-ab8c-ae1a54a2f625",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Databases (IDs)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Databases (IDs)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "0ca7b381-fe9b-4f3c-9b4b-9c1cd5b9dba2",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Projetos:", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Projetos:",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": "b826dfbe-b0a4-47e8-838f-f05f33771996", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": true,
+              "color": "default"
+            },
+            "plain_text": "b826dfbe-b0a4-47e8-838f-f05f33771996",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2a8c5fc7-cd99-4d8f-b5df-566f7607537b",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Tarefas:", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Tarefas:",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": "af8aafe2-3a5c-41c9-b707-8bb55bdfb14d", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": true,
+              "color": "default"
+            },
+            "plain_text": "af8aafe2-3a5c-41c9-b707-8bb55bdfb14d",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e8c44728-66e5-44b1-811e-1571762b514f",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Decisões:", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Decisões:",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": "9da4c091-6a77-4bee-a17c-822d5dc2a1b3", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": true,
+              "color": "default"
+            },
+            "plain_text": "9da4c091-6a77-4bee-a17c-822d5dc2a1b3",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "459ddca9-8a74-4144-a651-bf18d567b41c",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Work Log:", "link": null },
+            "annotations": {
+              "bold": true,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Work Log:",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": " ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": " ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": { "content": "2294ae4d-3f0f-43a9-8928-790b01da5be5", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": true,
+              "color": "default"
+            },
+            "plain_text": "2294ae4d-3f0f-43a9-8928-790b01da5be5",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "b50586e3-cfde-4347-95b1-3aa314a913c6",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Estrutura de Arquivos", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Estrutura de Arquivos",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7efa40f1-db50-4a0a-a3e9-58ef8d66610d",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "skills/notion/\n├── SKILL.md          # Docs da API Notion\n├── README.md         # Guia de uso\n└── commands/\n    ├── log.ts        # Criar Work Log\n    ├── task.ts       # Criar Tarefa\n    ├── status.ts     # Ver Status\n    └── projetos.ts   # Listar Projetos",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "skills/notion/\n├── SKILL.md          # Docs da API Notion\n├── README.md         # Guia de uso\n└── commands/\n    ├── log.ts        # Criar Work Log\n    ├── task.ts       # Criar Tarefa\n    ├── status.ts     # Ver Status\n    └── projetos.ts   # Listar Projetos",
+            "href": null
+          }
+        ],
+        "language": "javascript"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d6c0eb41-b0a4-4e8d-878a-f1aa10fb2932",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "0617f55c-bc9a-4e8b-8f6c-dca437f002f2",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🚀 Como Usar (Atual)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🚀 Como Usar (Atual)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7c8cc5c6-3e73-493a-990e-04be08377d97",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Método 1: Via Cursor (Funciona Agora)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Método 1: Via Cursor (Funciona Agora)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "ee23f0c7-72f5-4929-9a73-b0c80c0161be",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Abra o Cursor", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Abra o Cursor",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "40065294-e663-4c3f-9d2f-7a31463a4431",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Use o chat do Cursor", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Use o chat do Cursor",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "b7beda92-5217-4202-8081-01afe54eff95",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Peça: \"Crie um work log no Notion para NodeMello com texto X\"",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Peça: \"Crie um work log no Notion para NodeMello com texto X\"",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "ddcb8faf-4e07-44f7-805a-46a07a51a769",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "O agente usará o MCP do Notion automaticamente", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "O agente usará o MCP do Notion automaticamente",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d7822a92-2618-4b6d-9f16-7b2db2fb0025",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Método 2: Diretamente no Notion", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Método 2: Diretamente no Notion",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c0dc14ed-a51b-40cb-ba1d-4a2bfec443ec",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Acesse o ", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Acesse o ",
+            "href": null
+          },
+          {
+            "type": "text",
+            "text": {
+              "content": "Quick Access",
+              "link": { "url": "https://www.notion.so/2f78c6e83be081a1964bc0a616ce204a" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Quick Access",
+            "href": "https://www.notion.so/2f78c6e83be081a1964bc0a616ce204a"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "3bd41303-b4e0-422f-8bcf-62c73affb6a1",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Clique no database que quer usar", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Clique no database que quer usar",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "640f3a33-5cd3-4b2f-8d39-04605df0a756",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Adicione entrada manualmente", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Adicione entrada manualmente",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2b2b5d7f-215e-4474-bcce-ee89b64fde7d",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Método 3: Via Telegram (Em Desenvolvimento)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Método 3: Via Telegram (Em Desenvolvimento)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "40b2dcd0-4745-4be5-a450-b6449469bc65",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Será implementado em breve com bot listener", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": true,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Será implementado em breve com bot listener",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "21f019f0-23ae-49af-baa8-826f4df21af4",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "46e3ef23-a0d7-4413-89dd-51cd0d557964",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📊 Próximos Passos", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📊 Próximos Passos",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "30f8783d-21dc-42c5-b837-625740c3de95",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Fase 1: Bot Básico (Esta Semana)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Fase 1: Bot Básico (Esta Semana)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "b11867a3-400b-4399-ba11-563674abd41a",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Criar bot listener do Telegram", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Criar bot listener do Telegram",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9c154996-0eed-4e88-a0ce-8406b5b8d11b",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Integrar comandos com MCP via Cursor API", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Integrar comandos com MCP via Cursor API",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e2e7a3d1-e248-49d3-97a0-217fb17b792e",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Testar fluxo completo", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Testar fluxo completo",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c3f83323-55bb-43a7-9e3a-fc6d3e2ae945",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Fase 2: Comandos Avançados (Próxima Semana)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Fase 2: Comandos Avançados (Próxima Semana)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9ad040f0-8b2c-41ca-9aa0-f18a7b0be26b",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Implementar /done", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Implementar /done",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c13bf72d-1458-4bbb-98b9-f661ef4ae589",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Implementar /decidir", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Implementar /decidir",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9730959c-ad1c-4453-b647-9bcd6ee7aada",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Adicionar /lembrar", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Adicionar /lembrar",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9128cb2e-ab5e-42e9-8017-93ecb1a2d50a",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Fase 3: Automações (Futuro)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Fase 3: Automações (Futuro)",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d6b9fe50-cc3a-4dbe-9aa0-d81d91b4d022",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Relatório diário automático (9h)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Relatório diário automático (9h)",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "3dc22617-5e19-4989-9532-21e781cacf3e",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Alertas de decisões (prazo em 2 dias)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Alertas de decisões (prazo em 2 dias)",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "d077cc2d-5ccf-4897-84b6-f8a94b89a97d",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Resumo semanal (sexta 17h)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Resumo semanal (sexta 17h)",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "41dc0789-718e-4b8c-b52e-b1b054e6431a",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "to_do",
+      "to_do": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Notificações de tarefas atrasadas", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Notificações de tarefas atrasadas",
+            "href": null
+          }
+        ],
+        "checked": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "9e39f4b8-694b-463b-a478-81f0bd9534ee",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "d30e80bb-d279-4ffa-9b26-ef493a34db0b",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "🔗 Links Úteis", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🔗 Links Úteis",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2b02da68-ca7b-4110-8575-cd55b2c834e2",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Databases", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Databases",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c1b5f41f-e654-4c33-ba9c-8c3fdc03c13b",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "🎯 Command Center",
+              "link": { "url": "https://www.notion.so/2f78c6e83be081af880edd88440a4642" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🎯 Command Center",
+            "href": "https://www.notion.so/2f78c6e83be081af880edd88440a4642"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "93cea37a-ed21-46c8-aabd-e66418b907f7",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "⚡ Quick Access",
+              "link": { "url": "https://www.notion.so/2f78c6e83be081a1964bc0a616ce204a" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "⚡ Quick Access",
+            "href": "https://www.notion.so/2f78c6e83be081a1964bc0a616ce204a"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7b19ccfd-7193-44f0-9f72-31076b47cb9a",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "📁 Projetos",
+              "link": { "url": "https://www.notion.so/29fb6f21b53441c08a2a88dbefedc498" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📁 Projetos",
+            "href": "https://www.notion.so/29fb6f21b53441c08a2a88dbefedc498"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "35d0be76-6cf5-48f3-a230-b4bce3c55e98",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "✅ Tarefas",
+              "link": { "url": "https://www.notion.so/73b8b7ccb81845b98907fc7066b4c2da" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "✅ Tarefas",
+            "href": "https://www.notion.so/73b8b7ccb81845b98907fc7066b4c2da"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "4e19bf29-6e0b-4e84-90a0-f5281720d345",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "🧠 Decisões",
+              "link": { "url": "https://www.notion.so/5041cdeb1d584029bdfc6e7271a3a20b" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "🧠 Decisões",
+            "href": "https://www.notion.so/5041cdeb1d584029bdfc6e7271a3a20b"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2568eeae-6901-4d91-8165-ace241b25ba5",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "📝 Work Log",
+              "link": { "url": "https://www.notion.so/93f062cdfb284c48a370d67579b9c902" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📝 Work Log",
+            "href": "https://www.notion.so/93f062cdfb284c48a370d67579b9c902"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "363c8dbc-1111-49a4-bee4-1bf8404a6ae3",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Documentação", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Documentação",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "8abe77e9-4307-4369-b784-4ea4b003867b",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "📖 Guia Completo",
+              "link": { "url": "https://www.notion.so/2f78c6e83be081009df2e9c0654d3467" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📖 Guia Completo",
+            "href": "https://www.notion.so/2f78c6e83be081009df2e9c0654d3467"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "c3441d4b-ab00-489f-8714-30a20627eb9d",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "⚡ Cheat Sheet",
+              "link": { "url": "https://www.notion.so/2f78c6e83be081f1beadea85607367f3" }
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "⚡ Cheat Sheet",
+            "href": "https://www.notion.so/2f78c6e83be081f1beadea85607367f3"
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "8d610d31-ec75-43f4-81be-021865bf03df",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "2d6d6c9a-2ed5-488d-862f-009811bae7f5",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_2",
+      "heading_2": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "📝 Notas Técnicas", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "📝 Notas Técnicas",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e264b07c-54bf-4cd4-99ff-8e80c9fddb78",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Limitações Atuais", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Limitações Atuais",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "1c912cf2-df91-472c-b748-aee3a8c069d7",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "MCP do Notion só é acessível via Cursor (não via CLI shell)",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "MCP do Notion só é acessível via Cursor (não via CLI shell)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e36fa391-fe67-444c-917b-51c3aa5487e1",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Comandos precisam ser integrados via Cursor API ou bot custom",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Comandos precisam ser integrados via Cursor API ou bot custom",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "a717b249-30c0-4c27-b7ca-3ed7b61a1076",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "bulleted_list_item",
+      "bulleted_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Telegram bot precisa de token e webhook", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Telegram bot precisa de token e webhook",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "04d77167-cf93-4e71-b7fc-8fee79ea30b2",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "heading_3",
+      "heading_3": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Solução Proposta", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Solução Proposta",
+            "href": null
+          }
+        ],
+        "is_toggleable": false,
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2134f165-69d6-4c90-9b06-5659c04f75ad",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Usar Cursor API para acessar MCP", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Usar Cursor API para acessar MCP",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "bfcd0e91-43dc-47a8-9f2d-d867cda14668",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Criar listener do Telegram que chama Cursor", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Criar listener do Telegram que chama Cursor",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "6a55b3b8-88d8-49ae-94c6-c93d2d6bc130",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "numbered_list_item",
+      "numbered_list_item": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Ou: Usar Notion API diretamente (sem MCP)", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Ou: Usar Notion API diretamente (sem MCP)",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "7b00d425-c68f-4f59-8d77-d1e4434f952e",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "divider",
+      "divider": {}
+    },
+    {
+      "object": "block",
+      "id": "1c3bbc01-dd48-4e18-96e6-f555c7149475",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Criado em: 2026-01-29", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": true,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Criado em: 2026-01-29",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "580450b9-935d-4ee0-b34d-dc4e8cacedc8",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Última Atualização: 2026-01-29", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": true,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Última Atualização: 2026-01-29",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "e40ccbe8-fa84-48f3-8a44-95e8a95ff9e2",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T22:39:00.000Z",
+      "last_edited_time": "2026-01-29T22:39:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "paragraph",
+      "paragraph": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": { "content": "Status: 🟡 Em Desenvolvimento", "link": null },
+            "annotations": {
+              "bold": false,
+              "italic": true,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "Status: 🟡 Em Desenvolvimento",
+            "href": null
+          }
+        ],
+        "color": "default"
+      }
+    },
+    {
+      "object": "block",
+      "id": "2f78c6e8-3be0-816d-8c81-c0fba72c7f4c",
+      "parent": { "type": "page_id", "page_id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b" },
+      "created_time": "2026-01-29T23:24:00.000Z",
+      "last_edited_time": "2026-01-29T23:24:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": true,
+      "archived": false,
+      "in_trash": false,
+      "type": "child_page",
+      "child_page": { "title": "📐 Arquitetura NEØ Protocol · 5 Camadas" }
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false,
+  "type": "block",
+  "block": {},
+  "request_id": "684c820d-c100-4e16-805f-79c8a3a71af2"
+}

@@ -21,7 +21,6 @@ import { normalizeAccountId } from "../routing/session-key.js";
 import { resolveSignalAccount } from "../signal/accounts.js";
 import { resolveSlackAccount, resolveSlackReplyToMode } from "../slack/accounts.js";
 import { buildSlackThreadingToolContext } from "../slack/threading-tool-context.js";
-import { resolveTelegramAccount } from "../telegram/accounts.js";
 import { escapeRegExp, normalizeE164 } from "../utils.js";
 import { resolveWhatsAppAccount } from "../web/accounts.js";
 import { normalizeWhatsAppTarget } from "../whatsapp/normalize.js";
@@ -34,8 +33,6 @@ import {
   resolveIMessageGroupToolPolicy,
   resolveSlackGroupRequireMention,
   resolveSlackGroupToolPolicy,
-  resolveTelegramGroupRequireMention,
-  resolveTelegramGroupToolPolicy,
   resolveWhatsAppGroupRequireMention,
   resolveWhatsAppGroupToolPolicy,
 } from "./plugins/group-mentions.js";
@@ -90,42 +87,6 @@ const formatLower = (allowFrom: Array<string | number>) =>
 // - add a new entry to `DOCKS`
 // - keep it cheap; push heavy logic into `src/channels/plugins/<id>.ts` or channel modules
 const DOCKS: Record<ChatChannelId, ChannelDock> = {
-  telegram: {
-    id: "telegram",
-    capabilities: {
-      chatTypes: ["direct", "group", "channel", "thread"],
-      nativeCommands: true,
-      blockStreaming: true,
-    },
-    outbound: { textChunkLimit: 4000 },
-    config: {
-      resolveAllowFrom: ({ cfg, accountId }) =>
-        (resolveTelegramAccount({ cfg, accountId }).config.allowFrom ?? []).map((entry) =>
-          String(entry),
-        ),
-      formatAllowFrom: ({ allowFrom }) =>
-        allowFrom
-          .map((entry) => String(entry).trim())
-          .filter(Boolean)
-          .map((entry) => entry.replace(/^(telegram|tg):/i, ""))
-          .map((entry) => entry.toLowerCase()),
-    },
-    groups: {
-      resolveRequireMention: resolveTelegramGroupRequireMention,
-      resolveToolPolicy: resolveTelegramGroupToolPolicy,
-    },
-    threading: {
-      resolveReplyToMode: ({ cfg }) => cfg.channels?.telegram?.replyToMode ?? "first",
-      buildToolContext: ({ context, hasRepliedRef }) => {
-        const threadId = context.MessageThreadId ?? context.ReplyToId;
-        return {
-          currentChannelId: context.To?.trim() || undefined,
-          currentThreadTs: threadId != null ? String(threadId) : undefined,
-          hasRepliedRef,
-        };
-      },
-    },
-  },
   whatsapp: {
     id: "whatsapp",
     capabilities: {

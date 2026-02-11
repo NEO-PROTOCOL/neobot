@@ -23,7 +23,6 @@ import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-ke
 import { resolveSignalAccount } from "../../signal/accounts.js";
 import { resolveSlackAccount } from "../../slack/accounts.js";
 import { resolveSlackUserAllowlist } from "../../slack/resolve-users.js";
-import { resolveTelegramAccount } from "../../telegram/accounts.js";
 import { resolveWhatsAppAccount } from "../../web/accounts.js";
 
 type AllowlistScope = "dm" | "group" | "all";
@@ -256,23 +255,13 @@ function resolveChannelAllowFromPaths(
     if (channelId === "slack" || channelId === "discord") {
       return ["dm", "allowFrom"];
     }
-    if (
-      channelId === "telegram" ||
-      channelId === "whatsapp" ||
-      channelId === "signal" ||
-      channelId === "imessage"
-    ) {
+    if (channelId === "whatsapp" || channelId === "signal" || channelId === "imessage") {
       return ["allowFrom"];
     }
     return null;
   }
   if (scope === "group") {
-    if (
-      channelId === "telegram" ||
-      channelId === "whatsapp" ||
-      channelId === "signal" ||
-      channelId === "imessage"
-    ) {
+    if (channelId === "whatsapp" || channelId === "signal" || channelId === "imessage") {
       return ["groupAllowFrom"];
     }
     return null;
@@ -364,27 +353,7 @@ export const handleAllowlistCommand: CommandHandler = async (params, allowTextCo
     let dmPolicy: string | undefined;
     let groupPolicy: string | undefined;
 
-    if (channelId === "telegram") {
-      const account = resolveTelegramAccount({ cfg: params.cfg, accountId });
-      dmAllowFrom = (account.config.allowFrom ?? []).map(String);
-      groupAllowFrom = (account.config.groupAllowFrom ?? []).map(String);
-      dmPolicy = account.config.dmPolicy;
-      groupPolicy = account.config.groupPolicy;
-      const groups = account.config.groups ?? {};
-      for (const [groupId, groupCfg] of Object.entries(groups)) {
-        const entries = (groupCfg?.allowFrom ?? []).map(String).filter(Boolean);
-        if (entries.length > 0) {
-          groupOverrides.push({ label: groupId, entries });
-        }
-        const topics = groupCfg?.topics ?? {};
-        for (const [topicId, topicCfg] of Object.entries(topics)) {
-          const topicEntries = (topicCfg?.allowFrom ?? []).map(String).filter(Boolean);
-          if (topicEntries.length > 0) {
-            groupOverrides.push({ label: `${groupId} topic ${topicId}`, entries: topicEntries });
-          }
-        }
-      }
-    } else if (channelId === "whatsapp") {
+    if (channelId === "whatsapp") {
       const account = resolveWhatsAppAccount({ cfg: params.cfg, accountId });
       dmAllowFrom = (account.allowFrom ?? []).map(String);
       groupAllowFrom = (account.groupAllowFrom ?? []).map(String);

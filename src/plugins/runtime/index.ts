@@ -41,7 +41,6 @@ import { removeAckReactionAfterReply, shouldAckReaction } from "../../channels/a
 import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.js";
 import { discordMessageActions } from "../../channels/plugins/actions/discord.js";
 import { signalMessageActions } from "../../channels/plugins/actions/signal.js";
-import { telegramMessageActions } from "../../channels/plugins/actions/telegram.js";
 import { createWhatsAppLoginTool } from "../../channels/plugins/agent-tools/whatsapp-login.js";
 import { recordInboundSession } from "../../channels/session.js";
 import { monitorWebChannel } from "../../channels/web/index.js";
@@ -122,14 +121,6 @@ import { probeSlack } from "../../slack/probe.js";
 import { resolveSlackChannelAllowlist } from "../../slack/resolve-channels.js";
 import { resolveSlackUserAllowlist } from "../../slack/resolve-users.js";
 import { sendMessageSlack } from "../../slack/send.js";
-import {
-  auditTelegramGroupMembership,
-  collectTelegramUnmentionedGroupIds,
-} from "../../telegram/audit.js";
-import { monitorTelegramProvider } from "../../telegram/monitor.js";
-import { probeTelegram } from "../../telegram/probe.js";
-import { sendMessageTelegram } from "../../telegram/send.js";
-import { resolveTelegramToken } from "../../telegram/token.js";
 import { textToSpeechTelephony } from "../../tts/tts.js";
 import { getActiveWebListener } from "../../web/active-listener.js";
 import {
@@ -282,15 +273,6 @@ export function createPluginRuntime(): PluginRuntime {
         sendMessageSlack,
         monitorSlackProvider,
         handleSlackAction,
-      },
-      telegram: {
-        auditGroupMembership: auditTelegramGroupMembership,
-        collectUnmentionedGroupIds: collectTelegramUnmentionedGroupIds,
-        probeTelegram,
-        resolveTelegramToken,
-        sendMessageTelegram,
-        monitorTelegramProvider,
-        messageActions: telegramMessageActions,
       },
       signal: {
         probeSignal,

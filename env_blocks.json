@@ -1,0 +1,46 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "block",
+      "id": "2f88c6e8-3be0-81f8-a13d-c29b4bd83cac",
+      "parent": { "type": "page_id", "page_id": "2f88c6e8-3be0-81e1-be9a-faa3663aa6dd" },
+      "created_time": "2026-01-30T08:02:00.000Z",
+      "last_edited_time": "2026-01-30T08:02:00.000Z",
+      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
+      "has_children": false,
+      "archived": false,
+      "in_trash": false,
+      "type": "code",
+      "code": {
+        "caption": [],
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "# 🔐 Alchemy API Key (Node API - RPC)\n# Copie da URL: https://eth-sepolia.g.alchemy.com/v2/SUA_API_KEY\n# OU do painel \"App Dashboard\" > \"View Key\"\nALCHEMY_API_KEY=F7WGOxare2E3WPbjGiBFQ\nAPP_ID=7tqgjbm6wlwwbtk2\nAPP_NAME=neoflow-token\n\n# 🔐 Etherscan para verificação automática (opcional, mas recomendado)\n# Obter em: https://etherscan.io/apis\nETHERSCAN_API_KEY=WYII9Y7JICTMERA89H6P3X9C3JKTIW8V75\n\n# 🔑 Nome da conta para deploy\nWALLET_LABEL=neoflow-admin\n\n# 🌐 Network padrão (Polygon Mainnet)\nAPE_NETWORK=polygon:mainnet\n\n# NFT.Storage API Key\nNFT_API_KEY=8e9d9918.bf190b2cf5654e37b656e0d4396211a9\n\n# 🌐 Avatar IPFS (Lighthouse Storage)\nAVATAR_IPFS_URL=https://gateway.lighthouse.storage/ipfs/bafkreiboigewtuwih7cfnxppte64l3zkktrb52serzloa4vqfrw5f3zh3i\nAVATAR_IPFS_CID=bafkreiboigewtuwih7cfnxppte64l3zkktrb52serzloa4vqfrw5f3zh3i\n\n# Paste this in your .env file\nNEXT_PUBLIC_ALCHEMY_API_KEY=F7WGOxare2E3WPbjGiBFQ\nNEXT_PUBLIC_ALCHEMY_POLICY_ID=90cd1509-c2e8-4ccf-b3a5-4bea5edf3de6\nNEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_API_KEY=https://polygon-mainnet.g.alchemy.com/v2/F7WGOxare2E3WPbjGiBFQ\n\nNEXT_PUBLIC_TOKEN_ADDRESS=0x59aa4EaE743d608FBDd4205ebA59b38DCA755Dd2\nNEXT_PUBLIC_VAULT_ADDRESS=0x07E39107d4B35b64f9f2310B9A2B8e5262A4ee41\nNEXT_PUBLIC_CLAIM_ADDRESS=0x407C037906d6441ECD4a3F9064eab2E6CF03b36b\nNEXT_PUBLIC_GOVERNOR_ADDRESS=0xeA6cedF9eD5d67fd2785Dd1cb34F434477927bB0\nNEXT_PUBLIC_GAMIFICATION_ADDRESS=0xfbD4b4e0Cd08d871042Db1D4CC47e7bb66d1aDE3\n\nNEXT_PUBLIC_THIRDWEB_CLIENT_ID=a70d3d6d2ec826511ff9e31b0db2d0fc\nNEXT_PUBLIC_THIRDWEB_SECRET_KEY=MuCJVjb7TNabPJyKh3KX0GFkyUWQ8H3Z2Y4h762dOEtRq4z8dJfrrH0xlIKU5_mAMxcVj2CqN15_69g6yJegbQ\nTOKEN_NEOFLW_WALLET_ADDRESS=0x7598e8D2769ef9887AD6e9947f9A75F420058376\nTOKEN_NEOFLW_WALLET_LABEL=Token NEOFLW Wallet \n\nNEXT_PUBLIC_ALCHEMY_MAINNET_API_KEY=https://eth-mainnet.g.alchemy.com/v2/F7WGOxare2E3WPbjGiBFQ\n\nPRIVY_ID=cmih9fnzr0cndl80dcszlohot\nPRIVY_SECRET=dhPBSBe2pfT3js36wtiFGticE8V63iy3ceQNTjwQz9bLSRABEXMCmfQKUXXjytk2u7VPpWtGQx1FrkCCh3ntGsE\n",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            },
+            "plain_text": "# 🔐 Alchemy API Key (Node API - RPC)\n# Copie da URL: https://eth-sepolia.g.alchemy.com/v2/SUA_API_KEY\n# OU do painel \"App Dashboard\" > \"View Key\"\nALCHEMY_API_KEY=F7WGOxare2E3WPbjGiBFQ\nAPP_ID=7tqgjbm6wlwwbtk2\nAPP_NAME=neoflow-token\n\n# 🔐 Etherscan para verificação automática (opcional, mas recomendado)\n# Obter em: https://etherscan.io/apis\nETHERSCAN_API_KEY=WYII9Y7JICTMERA89H6P3X9C3JKTIW8V75\n\n# 🔑 Nome da conta para deploy\nWALLET_LABEL=neoflow-admin\n\n# 🌐 Network padrão (Polygon Mainnet)\nAPE_NETWORK=polygon:mainnet\n\n# NFT.Storage API Key\nNFT_API_KEY=8e9d9918.bf190b2cf5654e37b656e0d4396211a9\n\n# 🌐 Avatar IPFS (Lighthouse Storage)\nAVATAR_IPFS_URL=https://gateway.lighthouse.storage/ipfs/bafkreiboigewtuwih7cfnxppte64l3zkktrb52serzloa4vqfrw5f3zh3i\nAVATAR_IPFS_CID=bafkreiboigewtuwih7cfnxppte64l3zkktrb52serzloa4vqfrw5f3zh3i\n\n# Paste this in your .env file\nNEXT_PUBLIC_ALCHEMY_API_KEY=F7WGOxare2E3WPbjGiBFQ\nNEXT_PUBLIC_ALCHEMY_POLICY_ID=90cd1509-c2e8-4ccf-b3a5-4bea5edf3de6\nNEXT_PUBLIC_ALCHEMY_POLYGON_MAINNET_API_KEY=https://polygon-mainnet.g.alchemy.com/v2/F7WGOxare2E3WPbjGiBFQ\n\nNEXT_PUBLIC_TOKEN_ADDRESS=0x59aa4EaE743d608FBDd4205ebA59b38DCA755Dd2\nNEXT_PUBLIC_VAULT_ADDRESS=0x07E39107d4B35b64f9f2310B9A2B8e5262A4ee41\nNEXT_PUBLIC_CLAIM_ADDRESS=0x407C037906d6441ECD4a3F9064eab2E6CF03b36b\nNEXT_PUBLIC_GOVERNOR_ADDRESS=0xeA6cedF9eD5d67fd2785Dd1cb34F434477927bB0\nNEXT_PUBLIC_GAMIFICATION_ADDRESS=0xfbD4b4e0Cd08d871042Db1D4CC47e7bb66d1aDE3\n\nNEXT_PUBLIC_THIRDWEB_CLIENT_ID=a70d3d6d2ec826511ff9e31b0db2d0fc\nNEXT_PUBLIC_THIRDWEB_SECRET_KEY=MuCJVjb7TNabPJyKh3KX0GFkyUWQ8H3Z2Y4h762dOEtRq4z8dJfrrH0xlIKU5_mAMxcVj2CqN15_69g6yJegbQ\nTOKEN_NEOFLW_WALLET_ADDRESS=0x7598e8D2769ef9887AD6e9947f9A75F420058376\nTOKEN_NEOFLW_WALLET_LABEL=Token NEOFLW Wallet \n\nNEXT_PUBLIC_ALCHEMY_MAINNET_API_KEY=https://eth-mainnet.g.alchemy.com/v2/F7WGOxare2E3WPbjGiBFQ\n\nPRIVY_ID=cmih9fnzr0cndl80dcszlohot\nPRIVY_SECRET=dhPBSBe2pfT3js36wtiFGticE8V63iy3ceQNTjwQz9bLSRABEXMCmfQKUXXjytk2u7VPpWtGQx1FrkCCh3ntGsE\n",
+            "href": null
+          }
+        ],
+        "language": "plain text"
+      }
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false,
+  "type": "block",
+  "block": {},
+  "request_id": "de777144-0797-441b-8827-a6242c0df574"
+}

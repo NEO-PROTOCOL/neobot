@@ -4,7 +4,6 @@ const ENVELOPE_PREFIX = /^\[([^\]]+)\]\s*/;
 const ENVELOPE_CHANNELS = [
   "WebChat",
   "WhatsApp",
-  "Telegram",
   "Signal",
   "Slack",
   "Discord",

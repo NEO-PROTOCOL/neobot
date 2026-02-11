@@ -113,16 +113,6 @@ type ResolveSlackUserAllowlist =
 type SendMessageSlack = typeof import("../../slack/send.js").sendMessageSlack;
 type MonitorSlackProvider = typeof import("../../slack/index.js").monitorSlackProvider;
 type HandleSlackAction = typeof import("../../agents/tools/slack-actions.js").handleSlackAction;
-type AuditTelegramGroupMembership =
-  typeof import("../../telegram/audit.js").auditTelegramGroupMembership;
-type CollectTelegramUnmentionedGroupIds =
-  typeof import("../../telegram/audit.js").collectTelegramUnmentionedGroupIds;
-type ProbeTelegram = typeof import("../../telegram/probe.js").probeTelegram;
-type ResolveTelegramToken = typeof import("../../telegram/token.js").resolveTelegramToken;
-type SendMessageTelegram = typeof import("../../telegram/send.js").sendMessageTelegram;
-type MonitorTelegramProvider = typeof import("../../telegram/monitor.js").monitorTelegramProvider;
-type TelegramMessageActions =
-  typeof import("../../channels/plugins/actions/telegram.js").telegramMessageActions;
 type ProbeSignal = typeof import("../../signal/probe.js").probeSignal;
 type SendMessageSignal = typeof import("../../signal/send.js").sendMessageSignal;
 type MonitorSignalProvider = typeof import("../../signal/index.js").monitorSignalProvider;
@@ -294,15 +284,6 @@ export type PluginRuntime = {
       sendMessageSlack: SendMessageSlack;
       monitorSlackProvider: MonitorSlackProvider;
       handleSlackAction: HandleSlackAction;
-    };
-    telegram: {
-      auditGroupMembership: AuditTelegramGroupMembership;
-      collectUnmentionedGroupIds: CollectTelegramUnmentionedGroupIds;
-      probeTelegram: ProbeTelegram;
-      resolveTelegramToken: ResolveTelegramToken;
-      sendMessageTelegram: SendMessageTelegram;
-      monitorTelegramProvider: MonitorTelegramProvider;
-      messageActions: TelegramMessageActions;
     };
     signal: {
       probeSignal: ProbeSignal;

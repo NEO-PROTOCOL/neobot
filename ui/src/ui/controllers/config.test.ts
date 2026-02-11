@@ -105,7 +105,7 @@ describe("updateConfigFormValue", () => {
   it("seeds from snapshot when form is null", () => {
     const state = createState();
     state.configSnapshot = {
-      config: { channels: { telegram: { botToken: "t" } }, gateway: { mode: "local" } },
+      config: { channels: { whatsapp: { botToken: "t" } }, gateway: { mode: "local" } },
       valid: true,
       issues: [],
       raw: "{}",
@@ -115,7 +115,7 @@ describe("updateConfigFormValue", () => {
 
     expect(state.configFormDirty).toBe(true);
     expect(state.configForm).toEqual({
-      channels: { telegram: { botToken: "t" } },
+      channels: { whatsapp: { botToken: "t" } },
       gateway: { mode: "local", port: 18789 },
     });
   });

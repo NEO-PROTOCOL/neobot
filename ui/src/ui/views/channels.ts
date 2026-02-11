@@ -10,7 +10,6 @@ import type {
   NostrStatus,
   SignalStatus,
   SlackStatus,
-  TelegramStatus,
   WhatsAppStatus,
 } from "../types.ts";
 import type { ChannelKey, ChannelsChannelData, ChannelsProps } from "./channels.types.ts";
@@ -23,13 +22,11 @@ import { renderNostrCard } from "./channels.nostr.ts";
 import { channelEnabled, renderChannelAccountCount } from "./channels.shared.ts";
 import { renderSignalCard } from "./channels.signal.ts";
 import { renderSlackCard } from "./channels.slack.ts";
-import { renderTelegramCard } from "./channels.telegram.ts";
 import { renderWhatsAppCard } from "./channels.whatsapp.ts";
 
 export function renderChannels(props: ChannelsProps) {
   const channels = props.snapshot?.channels as Record<string, unknown> | null;
   const whatsapp = (channels?.whatsapp ?? undefined) as WhatsAppStatus | undefined;
-  const telegram = (channels?.telegram ?? undefined) as TelegramStatus | undefined;
   const discord = (channels?.discord ?? null) as DiscordStatus | null;
   const googlechat = (channels?.googlechat ?? null) as GoogleChatStatus | null;
   const slack = (channels?.slack ?? null) as SlackStatus | null;
@@ -55,7 +52,6 @@ export function renderChannels(props: ChannelsProps) {
       ${orderedChannels.map((channel) =>
         renderChannel(channel.key, props, {
           whatsapp,
-          telegram,
           discord,
           googlechat,
           slack,
@@ -96,7 +92,7 @@ function resolveChannelOrder(snapshot: ChannelsStatusSnapshot | null): ChannelKe
   if (snapshot?.channelOrder?.length) {
     return snapshot.channelOrder;
   }
-  return ["whatsapp", "telegram", "discord", "googlechat", "slack", "signal", "imessage", "nostr"];
+  return ["whatsapp", "discord", "googlechat", "slack", "signal", "imessage", "nostr"];
 }
 
 function renderChannel(key: ChannelKey, props: ChannelsProps, data: ChannelsChannelData) {
@@ -106,13 +102,6 @@ function renderChannel(key: ChannelKey, props: ChannelsProps, data: ChannelsChan
       return renderWhatsAppCard({
         props,
         whatsapp: data.whatsapp,
-        accountCountLabel,
-      });
-    case "telegram":
-      return renderTelegramCard({
-        props,
-        telegram: data.telegram,
-        telegramAccounts: data.channelAccounts?.telegram ?? [],
         accountCountLabel,
       });
     case "discord":

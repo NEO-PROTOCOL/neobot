@@ -110,8 +110,6 @@
     "@aws-sdk/client-bedrock": "^3.986.0",
     "@buape/carbon": "0.14.0",
     "@clack/prompts": "^1.0.0",
-    "@grammyjs/runner": "^2.0.3",
-    "@grammyjs/transformer-throttler": "^1.2.1",
     "@homebridge/ciao": "^1.3.5",
     "@larksuiteoapi/node-sdk": "^1.58.0",
     "@line/bot-sdk": "^10.6.0",
@@ -135,7 +133,6 @@
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "file-type": "^21.3.0",
-    "grammy": "^1.40.0",
     "jiti": "^2.6.1",
     "json5": "^2.2.3",
     "jszip": "^3.10.1",
@@ -159,7 +156,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@grammyjs/types": "^3.24.0",
     "@lit-labs/signals": "^0.2.0",
     "@lit/context": "^1.1.6",
     "@types/express": "^5.0.6",
