@@ -13,7 +13,8 @@
     "tsgo": "tsc -p tsconfig.json --noEmit",
     "test": "node scripts/test-parallel.mjs",
     "test:live": "CLAWDBOT_LIVE_TEST=1 vitest run --config vitest.live.config.ts",
-    "analyze": "node --import tsx scripts/code-analysis.ts"
+    "analyze": "node --import tsx scripts/code-analysis.ts",
+    "notion-sync": "tsx scripts/notion-sync.ts"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "latest",
@@ -45,7 +46,6 @@
     "json5": "^2.2.3",
     "markdown-it": "^14.1.0",
     "node-edge-tts": "^1.2.9",
-    "node-telegram-bot-api": "^0.67.0",
     "jszip": "^3.10.1",
     "kubo-rpc-client": "^5.0.1",
     "node-cron": "^3.0.3",
@@ -67,7 +67,6 @@
     "@types/form-data": "^2.5.2",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^25.0.10",
-    "@types/node-telegram-bot-api": "^0.64.13",
     "@types/ws": "^8.18.1",
     "oxlint": "^1.41.0",
     "oxlint-tsgolint": "^0.11.4",
