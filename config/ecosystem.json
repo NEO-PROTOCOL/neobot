@@ -2,13 +2,26 @@
     {
         "id": "neobot-architect",
         "org": "NEO Protocol",
-        "name": "Neobot (Architect Agent)",
-        "description": "Agente de Desenvolvimento e Arquitetura. Ferramenta de DevOps, Coding e Estratégia.",
+        "name": "Neobot — Node Warrior / NEO Nexus",
+        "description": "Node Warrior: Agente Central do NEO Protocol. Orquestrador soberano (nexus.neoprotocol.space), arquiteto e executor. Contém o Protocol Nexus Event Bus e as identidades mio-system em src/neo/identity/.",
         "localPath": ".",
         "repository": "https://github.com/neomello/neobot.git",
-        "role": "Development Tool / Architect",
+        "role": "Sovereign Node / Orchestrator / Architect",
+        "localUrl": "http://localhost:19000",
+        "webhookUrl": {
+            "local": "http://localhost:19000/api/webhook/nexus",
+            "production": "https://nexus.neoprotocol.space/api/webhook/nexus",
+            "dev": "https://dev.neoprotocol.space/api/webhook/nexus"
+        },
+        "nexusEvents": ["TASK_COMPLETED", "BUILD_STATUS", "NEXUS_START"],
+        "identity": {
+            "primary": "mio-core",
+            "publicKey": "src/neo/identity/",
+            "note": "9 identidades mio-system residem em src/neo/identity/registry.ts"
+        },
         "hosting": {
             "platform": "Local / Railway (Dev)",
+            "targetCustomDomain": "nexus.neoprotocol.space",
             "adminEmail": "neo@neoprotocol.space"
         }
     },
@@ -31,15 +44,27 @@
     {
         "id": "neo-nexus",
         "org": "NEO Protocol",
-        "name": "NEO Nexus (Orchestrator)",
-        "description": "Orquestrador de Eventos Soberano do Protocolo NEØ. Sistema nervoso central.",
+        "name": "NEO Nexus (Event Hub — standalone)",
+        "description": "Standalone Event Hub do Protocolo NEØ. Distribui eventos para todos os nós via HTTP webhook. Docker + Railway. Porta 3000.",
         "localPath": "../neo-nexus",
         "repository": "git@github.com:NEO-PROTOCOL/neo-nexus.git",
-        "role": "Orchestration Layer",
+        "role": "Event Hub / Relay",
+        "localUrl": "http://localhost:3000",
+        "webhookUrl": {
+            "local": "http://localhost:3000/api/events",
+            "railway": "https://neo-nexus-production.up.railway.app/api/events",
+            "production": "https://nexus.neoprotocol.space/api/events"
+        },
+        "nexusEvents": ["*"],
         "hosting": {
-            "platform": "Railway / VPS",
-            "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "nexus.neoprotocol.space"
+            "platform": "Railway",
+            "railwayUrl": "https://neo-nexus-production.up.railway.app",
+            "targetCustomDomain": "nexus.neoprotocol.space",
+            "port": 3000,
+            "buildCommand": "npm run build",
+            "startCommand": "node dist/server.js",
+            "healthcheck": "/health",
+            "adminEmail": "neo@neoprotocol.space"
         }
     },
     {
@@ -76,7 +101,7 @@
         "org": "Neo Smart Factory",
         "name": "NEO Smart Factory Hub",
         "description": "Fábrica de Tokens e Contratos Inteligentes. Reduz fricção Web3.",
-        "localPath": "../neo-smart-token-factory",
+        "localPath": "../neo-smart-factory",
         "repository": "https://github.com/neomello/neo_smart_factory.git",
         "role": "Web3 Engineering",
         "hosting": {
@@ -214,16 +239,33 @@
         "id": "flowpay",
         "org": "FlowPay",
         "name": "FlowPay Sovereign",
-        "description": "Gateway Financeiro Soberano (PIX ↔ Crypto) com liquidação on-chain e recorrência.",
+        "description": "Gateway Financeiro Soberano (PIX ↔ Crypto) com liquidação on-chain e recorrência. Astro SSR + Netlify Functions. Recebe webhooks do Nexus em /api/webhook/nexus.",
         "localPath": "../flowpay",
+        "absolutePath": "/usr/local/projects/flowpay",
         "repository": "https://github.com/flowpaycash/flowpay",
         "role": "Financial Sovereign Node",
+        "localUrl": "http://localhost:4321",
+        "webhookUrl": {
+            "local": "http://localhost:4321/api/webhook/nexus",
+            "production": "https://flowpay-production-10d8.up.railway.app/api/webhook/nexus",
+            "custom": "https://flowpay.cash/api/webhook/nexus"
+        },
+        "nexusEvents": [
+            "FACTORY:MINT_CONFIRMED",
+            "FACTORY:MINT_FAILED",
+            "NEOBOT:ACCESS_UNLOCKED"
+        ],
         "hosting": {
-            "platform": "Railway (Sovereign Node)",
+            "platform": "Railway",
+            "railwayProjectId": "0a6c292a-b3b2-4873-96a7-2e84e7b9b38c",
             "productionUrl": "https://flowpay-production-10d8.up.railway.app",
+            "targetCustomDomain": "flowpay.cash",
+            "port": 4321,
             "adminEmail": "neo@neoprotocol.space",
-            "targetCustomDomain": "pay.flowoff.xyz",
-            "governance": "NEØ SMART CONTRACT"
+            "governance": "NEØ SMART CONTRACT",
+            "buildCommand": "npm run build",
+            "startCommand": "PORT=4321 npm start",
+            "healthcheck": "/api/health"
         }
     },
     {

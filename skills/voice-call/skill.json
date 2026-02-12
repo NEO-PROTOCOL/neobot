@@ -1,0 +1,15 @@
+{
+  "id": "voice-call",
+  "name": "Voice Call",
+  "version": "1.0.0",
+  "description": "Start voice calls via the OpenClaw voice-call plugin",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["communication", "voice", "calls"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["voice", "call", "communication"]
+  }
+}

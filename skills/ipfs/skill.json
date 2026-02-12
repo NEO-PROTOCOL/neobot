@@ -1,0 +1,19 @@
+{
+  "id": "ipfs",
+  "name": "IPFS Storage Integration",
+  "version": "1.0.0",
+  "description": "Integration with local IPFS node (kubo) for decentralized storage of logs, memory, backups, and media files.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "config.ts",
+  "category": ["storage", "ipfs", "decentralized", "infrastructure"],
+  "permissions": [
+    "ipfs:read",
+    "ipfs:write",
+    "ipfs:pin"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["ipfs", "kubo", "storage", "decentralized"]
+  }
+}

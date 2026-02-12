@@ -1,0 +1,15 @@
+{
+  "id": "eightctl",
+  "name": "Eight Sleep",
+  "version": "1.0.0",
+  "description": "Control Eight Sleep pods: status, temperature, alarms, schedules",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["smart-home", "sleep", "health"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["eight-sleep", "temperature", "sleep"]
+  }
+}

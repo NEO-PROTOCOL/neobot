@@ -1,0 +1,15 @@
+{
+  "id": "gog",
+  "name": "Google Workspace",
+  "version": "1.0.0",
+  "description": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "google", "workspace"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["google", "gmail", "calendar", "drive", "gog"]
+  }
+}

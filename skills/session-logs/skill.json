@@ -1,0 +1,18 @@
+{
+  "id": "session-logs",
+  "name": "Session Logs",
+  "version": "1.0.0",
+  "description": "Search and analyze session logs from previous conversations using jq and ripgrep. Query historical agent interactions and extract insights.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["logs", "search", "analysis", "memory"],
+  "permissions": [
+    "fs:read",
+    "exec"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["session", "logs", "search", "jq"]
+  }
+}

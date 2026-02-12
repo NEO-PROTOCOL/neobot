@@ -1,0 +1,15 @@
+{
+  "id": "nano-banana-pro",
+  "name": "Nano Banana Pro (Image Gen)",
+  "version": "1.0.0",
+  "description": "Generate or edit images via Gemini Pro Image generation",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "image-generation", "media"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["image-generation", "gemini", "ai", "images"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "ordercli",
+  "name": "Order CLI",
+  "version": "1.0.0",
+  "description": "Foodora-only CLI for checking past orders and active order status",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["food", "ordering", "delivery"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["foodora", "orders", "delivery", "cli"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "skill-creator",
+  "name": "Skill Creator",
+  "version": "1.0.0",
+  "description": "Create or update AgentSkills. Use when designing, structuring, or packaging skills with scripts, references, and assets",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["tools", "skills", "development"],
+  "permissions": ["exec", "fs:read", "fs:write"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["skill", "creator", "development", "packaging"]
+  }
+}

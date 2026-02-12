@@ -1,0 +1,15 @@
+{
+  "id": "imsg",
+  "name": "iMessage CLI",
+  "version": "1.0.0",
+  "description": "iMessage/SMS CLI for listing chats, history, watch, and sending messages",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["channel", "messaging", "imessage"],
+  "permissions": ["exec"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["imessage", "sms", "messaging", "macos"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "oracle",
+  "name": "Oracle CLI",
+  "version": "1.0.0",
+  "description": "Best practices for using the oracle CLI with prompt and file bundling, engines, sessions",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "cli", "tools"],
+  "permissions": ["exec", "fs:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["oracle", "cli", "prompt", "ai"]
+  }
+}

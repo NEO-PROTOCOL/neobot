@@ -1,0 +1,15 @@
+{
+  "id": "camsnap",
+  "name": "Camera Snapshot",
+  "version": "1.0.0",
+  "description": "Capture frames or clips from RTSP/ONVIF cameras",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["camera", "media", "capture"],
+  "permissions": ["exec", "network:local"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["camera", "rtsp", "onvif", "snapshot"]
+  }
+}

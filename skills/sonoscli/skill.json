@@ -1,0 +1,15 @@
+{
+  "id": "sonoscli",
+  "name": "Sonos CLI",
+  "version": "1.0.0",
+  "description": "Control Sonos speakers: discover/status/play/volume/group",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["audio", "smart-home", "music"],
+  "permissions": ["exec", "network:local"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["sonos", "speakers", "audio", "music"]
+  }
+}

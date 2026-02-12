@@ -1,0 +1,15 @@
+{
+  "id": "scheduler",
+  "name": "Task Scheduler",
+  "version": "1.0.0",
+  "description": "Schedule future tasks, messages, and command executions for Neobot",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["automation", "scheduler", "cron"],
+  "permissions": ["exec", "fs:read", "fs:write"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["scheduler", "cron", "automation", "tasks"]
+  }
+}

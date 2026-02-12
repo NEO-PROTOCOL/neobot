@@ -1,0 +1,15 @@
+{
+  "id": "video-frames",
+  "name": "Video Frames",
+  "version": "1.0.0",
+  "description": "Extract frames or short clips from videos using ffmpeg",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["media", "video", "ffmpeg"],
+  "permissions": ["exec", "fs:read", "fs:write"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["ffmpeg", "video", "frames", "media"]
+  }
+}

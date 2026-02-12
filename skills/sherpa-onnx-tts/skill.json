@@ -1,0 +1,15 @@
+{
+  "id": "sherpa-onnx-tts",
+  "name": "Sherpa ONNX TTS",
+  "version": "1.0.0",
+  "description": "Local text-to-speech via sherpa-onnx (offline, no cloud required)",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "tts", "audio", "local"],
+  "permissions": ["exec", "fs:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["sherpa", "onnx", "tts", "local", "offline"]
+  }
+}

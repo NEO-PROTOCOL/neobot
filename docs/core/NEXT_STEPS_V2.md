@@ -26,7 +26,7 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
 - Fase 1.0: COMPLETA (Foundation: IPFS, CLI, Keys, Identity Map)
-- Fase 2.0: EM PROGRESSO (Sovereignty & Orchestration: Nexus, FlowCloser)
+- Fase 2.0: EM PROGRESSO (Autonomous & Orchestration: Nexus, FlowCloser)
 - Fase 3.0: PREVISTA (Dashboard & Global Deploy)
 ```
 --------------------------------------------------------------
@@ -820,12 +820,12 @@ pnpm add -D @types/node
 ================================================================
 
 ┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ OVERALL PROGRESS: 13/31 TASKS (42%)                  │
+│ ▓▓▓ OVERALL PROGRESS: 17/31 TASKS (55%)   11 Fev 2026   │
 ├──────────────────────────────────────────────────────────┤
-│ └─ Fase 1 (Foundation):   13/15  ▓▓▓▓▓▓▓▓░░░░░ 87%     │
-│ └─ Fase 2 (Extensions):    0/8   ░░░░░░░░░░░░░░ 0%     │
-│ └─ Fase 3 (Documentation): 0/5   ░░░░░░░░░░░░░░ 0%     │
-│ └─ Fase 4 (Release):       0/3   ░░░░░░░░░░░░░░ 0%     │
+│ └─ Fase 1 (Foundation):   15/15  ▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%    │
+│ └─ Fase 2 (Extensions):    0/8   ░░░░░░░░░░░░░░ 0%      │
+│ └─ Fase 3 (Documentation): 0/5   ░░░░░░░░░░░░░░ 0%      │
+│ └─ Fase 4 (Release):       0/3   ░░░░░░░░░░░░░░ 0%      │
 └──────────────────────────────────────────────────────────┘
 
 ================================================================
@@ -889,24 +889,42 @@ pnpm add -D @types/node
    - Skill publicada: neo-ipfs-status@1.0.0
    - CID: QmQNrCR4uGWfKY6sQAG5EnwDCSq1jYSuekzNoAYS8ymRhj
 
-**PROXIMO (Proxima Semana):**
+**FASE 1 CONCLUIDA (11 Fev 2026):**
 
 1. ✅ Implementar CLI commands (neo:skill:*)
    - Commands funcionando: publish, install, list, index:create
+   - Adicionados: neo:skill:search, neo:help, neo:version
+   - Registrados em src/cli/neobot.ts
 
-2. ⏳ Publicar mais skills críticas no IPFS
-   - Criar skill.json para: asi1-llm, smart-factory, flowpay
-   - Publicar 2-3 skills adicionais
-   - Objetivo: Registry com múltiplas skills funcionais
+2. ✅ skill.json criado para TODAS as 62 skills
+   - Inclui: ipfs, telegram, llm, ops-status, healthcheck, ledger,
+     discord, slack, github, notion, e mais 52 skills
+   - Registry funcional: pnpm neobot neo:skill:list
 
-3. ⏳ Implementar MioIdentityManager
-   - Ativar sistema de identidade Web3
-   - Usar keys já geradas
+3. ✅ neo:info atualizado com contagem real de skills/identidades
 
-4. ⏳ Ativar 9 identidades NEO
-   - Usar private keys do .neo-identities/.env
+4. ✅ Ecosystem multi-repo conectado via Nexus
+   - ecosystem.json: neobot = Node Warrior (nexus.neoprotocol.space)
+   - nodes.json (neo-nexus): URLs Railway + local de todos os nós
+   - flowpay/neo.json: Railway projectId + nexus config
+   - Portas definidas: neobot=19000, nexus=3000, flowpay=4321
+   - Sem Docker local — cada nó no próprio Railway
 
-5. ⏳ Testes end-to-end registry
+**PROXIMO (Fase 2 — 14 Fev):**
+
+1. ⏳ IPFS Channel Adapter (neo/gateway/ipfs-channel.ts)
+   - IPFSChannelAdapter com PubSub
+   - Criptografia via mio-identity
+
+2. ⏳ Web3 Signature System (neo/gateway/web3-signer.ts)
+   - Sign/verify skills no registry
+   - Integração com ledger (audit log)
+
+3. ⏳ Dashboard NEO Integration
+   - UI: Skills Registry, Identities, IPFS Status
+
+4. ⏳ Publicar skills críticas no IPFS
+   - Objetivo: 5+ skills com CID real no registry
 
 ================================================================
                     METRICAS DE AUTONOMIA

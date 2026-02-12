@@ -1,0 +1,15 @@
+{
+  "id": "gifgrep",
+  "name": "GIF Search",
+  "version": "1.0.0",
+  "description": "Search GIF providers with CLI/TUI, download results, and extract stills/sheets",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["media", "gif", "search"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["gif", "search", "media", "gifgrep"]
+  }
+}

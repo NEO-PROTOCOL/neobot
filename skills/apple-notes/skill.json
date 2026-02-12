@@ -1,0 +1,15 @@
+{
+  "id": "apple-notes",
+  "name": "Apple Notes",
+  "version": "1.0.0",
+  "description": "Manage Apple Notes via memo CLI on macOS (create, view, edit, delete, search, move, export notes)",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "notes", "macos"],
+  "permissions": ["exec"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["apple-notes", "memo", "macos"]
+  }
+}

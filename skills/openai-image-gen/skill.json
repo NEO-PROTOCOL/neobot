@@ -1,0 +1,15 @@
+{
+  "id": "openai-image-gen",
+  "name": "OpenAI Image Generation",
+  "version": "1.0.0",
+  "description": "Batch-generate images via OpenAI Images API with random prompt sampler and gallery output",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "image-generation", "openai"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["openai", "dalle", "image-generation", "ai"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "notion",
+  "name": "Notion Integration",
+  "version": "1.0.0",
+  "description": "Read and write Notion databases, pages, and blocks. Query workspace content, create pages, update properties, and sync data with NEO Protocol.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "knowledge", "notion", "database"],
+  "permissions": [
+    "http",
+    "network:outbound",
+    "env:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["notion", "database", "knowledge", "productivity"]
+  }
+}

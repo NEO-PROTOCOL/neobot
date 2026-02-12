@@ -1,0 +1,15 @@
+{
+  "id": "songsee",
+  "name": "Song Visualizer",
+  "version": "1.0.0",
+  "description": "Generate spectrograms and feature-panel visualizations from audio with the songsee CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["audio", "visualization", "analysis"],
+  "permissions": ["exec", "fs:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["spectrogram", "audio", "visualization", "songsee"]
+  }
+}

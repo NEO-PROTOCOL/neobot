@@ -1,0 +1,19 @@
+{
+  "id": "discord",
+  "name": "Discord Integration",
+  "version": "1.0.0",
+  "description": "Control Discord: send messages, react, manage threads/pins, run polls, upload media, manage channels and roles, and handle moderation.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["channel", "messaging", "discord", "community"],
+  "permissions": [
+    "http",
+    "network:outbound",
+    "env:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["discord", "messaging", "community", "channel"]
+  }
+}

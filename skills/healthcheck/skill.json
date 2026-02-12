@@ -1,0 +1,19 @@
+{
+  "id": "healthcheck",
+  "name": "Host Health Check & Security Hardening",
+  "version": "1.0.0",
+  "description": "Host security hardening and risk-tolerance configuration. Security audits, firewall/SSH/update hardening, risk posture review, and periodic health checks.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["security", "ops", "hardening", "audit"],
+  "permissions": [
+    "exec",
+    "fs:read",
+    "network:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["security", "hardening", "healthcheck", "audit"]
+  }
+}

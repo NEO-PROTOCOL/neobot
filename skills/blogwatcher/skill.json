@@ -1,0 +1,15 @@
+{
+  "id": "blogwatcher",
+  "name": "Blog Watcher",
+  "version": "1.0.0",
+  "description": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["monitoring", "rss", "feeds"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["rss", "atom", "feeds", "blog"]
+  }
+}

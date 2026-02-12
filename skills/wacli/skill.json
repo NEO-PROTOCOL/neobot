@@ -1,0 +1,15 @@
+{
+  "id": "wacli",
+  "name": "WhatsApp CLI",
+  "version": "1.0.0",
+  "description": "Send WhatsApp messages to other people or search/sync WhatsApp history via wacli CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["channel", "messaging", "whatsapp"],
+  "permissions": ["exec", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["whatsapp", "messaging", "wacli"]
+  }
+}

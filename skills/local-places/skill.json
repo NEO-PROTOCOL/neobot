@@ -1,0 +1,15 @@
+{
+  "id": "local-places",
+  "name": "Local Places",
+  "version": "1.0.0",
+  "description": "Search for places (restaurants, cafes, etc.) via Google Places API proxy on localhost",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["search", "places", "local"],
+  "permissions": ["exec", "network:local"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["places", "local", "restaurants", "google"]
+  }
+}

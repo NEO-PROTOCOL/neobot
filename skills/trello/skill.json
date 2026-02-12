@@ -1,0 +1,15 @@
+{
+  "id": "trello",
+  "name": "Trello",
+  "version": "1.0.0",
+  "description": "Manage Trello boards, lists, and cards via the Trello REST API",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "project-management", "trello"],
+  "permissions": ["http", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["trello", "boards", "cards", "project-management"]
+  }
+}

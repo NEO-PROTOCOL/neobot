@@ -1,0 +1,15 @@
+{
+  "id": "peekaboo",
+  "name": "Peekaboo macOS UI",
+  "version": "1.0.0",
+  "description": "Capture and automate macOS UI with the Peekaboo CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["automation", "macos", "ui"],
+  "permissions": ["exec"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["peekaboo", "macos", "ui", "automation"]
+  }
+}

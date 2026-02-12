@@ -1,0 +1,19 @@
+{
+  "id": "ops-status",
+  "name": "Ops Status",
+  "version": "1.0.0",
+  "description": "Reports on the operational status of the Moltbot/NEO ecosystem. Provides health checks for gateway, agents, channels, and system resources.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "scripts/report.sh",
+  "category": ["ops", "monitoring", "health", "infrastructure"],
+  "permissions": [
+    "exec",
+    "fs:read",
+    "network:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["ops", "status", "monitoring", "health"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "telegram",
+  "name": "Telegram Bot Integration",
+  "version": "1.0.0",
+  "description": "Telegram channel integration for NEO Protocol. Enables bot communication, message routing, and channel management via Telegram Bot API.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "bot.ts",
+  "category": ["channel", "messaging", "telegram", "communication"],
+  "permissions": [
+    "http",
+    "network:outbound",
+    "env:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["telegram", "bot", "messaging", "channel"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "openai-whisper",
+  "name": "Whisper (Local)",
+  "version": "1.0.0",
+  "description": "Local speech-to-text with the Whisper CLI (no API key required)",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "transcription", "speech"],
+  "permissions": ["exec", "fs:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["whisper", "speech-to-text", "transcription", "local"]
+  }
+}
