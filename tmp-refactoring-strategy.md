@@ -131,7 +131,7 @@ These require converting private methods or closure variables to explicit parame
 | Extract to                                        | What moves                                                                                           | LOC  |
 | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---- |
 | `infra/outbound/message-action-runner.media.ts`   | Attachment handling (max bytes, filename, base64, sandbox) + hydration (group icon, send attachment) | ~330 |
-| `infra/outbound/message-action-runner.context.ts` | Cross-context decoration + Slack/Telegram auto-threading                                             | ~190 |
+| `infra/outbound/message-action-runner.context.ts` | Cross-context decoration + Slack auto-threading                                             | ~190 |
 
 ### 7. `src/tts/tts.ts` (1,445 → ~950 LOC, then follow-up)
 

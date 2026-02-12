@@ -91,7 +91,7 @@ async function main() {
     try {
         const identities = await generateAllIdentities()
         await saveIdentities(identities)
-        console.log(chalk.bold.green('\n🎉 NEO Identity Vault initialized. Sovereignty established. Ø'));
+        console.log(chalk.bold.green('\n🎉 NEO Identity Vault initialized. Autonomous established. Ø'));
     } catch (error: any) {
         console.error(chalk.red('\n❌ Error generating identities:'), error.message)
         process.exit(1)

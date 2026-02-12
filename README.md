@@ -47,7 +47,7 @@ Born from Moltbot's industrial-grade foundation. Hybrid architecture:
 ```
 
 Why it matters: traditional assistants lock you into centralized
-platforms. NEØ gives you self-sovereignty, decentralization,
+platforms. NEØ gives you self-custodial, decentralization,
 transparency, resilience, and privacy.
 
 ```text
@@ -227,7 +227,7 @@ Upstream: <https://docs.molt.bot>
 
 - Twitter/X: @neoprotocol | Telegram: @neoprotocol
 - Email: neo@neoprotocol.space | Site: neoprotocol.space (em breve)
-
+    
 Roadmap: Phase 1.0 IN PROGRESS (Foundation, Extensions, Docs, Release
 v1.0.0). Detalhes em [NEXT_STEPS_V2.md](docs/core/NEXT_STEPS_V2.md).
 

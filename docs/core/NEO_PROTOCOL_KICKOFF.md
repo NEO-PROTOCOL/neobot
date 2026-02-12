@@ -436,7 +436,7 @@ git checkout -b upstream-sync
 
 **Princípios Web3:**
 1. **Descentralização** - Sem single points of failure
-2. **Self-Sovereignty** - Você controla suas chaves
+2. **Self-custodial** - Você controla suas chaves
 3. **Transparency** - Código aberto, auditável
 4. **Resilience** - IPFS, multi-node, redundância
 5. **Privacy** - Local-first, encrypted quando necessário

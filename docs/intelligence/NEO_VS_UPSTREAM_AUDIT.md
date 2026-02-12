@@ -129,7 +129,7 @@ oportunidades de mercado.
 > "Todos focam AI agents.
 >  NEØ é o ÚNICO Web3-native.
 >  
->  Same power. True sovereignty."
+>  Same power. True Autonomous."
 
 ────────────────────────────────────────
 
@@ -504,7 +504,7 @@ github, spotify, weather, etc)
 
 > **"Moltbot nos deu o motor.**
 > **NEØ adiciona:**
-> - **Web3 sovereignty**
+> - **Web3 Autonomous**
 > - **IPFS skills**
 > - **Revenue gateway**
 > - **Token economy**
@@ -577,7 +577,7 @@ github, spotify, weather, etc)
 **For developers:**
 > "Moltbot gave you the best AI
 >  agent runtime. NEØ gives you
->  Web3 sovereignty, IPFS skills,
+>  Web3 Autonomous, IPFS skills,
 >  and revenue tools.
 >  
 >  Same power. Zero vendor lock-in.
@@ -597,7 +597,7 @@ github, spotify, weather, etc)
 >  registry, Nostr channel, Web3
 >  identity, and token economy.
 >  
->  AI + Web3 = True sovereignty."
+>  AI + Web3 = True Autonomous."
 
 ────────────────────────────────────────
 
@@ -703,7 +703,7 @@ NEØ: Memory + Multi-channel + Web3
 ```
 
 > **"They gave us the engine.**
-> **We're adding the sovereignty."**
+> **We're adding the Autonomous."**
 
 ────────────────────────────────────────
 

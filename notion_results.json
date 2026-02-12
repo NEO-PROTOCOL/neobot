@@ -3138,44 +3138,6 @@
     },
     {
       "object": "page",
-      "id": "2f78c6e8-3be0-81aa-9ce8-eaad6e58960b",
-      "created_time": "2026-01-29T22:39:00.000Z",
-      "last_edited_time": "2026-02-01T22:03:00.000Z",
-      "created_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
-      "last_edited_by": { "object": "user", "id": "b41a9a69-0152-4eb5-82af-208f73dc6313" },
-      "cover": null,
-      "icon": null,
-      "parent": { "type": "block_id", "block_id": "217740d2-8f2d-48d8-909f-7243d43dc2c7" },
-      "archived": false,
-      "in_trash": false,
-      "is_locked": false,
-      "properties": {
-        "title": {
-          "id": "title",
-          "type": "title",
-          "title": [
-            {
-              "type": "text",
-              "text": { "content": "🤖 Automações Telegram + Notion", "link": null },
-              "annotations": {
-                "bold": false,
-                "italic": false,
-                "strikethrough": false,
-                "underline": false,
-                "code": false,
-                "color": "default"
-              },
-              "plain_text": "🤖 Automações Telegram + Notion",
-              "href": null
-            }
-          ]
-        }
-      },
-      "url": "https://www.notion.so/Automa-es-Telegram-Notion-2f78c6e83be081aa9ce8eaad6e58960b",
-      "public_url": null
-    },
-    {
-      "object": "page",
       "id": "2f78c6e8-3be0-81ce-b074-c43d73f14e14",
       "created_time": "2026-01-29T23:28:00.000Z",
       "last_edited_time": "2026-02-01T22:03:00.000Z",

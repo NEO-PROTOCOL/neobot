@@ -8,13 +8,13 @@
 ========================================
 ```
 
-## 🚀 Phase 2: Sovereignty & Orchestration (IN PROGRESS)
+## 🚀 Phase 2: Autonomous & Orchestration (IN PROGRESS)
 
 ```text
 [####] NEØ Nexus (Orchestrator) ....... OK
 [####] FlowCloser (Notifier) .......... OK
 [####] Identity Map (Definitive) ...... OK
-[####] ASI1 Sovereignty (Local) ....... OK
+[####] ASI1 Autonomous (Local) ....... OK
 [####] Documentation Architecture ..... OK
 ========================================
    ORCHESTRATION: 60% READY
@@ -71,7 +71,7 @@ What We Built Today (Summary)
 ▓▓▓ COMMUNICATION
 ────────────────────────────────────────
 ✓ WhatsApp - production ready
-✓ Telegram - connected
+✓ Telegram - not used
 ✓ Gateway - operational
 ✓ Message send - tested & working
 

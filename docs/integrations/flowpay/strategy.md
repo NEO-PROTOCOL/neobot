@@ -17,7 +17,7 @@ keeping both systems independent.
 
 ```text
 ╔═══════════════════════════════════════╗
-║ Revenue First. Sovereignty Follows.   ║
+║ Revenue First. Autonomous Follows.   ║
 ║                                       ║
 ║ Access is Product. Token is Proof.    ║
 ║                                       ║
@@ -80,7 +80,7 @@ FlowPay Gateway              Neobot
 
 1. **UX First:** Customer wants product NOW
 2. **Revenue First:** PIX = instant confirmation
-3. **Sovereignty Follows:** Token = bonus proof
+3. **Autonomous Follows:** Token = bonus proof
 4. **No Complexity:** No wallet setup required
 
 ────────────────────────────────────────

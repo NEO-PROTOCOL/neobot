@@ -73,12 +73,6 @@
           - "src/slack/**"
           - "extensions/slack/**"
           - "docs/channels/slack.md"
-"channel: telegram":
-  - changed-files:
-      - any-glob-to-any-file:
-          - "src/telegram/**"
-          - "extensions/telegram/**"
-          - "docs/channels/telegram.md"
 "channel: tlon":
   - changed-files:
       - any-glob-to-any-file:

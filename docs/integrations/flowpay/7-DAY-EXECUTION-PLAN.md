@@ -391,7 +391,7 @@ Create 1 real product with access area.
 ╔═══════════════════════════════════════╗
 ║                                       ║
 ║   Revenue First.                      ║
-║   Sovereignty Follows.                ║
+║   Autonomous Follows.                ║
 ║                                       ║
 ║   Access is Product.                  ║
 ║   Token is Proof.                     ║

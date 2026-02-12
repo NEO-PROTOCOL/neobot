@@ -130,7 +130,6 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 #### Integrações
 
-- Telegram Bot API
 - WhatsApp (Baileys)
 - Claude AI (Anthropic SDK)
 - Sistema de notificações
