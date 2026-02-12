@@ -1,0 +1,35 @@
+name: TypeScript linting and e2e tests
+
+# Only triggers on changes to the TypeScript codebase
+on:
+  push:
+    branches:
+      - main
+    paths: ['source/**', 'tests/**']
+  pull_request:
+    branches:
+      - main
+    paths: ['source/**', 'tests/**']
+
+jobs:
+  format:
+    name: Lint and Test TypeScript Client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install TS dependencies
+        run: |
+          npm ci
+
+      - name: Run Prettier check
+        run: npx prettier --check .
+
+      - name: Run xo + tests
+        run: npm test

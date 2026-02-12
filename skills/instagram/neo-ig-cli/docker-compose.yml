@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  neo-ig-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: neo-ig-cli
+    image: neo-ig-cli:latest
+    restart: unless-stopped
+
+    # Variáveis de ambiente
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - INSTAGRAM_CLI_DATA_DIR=/app/data
+      # Credenciais podem ser definidas via .env ou diretamente aqui:
+      # - INSTAGRAM_USERNAME=${INSTAGRAM_USERNAME}
+      # - INSTAGRAM_PASSWORD=${INSTAGRAM_PASSWORD}
+
+    # Volumes para persistir dados
+    volumes:
+      - neo-ig-data:/app/data
+      # Se quiser montar logs localmente:
+      # - ./logs:/app/data/logs
+
+    # Portas (se necessário para API futura)
+    ports:
+      - "3000:3000"
+
+    # Limites de recursos
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+    # Comando customizado (opcional)
+    # command: node dist/cli.js auth login
+    stdin_open: true
+    tty: true
+
+volumes:
+  neo-ig-data:
+    driver: local
+
