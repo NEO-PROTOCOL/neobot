@@ -1,10 +1,9 @@
 ---
-summary: "When OpenClaw shows typing indicators and how to tune them"
+summary: "When Moltbot shows typing indicators and how to tune them"
 read_when:
-  - Changing typing indicator behavior or defaults
-title: "Typing Indicators"
----
 
+  - Changing typing indicator behavior or defaults
+---
 # Typing indicators
 
 Typing indicators are sent to the chat channel while a run is active. Use
@@ -13,7 +12,7 @@ to control **how often** it refreshes.
 
 ## Defaults
 
-When `agents.defaults.typingMode` is **unset**, OpenClaw keeps the legacy behavior:
+When `agents.defaults.typingMode` is **unset**, Moltbot keeps the legacy behavior:
 
 - **Direct chats**: typing starts immediately once the model loop begins.
 - **Group chats with a mention**: typing starts immediately.
@@ -33,6 +32,7 @@ Set `agents.defaults.typingMode` to one of:
   the `NO_REPLY` silent token).
 
 Order of “how early it fires”:
+
 `never` → `message` → `thinking` → `instant`
 
 ## Configuration
@@ -41,8 +41,8 @@ Order of “how early it fires”:
 {
   agent: {
     typingMode: "thinking",
-    typingIntervalSeconds: 6,
-  },
+    typingIntervalSeconds: 6
+  }
 }
 ```
 
@@ -52,8 +52,8 @@ You can override mode or cadence per session:
 {
   session: {
     typingMode: "message",
-    typingIntervalSeconds: 4,
-  },
+    typingIntervalSeconds: 4
+  }
 }
 ```
 

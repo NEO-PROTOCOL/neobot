@@ -1,6 +1,7 @@
 ---
 summary: "Agent identity record"
 read_when:
+
   - Bootstrapping a workspace manually
 ---
 

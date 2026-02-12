@@ -1,0 +1,56 @@
+[
+    {
+        "source": "delegation-toolkit",
+        "value_proposition": "Smart Account Infrastructure",
+        "key_components": [
+            {
+                "name": "integrate-token-smart-accounts.ts",
+                "description": "Script completo para criação de contas inteligentes, bundling e execução gasless.",
+                "synergy": "Módulo essencial para a capacidade 'embedded_wallet_generation' do FlowPay Sovereign."
+            },
+            {
+                "name": "Delegation Analysis Scripts",
+                "description": "Conjunto de scripts (analyze-*-txs.ts) para auditoria e rastreio de delegações.",
+                "synergy": "Pode ser integrado ao 'skills/ledger' para auditoria on-chain avançada."
+            }
+        ],
+        "action": "IMPORT & ADAPT",
+        "target": "flowpay/services/wallet"
+    },
+    {
+        "source": "neo_systems/neo_one",
+        "value_proposition": "Advanced Agentic Intelligence & Token Operations",
+        "key_components": [
+            {
+                "name": "neoflow-executor.js",
+                "description": "Implementação limpa de operações de token (balance, transfer) com suporte a gasless.",
+                "synergy": "Substituir ou aprimorar a lógica de settlement do FlowPay."
+            },
+            {
+                "name": "uAgents (Python)",
+                "description": "Framework de agentes autônomos com integração ASI1.",
+                "synergy": "Potencial futuro para tornar o FlowPay um agente autônomo completo, não apenas uma ferramenta."
+            }
+        ],
+        "action": "REFERENCE & MERGE",
+        "target": "neobot/skills/smart-factory"
+    },
+    {
+        "source": "web_apps/projetos_flowpay/FlowPAY",
+        "value_proposition": "Business Logic & Payment Verification",
+        "key_components": [
+            {
+                "name": "crypto.py",
+                "description": "Lógica robusta de verificação de pagamento multi-chain (ETH, Polygon, Base, etc).",
+                "synergy": "A lógica de 'scan blocks' para confirmação de pagamento nativo (sem webhook) é valiosa para redundância."
+            },
+            {
+                "name": "payments.py / openpix.py",
+                "description": "Integração madura com OpenPix e regras de negócio de pagamento.",
+                "synergy": "Validar se a implementação Astro cobre todos os edge cases tratados aqui."
+            }
+        ],
+        "action": "AUDIT & ARCHIVE",
+        "target": "flowpay/services/legacy_audit"
+    }
+]

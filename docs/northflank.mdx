@@ -1,0 +1,28 @@
+---
+title: Deploy on Northflank
+---
+
+Deploy Moltbot on Northflank with a one-click template and finish setup in your browser.
+This is the easiest “no terminal on the server” path: Northflank runs the Gateway for you,
+and you configure everything via the `/setup` web wizard.
+
+## How to get started
+
+1. Click [Deploy Moltbot](https://northflank.com/stacks/deploy-moltbot) to open the template.  
+2. Create an [account on Northflank](https://app.northflank.com/signup) if you don’t already have one.  
+3. Click **Deploy Moltbot now**.  
+4. Set the required environment variable: `GATEWAY_PASSWORD`.
+5. Click **Deploy stack** to build and run the Moltbot template.
+6. Wait for the deployment to complete, then click **View resources**.
+7. Open the Moltbot service.
+8. Open the public Moltbot URL and access the Control UI at `/moltbot`.
+
+## What you get
+
+- Hosted Moltbot Gateway + Control UI
+- Persistent storage via Northflank Volume (`/data`) so config/credentials/workspace survive redeploys
+
+## Next Steps
+
+Once deployed, log in to the Control UI using your `GATEWAY_PASSWORD` to finish configuring your agent.
+

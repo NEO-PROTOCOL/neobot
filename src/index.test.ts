@@ -3,7 +3,7 @@ import { assertWebChannel, normalizeE164, toWhatsappJid } from "./index.js";
 
 describe("normalizeE164", () => {
   it("strips whatsapp prefix and whitespace", () => {
-    expect(normalizeE164("whatsapp:+1 555 555 0123")).toBe("+15555550123");
+    expect(normalizeE164("whatsapp:+1 555 555 0123")).toBe("+5562983231110");
   });
 
   it("adds plus when missing", () => {

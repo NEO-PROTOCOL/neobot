@@ -1,11 +1,10 @@
 ---
 summary: "Clawnet refactor: unify network protocol, roles, auth, approvals, identity"
 read_when:
+
   - Planning a unified network protocol for nodes + operator clients
   - Reworking approvals, pairing, TLS, and presence across devices
-title: "Clawnet Refactor"
 ---
-
 # Clawnet refactor (protocol + auth unification)
 
 ## Hi
@@ -51,6 +50,7 @@ Single, rigorous document for:
 - Auth: token/password via `connect`.
 - No TLS pinning (relies on loopback/tunnel).
 - Code:
+
   - `src/gateway/server/ws-connection/message-handler.ts`
   - `src/gateway/client.ts`
   - `docs/gateway/protocol.md`
@@ -61,6 +61,7 @@ Single, rigorous document for:
 - JSONL over TCP; optional TLS + cert fingerprint pinning.
 - TLS advertises fingerprint in discovery TXT.
 - Code:
+
   - `src/infra/bridge/server/connection.ts`
   - `src/gateway/server-bridge.ts`
   - `src/node-host/bridge-client.ts`
@@ -113,10 +114,10 @@ Single, rigorous document for:
 ## One protocol, two roles
 
 Single WS protocol with role + scope.
-
 - **Role: node** (capability host)
 - **Role: operator** (control plane)
 - Optional **scope** for operator:
+
   - `operator.read` (status + viewing)
   - `operator.write` (agent run, sends)
   - `operator.admin` (config, channels, models)
@@ -124,14 +125,12 @@ Single WS protocol with role + scope.
 ### Role behaviors
 
 **Node**
-
 - Can register capabilities (`caps`, `commands`, permissions).
 - Can receive `invoke` commands (`system.run`, `camera.*`, `canvas.*`, `screen.record`, etc).
 - Can send events: `voice.transcript`, `agent.request`, `chat.subscribe`.
 - Cannot call config/models/channels/sessions/agent control plane APIs.
 
 **Operator**
-
 - Full control plane API, gated by scope.
 - Receives all approvals.
 - Does not directly execute OS actions; routes to nodes.
@@ -158,6 +157,7 @@ Every client provides:
 - Gateway creates a **pairing request** for that `deviceId`.
 - Operator receives prompt; approves/denies.
 - Gateway issues credentials bound to:
+
   - device public key
   - role(s)
   - scope(s)
@@ -167,7 +167,6 @@ Every client provides:
 ## Device‑bound auth (avoid bearer token replay)
 
 Preferred: device keypairs.
-
 - Device generates keypair once.
 - `deviceId = fingerprint(publicKey)`.
 - Gateway sends nonce; device signs; gateway verifies.
@@ -225,12 +224,12 @@ Approval is **gateway‑hosted**, UI delivered to operator clients.
 
 ### New flow
 
-1. Gateway receives `system.run` intent (agent).
-2. Gateway creates approval record: `approval.requested`.
-3. Operator UI(s) show prompt.
-4. Approval decision sent to gateway: `approval.resolve`.
-5. Gateway invokes node command if approved.
-6. Node executes, returns `invoke-res`.
+1) Gateway receives `system.run` intent (agent).
+2) Gateway creates approval record: `approval.requested`.
+3) Operator UI(s) show prompt.
+4) Approval decision sent to gateway: `approval.resolve`.
+5) Gateway invokes node command if approved.
+6) Node executes, returns `invoke-res`.
 
 ### Approval semantics (hardening)
 
@@ -265,6 +264,7 @@ Approval is **gateway‑hosted**, UI delivered to operator clients.
 
 - Operator role always.
 - Scope derived by subcommand:
+
   - `status`, `logs` → read
   - `agent`, `message` → write
   - `config`, `channels` → admin
@@ -284,7 +284,6 @@ Preferred:
 ## Cute slug (lobster‑themed)
 
 Human label only.
-
 - Example: `scarlet-claw`, `saltwave`, `mantis-pinch`.
 - Stored in gateway registry, editable.
 - Collision handling: `-2`, `-3`.
@@ -343,7 +342,7 @@ Same `deviceId` across roles → single “Instance” row:
 
 - Role/allowlist enforced at gateway boundary.
 - No client gets “full” API without operator scope.
-- Pairing required for _all_ connections.
+- Pairing required for *all* connections.
 - TLS + pinning reduces MITM risk for mobile.
 - SSH silent approval is a convenience; still recorded + revocable.
 - Discovery is never a trust anchor.
@@ -359,9 +358,9 @@ WS control plane is fine for small messages, but nodes also do:
 
 Options:
 
-1. WS binary frames + chunking + backpressure rules.
-2. Separate streaming endpoint (still TLS + auth).
-3. Keep bridge longer for media‑heavy commands, migrate last.
+1) WS binary frames + chunking + backpressure rules.
+2) Separate streaming endpoint (still TLS + auth).
+3) Keep bridge longer for media‑heavy commands, migrate last.
 
 Pick one before implementation to avoid drift.
 
@@ -387,23 +386,23 @@ Pick one before implementation to avoid drift.
 
 # Open questions
 
-1. Single device running both roles: token model
+1) Single device running both roles: token model
    - Recommend separate tokens per role (node vs operator).
    - Same deviceId; different scopes; clearer revocation.
 
-2. Operator scope granularity
+2) Operator scope granularity
    - read/write/admin + approvals + pairing (minimum viable).
    - Consider per‑feature scopes later.
 
-3. Token rotation + revocation UX
+3) Token rotation + revocation UX
    - Auto‑rotate on role change.
    - UI to revoke by deviceId + role.
 
-4. Discovery
+4) Discovery
    - Extend current Bonjour TXT to include WS TLS fingerprint + role hints.
    - Treat as locator hints only.
 
-5. Cross‑network approval
+5) Cross‑network approval
    - Broadcast to all operator clients; active UI shows modal.
    - First response wins; gateway enforces atomicity.
 

@@ -1,0 +1,90 @@
+{
+    "agents": {
+        "defaults": {
+            "model": {
+                "primary": "anthropic/claude-opus-4-5",
+                "fallbacks": [
+                    "asi1/asi1-preview"
+                ]
+            }
+        }
+    },
+    "channels": {
+        "telegram": {
+            "enabled": true
+        },
+        "whatsapp": {
+            "enabled": true,
+            "dmPolicy": "open",
+            "allowFrom": [
+                "*"
+            ],
+            "ownerNumber": "+5562983231110"
+        },
+        "slack": {
+            "enabled": false
+        },
+        "discord": {
+            "enabled": false
+        },
+        "signal": {
+            "enabled": false
+        },
+        "line": {
+            "enabled": false
+        },
+        "googlechat": {
+            "enabled": false
+        },
+        "msteams": {
+            "enabled": false
+        },
+        "twitch": {
+            "enabled": false
+        },
+        "mattermost": {
+            "enabled": false
+        },
+        "nostr": {
+            "enabled": false
+        },
+        "imessage": {
+            "enabled": false
+        },
+        "dashboard_public_url": "https://neo-dashboard-production-2e56.up.railway.app",
+        "bluebubbles": {
+            "enabled": false
+        },
+        "nextcloud-talk": {
+            "enabled": false
+        },
+        "voice-call": {
+            "enabled": false
+        }
+    },
+    "executors": {
+        "github_mcp": {
+            "enabled": true,
+            "identity": "@neomello"
+        },
+        "brave_mcp": {
+            "enabled": true
+        },
+        "docker": {
+            "enabled": true
+        },
+        "ipfs_local": {
+            "enabled": true
+        }
+    },
+    "social_browser_automation": {
+        "enabled": true,
+        "targets": {
+            "x": true,
+            "instagram": true,
+            "threads": true,
+            "facebook": true
+        },
+        "require_confirmation": true
+    }
+}

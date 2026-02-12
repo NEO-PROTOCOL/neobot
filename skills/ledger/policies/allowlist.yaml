@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=none
+skills:
+  ops-status:
+    risk: low
+    require_confirmation: false
+
+  ledger:
+    risk: low
+    require_confirmation: false
+
+  # High risk examples (future)
+  send-email:
+    risk: high
+    require_confirmation: true

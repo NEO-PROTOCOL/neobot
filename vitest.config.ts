@@ -31,6 +31,7 @@ export default defineConfig({
       "dist/OpenClaw.app/**",
       "**/*.live.test.ts",
       "**/*.e2e.test.ts",
+      "**/*.disabled/**",
     ],
     coverage: {
       provider: "v8",

@@ -1,19 +1,18 @@
 ---
 summary: "Talk mode: continuous speech conversations with ElevenLabs TTS"
 read_when:
+
   - Implementing Talk mode on macOS/iOS/Android
   - Changing voice/TTS/interrupt behavior
-title: "Talk Mode"
 ---
-
 # Talk Mode
 
 Talk mode is a continuous voice conversation loop:
 
-1. Listen for speech
-2. Send transcript to the model (main session, chat.send)
-3. Wait for the response
-4. Speak it via ElevenLabs (streaming playback)
+1) Listen for speech
+2) Send transcript to the model (main session, chat.send)
+3) Wait for the response
+4) Speak it via ElevenLabs (streaming playback)
 
 ## Behavior (macOS)
 
@@ -28,7 +27,7 @@ Talk mode is a continuous voice conversation loop:
 The assistant may prefix its reply with a **single JSON line** to control voice:
 
 ```json
-{ "voice": "<voice-id>", "once": true }
+{"voice":"<voice-id>","once":true}
 ```
 
 Rules:
@@ -47,17 +46,17 @@ Supported keys:
 - `seed`, `normalize`, `lang`, `output_format`, `latency_tier`
 - `once`
 
-## Config (`~/.openclaw/openclaw.json`)
+## Config (`~/.clawdbot/moltbot.json`)
 
 ```json5
 {
-  talk: {
-    voiceId: "elevenlabs_voice_id",
-    modelId: "eleven_v3",
-    outputFormat: "mp3_44100_128",
-    apiKey: "elevenlabs_api_key",
-    interruptOnSpeech: true,
-  },
+  "talk": {
+    "voiceId": "elevenlabs_voice_id",
+    "modelId": "eleven_v3",
+    "outputFormat": "mp3_44100_128",
+    "apiKey": "elevenlabs_api_key",
+    "interruptOnSpeech": true
+  }
 }
 ```
 
@@ -74,6 +73,7 @@ Defaults:
 - Menu bar toggle: **Talk**
 - Config tab: **Talk Mode** group (voice id + interrupt toggle)
 - Overlay:
+
   - **Listening**: cloud pulses with mic level
   - **Thinking**: sinking animation
   - **Speaking**: radiating rings

@@ -1,6 +1,7 @@
 ---
 summary: "Gateway WebSocket protocol: handshake, frames, versioning"
 read_when:
+
   - Implementing or updating gateway WS clients
   - Debugging protocol mismatches or connect failures
   - Regenerating protocol schema/models
@@ -180,6 +181,7 @@ The Gateway treats these as **claims** and enforces server-side allowlists.
 - `PROTOCOL_VERSION` lives in `src/gateway/protocol/schema.ts`.
 - Clients send `minProtocol` + `maxProtocol`; the server rejects mismatches.
 - Schemas + models are generated from TypeBox definitions:
+
   - `pnpm protocol:gen`
   - `pnpm protocol:gen:swift`
   - `pnpm protocol:check`

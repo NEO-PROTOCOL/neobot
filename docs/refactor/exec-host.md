@@ -1,10 +1,10 @@
 ---
 summary: "Refactor plan: exec host routing, node approvals, and headless runner"
 read_when:
+
   - Designing exec host routing or exec approvals
   - Implementing node runner + UI IPC
   - Adding exec host security modes and slash commands
-title: "Exec Host Refactor"
 ---
 
 # Exec host refactor plan
@@ -15,7 +15,7 @@ title: "Exec Host Refactor"
 - Keep defaults **safe**: no cross-host execution unless explicitly enabled.
 - Split execution into a **headless runner service** with optional UI (macOS app) via local IPC.
 - Provide **per-agent** policy, allowlist, ask mode, and node binding.
-- Support **ask modes** that work _with_ or _without_ allowlists.
+- Support **ask modes** that work *with* or *without* allowlists.
 - Cross-platform: Unix socket + token auth (macOS/Linux/Windows parity).
 
 ## Non-goals
@@ -29,16 +29,15 @@ title: "Exec Host Refactor"
 - **Config keys:** `exec.host` + `exec.security` (per-agent override allowed).
 - **Elevation:** keep `/elevated` as an alias for gateway full access.
 - **Ask default:** `on-miss`.
-- **Approvals store:** `~/.openclaw/exec-approvals.json` (JSON, no legacy migration).
+- **Approvals store:** `~/.clawdbot/exec-approvals.json` (JSON, no legacy migration).
 - **Runner:** headless system service; UI app hosts a Unix socket for approvals.
 - **Node identity:** use existing `nodeId`.
 - **Socket auth:** Unix socket + token (cross-platform); split later if needed.
-- **Node host state:** `~/.openclaw/node.json` (node id + pairing token).
+- **Node host state:** `~/.clawdbot/node.json` (node id + pairing token).
 - **macOS exec host:** run `system.run` inside the macOS app; node host service forwards requests over local IPC.
 - **No XPC helper:** stick to Unix socket + token + peer checks.
 
 ## Key concepts
-
 ### Host
 
 - `sandbox`: Docker exec (current behavior).
@@ -61,10 +60,10 @@ Ask is **independent** of allowlist; allowlist can be used with `always` or `on-
 
 ### Policy resolution (per exec)
 
-1. Resolve `exec.host` (tool param → agent override → global default).
-2. Resolve `exec.security` and `exec.ask` (same precedence).
-3. If host is `sandbox`, proceed with local sandbox exec.
-4. If host is `gateway` or `node`, apply security + ask policy on that host.
+1) Resolve `exec.host` (tool param → agent override → global default).
+2) Resolve `exec.security` and `exec.ask` (same precedence).
+3) If host is `sandbox`, proceed with local sandbox exec.
+4) If host is `gateway` or `node`, apply security + ask policy on that host.
 
 ## Default safety
 
@@ -74,7 +73,6 @@ Ask is **independent** of allowlist; allowlist can be used with `always` or `on-
 - If no node binding is set, **agent may target any node**, but only if policy allows it.
 
 ## Config surface
-
 ### Tool parameters
 
 - `exec.host` (optional): `sandbox | gateway | node`.
@@ -103,7 +101,7 @@ Ask is **independent** of allowlist; allowlist can be used with `always` or `on-
 
 ## Approvals store (JSON)
 
-Path: `~/.openclaw/exec-approvals.json`
+Path: `~/.clawdbot/exec-approvals.json`
 
 Purpose:
 
@@ -117,7 +115,7 @@ Proposed schema (v1):
 {
   "version": 1,
   "socket": {
-    "path": "~/.openclaw/exec-approvals.sock",
+    "path": "~/.clawdbot/exec-approvals.sock",
     "token": "base64-opaque-token"
   },
   "defaults": {
@@ -141,7 +139,6 @@ Proposed schema (v1):
   }
 }
 ```
-
 Notes:
 
 - No legacy allowlist formats.
@@ -149,7 +146,6 @@ Notes:
 - File permissions: `0600`.
 
 ## Runner service (headless)
-
 ### Role
 
 - Enforce `exec.security` + `exec.ask` locally.
@@ -163,10 +159,9 @@ Notes:
 - UI hosts a local Unix socket; runners connect on demand.
 
 ## UI integration (macOS app)
-
 ### IPC
 
-- Unix socket at `~/.openclaw/exec-approvals.sock` (0600).
+- Unix socket at `~/.clawdbot/exec-approvals.sock` (0600).
 - Token stored in `exec-approvals.json` (0600).
 - Peer checks: same-UID only.
 - Challenge/response: nonce + HMAC(token, request-hash) to prevent replay.
@@ -174,11 +169,11 @@ Notes:
 
 ### Ask flow (macOS app exec host)
 
-1. Node service receives `system.run` from gateway.
-2. Node service connects to the local socket and sends the prompt/exec request.
-3. App validates peer + token + HMAC + TTL, then shows dialog if needed.
-4. App executes the command in UI context and returns output.
-5. Node service returns output to gateway.
+1) Node service receives `system.run` from gateway.
+2) Node service connects to the local socket and sends the prompt/exec request.
+3) App validates peer + token + HMAC + TTL, then shows dialog if needed.
+4) App executes the command in UI context and returns output.
+5) Node service returns output to gateway.
 
 If UI missing:
 
@@ -197,16 +192,17 @@ Agent -> Gateway -> Bridge -> Node Service (TS)
 
 - Use existing `nodeId` from Bridge pairing.
 - Binding model:
+
   - `tools.exec.node` restricts the agent to a specific node.
   - If unset, agent can pick any node (policy still enforces defaults).
 - Node selection resolution:
+
   - `nodeId` exact match
   - `displayName` (normalized)
   - `remoteIp`
   - `nodeId` prefix (>= 6 chars)
 
 ## Eventing
-
 ### Who sees events
 
 - System events are **per session** and shown to the agent on the next prompt.
@@ -230,7 +226,6 @@ Option B:
 - Gateway `exec` tool handles lifecycle directly (synchronous only).
 
 ## Exec flows
-
 ### Sandbox host
 
 - Existing `exec` behavior (Docker or host when unsandboxed).
@@ -266,7 +261,6 @@ Option B:
 - Windows/Linux support the same approvals JSON + socket protocol.
 
 ## Implementation phases
-
 ### Phase 1: config + exec routing
 
 - Add config schema for `exec.host`, `exec.security`, `exec.ask`, `exec.node`.

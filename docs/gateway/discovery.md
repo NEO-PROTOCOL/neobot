@@ -1,20 +1,19 @@
 ---
 summary: "Node discovery and transports (Bonjour, Tailscale, SSH) for finding the gateway"
 read_when:
+
   - Implementing or changing Bonjour discovery/advertising
   - Adjusting remote connection modes (direct vs SSH)
   - Designing node discovery + pairing for remote nodes
-title: "Discovery and Transports"
 ---
-
 # Discovery & transports
 
-OpenClaw has two distinct problems that look similar on the surface:
+Moltbot has two distinct problems that look similar on the surface:
 
-1. **Operator remote control**: the macOS menu bar app controlling a gateway running elsewhere.
-2. **Node pairing**: iOS/Android (and future nodes) finding a gateway and pairing securely.
+1) **Operator remote control**: the macOS menu bar app controlling a gateway running elsewhere.
+2) **Node pairing**: iOS/Android (and future nodes) finding a gateway and pairing securely.
 
-The design goal is to keep all network discovery/advertising in the **Node Gateway** (`openclaw gateway`) and keep clients (mac app, iOS) as consumers.
+The design goal is to keep all network discovery/advertising in the **Node Gateway** (`clawd` / `moltbot gateway`) and keep clients (mac app, iOS) as consumers.
 
 ## Terms
 
@@ -32,10 +31,12 @@ Protocol details:
 ## Why we keep both “direct” and SSH
 
 - **Direct WS** is the best UX on the same network and within a tailnet:
+
   - auto-discovery on LAN via Bonjour
   - pairing tokens + ACLs owned by the gateway
   - no shell access required; protocol surface can stay tight and auditable
 - **SSH** remains the universal fallback:
+
   - works anywhere you have SSH access (even across unrelated networks)
   - survives multicast/mDNS issues
   - requires no new inbound ports besides SSH
@@ -56,25 +57,27 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 #### Service beacon details
 
 - Service types:
-  - `_openclaw-gw._tcp` (gateway transport beacon)
+
+  - `_moltbot-gw._tcp` (gateway transport beacon)
 - TXT keys (non-secret):
+
   - `role=gateway`
   - `lanHost=<hostname>.local`
   - `sshPort=22` (or whatever is advertised)
   - `gatewayPort=18789` (Gateway WS + HTTP)
   - `gatewayTls=1` (only when TLS is enabled)
   - `gatewayTlsSha256=<sha256>` (only when TLS is enabled and fingerprint is available)
-  - `canvasPort=18793` (default canvas host port; serves `/__openclaw__/canvas/`)
-  - `cliPath=<path>` (optional; absolute path to a runnable `openclaw` entrypoint or binary)
+  - `canvasPort=18793` (default canvas host port; serves `/__moltbot__/canvas/`)
+  - `cliPath=<path>` (optional; absolute path to a runnable `moltbot` entrypoint or binary)
   - `tailnetDns=<magicdns>` (optional hint; auto-detected when Tailscale is available)
 
 Disable/override:
 
-- `OPENCLAW_DISABLE_BONJOUR=1` disables advertising.
-- `gateway.bind` in `~/.openclaw/openclaw.json` controls the Gateway bind mode.
-- `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
-- `OPENCLAW_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
-- `OPENCLAW_CLI_PATH` overrides the advertised CLI path.
+- `CLAWDBOT_DISABLE_BONJOUR=1` disables advertising.
+- `gateway.bind` in `~/.clawdbot/moltbot.json` controls the Gateway bind mode.
+- `CLAWDBOT_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
+- `CLAWDBOT_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
+- `CLAWDBOT_CLI_PATH` overrides the advertised CLI path.
 
 ### 2) Tailnet (cross-network)
 
@@ -94,10 +97,10 @@ See [Remote access](/gateway/remote).
 
 Recommended client behavior:
 
-1. If a paired direct endpoint is configured and reachable, use it.
-2. Else, if Bonjour finds a gateway on LAN, offer a one-tap “Use this gateway” choice and save it as the direct endpoint.
-3. Else, if a tailnet DNS/IP is configured, try direct.
-4. Else, fall back to SSH.
+1) If a paired direct endpoint is configured and reachable, use it.
+2) Else, if Bonjour finds a gateway on LAN, offer a one-tap “Use this gateway” choice and save it as the direct endpoint.
+3) Else, if a tailnet DNS/IP is configured, try direct.
+4) Else, fall back to SSH.
 
 ## Pairing + auth (direct transport)
 
@@ -105,6 +108,7 @@ The gateway is the source of truth for node/client admission.
 
 - Pairing requests are created/approved/rejected in the gateway (see [Gateway pairing](/gateway/pairing)).
 - The gateway enforces:
+
   - auth (token / keypair)
   - scopes/ACLs (the gateway is not a raw proxy to every method)
   - rate limits

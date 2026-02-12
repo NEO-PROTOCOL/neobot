@@ -2,6 +2,7 @@
 title: "TOOLS.md Template"
 summary: "Workspace template for TOOLS.md"
 read_when:
+
   - Bootstrapping a workspace manually
 ---
 

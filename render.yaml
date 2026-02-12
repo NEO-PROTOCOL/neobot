@@ -1,21 +1,21 @@
 services:
   - type: web
-    name: openclaw
+    name: moltbot
     runtime: docker
     plan: starter
     healthCheckPath: /health
     envVars:
       - key: PORT
         value: "8080"
-      - key: SETUP_PASSWORD
+      - key: GATEWAY_PASSWORD
         sync: false
-      - key: OPENCLAW_STATE_DIR
-        value: /data/.openclaw
-      - key: OPENCLAW_WORKSPACE_DIR
+      - key: CLAWDBOT_STATE_DIR
+        value: /data/.clawdbot
+      - key: CLAWDBOT_WORKSPACE_DIR
         value: /data/workspace
-      - key: OPENCLAW_GATEWAY_TOKEN
+      - key: GATEWAY_TOKEN
         generateValue: true
     disk:
-      name: openclaw-data
+      name: moltbot-data
       mountPath: /data
       sizeGB: 1

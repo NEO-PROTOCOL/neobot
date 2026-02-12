@@ -1,15 +1,13 @@
 {
   "name": "@openclaw/zalouser",
-  "version": "2026.2.10",
-  "description": "OpenClaw Zalo Personal Account plugin via zca-cli",
+  "version": "2026.1.26",
   "type": "module",
+  "description": "Moltbot Zalo Personal Account plugin via zca-cli",
   "dependencies": {
-    "@sinclair/typebox": "0.34.48"
+    "moltbot": "workspace:*",
+    "@sinclair/typebox": "0.34.47"
   },
-  "devDependencies": {
-    "openclaw": "workspace:*"
-  },
-  "openclaw": {
+  "moltbot": {
     "extensions": [
       "./index.ts"
     ],

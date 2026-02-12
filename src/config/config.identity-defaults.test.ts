@@ -167,7 +167,7 @@ describe("config identity defaults", () => {
               responsePrefix: "🦞",
             },
             channels: {
-              whatsapp: { allowFrom: ["+15555550123"], textChunkLimit: 4444 },
+              whatsapp: { allowFrom: ["+5562983231110"], textChunkLimit: 4444 },
               telegram: { enabled: true, textChunkLimit: 3333 },
               discord: {
                 enabled: true,

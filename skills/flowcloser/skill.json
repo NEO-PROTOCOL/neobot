@@ -1,0 +1,74 @@
+{
+  "id": "flowcloser",
+  "name": "FlowCloser Integration",
+  "version": "1.0.0",
+  "author": "mio-skills",
+  "category": [
+    "integration",
+    "crm",
+    "lead-qualification",
+    "revenue"
+  ],
+  "metadata": {
+    "description": "Integration skill for FlowCloser - a lightweight webhook notifier (Nexus -> WhatsApp).",
+    "dependencies": [],
+    "permissions": [
+      "http",
+      "read"
+    ],
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "architecture": {
+      "type": "micro-service",
+      "pattern": "webhook-notifier",
+      "nodes": [
+        {
+          "id": "flowcloser",
+          "name": "FlowCloser",
+          "role": "notifier",
+          "repository": "https://github.com/NEO-PROTOCOL/neo-closer",
+          "description": "Webhook receiver for WhatsApp notifications.",
+          "tech": [
+            "Express.js",
+            "Baileys",
+            "TypeScript"
+          ],
+          "deployment": "Railway"
+        },
+        {
+          "id": "neo-nexus",
+          "name": "NEØ Nexus",
+          "role": "orchestrator",
+          "repository": "https://github.com/NEO-PROTOCOL/neo-nexus",
+          "description": "Event bus that dispatches to FlowCloser."
+        }
+      ]
+    },
+    "commands": [
+      {
+        "name": "check-health",
+        "file": "check-health.ts",
+        "description": "Check FlowCloser health status"
+      },
+      {
+        "name": "dashboard",
+        "file": "dashboard.ts",
+        "description": "Open FlowCloser dashboard in browser"
+      },
+      {
+        "name": "qualify",
+        "file": "qualify.ts",
+        "description": "Qualify a specific lead by ID"
+      },
+      {
+        "name": "backup",
+        "file": "backup.ts",
+        "description": "Trigger IPFS backup (placeholder for future implementation)"
+      }
+    ]
+  },
+  "files": {
+    "main": "health.ts",
+    "readme": "SKILL.md"
+  }
+}

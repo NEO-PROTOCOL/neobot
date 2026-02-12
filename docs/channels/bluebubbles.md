@@ -1,12 +1,11 @@
 ---
 summary: "iMessage via BlueBubbles macOS server (REST send/receive, typing, reactions, pairing, advanced actions)."
 read_when:
+
   - Setting up BlueBubbles channel
   - Troubleshooting webhook pairing
   - Configuring iMessage on macOS
-title: "BlueBubbles"
 ---
-
 # BlueBubbles (macOS REST)
 
 Status: bundled plugin that talks to the BlueBubbles macOS server over HTTP. **Recommended for iMessage integration** due to its richer API and easier setup compared to the legacy imsg channel.
@@ -15,10 +14,10 @@ Status: bundled plugin that talks to the BlueBubbles macOS server over HTTP. **R
 
 - Runs on macOS via the BlueBubbles helper app ([bluebubbles.app](https://bluebubbles.app)).
 - Recommended/tested: macOS Sequoia (15). macOS Tahoe (26) works; edit is currently broken on Tahoe, and group icon updates may report success but not sync.
-- OpenClaw talks to it through its REST API (`GET /api/v1/ping`, `POST /message/text`, `POST /chat/:id/*`).
+- Moltbot talks to it through its REST API (`GET /api/v1/ping`, `POST /message/text`, `POST /chat/:id/*`).
 - Incoming messages arrive via webhooks; outgoing replies, typing indicators, read receipts, and tapbacks are REST calls.
 - Attachments and stickers are ingested as inbound media (and surfaced to the agent when possible).
-- Pairing/allowlist works the same way as other channels (`/channels/pairing` etc) with `channels.bluebubbles.allowFrom` + pairing codes.
+- Pairing/allowlist works the same way as other channels (`/start/pairing` etc) with `channels.bluebubbles.allowFrom` + pairing codes.
 - Reactions are surfaced as system events just like Slack/Telegram so agents can "mention" them before replying.
 - Advanced features: edit, unsend, reply threading, message effects, group management.
 
@@ -26,7 +25,7 @@ Status: bundled plugin that talks to the BlueBubbles macOS server over HTTP. **R
 
 1. Install the BlueBubbles server on your Mac (follow the instructions at [bluebubbles.app/install](https://bluebubbles.app/install)).
 2. In the BlueBubbles config, enable the web API and set a password.
-3. Run `openclaw onboard` and select BlueBubbles, or configure manually:
+3. Run `moltbot onboard` and select BlueBubbles, or configure manually:
 
    ```json5
    {
@@ -35,95 +34,20 @@ Status: bundled plugin that talks to the BlueBubbles macOS server over HTTP. **R
          enabled: true,
          serverUrl: "http://192.168.1.100:1234",
          password: "example-password",
-         webhookPath: "/bluebubbles-webhook",
-       },
-     },
+         webhookPath: "/bluebubbles-webhook"
+       }
+     }
    }
    ```
-
 4. Point BlueBubbles webhooks to your gateway (example: `https://your-gateway-host:3000/bluebubbles-webhook?password=<password>`).
 5. Start the gateway; it will register the webhook handler and start pairing.
-
-## Keeping Messages.app alive (VM / headless setups)
-
-Some macOS VM / always-on setups can end up with Messages.app going “idle” (incoming events stop until the app is opened/foregrounded). A simple workaround is to **poke Messages every 5 minutes** using an AppleScript + LaunchAgent.
-
-### 1) Save the AppleScript
-
-Save this as:
-
-- `~/Scripts/poke-messages.scpt`
-
-Example script (non-interactive; does not steal focus):
-
-```applescript
-try
-  tell application "Messages"
-    if not running then
-      launch
-    end if
-
-    -- Touch the scripting interface to keep the process responsive.
-    set _chatCount to (count of chats)
-  end tell
-on error
-  -- Ignore transient failures (first-run prompts, locked session, etc).
-end try
-```
-
-### 2) Install a LaunchAgent
-
-Save this as:
-
-- `~/Library/LaunchAgents/com.user.poke-messages.plist`
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>Label</key>
-    <string>com.user.poke-messages</string>
-
-    <key>ProgramArguments</key>
-    <array>
-      <string>/bin/bash</string>
-      <string>-lc</string>
-      <string>/usr/bin/osascript &quot;$HOME/Scripts/poke-messages.scpt&quot;</string>
-    </array>
-
-    <key>RunAtLoad</key>
-    <true/>
-
-    <key>StartInterval</key>
-    <integer>300</integer>
-
-    <key>StandardOutPath</key>
-    <string>/tmp/poke-messages.log</string>
-    <key>StandardErrorPath</key>
-    <string>/tmp/poke-messages.err</string>
-  </dict>
-</plist>
-```
-
-Notes:
-
-- This runs **every 300 seconds** and **on login**.
-- The first run may trigger macOS **Automation** prompts (`osascript` → Messages). Approve them in the same user session that runs the LaunchAgent.
-
-Load it:
-
-```bash
-launchctl unload ~/Library/LaunchAgents/com.user.poke-messages.plist 2>/dev/null || true
-launchctl load ~/Library/LaunchAgents/com.user.poke-messages.plist
-```
 
 ## Onboarding
 
 BlueBubbles is available in the interactive setup wizard:
 
 ```
-openclaw onboard
+moltbot onboard
 ```
 
 The wizard prompts for:
@@ -137,7 +61,7 @@ The wizard prompts for:
 You can also add BlueBubbles via CLI:
 
 ```
-openclaw channels add bluebubbles --http-url http://192.168.1.100:1234 --password <password>
+moltbot channels add bluebubbles --http-url http://192.168.1.100:1234 --password <password>
 ```
 
 ## Access control (DMs + groups)
@@ -147,9 +71,10 @@ DMs:
 - Default: `channels.bluebubbles.dmPolicy = "pairing"`.
 - Unknown senders receive a pairing code; messages are ignored until approved (codes expire after 1 hour).
 - Approve via:
-  - `openclaw pairing list bluebubbles`
-  - `openclaw pairing approve bluebubbles <CODE>`
-- Pairing is the default token exchange. Details: [Pairing](/channels/pairing)
+
+  - `moltbot pairing list bluebubbles`
+  - `moltbot pairing approve bluebubbles <CODE>`
+- Pairing is the default token exchange. Details: [Pairing](/start/pairing)
 
 Groups:
 
@@ -173,11 +98,11 @@ Per-group configuration:
       groupPolicy: "allowlist",
       groupAllowFrom: ["+15555550123"],
       groups: {
-        "*": { requireMention: true }, // default for all groups
-        "iMessage;-;chat123": { requireMention: false }, // override for specific group
-      },
-    },
-  },
+        "*": { requireMention: true },  // default for all groups
+        "iMessage;-;chat123": { requireMention: false }  // override for specific group
+      }
+    }
+  }
 }
 ```
 
@@ -191,15 +116,15 @@ Per-group configuration:
 
 - **Typing indicators**: Sent automatically before and during response generation.
 - **Read receipts**: Controlled by `channels.bluebubbles.sendReadReceipts` (default: `true`).
-- **Typing indicators**: OpenClaw sends typing start events; BlueBubbles clears typing automatically on send or timeout (manual stop via DELETE is unreliable).
+- **Typing indicators**: Moltbot sends typing start events; BlueBubbles clears typing automatically on send or timeout (manual stop via DELETE is unreliable).
 
 ```json5
 {
   channels: {
     bluebubbles: {
-      sendReadReceipts: false, // disable read receipts
-    },
-  },
+      sendReadReceipts: false  // disable read receipts
+    }
+  }
 }
 ```
 
@@ -212,20 +137,20 @@ BlueBubbles supports advanced message actions when enabled in config:
   channels: {
     bluebubbles: {
       actions: {
-        reactions: true, // tapbacks (default: true)
-        edit: true, // edit sent messages (macOS 13+, broken on macOS 26 Tahoe)
-        unsend: true, // unsend messages (macOS 13+)
-        reply: true, // reply threading by message GUID
-        sendWithEffect: true, // message effects (slam, loud, etc.)
-        renameGroup: true, // rename group chats
-        setGroupIcon: true, // set group chat icon/photo (flaky on macOS 26 Tahoe)
-        addParticipant: true, // add participants to groups
+        reactions: true,       // tapbacks (default: true)
+        edit: true,            // edit sent messages (macOS 13+, broken on macOS 26 Tahoe)
+        unsend: true,          // unsend messages (macOS 13+)
+        reply: true,           // reply threading by message GUID
+        sendWithEffect: true,  // message effects (slam, loud, etc.)
+        renameGroup: true,     // rename group chats
+        setGroupIcon: true,    // set group chat icon/photo (flaky on macOS 26 Tahoe)
+        addParticipant: true,  // add participants to groups
         removeParticipant: true, // remove participants from groups
-        leaveGroup: true, // leave group chats
-        sendAttachment: true, // send attachments/media
-      },
-    },
-  },
+        leaveGroup: true,      // leave group chats
+        sendAttachment: true   // send attachments/media
+      }
+    }
+  }
 }
 ```
 
@@ -246,8 +171,7 @@ Available actions:
 
 ### Message IDs (short vs full)
 
-OpenClaw may surface _short_ message IDs (e.g., `1`, `2`) to save tokens.
-
+Moltbot may surface *short* message IDs (e.g., `1`, `2`) to save tokens.
 - `MessageSid` / `ReplyToId` can be short IDs.
 - `MessageSidFull` / `ReplyToIdFull` contain the provider full IDs.
 - Short IDs are in-memory; they can expire on restart or cache eviction.
@@ -268,9 +192,9 @@ Control whether responses are sent as a single message or streamed in blocks:
 {
   channels: {
     bluebubbles: {
-      blockStreaming: true, // enable block streaming (off by default)
-    },
-  },
+      blockStreaming: true  // enable block streaming (default behavior)
+    }
+  }
 }
 ```
 
@@ -296,7 +220,7 @@ Provider options:
 - `channels.bluebubbles.groupAllowFrom`: Group sender allowlist.
 - `channels.bluebubbles.groups`: Per-group config (`requireMention`, etc.).
 - `channels.bluebubbles.sendReadReceipts`: Send read receipts (default: `true`).
-- `channels.bluebubbles.blockStreaming`: Enable block streaming (default: `false`; required for streaming replies).
+- `channels.bluebubbles.blockStreaming`: Enable block streaming (default: `true`).
 - `channels.bluebubbles.textChunkLimit`: Outbound chunk size in chars (default: 4000).
 - `channels.bluebubbles.chunkMode`: `length` (default) splits only when exceeding `textChunkLimit`; `newline` splits on blank lines (paragraph boundaries) before length chunking.
 - `channels.bluebubbles.mediaMaxMb`: Inbound media cap in MB (default: 8).
@@ -318,7 +242,7 @@ Prefer `chat_guid` for stable routing:
 - `chat_id:123`
 - `chat_identifier:...`
 - Direct handles: `+15555550123`, `user@example.com`
-  - If a direct handle does not have an existing DM chat, OpenClaw will create one via `POST /api/v1/chat/new`. This requires the BlueBubbles Private API to be enabled.
+  - If a direct handle does not have an existing DM chat, Moltbot will create one via `POST /api/v1/chat/new`. This requires the BlueBubbles Private API to be enabled.
 
 ## Security
 
@@ -330,11 +254,11 @@ Prefer `chat_guid` for stable routing:
 ## Troubleshooting
 
 - If typing/read events stop working, check the BlueBubbles webhook logs and verify the gateway path matches `channels.bluebubbles.webhookPath`.
-- Pairing codes expire after one hour; use `openclaw pairing list bluebubbles` and `openclaw pairing approve bluebubbles <code>`.
+- Pairing codes expire after one hour; use `moltbot pairing list bluebubbles` and `moltbot pairing approve bluebubbles <code>`.
 - Reactions require the BlueBubbles private API (`POST /api/v1/message/react`); ensure the server version exposes it.
 - Edit/unsend require macOS 13+ and a compatible BlueBubbles server version. On macOS 26 (Tahoe), edit is currently broken due to private API changes.
 - Group icon updates can be flaky on macOS 26 (Tahoe): the API may return success but the new icon does not sync.
-- OpenClaw auto-hides known-broken actions based on the BlueBubbles server's macOS version. If edit still appears on macOS 26 (Tahoe), disable it manually with `channels.bluebubbles.actions.edit=false`.
-- For status/health info: `openclaw status --all` or `openclaw status --deep`.
+- Moltbot auto-hides known-broken actions based on the BlueBubbles server's macOS version. If edit still appears on macOS 26 (Tahoe), disable it manually with `channels.bluebubbles.actions.edit=false`.
+- For status/health info: `moltbot status --all` or `moltbot status --deep`.
 
-For general channel workflow reference, see [Channels](/channels) and the [Plugins](/tools/plugin) guide.
+For general channel workflow reference, see [Channels](/channels) and the [Plugins](/plugins) guide.

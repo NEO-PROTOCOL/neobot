@@ -1,14 +1,13 @@
 ---
 summary: "Inbound image/audio/video understanding (optional) with provider + CLI fallbacks"
 read_when:
+
   - Designing or refactoring media understanding
   - Tuning inbound audio/video/image preprocessing
-title: "Media Understanding"
 ---
-
 # Media Understanding (Inbound) — 2026-01-17
 
-OpenClaw can **summarize inbound media** (image/audio/video) before the reply pipeline runs. It auto‑detects when local tools or provider keys are available, and can be disabled or customized. If understanding is off, models still receive the original files/URLs as usual.
+Moltbot can **summarize inbound media** (image/audio/video) before the reply pipeline runs. It auto‑detects when local tools or provider keys are available, and can be disabled or customized. If understanding is off, models still receive the original files/URLs as usual.
 
 ## Goals
 
@@ -19,11 +18,12 @@ OpenClaw can **summarize inbound media** (image/audio/video) before the reply pi
 
 ## High‑level behavior
 
-1. Collect inbound attachments (`MediaPaths`, `MediaUrls`, `MediaTypes`).
-2. For each enabled capability (image/audio/video), select attachments per policy (default: **first**).
-3. Choose the first eligible model entry (size + capability + auth).
-4. If a model fails or the media is too large, **fall back to the next entry**.
-5. On success:
+1) Collect inbound attachments (`MediaPaths`, `MediaUrls`, `MediaTypes`).
+2) For each enabled capability (image/audio/video), select attachments per policy (default: **first**).
+3) Choose the first eligible model entry (size + capability + auth).  
+4) If a model fails or the media is too large, **fall back to the next entry**.
+5) On success:
+
    - `Body` becomes `[Image]`, `[Audio]`, or `[Video]` block.
    - Audio sets `{{Transcript}}`; command parsing uses caption text when present,
      otherwise the transcript.
@@ -37,6 +37,7 @@ If understanding fails or is disabled, **the reply flow continues** with the ori
 
 - `tools.media.models`: shared model list (use `capabilities` to gate).
 - `tools.media.image` / `tools.media.audio` / `tools.media.video`:
+
   - defaults (`prompt`, `maxChars`, `maxBytes`, `timeoutSeconds`, `language`)
   - provider overrides (`baseUrl`, `headers`, `providerOptions`)
   - Deepgram audio options via `tools.media.audio.providerOptions.deepgram`
@@ -49,20 +50,12 @@ If understanding fails or is disabled, **the reply flow continues** with the ori
 {
   tools: {
     media: {
-      models: [
-        /* shared list */
-      ],
-      image: {
-        /* optional overrides */
-      },
-      audio: {
-        /* optional overrides */
-      },
-      video: {
-        /* optional overrides */
-      },
-    },
-  },
+      models: [ /* shared list */ ],
+      image: { /* optional overrides */ },
+      audio: { /* optional overrides */ },
+      video: { /* optional overrides */ }
+    }
+  }
 }
 ```
 
@@ -72,7 +65,7 @@ Each `models[]` entry can be **provider** or **CLI**:
 
 ```json5
 {
-  type: "provider", // default if omitted
+  type: "provider",        // default if omitted
   provider: "openai",
   model: "gpt-5.2",
   prompt: "Describe the image in <= 500 chars.",
@@ -81,7 +74,7 @@ Each `models[]` entry can be **provider** or **CLI**:
   timeoutSeconds: 60,
   capabilities: ["image"], // optional, used for multi‑modal entries
   profile: "vision-profile",
-  preferredProfile: "vision-fallback",
+  preferredProfile: "vision-fallback"
 }
 ```
 
@@ -94,12 +87,12 @@ Each `models[]` entry can be **provider** or **CLI**:
     "gemini-3-flash",
     "--allowed-tools",
     "read_file",
-    "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters.",
+    "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters."
   ],
   maxChars: 500,
   maxBytes: 52428800,
   timeoutSeconds: 120,
-  capabilities: ["video", "image"],
+  capabilities: ["video", "image"]
 }
 ```
 
@@ -116,6 +109,7 @@ Recommended defaults:
 - `maxChars`: **500** for image/video (short, command‑friendly)
 - `maxChars`: **unset** for audio (full transcript unless you set a limit)
 - `maxBytes`:
+
   - image: **10MB**
   - audio: **20MB**
   - video: **50MB**
@@ -125,21 +119,21 @@ Rules:
 - If media exceeds `maxBytes`, that model is skipped and the **next model is tried**.
 - If the model returns more than `maxChars`, output is trimmed.
 - `prompt` defaults to simple “Describe the {media}.” plus the `maxChars` guidance (image/video only).
-- If `<capability>.enabled: true` but no models are configured, OpenClaw tries the
+- If `<capability>.enabled: true` but no models are configured, Moltbot tries the
   **active reply model** when its provider supports the capability.
 
 ### Auto-detect media understanding (default)
 
 If `tools.media.<capability>.enabled` is **not** set to `false` and you haven’t
-configured models, OpenClaw auto-detects in this order and **stops at the first
+configured models, Moltbot auto-detects in this order and **stops at the first
 working option**:
 
-1. **Local CLIs** (audio only; if installed)
+1) **Local CLIs** (audio only; if installed)
    - `sherpa-onnx-offline` (requires `SHERPA_ONNX_MODEL_DIR` with encoder/decoder/joiner/tokens)
    - `whisper-cli` (`whisper-cpp`; uses `WHISPER_CPP_MODEL` or the bundled tiny model)
    - `whisper` (Python CLI; downloads models automatically)
-2. **Gemini CLI** (`gemini`) using `read_many_files`
-3. **Provider keys**
+2) **Gemini CLI** (`gemini`) using `read_many_files`
+3) **Provider keys**
    - Audio: OpenAI → Groq → Deepgram → Google
    - Image: OpenAI → Anthropic → Google → MiniMax
    - Video: Google
@@ -151,19 +145,18 @@ To disable auto-detection, set:
   tools: {
     media: {
       audio: {
-        enabled: false,
-      },
-    },
-  },
+        enabled: false
+      }
+    }
+  }
 }
 ```
-
 Note: Binary detection is best-effort across macOS/Linux/Windows; ensure the CLI is on `PATH` (we expand `~`), or set an explicit CLI model with a full command path.
 
 ## Capabilities (optional)
 
 If you set `capabilities`, the entry only runs for those media types. For shared
-lists, OpenClaw can infer defaults:
+lists, Moltbot can infer defaults:
 
 - `openai`, `anthropic`, `minimax`: **image**
 - `google` (Gemini API): **image + audio + video**
@@ -173,29 +166,26 @@ lists, OpenClaw can infer defaults:
 For CLI entries, **set `capabilities` explicitly** to avoid surprising matches.
 If you omit `capabilities`, the entry is eligible for the list it appears in.
 
-## Provider support matrix (OpenClaw integrations)
+## Provider support matrix (Moltbot integrations)
 
-| Capability | Provider integration                             | Notes                                             |
-| ---------- | ------------------------------------------------ | ------------------------------------------------- |
-| Image      | OpenAI / Anthropic / Google / others via `pi-ai` | Any image-capable model in the registry works.    |
-| Audio      | OpenAI, Groq, Deepgram, Google                   | Provider transcription (Whisper/Deepgram/Gemini). |
-| Video      | Google (Gemini API)                              | Provider video understanding.                     |
+| Capability | Provider integration | Notes |
+|------------|----------------------|-------|
+| Image | OpenAI / Anthropic / Google / others via `pi-ai` | Any image-capable model in the registry works. |
+| Audio | OpenAI, Groq, Deepgram, Google | Provider transcription (Whisper/Deepgram/Gemini). |
+| Video | Google (Gemini API) | Provider video understanding. |
 
 ## Recommended providers
 
 **Image**
-
 - Prefer your active model if it supports images.
-- Good defaults: `openai/gpt-5.2`, `anthropic/claude-opus-4-6`, `google/gemini-3-pro-preview`.
+- Good defaults: `openai/gpt-5.2`, `anthropic/claude-opus-4-5`, `google/gemini-3-pro-preview`.
 
 **Audio**
-
 - `openai/gpt-4o-mini-transcribe`, `groq/whisper-large-v3-turbo`, or `deepgram/nova-3`.
 - CLI fallback: `whisper-cli` (whisper-cpp) or `whisper`.
 - Deepgram setup: [Deepgram (audio transcription)](/providers/deepgram).
 
 **Video**
-
 - `google/gemini-3-flash-preview` (fast), `google/gemini-3-pro-preview` (richer).
 - CLI fallback: `gemini` CLI (supports `read_file` on video/audio).
 
@@ -219,11 +209,7 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
     media: {
       models: [
         { provider: "openai", model: "gpt-5.2", capabilities: ["image"] },
-        {
-          provider: "google",
-          model: "gemini-3-flash-preview",
-          capabilities: ["image", "audio", "video"],
-        },
+        { provider: "google", model: "gemini-3-flash-preview", capabilities: ["image", "audio", "video"] },
         {
           type: "cli",
           command: "gemini",
@@ -232,19 +218,19 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
             "gemini-3-flash",
             "--allowed-tools",
             "read_file",
-            "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters.",
+            "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters."
           ],
-          capabilities: ["image", "video"],
-        },
+          capabilities: ["image", "video"]
+        }
       ],
       audio: {
-        attachments: { mode: "all", maxAttachments: 2 },
+        attachments: { mode: "all", maxAttachments: 2 }
       },
       video: {
-        maxChars: 500,
-      },
-    },
-  },
+        maxChars: 500
+      }
+    }
+  }
 }
 ```
 
@@ -261,9 +247,9 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
           {
             type: "cli",
             command: "whisper",
-            args: ["--model", "base", "{{MediaPath}}"],
-          },
-        ],
+            args: ["--model", "base", "{{MediaPath}}"]
+          }
+        ]
       },
       video: {
         enabled: true,
@@ -278,13 +264,13 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
               "gemini-3-flash",
               "--allowed-tools",
               "read_file",
-              "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters.",
-            ],
-          },
-        ],
-      },
-    },
-  },
+              "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters."
+            ]
+          }
+        ]
+      }
+    }
+  }
 }
 ```
 
@@ -300,7 +286,7 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
         maxChars: 500,
         models: [
           { provider: "openai", model: "gpt-5.2" },
-          { provider: "anthropic", model: "claude-opus-4-6" },
+          { provider: "anthropic", model: "claude-opus-4-5" },
           {
             type: "cli",
             command: "gemini",
@@ -309,13 +295,13 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
               "gemini-3-flash",
               "--allowed-tools",
               "read_file",
-              "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters.",
-            ],
-          },
-        ],
-      },
-    },
-  },
+              "Read the media at {{MediaPath}} and describe it in <= {{MaxChars}} characters."
+            ]
+          }
+        ]
+      }
+    }
+  }
 }
 ```
 
@@ -325,35 +311,11 @@ When `mode: "all"`, outputs are labeled `[Image 1/2]`, `[Audio 2/2]`, etc.
 {
   tools: {
     media: {
-      image: {
-        models: [
-          {
-            provider: "google",
-            model: "gemini-3-pro-preview",
-            capabilities: ["image", "video", "audio"],
-          },
-        ],
-      },
-      audio: {
-        models: [
-          {
-            provider: "google",
-            model: "gemini-3-pro-preview",
-            capabilities: ["image", "video", "audio"],
-          },
-        ],
-      },
-      video: {
-        models: [
-          {
-            provider: "google",
-            model: "gemini-3-pro-preview",
-            capabilities: ["image", "video", "audio"],
-          },
-        ],
-      },
-    },
-  },
+      image: { models: [{ provider: "google", model: "gemini-3-pro-preview", capabilities: ["image", "video", "audio"] }] },
+      audio: { models: [{ provider: "google", model: "gemini-3-pro-preview", capabilities: ["image", "video", "audio"] }] },
+      video: { models: [{ provider: "google", model: "gemini-3-pro-preview", capabilities: ["image", "video", "audio"] }] }
+    }
+  }
 }
 ```
 

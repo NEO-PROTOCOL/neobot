@@ -39,9 +39,9 @@ vi.mock("node:child_process", async (importOriginal) => {
 
       const code = shouldFailContainerInspect ? 1 : 0;
       if (shouldSucceedImageInspect) {
-        queueMicrotask(() => child.emit("close", 0));
+        queueMicrotask(() => (child as EventEmitter).emit("close", 0));
       } else {
-        queueMicrotask(() => child.emit("close", code));
+        queueMicrotask(() => (child as EventEmitter).emit("close", code));
       }
       return child;
     },

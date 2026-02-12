@@ -1,11 +1,10 @@
 ---
 summary: "Slash commands: text vs native, config, and supported commands"
 read_when:
+
   - Using or configuring chat commands
   - Debugging command routing or permissions
-title: "Slash Commands"
 ---
-
 # Slash commands
 
 Commands are handled by the Gateway. Most commands must be sent as a **standalone** message that starts with `/`.
@@ -18,8 +17,7 @@ There are two related systems:
   - Directives are stripped from the message before the model sees it.
   - In normal chat messages (not directive-only), they are treated as “inline hints” and do **not** persist session settings.
   - In directive-only messages (the message contains only directives), they persist to the session and reply with an acknowledgement.
-  - Directives are only applied for **authorized senders**. If `commands.allowFrom` is set, it is the only
-    allowlist used; otherwise authorization comes from channel allowlists/pairing plus `commands.useAccessGroups`.
+  - Directives are only applied for **authorized senders** (channel allowlists/pairing plus `commands.useAccessGroups`).
     Unauthorized senders see directives treated as plain text.
 
 There are also a few **inline shortcuts** (allowlisted/authorized senders only): `/help`, `/commands`, `/status`, `/whoami` (`/id`).
@@ -38,12 +36,8 @@ They run immediately, are stripped before the model sees the message, and the re
     config: false,
     debug: false,
     restart: false,
-    allowFrom: {
-      "*": ["user1"],
-      discord: ["user:123"],
-    },
-    useAccessGroups: true,
-  },
+    useAccessGroups: true
+  }
 }
 ```
 
@@ -58,12 +52,9 @@ They run immediately, are stripped before the model sees the message, and the re
   - Set `channels.discord.commands.nativeSkills`, `channels.telegram.commands.nativeSkills`, or `channels.slack.commands.nativeSkills` to override per provider (bool or `"auto"`).
 - `commands.bash` (default `false`) enables `! <cmd>` to run host shell commands (`/bash <cmd>` is an alias; requires `tools.elevated` allowlists).
 - `commands.bashForegroundMs` (default `2000`) controls how long bash waits before switching to background mode (`0` backgrounds immediately).
-- `commands.config` (default `false`) enables `/config` (reads/writes `openclaw.json`).
+- `commands.config` (default `false`) enables `/config` (reads/writes `moltbot.json`).
 - `commands.debug` (default `false`) enables `/debug` (runtime-only overrides).
-- `commands.allowFrom` (optional) sets a per-provider allowlist for command authorization. When configured, it is the
-  only authorization source for commands and directives (channel allowlists/pairing and `commands.useAccessGroups`
-  are ignored). Use `"*"` for a global default; provider-specific keys override it.
-- `commands.useAccessGroups` (default `true`) enforces allowlists/policies for commands when `commands.allowFrom` is not set.
+- `commands.useAccessGroups` (default `true`) enforces allowlists/policies for commands.
 
 ## Command list
 
@@ -111,9 +102,9 @@ Notes:
 
 - Commands accept an optional `:` between the command and args (e.g. `/think: high`, `/send: on`, `/help:`).
 - `/new <model>` accepts a model alias, `provider/model`, or a provider name (fuzzy match); if no match, the text is treated as the message body.
-- For full provider usage breakdown, use `openclaw status --usage`.
+- For full provider usage breakdown, use `moltbot status --usage`.
 - `/allowlist add|remove` requires `commands.config=true` and honors channel `configWrites`.
-- `/usage` controls the per-response usage footer; `/usage cost` prints a local cost summary from OpenClaw session logs.
+- `/usage` controls the per-response usage footer; `/usage cost` prints a local cost summary from Moltbot session logs.
 - `/restart` is disabled by default; set `commands.restart: true` to enable it.
 - `/verbose` is meant for debugging and extra visibility; keep it **off** in normal use.
 - `/reasoning` (and `/verbose`) are risky in group settings: they may reveal internal reasoning or tool output you did not intend to expose. Prefer leaving them off, especially in group chats.
@@ -165,7 +156,7 @@ Examples:
 
 ```
 /debug show
-/debug set messages.responsePrefix="[openclaw]"
+/debug set messages.responsePrefix="[moltbot]"
 /debug set channels.whatsapp.allowFrom=["+1555","+4477"]
 /debug unset messages.responsePrefix
 /debug reset
@@ -173,12 +164,12 @@ Examples:
 
 Notes:
 
-- Overrides apply immediately to new config reads, but do **not** write to `openclaw.json`.
+- Overrides apply immediately to new config reads, but do **not** write to `moltbot.json`.
 - Use `/debug reset` to clear all overrides and return to the on-disk config.
 
 ## Config updates
 
-`/config` writes to your on-disk config (`openclaw.json`). Owner-only. Disabled by default; enable with `commands.config: true`.
+`/config` writes to your on-disk config (`moltbot.json`). Owner-only. Disabled by default; enable with `commands.config: true`.
 
 Examples:
 
@@ -186,7 +177,7 @@ Examples:
 /config show
 /config show messages.responsePrefix
 /config get messages.responsePrefix
-/config set messages.responsePrefix="[openclaw]"
+/config set messages.responsePrefix="[moltbot]"
 /config unset messages.responsePrefix
 ```
 
@@ -199,8 +190,9 @@ Notes:
 
 - **Text commands** run in the normal chat session (DMs share `main`, groups have their own session).
 - **Native commands** use isolated sessions:
+
   - Discord: `agent:<agentId>:discord:slash:<userId>`
   - Slack: `agent:<agentId>:slack:slash:<userId>` (prefix configurable via `channels.slack.slashCommand.sessionPrefix`)
   - Telegram: `telegram:slash:<userId>` (targets the chat session via `CommandTargetSessionKey`)
 - **`/stop`** targets the active chat session so it can abort the current run.
-- **Slack:** `channels.slack.slashCommand` is still supported for a single `/openclaw`-style command. If you enable `commands.native`, you must create one Slack slash command per built-in command (same names as `/help`). Command argument menus for Slack are delivered as ephemeral Block Kit buttons.
+- **Slack:** `channels.slack.slashCommand` is still supported for a single `/clawd`-style command. If you enable `commands.native`, you must create one Slack slash command per built-in command (same names as `/help`). Command argument menus for Slack are delivered as ephemeral Block Kit buttons.

@@ -1,11 +1,10 @@
 ---
 summary: "Retry policy for outbound provider calls"
 read_when:
+
   - Updating provider retry behavior or defaults
   - Debugging provider send errors or rate limits
-title: "Retry Policy"
 ---
-
 # Retry policy
 
 ## Goals
@@ -20,11 +19,11 @@ title: "Retry Policy"
 - Max delay cap: 30000 ms
 - Jitter: 0.1 (10 percent)
 - Provider defaults:
+
   - Telegram min delay: 400 ms
   - Discord min delay: 500 ms
 
 ## Behavior
-
 ### Discord
 
 - Retries only on rate-limit errors (HTTP 429).
@@ -38,7 +37,7 @@ title: "Retry Policy"
 
 ## Configuration
 
-Set retry policy per provider in `~/.openclaw/openclaw.json`:
+Set retry policy per provider in `~/.clawdbot/moltbot.json`:
 
 ```json5
 {
@@ -48,18 +47,18 @@ Set retry policy per provider in `~/.openclaw/openclaw.json`:
         attempts: 3,
         minDelayMs: 400,
         maxDelayMs: 30000,
-        jitter: 0.1,
-      },
+        jitter: 0.1
+      }
     },
     discord: {
       retry: {
         attempts: 3,
         minDelayMs: 500,
         maxDelayMs: 30000,
-        jitter: 0.1,
-      },
-    },
-  },
+        jitter: 0.1
+      }
+    }
+  }
 }
 ```
 

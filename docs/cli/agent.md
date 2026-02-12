@@ -1,6 +1,7 @@
 ---
 summary: "CLI reference for `openclaw agent` (send one agent turn via the Gateway)"
 read_when:
+
   - You want to run one agent turn from scripts (optionally deliver reply)
 title: "agent"
 ---

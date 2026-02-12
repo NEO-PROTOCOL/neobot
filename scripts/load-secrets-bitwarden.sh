@@ -13,7 +13,6 @@ if [ -f .env ]; then
 else
     echo "⚠️  Aviso: .env não acessível pelo shell (mas prosseguindo as usual)."
 fi
-
 # Count loaded secrets
 LOADED=0
 [ -n "$NOTION_API_KEY" ] && LOADED=$((LOADED + 1))

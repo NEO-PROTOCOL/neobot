@@ -1,12 +1,11 @@
 ---
 summary: "macOS permission persistence (TCC) and signing requirements"
 read_when:
+
   - Debugging missing or stuck macOS permission prompts
   - Packaging or signing the macOS app
   - Changing bundle IDs or app install paths
-title: "macOS Permissions"
 ---
-
 # macOS permissions (TCC)
 
 macOS permission grants are fragile. TCC associates a permission grant with the
@@ -15,7 +14,7 @@ macOS treats the app as new and may drop or hide prompts.
 
 ## Requirements for stable permissions
 
-- Same path: run the app from a fixed location (for OpenClaw, `dist/OpenClaw.app`).
+- Same path: run the app from a fixed location (for Moltbot, `dist/Moltbot.app`).
 - Same bundle identifier: changing the bundle ID creates a new permission identity.
 - Signed app: unsigned or ad-hoc signed builds do not persist permissions.
 - Consistent signature: use a real Apple Development or Developer ID certificate
@@ -39,12 +38,6 @@ sudo tccutil reset Accessibility bot.molt.mac
 sudo tccutil reset ScreenCapture bot.molt.mac
 sudo tccutil reset AppleEvents
 ```
-
-## Files and folders permissions (Desktop/Documents/Downloads)
-
-macOS may also gate Desktop, Documents, and Downloads for terminal/background processes. If file reads or directory listings hang, grant access to the same process context that performs file operations (for example Terminal/iTerm, LaunchAgent-launched app, or SSH process).
-
-Workaround: move files into the OpenClaw workspace (`~/.openclaw/workspace`) if you want to avoid per-folder grants.
 
 If you are testing permissions, always sign with a real certificate. Ad-hoc
 builds are only acceptable for quick local runs where permissions do not matter.

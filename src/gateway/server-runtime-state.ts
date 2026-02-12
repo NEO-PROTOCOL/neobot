@@ -2,37 +2,29 @@ import type { Server as HttpServer } from "node:http";
 import { WebSocketServer } from "ws";
 import type { CliDeps } from "../cli/deps.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
-import type { PluginRegistry } from "../plugins/registry.js";
-import type { RuntimeEnv } from "../runtime.js";
+
 import type { ResolvedGatewayAuth } from "./auth.js";
 import type { ChatAbortControllerEntry } from "./chat-abort.js";
-import type { ControlUiRootState } from "./control-ui.js";
 import type { HooksConfigResolved } from "./hooks.js";
-import type { DedupeEntry } from "./server-shared.js";
-import type { GatewayTlsRuntime } from "./server/tls.js";
-import type { GatewayWsClient } from "./server/ws-types.js";
-import { CANVAS_HOST_PATH } from "../canvas-host/a2ui.js";
-import { type CanvasHostHandler, createCanvasHostHandler } from "../canvas-host/server.js";
-import { resolveGatewayListenHosts } from "./net.js";
-import { createGatewayBroadcaster } from "./server-broadcast.js";
-import {
-  type ChatRunEntry,
-  createChatRunState,
-  createToolEventRecipientRegistry,
-} from "./server-chat.js";
-import { MAX_PAYLOAD_BYTES } from "./server-constants.js";
-import { attachGatewayUpgradeHandler, createGatewayHttpServer } from "./server-http.js";
 import { createGatewayHooksRequestHandler } from "./server/hooks.js";
 import { listenGatewayHttpServer } from "./server/http-listen.js";
+import { resolveGatewayListenHosts } from "./net.js";
 import { createGatewayPluginRequestHandler } from "./server/plugins-http.js";
+import type { GatewayWsClient } from "./server/ws-types.js";
+import { createGatewayBroadcaster } from "./server-broadcast.js";
+import { type ChatRunEntry, createChatRunState } from "./server-chat.js";
+import { MAX_PAYLOAD_BYTES } from "./server-constants.js";
+import { attachGatewayUpgradeHandler, createGatewayHttpServer } from "./server-http.js";
+import type { DedupeEntry } from "./server-shared.js";
+import type { PluginRegistry } from "../plugins/registry.js";
+import type { GatewayTlsRuntime } from "./server/tls.js";
 
 export async function createGatewayRuntimeState(params: {
-  cfg: import("../config/config.js").OpenClawConfig;
+  cfg: import("../config/config.js").MoltbotConfig;
   bindHost: string;
   port: number;
   controlUiEnabled: boolean;
   controlUiBasePath: string;
-  controlUiRoot?: ControlUiRootState;
   openAiChatCompletionsEnabled: boolean;
   openResponsesEnabled: boolean;
   openResponsesConfig?: import("../config/types.gateway.js").GatewayHttpResponsesConfig;
@@ -41,15 +33,10 @@ export async function createGatewayRuntimeState(params: {
   hooksConfig: () => HooksConfigResolved | null;
   pluginRegistry: PluginRegistry;
   deps: CliDeps;
-  canvasRuntime: RuntimeEnv;
-  canvasHostEnabled: boolean;
-  allowCanvasHostInTests?: boolean;
-  logCanvas: { info: (msg: string) => void; warn: (msg: string) => void };
   log: { info: (msg: string) => void; warn: (msg: string) => void };
   logHooks: ReturnType<typeof createSubsystemLogger>;
   logPlugins: ReturnType<typeof createSubsystemLogger>;
 }): Promise<{
-  canvasHost: CanvasHostHandler | null;
   httpServer: HttpServer;
   httpServers: HttpServer[];
   httpBindHosts: string[];
@@ -58,15 +45,6 @@ export async function createGatewayRuntimeState(params: {
   broadcast: (
     event: string,
     payload: unknown,
-    opts?: {
-      dropIfSlow?: boolean;
-      stateVersion?: { presence?: number; health?: number };
-    },
-  ) => void;
-  broadcastToConnIds: (
-    event: string,
-    payload: unknown,
-    connIds: ReadonlySet<string>,
     opts?: {
       dropIfSlow?: boolean;
       stateVersion?: { presence?: number; health?: number };
@@ -84,32 +62,7 @@ export async function createGatewayRuntimeState(params: {
     sessionKey?: string,
   ) => ChatRunEntry | undefined;
   chatAbortControllers: Map<string, ChatAbortControllerEntry>;
-  toolEventRecipients: ReturnType<typeof createToolEventRecipientRegistry>;
 }> {
-  let canvasHost: CanvasHostHandler | null = null;
-  if (params.canvasHostEnabled) {
-    try {
-      const handler = await createCanvasHostHandler({
-        runtime: params.canvasRuntime,
-        rootDir: params.cfg.canvasHost?.root,
-        basePath: CANVAS_HOST_PATH,
-        allowInTests: params.allowCanvasHostInTests,
-        liveReload: params.cfg.canvasHost?.liveReload,
-      });
-      if (handler.rootDir) {
-        canvasHost = handler;
-        params.logCanvas.info(
-          `canvas host mounted at http://${params.bindHost}:${params.port}${CANVAS_HOST_PATH}/ (root ${handler.rootDir})`,
-        );
-      }
-    } catch (err) {
-      params.logCanvas.warn(`canvas host failed to start: ${String(err)}`);
-    }
-  }
-
-  const clients = new Set<GatewayWsClient>();
-  const { broadcast, broadcastToConnIds } = createGatewayBroadcaster({ clients });
-
   const handleHooksRequest = createGatewayHooksRequestHandler({
     deps: params.deps,
     getHooksConfig: params.hooksConfig,
@@ -128,11 +81,8 @@ export async function createGatewayRuntimeState(params: {
   const httpBindHosts: string[] = [];
   for (const host of bindHosts) {
     const httpServer = createGatewayHttpServer({
-      canvasHost,
-      clients,
       controlUiEnabled: params.controlUiEnabled,
       controlUiBasePath: params.controlUiBasePath,
-      controlUiRoot: params.controlUiRoot,
       openAiChatCompletionsEnabled: params.openAiChatCompletionsEnabled,
       openResponsesEnabled: params.openResponsesEnabled,
       openResponsesConfig: params.openResponsesConfig,
@@ -150,9 +100,7 @@ export async function createGatewayRuntimeState(params: {
       httpServers.push(httpServer);
       httpBindHosts.push(host);
     } catch (err) {
-      if (host === bindHosts[0]) {
-        throw err;
-      }
+      if (host === bindHosts[0]) throw err;
       params.log.warn(
         `gateway: failed to bind loopback alias ${host}:${params.port} (${String(err)})`,
       );
@@ -168,15 +116,11 @@ export async function createGatewayRuntimeState(params: {
     maxPayload: MAX_PAYLOAD_BYTES,
   });
   for (const server of httpServers) {
-    attachGatewayUpgradeHandler({
-      httpServer: server,
-      wss,
-      canvasHost,
-      clients,
-      resolvedAuth: params.resolvedAuth,
-    });
+    attachGatewayUpgradeHandler({ httpServer: server, wss });
   }
 
+  const clients = new Set<GatewayWsClient>();
+  const { broadcast } = createGatewayBroadcaster({ clients });
   const agentRunSeq = new Map<string, number>();
   const dedupe = new Map<string, DedupeEntry>();
   const chatRunState = createChatRunState();
@@ -186,17 +130,14 @@ export async function createGatewayRuntimeState(params: {
   const addChatRun = chatRunRegistry.add;
   const removeChatRun = chatRunRegistry.remove;
   const chatAbortControllers = new Map<string, ChatAbortControllerEntry>();
-  const toolEventRecipients = createToolEventRecipientRegistry();
 
   return {
-    canvasHost,
     httpServer,
     httpServers,
     httpBindHosts,
     wss,
     clients,
     broadcast,
-    broadcastToConnIds,
     agentRunSeq,
     dedupe,
     chatRunState,
@@ -205,6 +146,5 @@ export async function createGatewayRuntimeState(params: {
     addChatRun,
     removeChatRun,
     chatAbortControllers,
-    toolEventRecipients,
   };
 }

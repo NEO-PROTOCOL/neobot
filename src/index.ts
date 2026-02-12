@@ -40,6 +40,10 @@ ensureOpenClawCliOnPath();
 // Capture all console output into structured logs while keeping stdout/stderr behavior.
 enableConsoleCapture();
 
+// Bridge logs to dashboard if configured
+import { startDashboardLogBridge } from "./infra/dashboard-log-bridge.js";
+startDashboardLogBridge();
+
 // Enforce the minimum supported runtime before doing any work.
 assertSupportedRuntime();
 

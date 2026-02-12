@@ -7,11 +7,9 @@ description: Check status of all stack projects and ensure clean exit.
 1. **Check Stack Status**
    - Run the wrap-up script to see if any project has uncommitted changes or unpushed code.
 
-// turbo 2. Audit Stack
-
-- node --import tsx scripts/wrapup.ts
-
-**Note on macOS Permissions**: If `pnpm audit`, `build`, or other validations fail due to `EPERM` or permission locks, request the USER (Executor User) to run the command manually in their terminal.
+// turbo
+2. Audit Stack
+   - node --import tsx scripts/wrapup.ts
 
 3. **Manual Actions (if needed)**
    - If the script above shows ⚠️ warnings, navigate to the specific folders and commit your changes.

@@ -1,15 +1,14 @@
 ---
 summary: "Streaming + chunking behavior (block replies, draft streaming, limits)"
 read_when:
+
   - Explaining how streaming or chunking works on channels
   - Changing block streaming or channel chunking behavior
   - Debugging duplicate/early block replies or draft streaming
-title: "Streaming and Chunking"
 ---
-
 # Streaming + chunking
 
-OpenClaw has two separate “streaming” layers:
+Moltbot has two separate “streaming” layers:
 
 - **Block streaming (channels):** emit completed **blocks** as the assistant writes. These are normal channel messages (not token deltas).
 - **Token-ish streaming (Telegram only):** update a **draft bubble** with partial text while generating; final message is sent at the end.
@@ -29,7 +28,6 @@ Model output
             └─ chunker flushes at message_end
                    └─ channel send (block replies)
 ```
-
 Legend:
 
 - `text_delta/events`: model stream events (may be sparse for non-streaming models).
@@ -37,7 +35,6 @@ Legend:
 - `channel send`: actual outbound messages (block replies).
 
 **Controls:**
-
 - `agents.defaults.blockStreamingDefault`: `"on"`/`"off"` (default off).
 - Channel overrides: `*.blockStreaming` (and per-account variants) to force `"on"`/`"off"` per channel.
 - `agents.defaults.blockStreamingBreak`: `"text_end"` or `"message_end"`.
@@ -48,7 +45,6 @@ Legend:
 - Discord soft cap: `channels.discord.maxLinesPerMessage` (default 17) splits tall replies to avoid UI clipping.
 
 **Boundary semantics:**
-
 - `text_end`: stream blocks as soon as chunker emits; flush on each `text_end`.
 - `message_end`: wait until assistant message finishes, then flush buffered output.
 
@@ -67,7 +63,7 @@ Block chunking is implemented by `EmbeddedBlockChunker`:
 
 ## Coalescing (merge streamed blocks)
 
-When block streaming is enabled, OpenClaw can **merge consecutive block chunks**
+When block streaming is enabled, Moltbot can **merge consecutive block chunks**
 before sending them out. This reduces “single-line spam” while still providing
 progressive output.
 
@@ -119,7 +115,7 @@ Telegram is the only channel with draft streaming:
 - Final reply is still a normal message.
 - `/reasoning stream` writes reasoning into the draft bubble (Telegram only).
 
-When draft streaming is active, OpenClaw disables block streaming for that reply to avoid double-streaming.
+When draft streaming is active, Moltbot disables block streaming for that reply to avoid double-streaming.
 
 ```
 Telegram (private + topics)
@@ -128,7 +124,6 @@ Telegram (private + topics)
        └─ streamMode=block   → chunker updates draft
   └─ final reply → normal message
 ```
-
 Legend:
 
 - `sendMessageDraft`: Telegram draft bubble (not a real message).

@@ -1,11 +1,10 @@
 ---
 summary: "Plan: one clean plugin SDK + runtime for all messaging connectors"
 read_when:
+
   - Defining or refactoring the plugin architecture
   - Migrating channel connectors to the plugin SDK/runtime
-title: "Plugin SDK Refactor"
 ---
-
 # Plugin SDK + Runtime Refactor Plan
 
 Goal: every messaging connector is a plugin (bundled or external) using one stable API.
@@ -34,13 +33,13 @@ Contents (examples):
 
 Delivery:
 
-- Publish as `openclaw/plugin-sdk` (or export from core under `openclaw/plugin-sdk`).
+- Publish as `@clawdbot/plugin-sdk` (or export from core under `clawdbot/plugin-sdk`).
 - Semver with explicit stability guarantees.
 
 ### 2) Plugin Runtime (execution surface, injected)
 
 Scope: everything that touches core runtime behavior.
-Accessed via `OpenClawPluginApi.runtime` so plugins never import `src/**`.
+Accessed via `MoltbotPluginApi.runtime` so plugins never import `src/**`.
 
 Proposed surface (minimal but complete):
 
@@ -49,19 +48,16 @@ export type PluginRuntime = {
   channel: {
     text: {
       chunkMarkdownText(text: string, limit: number): string[];
-      resolveTextChunkLimit(cfg: OpenClawConfig, channel: string, accountId?: string): number;
-      hasControlCommand(text: string, cfg: OpenClawConfig): boolean;
+      resolveTextChunkLimit(cfg: MoltbotConfig, channel: string, accountId?: string): number;
+      hasControlCommand(text: string, cfg: MoltbotConfig): boolean;
     };
     reply: {
       dispatchReplyWithBufferedBlockDispatcher(params: {
         ctx: unknown;
         cfg: unknown;
         dispatcherOptions: {
-          deliver: (payload: {
-            text?: string;
-            mediaUrls?: string[];
-            mediaUrl?: string;
-          }) => void | Promise<void>;
+          deliver: (payload: { text?: string; mediaUrls?: string[]; mediaUrl?: string }) =>
+            void | Promise<void>;
           onError?: (err: unknown, info: { kind: string }) => void;
         };
       }): Promise<void>;
@@ -72,7 +68,7 @@ export type PluginRuntime = {
         cfg: unknown;
         channel: string;
         accountId: string;
-        peer: { kind: RoutePeerKind; id: string };
+        peer: { kind: "dm" | "group" | "channel"; id: string };
       }): { sessionKey: string; accountId: string };
     };
     pairing: {
@@ -94,23 +90,18 @@ export type PluginRuntime = {
       ): Promise<{ path: string; contentType?: string }>;
     };
     mentions: {
-      buildMentionRegexes(cfg: OpenClawConfig, agentId?: string): RegExp[];
+      buildMentionRegexes(cfg: MoltbotConfig, agentId?: string): RegExp[];
       matchesMentionPatterns(text: string, regexes: RegExp[]): boolean;
     };
     groups: {
-      resolveGroupPolicy(
-        cfg: OpenClawConfig,
-        channel: string,
-        accountId: string,
-        groupId: string,
-      ): {
+      resolveGroupPolicy(cfg: MoltbotConfig, channel: string, accountId: string, groupId: string): {
         allowlistEnabled: boolean;
         allowed: boolean;
         groupConfig?: unknown;
         defaultConfig?: unknown;
       };
       resolveRequireMention(
-        cfg: OpenClawConfig,
+        cfg: MoltbotConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -125,7 +116,7 @@ export type PluginRuntime = {
         onFlush: (entries: T[]) => Promise<void>;
         onError?: (err: unknown) => void;
       }): { push: (v: T) => void; flush: () => Promise<void> };
-      resolveInboundDebounceMs(cfg: OpenClawConfig, channel: string): number;
+      resolveInboundDebounceMs(cfg: MoltbotConfig, channel: string): number;
     };
     commands: {
       resolveCommandAuthorizedFromAuthorizers(params: {
@@ -139,7 +130,7 @@ export type PluginRuntime = {
     getChildLogger(name: string): PluginLogger;
   };
   state: {
-    resolveStateDir(cfg: OpenClawConfig): string;
+    resolveStateDir(cfg: MoltbotConfig): string;
   };
 };
 ```
@@ -154,8 +145,8 @@ Notes:
 
 ### Phase 0: scaffolding
 
-- Introduce `openclaw/plugin-sdk`.
-- Add `api.runtime` to `OpenClawPluginApi` with the surface above.
+- Introduce `@clawdbot/plugin-sdk`.
+- Add `api.runtime` to `MoltbotPluginApi` with the surface above.
 - Maintain existing imports during a transition window (deprecation warnings).
 
 ### Phase 1: bridge cleanup (low risk)
@@ -189,7 +180,7 @@ Notes:
 
 - SDK: semver, published, documented changes.
 - Runtime: versioned per core release. Add `api.runtime.version`.
-- Plugins declare a required runtime range (e.g., `openclawRuntime: ">=2026.2.0"`).
+- Plugins declare a required runtime range (e.g., `moltbotRuntime: ">=2026.2.0"`).
 
 ## Testing strategy
 
@@ -211,4 +202,4 @@ Notes:
 - New connector templates depend only on SDK + runtime.
 - External plugins can be developed and updated without core source access.
 
-Related docs: [Plugins](/tools/plugin), [Channels](/channels/index), [Configuration](/gateway/configuration).
+Related docs: [Plugins](/plugin), [Channels](/channels/index), [Configuration](/gateway/configuration).

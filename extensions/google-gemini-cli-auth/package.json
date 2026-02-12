@@ -1,13 +1,9 @@
 {
   "name": "@openclaw/google-gemini-cli-auth",
-  "version": "2026.2.10",
-  "private": true,
-  "description": "OpenClaw Gemini CLI OAuth provider plugin",
+  "version": "2026.1.26",
   "type": "module",
-  "devDependencies": {
-    "openclaw": "workspace:*"
-  },
-  "openclaw": {
+  "description": "Moltbot Gemini CLI OAuth provider plugin",
+  "moltbot": {
     "extensions": [
       "./index.ts"
     ]

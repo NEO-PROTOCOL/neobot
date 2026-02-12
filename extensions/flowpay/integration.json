@@ -1,0 +1,73 @@
+{
+  "name": "FlowPay Sovereign Gateway",
+  "version": "3.0.0",
+  "type": "financial_node",
+  "status": "active_sovereign",
+  "priority": "critical_infrastructure",
+  "governance": {
+    "authority": "NEØ SMART CONTRACT",
+    "transparency": "total_on_chain",
+    "audit_mechanism": "continuous_verification"
+  },
+  "location": {
+    "local": "/Users/nettomello/CODIGOS/flowpay",
+    "repository": "https://github.com/flowpaycash/flowpay",
+    "production": "https://flowpay-production-10d8.up.railway.app",
+    "deploy_platform": "railway"
+  },
+  "tech_stack": {
+    "framework": "Astro 5 (SSR)",
+    "auth": "Web3Auth (MPC)",
+    "payment": "Woovi/OpenPix",
+    "blockchain_layer": "Base L2 / Polygon",
+    "settlement_engine": "Custom Liquidity Provider"
+  },
+  "capabilities": [
+    "pix_to_crypto_settlement",
+    "recurring_subscriptions",
+    "embedded_wallet_generation",
+    "proof_of_access_tokenization",
+    "client_driven_checkout"
+  ],
+  "integration_model": {
+    "architecture": "Access Unlock Primary",
+    "role": "Financial Execution Engine",
+    "coordinator": "Neobot Protocol",
+    "flow": "PIX -> ORACLE -> SMART_CONTRACT -> UNLOCK"
+  },
+  "endpoints": {
+    "health": "/api/health",
+    "buy": "/api/charges/create",
+    "status": "/api/charges/status",
+    "webhook": "/api/webhooks/pix",
+    "settlement": "/api/settlement/execute"
+  },
+  "revenue_impact": "PROTOCOL_SUSTAINABILITY",
+  "maintainer": "NODE NEØ",
+  "last_updated": "2026-02-02",
+  "synergies": {
+    "audit_layer": {
+      "module": "skills/ledger",
+      "purpose": "Immutable audit log of all Unlock Receipt generations (System Governance)"
+    },
+    "decentralized_storage": {
+      "module": "skills/ipfs",
+      "purpose": "Permanent, censorship-resistant storage of Unlock Receipts"
+    },
+    "sales_agent": {
+      "module": "skills/flowcloser",
+      "purpose": "Native integration for automated sales and checkout link generation"
+    },
+    "delivery_channels": {
+      "modules": [
+        "skills/telegram",
+        "skills/whatsapp"
+      ],
+      "purpose": "Direct secure delivery of Access Tokens to user's private chat"
+    },
+    "currency_oracle": {
+      "module": "skills/currency",
+      "purpose": "Real-time BRL/USDT conversion display for transparency"
+    }
+  }
+}

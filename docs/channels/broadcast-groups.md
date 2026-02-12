@@ -1,6 +1,7 @@
 ---
 summary: "Broadcast a WhatsApp message to multiple agents"
 read_when:
+
   - Configuring broadcast groups
   - Debugging multi-agent replies in WhatsApp
 status: experimental
@@ -157,10 +158,12 @@ Agents process in order (one waits for previous to finish):
 1. **Incoming message** arrives in a WhatsApp group
 2. **Broadcast check**: System checks if peer ID is in `broadcast`
 3. **If in broadcast list**:
+
    - All listed agents process the message
    - Each agent has its own session key and isolated context
    - Agents process in parallel (default) or sequentially
 4. **If not in broadcast list**:
+
    - Normal routing applies (first matching binding)
 
 Note: broadcast groups do not bypass channel allowlists or group activation rules (mentions/commands/etc). They only change _which agents run_ when a message is eligible for processing.

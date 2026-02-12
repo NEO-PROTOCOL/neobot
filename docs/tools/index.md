@@ -1,25 +1,25 @@
 ---
-summary: "Agent tool surface for OpenClaw (browser, canvas, nodes, message, cron) replacing legacy `openclaw-*` skills"
+summary: "Agent tool surface for Moltbot (browser, canvas, nodes, message, cron) replacing legacy `moltbot-*` skills"
 read_when:
+
   - Adding or modifying agent tools
-  - Retiring or changing `openclaw-*` skills
-title: "Tools"
+  - Retiring or changing `moltbot-*` skills
 ---
 
-# Tools (OpenClaw)
+# Tools (Moltbot)
 
-OpenClaw exposes **first-class agent tools** for browser, canvas, nodes, and cron.
-These replace the old `openclaw-*` skills: the tools are typed, no shelling,
+Moltbot exposes **first-class agent tools** for browser, canvas, nodes, and cron.
+These replace the old `moltbot-*` skills: the tools are typed, no shelling,
 and the agent should rely on them directly.
 
 ## Disabling tools
 
-You can globally allow/deny tools via `tools.allow` / `tools.deny` in `openclaw.json`
+You can globally allow/deny tools via `tools.allow` / `tools.deny` in `moltbot.json`
 (deny wins). This prevents disallowed tools from being sent to model providers.
 
 ```json5
 {
-  tools: { deny: ["browser"] },
+  tools: { deny: ["browser"] }
 }
 ```
 
@@ -27,7 +27,7 @@ Notes:
 
 - Matching is case-insensitive.
 - `*` wildcards are supported (`"*"` means all tools).
-- If `tools.allow` only references unknown or unloaded plugin tool names, OpenClaw logs a warning and ignores the allowlist so core tools stay available.
+- If `tools.allow` only references unknown or unloaded plugin tool names, Moltbot logs a warning and ignores the allowlist so core tools stay available.
 
 ## Tool profiles (base allowlist)
 
@@ -47,8 +47,8 @@ Example (messaging-only by default, allow Slack + Discord tools too):
 {
   tools: {
     profile: "messaging",
-    allow: ["slack", "discord"],
-  },
+    allow: ["slack", "discord"]
+  }
 }
 ```
 
@@ -58,8 +58,8 @@ Example (coding profile, but deny exec/process everywhere):
 {
   tools: {
     profile: "coding",
-    deny: ["group:runtime"],
-  },
+    deny: ["group:runtime"]
+  }
 }
 ```
 
@@ -72,10 +72,10 @@ Example (global coding profile, messaging-only support agent):
     list: [
       {
         id: "support",
-        tools: { profile: "messaging", allow: ["slack"] },
-      },
-    ],
-  },
+        tools: { profile: "messaging", allow: ["slack"] }
+      }
+    ]
+  }
 }
 ```
 
@@ -97,9 +97,9 @@ Example (keep global coding profile, but minimal tools for Google Antigravity):
   tools: {
     profile: "coding",
     byProvider: {
-      "google-antigravity": { profile: "minimal" },
-    },
-  },
+      "google-antigravity": { profile: "minimal" }
+    }
+  }
 }
 ```
 
@@ -110,9 +110,9 @@ Example (provider/model-specific allowlist for a flaky endpoint):
   tools: {
     allow: ["group:fs", "group:runtime", "sessions_list"],
     byProvider: {
-      "openai/gpt-5.2": { allow: ["group:fs", "sessions_list"] },
-    },
-  },
+      "openai/gpt-5.2": { allow: ["group:fs", "sessions_list"] }
+    }
+  }
 }
 ```
 
@@ -126,12 +126,12 @@ Example (agent-specific override for a single provider):
         id: "support",
         tools: {
           byProvider: {
-            "google-antigravity": { allow: ["message", "sessions_list"] },
-          },
-        },
-      },
-    ],
-  },
+            "google-antigravity": { allow: ["message", "sessions_list"] }
+          }
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -151,22 +151,22 @@ Available groups:
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:openclaw`: all built-in OpenClaw tools (excludes provider plugins)
+- `group:moltbot`: all built-in Moltbot tools (excludes provider plugins)
 
 Example (allow only file tools + browser):
 
 ```json5
 {
   tools: {
-    allow: ["group:fs", "browser"],
-  },
+    allow: ["group:fs", "browser"]
+  }
 }
 ```
 
 ## Plugins + tools
 
 Plugins can register **additional tools** (and CLI commands) beyond the core set.
-See [Plugins](/tools/plugin) for install + config, and [Skills](/tools/skills) for how
+See [Plugins](/plugin) for install + config, and [Skills](/tools/skills) for how
 tool usage guidance is injected into prompts. Some plugins ship their own skills
 alongside tools (for example, the voice-call plugin).
 
@@ -206,7 +206,7 @@ Notes:
 - If `process` is disallowed, `exec` runs synchronously and ignores `yieldMs`/`background`.
 - `elevated` is gated by `tools.elevated` plus any `agents.list[].tools.elevated` override (both must allow) and is an alias for `host=gateway` + `security=full`.
 - `elevated` only changes behavior when the agent is sandboxed (otherwise it’s a no-op).
-- `host=node` can target a macOS companion app or a headless node host (`openclaw node run`).
+- `host=node` can target a macOS companion app or a headless node host (`moltbot node run`).
 - gateway/node approvals and allowlists: [Exec approvals](/tools/exec-approvals).
 
 ### `process`
@@ -234,7 +234,7 @@ Core parameters:
 
 Notes:
 
-- Requires a Brave API key (recommended: `openclaw configure --section web`, or set `BRAVE_API_KEY`).
+- Requires a Brave API key (recommended: `moltbot configure --section web`, or set `BRAVE_API_KEY`).
 - Enable via `tools.web.search.enabled`.
 - Responses are cached (default 15 min).
 - See [Web tools](/tools/web) for setup.
@@ -252,7 +252,6 @@ Core parameters:
 Notes:
 
 - Enable via `tools.web.fetch.enabled`.
-- `maxChars` is clamped by `tools.web.fetch.maxCharsCap` (default 50000).
 - Responses are cached (default 15 min).
 - For JS-heavy sites, prefer the browser tool.
 - See [Web tools](/tools/web) for setup.
@@ -260,7 +259,7 @@ Notes:
 
 ### `browser`
 
-Control the dedicated OpenClaw-managed browser.
+Control the dedicated clawd browser.
 
 Core actions:
 
@@ -282,7 +281,8 @@ Common parameters:
 - `profile` (optional; defaults to `browser.defaultProfile`)
 - `target` (`sandbox` | `host` | `node`)
 - `node` (optional; picks a specific node id/name)
-  Notes:
+Notes:
+
 - Requires `browser.enabled=true` (default is `true`; set `false` to disable).
 - All actions accept optional `profile` parameter for multi-instance support.
 - When `profile` is omitted, uses `browser.defaultProfile` (defaults to "chrome").
@@ -312,7 +312,7 @@ Notes:
 - Uses gateway `node.invoke` under the hood.
 - If no `node` is provided, the tool picks a default (single connected node or local mac node).
 - A2UI is v0.8 only (no `createSurface`); the CLI rejects v0.9 JSONL with line errors.
-- Quick smoke: `openclaw nodes canvas a2ui push --node <id> --text "Hello from A2UI"`.
+- Quick smoke: `moltbot nodes canvas a2ui push --node <id> --text "Hello from A2UI"`.
 
 ### `nodes`
 
@@ -406,7 +406,7 @@ Core actions:
 Notes:
 
 - `add` expects a full cron job object (same schema as `cron.add` RPC).
-- `update` uses `{ jobId, patch }` (`id` accepted for compatibility).
+- `update` uses `{ id, patch }`.
 
 ### `gateway`
 
@@ -414,7 +414,7 @@ Restart or apply updates to the running Gateway process (in-place).
 
 Core actions:
 
-- `restart` (authorizes + sends `SIGUSR1` for in-process restart; `openclaw gateway` restart in-place)
+- `restart` (authorizes + sends `SIGUSR1` for in-process restart; `moltbot gateway` restart in-place)
 - `config.get` / `config.schema`
 - `config.apply` (validate + write config + restart + wake)
 - `config.patch` (merge partial update + restart + wake)
@@ -465,9 +465,6 @@ Gateway-backed tools (`canvas`, `nodes`, `cron`):
 - `gatewayToken` (if auth enabled)
 - `timeoutMs`
 
-Note: when `gatewayUrl` is set, include `gatewayToken` explicitly. Tools do not inherit config
-or environment credentials for overrides, and missing explicit credentials is an error.
-
 Browser tool:
 
 - `profile` (optional; defaults to `browser.defaultProfile`)
@@ -478,22 +475,22 @@ Browser tool:
 
 Browser automation:
 
-1. `browser` → `status` / `start`
-2. `snapshot` (ai or aria)
-3. `act` (click/type/press)
-4. `screenshot` if you need visual confirmation
+1) `browser` → `status` / `start`
+2) `snapshot` (ai or aria)
+3) `act` (click/type/press)
+4) `screenshot` if you need visual confirmation
 
 Canvas render:
 
-1. `canvas` → `present`
-2. `a2ui_push` (optional)
-3. `snapshot`
+1) `canvas` → `present`
+2) `a2ui_push` (optional)
+3) `snapshot`
 
 Node targeting:
 
-1. `nodes` → `status`
-2. `describe` on the chosen node
-3. `notify` / `run` / `camera_snap` / `screen_record`
+1) `nodes` → `status`
+2) `describe` on the chosen node
+3) `notify` / `run` / `camera_snap` / `screen_record`
 
 ## Safety
 
@@ -505,8 +502,8 @@ Node targeting:
 
 Tools are exposed in two parallel channels:
 
-1. **System prompt text**: a human-readable list + guidance.
-2. **Tool schema**: the structured function definitions sent to the model API.
+1) **System prompt text**: a human-readable list + guidance.
+2) **Tool schema**: the structured function definitions sent to the model API.
 
 That means the agent sees both “what tools exist” and “how to call them.” If a tool
 doesn’t appear in the system prompt or the schema, the model cannot call it.

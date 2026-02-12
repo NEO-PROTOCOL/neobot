@@ -1,23 +1,22 @@
 ---
 summary: "Context: what the model sees, how it is built, and how to inspect it"
 read_when:
-  - You want to understand what “context” means in OpenClaw
+
+  - You want to understand what “context” means in Moltbot
   - You are debugging why the model “knows” something (or forgot it)
   - You want to reduce context overhead (/context, /status, /compact)
-title: "Context"
 ---
-
 # Context
 
-“Context” is **everything OpenClaw sends to the model for a run**. It is bounded by the model’s **context window** (token limit).
+“Context” is **everything Moltbot sends to the model for a run**. It is bounded by the model’s **context window** (token limit).
 
 Beginner mental model:
 
-- **System prompt** (OpenClaw-built): rules, tools, skills list, time/runtime, and injected workspace files.
+- **System prompt** (Moltbot-built): rules, tools, skills list, time/runtime, and injected workspace files.
 - **Conversation history**: your messages + the assistant’s messages for this session.
 - **Tool calls/results + attachments**: command output, file reads, images/audio, etc.
 
-Context is _not the same thing_ as “memory”: memory can be stored on disk and reloaded later; context is what’s inside the model’s current window.
+Context is *not the same thing* as “memory”: memory can be stored on disk and reloaded later; context is what’s inside the model’s current window.
 
 ## Quick start (inspect context)
 
@@ -27,7 +26,7 @@ Context is _not the same thing_ as “memory”: memory can be stored on disk an
 - `/usage tokens` → append per-reply usage footer to normal replies.
 - `/compact` → summarize older history into a compact entry to free window space.
 
-See also: [Slash commands](/tools/slash-commands), [Token use & costs](/reference/token-use), [Compaction](/concepts/compaction).
+See also: [Slash commands](/tools/slash-commands), [Token use & costs](/token-use), [Compaction](/concepts/compaction).
 
 ## Example output
 
@@ -87,9 +86,9 @@ Everything the model receives counts, including:
 - Compaction summaries and pruning artifacts.
 - Provider “wrappers” or hidden headers (not visible, still counted).
 
-## How OpenClaw builds the system prompt
+## How Moltbot builds the system prompt
 
-The system prompt is **OpenClaw-owned** and rebuilt each run. It includes:
+The system prompt is **Moltbot-owned** and rebuilt each run. It includes:
 
 - Tool list + short descriptions.
 - Skills list (metadata only; see below).
@@ -102,7 +101,7 @@ Full breakdown: [System Prompt](/concepts/system-prompt).
 
 ## Injected workspace files (Project Context)
 
-By default, OpenClaw injects a fixed set of workspace files (if present):
+By default, Moltbot injects a fixed set of workspace files (if present):
 
 - `AGENTS.md`
 - `SOUL.md`
@@ -118,14 +117,14 @@ Large files are truncated per-file using `agents.defaults.bootstrapMaxChars` (de
 
 The system prompt includes a compact **skills list** (name + description + location). This list has real overhead.
 
-Skill instructions are _not_ included by default. The model is expected to `read` the skill’s `SKILL.md` **only when needed**.
+Skill instructions are *not* included by default. The model is expected to `read` the skill’s `SKILL.md` **only when needed**.
 
 ## Tools: there are two costs
 
 Tools affect context in two ways:
 
-1. **Tool list text** in the system prompt (what you see as “Tooling”).
-2. **Tool schemas** (JSON). These are sent to the model so it can call tools. They count toward context even though you don’t see them as plain text.
+1) **Tool list text** in the system prompt (what you see as “Tooling”).
+2) **Tool schemas** (JSON). These are sent to the model so it can call tools. They count toward context even though you don’t see them as plain text.
 
 `/context detail` breaks down the biggest tool schemas so you can see what dominates.
 
@@ -147,7 +146,7 @@ What persists across messages depends on the mechanism:
 
 - **Normal history** persists in the session transcript until compacted/pruned by policy.
 - **Compaction** persists a summary into the transcript and keeps recent messages intact.
-- **Pruning** removes old tool results from the _in-memory_ prompt for a run, but does not rewrite the transcript.
+- **Pruning** removes old tool results from the *in-memory* prompt for a run, but does not rewrite the transcript.
 
 Docs: [Session](/concepts/session), [Compaction](/concepts/compaction), [Session pruning](/concepts/session-pruning).
 

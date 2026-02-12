@@ -1,0 +1,116 @@
+{
+  "id": "smart-factory",
+  "name": "Smart Factory Integration",
+  "version": "1.0.0",
+  "author": "mio-skills",
+  "category": [
+    "integration",
+    "blockchain",
+    "token",
+    "smart-contracts"
+  ],
+  "metadata": {
+    "description": "NEØ Smart Factory (Neural Core V2) - Deploy contratos, mint tokens, bridge cross-chain e monitoring. Suporta Base, Polygon, TON.",
+    "dependencies": [],
+    "permissions": [
+      "http",
+      "read",
+      "write",
+      "blockchain"
+    ],
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "architecture": {
+      "type": "modular",
+      "pattern": "orchestration",
+      "nodes": [
+        {
+          "id": "smart-core",
+          "name": "Smart Core",
+          "role": "smart-contract-factory",
+          "repository": "https://github.com/neo-smart-token-factory/smart-core",
+          "description": "Neural Core V2 - Factory de contratos inteligentes com deploy automatizado",
+          "tech": [
+            "Hardhat",
+            "Solidity",
+            "Tact",
+            "Ethers.js"
+          ],
+          "networks": [
+            "Base",
+            "Polygon",
+            "TON"
+          ]
+        },
+        {
+          "id": "mio-system",
+          "name": "MIO System",
+          "role": "identity-registry",
+          "repository": "https://github.com/neomello/mio-system",
+          "description": "Sistema de Identidade Operacional - gerenciamento de identidades de agentes e plataformas",
+          "tech": [
+            "Identity Management",
+            "Web3 Signatures"
+          ]
+        }
+      ],
+      "chains": {
+        "primary": [
+          "Base",
+          "Polygon"
+        ],
+        "experimental": [
+          "TON"
+        ],
+        "bridge": "cross-chain-enabled"
+      }
+    },
+    "use_cases": [
+      "Deploy de contratos NeoTokenV2",
+      "Mint de $NEOFLW tokens",
+      "Bridge cross-chain (Base ↔ Polygon ↔ TON)",
+      "Monitoring de deployments e liquidez"
+    ],
+    "commands": [
+      {
+        "name": "init",
+        "file": "init.ts",
+        "description": "Initialize Smart Factory environment"
+      },
+      {
+        "name": "deploy",
+        "file": "deploy.ts",
+        "description": "Deploy smart contracts to Base/Polygon/TON"
+      },
+      {
+        "name": "mint",
+        "file": "mint.ts",
+        "description": "Mint tokens ($NEOFLW) to specific addresses"
+      },
+      {
+        "name": "bridge",
+        "file": "bridge.ts",
+        "description": "Bridge tokens cross-chain (Base → Polygon → TON)"
+      },
+      {
+        "name": "status",
+        "file": "status.ts",
+        "description": "Status monitoring (deployments, balances, liquidity)"
+      },
+      {
+        "name": "doctor",
+        "file": "doctor.ts",
+        "description": "Health check and diagnostics for Smart Factory"
+      },
+      {
+        "name": "draft",
+        "file": "draft.ts",
+        "description": "Draft contract templates for deployment"
+      }
+    ]
+  },
+  "files": {
+    "main": "deploy.ts",
+    "readme": "SKILL.md"
+  }
+}

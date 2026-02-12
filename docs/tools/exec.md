@@ -1,9 +1,9 @@
 ---
 summary: "Exec tool usage, stdin modes, and TTY support"
 read_when:
+
   - Using or modifying the exec tool
   - Debugging stdin or TTY behavior
-title: "Exec Tool"
 ---
 
 # Exec tool
@@ -31,13 +31,11 @@ Notes:
 
 - `host` defaults to `sandbox`.
 - `elevated` is ignored when sandboxing is off (exec already runs on the host).
-- `gateway`/`node` approvals are controlled by `~/.openclaw/exec-approvals.json`.
+- `gateway`/`node` approvals are controlled by `~/.clawdbot/exec-approvals.json`.
 - `node` requires a paired node (companion app or headless node host).
 - If multiple nodes are available, set `exec.node` or `tools.exec.node` to select one.
 - On non-Windows hosts, exec uses `SHELL` when set; if `SHELL` is `fish`, it prefers `bash` (or `sh`)
   from `PATH` to avoid fish-incompatible scripts, then falls back to `SHELL` if neither exists.
-- Host execution (`gateway`/`node`) rejects `env.PATH` and loader overrides (`LD_*`/`DYLD_*`) to
-  prevent binary hijacking or injected code.
 - Important: sandboxing is **off by default**. If sandboxing is off, `host=sandbox` runs directly on
   the gateway host (no container) and **does not require approvals**. To require approvals, run with
   `host=gateway` and configure exec approvals (or enable sandboxing).
@@ -59,30 +57,31 @@ Example:
 {
   tools: {
     exec: {
-      pathPrepend: ["~/bin", "/opt/oss/bin"],
-    },
-  },
+      pathPrepend: ["~/bin", "/opt/oss/bin"]
+    }
+  }
 }
 ```
 
 ### PATH handling
 
-- `host=gateway`: merges your login-shell `PATH` into the exec environment. `env.PATH` overrides are
-  rejected for host execution. The daemon itself still runs with a minimal `PATH`:
+- `host=gateway`: merges your login-shell `PATH` into the exec environment (unless the exec call
+  already sets `env.PATH`). The daemon itself still runs with a minimal `PATH`:
+
   - macOS: `/opt/homebrew/bin`, `/usr/local/bin`, `/usr/bin`, `/bin`
   - Linux: `/usr/local/bin`, `/usr/bin`, `/bin`
 - `host=sandbox`: runs `sh -lc` (login shell) inside the container, so `/etc/profile` may reset `PATH`.
-  OpenClaw prepends `env.PATH` after profile sourcing via an internal env var (no shell interpolation);
+  Moltbot prepends `env.PATH` after profile sourcing via an internal env var (no shell interpolation);
   `tools.exec.pathPrepend` applies here too.
-- `host=node`: only non-blocked env overrides you pass are sent to the node. `env.PATH` overrides are
-  rejected for host execution. Headless node hosts accept `PATH` only when it prepends the node host
-  PATH (no replacement). macOS nodes drop `PATH` overrides entirely.
+- `host=node`: only env overrides you pass are sent to the node. `tools.exec.pathPrepend` only applies
+  if the exec call already sets `env.PATH`. Headless node hosts accept `PATH` only when it prepends
+  the node host PATH (no replacement). macOS nodes drop `PATH` overrides entirely.
 
 Per-agent node binding (use the agent list index in config):
 
 ```bash
-openclaw config get agents.list
-openclaw config set agents.list[0].tools.exec.node "node-id-or-name"
+moltbot config get agents.list
+moltbot config set agents.list[0].tools.exec.node "node-id-or-name"
 ```
 
 Control UI: the Nodes tab includes a small “Exec node binding” panel for the same settings.
@@ -127,7 +126,7 @@ allowlist mode.
 Foreground:
 
 ```json
-{ "tool": "exec", "command": "ls -la" }
+{"tool":"exec","command":"ls -la"}
 ```
 
 Background + poll:
@@ -148,13 +147,13 @@ Send keys (tmux-style):
 Submit (send CR only):
 
 ```json
-{ "tool": "process", "action": "submit", "sessionId": "<id>" }
+{"tool":"process","action":"submit","sessionId":"<id>"}
 ```
 
 Paste (bracketed by default):
 
 ```json
-{ "tool": "process", "action": "paste", "sessionId": "<id>", "text": "line1\nline2\n" }
+{"tool":"process","action":"paste","sessionId":"<id>","text":"line1\nline2\n"}
 ```
 
 ## apply_patch (experimental)
@@ -166,9 +165,9 @@ Enable it explicitly:
 {
   tools: {
     exec: {
-      applyPatch: { enabled: true, allowModels: ["gpt-5.2"] },
-    },
-  },
+      applyPatch: { enabled: true, allowModels: ["gpt-5.2"] }
+    }
+  }
 }
 ```
 

@@ -1,15 +1,14 @@
 ---
 summary: "Message flow, sessions, queueing, and reasoning visibility"
 read_when:
+
   - Explaining how inbound messages become replies
   - Clarifying sessions, queueing modes, or streaming behavior
   - Documenting reasoning visibility and usage implications
-title: "Messages"
 ---
-
 # Messages
 
-This page ties together how OpenClaw handles inbound messages, sessions, queueing,
+This page ties together how Moltbot handles inbound messages, sessions, queueing,
 streaming, and reasoning visibility.
 
 ## Message flow (high level)
@@ -32,7 +31,7 @@ See [Configuration](/gateway/configuration) for full schema.
 
 ## Inbound dedupe
 
-Channels can redeliver the same message after reconnects. OpenClaw keeps a
+Channels can redeliver the same message after reconnects. Moltbot keeps a
 short-lived cache keyed by channel/account/peer/session/message id so duplicate
 deliveries do not trigger another agent run.
 
@@ -52,10 +51,10 @@ Config (global default + per-channel overrides):
       byChannel: {
         whatsapp: 5000,
         slack: 1500,
-        discord: 1500,
-      },
-    },
-  },
+        discord: 1500
+      }
+    }
+  }
 }
 ```
 
@@ -67,7 +66,6 @@ Notes:
 ## Sessions and devices
 
 Sessions are owned by the gateway, not by clients.
-
 - Direct chats collapse into the agent main session key.
 - Groups/channels get their own session keys.
 - The session store and transcripts live on the gateway host.
@@ -81,7 +79,7 @@ Details: [Session management](/concepts/session).
 
 ## Inbound bodies and history context
 
-OpenClaw separates the **prompt body** from the **command body**:
+Moltbot separates the **prompt body** from the **command body**:
 
 - `Body`: prompt text sent to the agent. This may include channel envelopes and
   optional history wrappers.
@@ -97,7 +95,7 @@ For **non-direct chats** (groups/channels/rooms), the **current message body** i
 sender label (same style used for history entries). This keeps real-time and queued/history
 messages consistent in the agent prompt.
 
-History buffers are **pending-only**: they include group messages that did _not_
+History buffers are **pending-only**: they include group messages that did *not*
 trigger a run (for example, mention-gated messages) and **exclude** messages
 already in the session transcript.
 
@@ -136,19 +134,19 @@ Details: [Streaming + chunking](/concepts/streaming).
 
 ## Reasoning visibility and tokens
 
-OpenClaw can expose or hide model reasoning:
+Moltbot can expose or hide model reasoning:
 
 - `/reasoning on|off|stream` controls visibility.
 - Reasoning content still counts toward token usage when produced by the model.
 - Telegram supports reasoning stream into the draft bubble.
 
-Details: [Thinking + reasoning directives](/tools/thinking) and [Token use](/reference/token-use).
+Details: [Thinking + reasoning directives](/tools/thinking) and [Token use](/token-use).
 
 ## Prefixes, threading, and replies
 
 Outbound message formatting is centralized in `messages`:
 
-- `messages.responsePrefix`, `channels.<channel>.responsePrefix`, and `channels.<channel>.accounts.<id>.responsePrefix` (outbound prefix cascade), plus `channels.whatsapp.messagePrefix` (WhatsApp inbound prefix)
+- `messages.responsePrefix` (outbound prefix) and `channels.whatsapp.messagePrefix` (WhatsApp inbound prefix)
 - Reply threading via `replyToMode` and per-channel defaults
 
 Details: [Configuration](/gateway/configuration#messages) and channel docs.

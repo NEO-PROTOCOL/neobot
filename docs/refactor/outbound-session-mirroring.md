@@ -13,7 +13,7 @@ description: Track outbound session mirroring refactor notes, decisions, tests, 
 
 ## Context
 
-Outbound sends were mirrored into the _current_ agent session (tool session key) rather than the target channel session. Inbound routing uses channel/peer session keys, so outbound responses landed in the wrong session and first-contact targets often lacked session entries.
+Outbound sends were mirrored into the *current* agent session (tool session key) rather than the target channel session. Inbound routing uses channel/peer session keys, so outbound responses landed in the wrong session and first-contact targets often lacked session entries.
 
 ## Goals
 
@@ -25,6 +25,7 @@ Outbound sends were mirrored into the _current_ agent session (tool session key)
 ## Implementation Summary
 
 - New outbound session routing helper:
+
   - `src/infra/outbound/outbound-session.ts`
   - `resolveOutboundSessionRoute` builds target sessionKey using `buildAgentSessionKey` (dmScope + identityLinks).
   - `ensureOutboundSessionEntry` writes minimal `MsgContext` via `recordSessionMetaFromInbound`.
@@ -43,6 +44,7 @@ Outbound sends were mirrored into the _current_ agent session (tool session key)
 
 - Matrix, MS Teams, Mattermost, BlueBubbles, Nextcloud Talk, Zalo, Zalo Personal, Nostr, Tlon.
 - Notes:
+
   - Mattermost targets now strip `@` for DM session key routing.
   - Zalo Personal uses DM peer kind for 1:1 targets (group only when `group:` is present).
   - BlueBubbles group targets strip `chat_*` prefixes to match inbound session keys.
@@ -80,6 +82,7 @@ Outbound sends were mirrored into the _current_ agent session (tool session key)
 - `src/agents/tools/message-tool.ts`
 - `src/gateway/server-methods/send.ts`
 - Tests in:
+
   - `src/infra/outbound/outbound-session.test.ts`
   - `src/agents/tools/message-tool.test.ts`
   - `src/gateway/server-methods/send.test.ts`

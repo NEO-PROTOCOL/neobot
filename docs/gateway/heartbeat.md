@@ -1,6 +1,7 @@
 ---
 summary: "Heartbeat polling messages and notification rules"
 read_when:
+
   - Adjusting heartbeat cadence or messaging
   - Deciding between heartbeat and cron for scheduled tasks
 title: "Heartbeat"
@@ -44,6 +45,7 @@ Example config:
 
 - Interval: `30m` (or `1h` when Anthropic OAuth/setup-token is the detected auth mode). Set `agents.defaults.heartbeat.every` or per-agent `agents.list[].heartbeat.every`; use `0m` to disable.
 - Prompt body (configurable via `agents.defaults.heartbeat.prompt`):
+
   `Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK.`
 - The heartbeat prompt is sent **verbatim** as the user message. The system
   prompt includes a “Heartbeat” section and the run is flagged internally.
@@ -202,6 +204,7 @@ Use `accountId` to target a specific account on multi-account channels like Tele
   - Explicit session key (copy from `openclaw sessions --json` or the [sessions CLI](/cli/sessions)).
   - Session key formats: see [Sessions](/concepts/session) and [Groups](/channels/groups).
 - `target`:
+
   - `last` (default): deliver to the last used external channel.
   - explicit channel: `whatsapp` / `telegram` / `discord` / `googlechat` / `slack` / `msteams` / `signal` / `imessage`.
   - `none`: run the heartbeat but **do not deliver** externally.

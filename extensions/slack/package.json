@@ -1,13 +1,9 @@
 {
   "name": "@openclaw/slack",
-  "version": "2026.2.10",
-  "private": true,
-  "description": "OpenClaw Slack channel plugin",
+  "version": "2026.1.26",
   "type": "module",
-  "devDependencies": {
-    "openclaw": "workspace:*"
-  },
-  "openclaw": {
+  "description": "Moltbot Slack channel plugin",
+  "moltbot": {
     "extensions": [
       "./index.ts"
     ]

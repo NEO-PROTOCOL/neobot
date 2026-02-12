@@ -1,6 +1,7 @@
 ---
 summary: "Skills config schema and examples"
 read_when:
+
   - Adding or modifying skills config
   - Adjusting bundled allowlist or install behavior
 title: "Skills Config"

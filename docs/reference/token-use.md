@@ -1,24 +1,23 @@
 ---
-summary: "How OpenClaw builds prompt context and reports token usage + costs"
+summary: "How Moltbot builds prompt context and reports token usage + costs"
 read_when:
+
   - Explaining token usage, costs, or context windows
   - Debugging context growth or compaction behavior
-title: "Token Use and Costs"
 ---
-
 # Token use & costs
 
-OpenClaw tracks **tokens**, not characters. Tokens are model-specific, but most
+Moltbot tracks **tokens**, not characters. Tokens are model-specific, but most
 OpenAI-style models average ~4 characters per token for English text.
 
 ## How the system prompt is built
 
-OpenClaw assembles its own system prompt on every run. It includes:
+Moltbot assembles its own system prompt on every run. It includes:
 
 - Tool list + short descriptions
 - Skills list (only metadata; instructions are loaded on demand with `read`)
 - Self-update instructions
-- Workspace + bootstrap files (`AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`, `BOOTSTRAP.md` when new, plus `MEMORY.md` and/or `memory.md` when present). Large files are truncated by `agents.defaults.bootstrapMaxChars` (default: 20000). `memory/*.md` files are on-demand via memory tools and are not auto-injected.
+- Workspace + bootstrap files (`AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`, `BOOTSTRAP.md` when new). Large files are truncated by `agents.defaults.bootstrapMaxChars` (default: 20000).
 - Time (UTC + user timezone)
 - Reply tags + heartbeat behavior
 - Runtime metadata (host/OS/model/thinking)
@@ -47,12 +46,12 @@ Use these in chat:
 - `/usage off|tokens|full` → appends a **per-response usage footer** to every reply.
   - Persists per session (stored as `responseUsage`).
   - OAuth auth **hides cost** (tokens only).
-- `/usage cost` → shows a local cost summary from OpenClaw session logs.
+- `/usage cost` → shows a local cost summary from Moltbot session logs.
 
 Other surfaces:
 
 - **TUI/Web TUI:** `/status` + `/usage` are supported.
-- **CLI:** `openclaw status --usage` and `openclaw channels list` show
+- **CLI:** `moltbot status --usage` and `moltbot channels list` show
   provider quota windows (not per-response costs).
 
 ## Cost estimation (when shown)
@@ -64,12 +63,12 @@ models.providers.<provider>.models[].cost
 ```
 
 These are **USD per 1M tokens** for `input`, `output`, `cacheRead`, and
-`cacheWrite`. If pricing is missing, OpenClaw shows tokens only. OAuth tokens
+`cacheWrite`. If pricing is missing, Moltbot shows tokens only. OAuth tokens
 never show dollar cost.
 
 ## Cache TTL and pruning impact
 
-Provider prompt caching only applies within the cache TTL window. OpenClaw can
+Provider prompt caching only applies within the cache TTL window. Moltbot can
 optionally run **cache-ttl pruning**: it prunes the session once the cache TTL
 has expired, then resets the cache window so subsequent requests can re-use the
 freshly cached context instead of re-caching the full history. This keeps cache
@@ -85,7 +84,8 @@ re-caching the full prompt, reducing cache write costs.
 For Anthropic API pricing, cache reads are significantly cheaper than input
 tokens, while cache writes are billed at a higher multiplier. See Anthropic’s
 prompt caching pricing for the latest rates and TTL multipliers:
-[https://docs.anthropic.com/docs/build-with-claude/prompt-caching](https://docs.anthropic.com/docs/build-with-claude/prompt-caching)
+
+https://docs.anthropic.com/docs/build-with-claude/prompt-caching
 
 ### Example: keep 1h cache warm with heartbeat
 
@@ -93,11 +93,11 @@ prompt caching pricing for the latest rates and TTL multipliers:
 agents:
   defaults:
     model:
-      primary: "anthropic/claude-opus-4-6"
+      primary: "anthropic/claude-opus-4-5"
     models:
-      "anthropic/claude-opus-4-6":
+      "anthropic/claude-opus-4-5":
         params:
-          cacheRetention: "long"
+          cacheControlTtl: "1h"
     heartbeat:
       every: "55m"
 ```

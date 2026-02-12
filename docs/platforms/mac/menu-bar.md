@@ -1,6 +1,7 @@
 ---
 summary: "Menu bar status logic and what is surfaced to users"
 read_when:
+
   - Tweaking mac menu UI or status logic
 title: "Menu Bar"
 ---
@@ -19,6 +20,7 @@ title: "Menu Bar"
 - Sessions: events arrive with `runId` (per-run) plus `sessionKey` in the payload. The “main” session is the key `main`; if absent, we fall back to the most recently updated session.
 - Priority: main always wins. If main is active, its state is shown immediately. If main is idle, the most recently active non‑main session is shown. We do not flip‑flop mid‑activity; we only switch when the current session goes idle or main becomes active.
 - Activity kinds:
+
   - `job`: high‑level command execution (`state: started|streaming|done|error`).
   - `tool`: `phase: start|result` with `toolName` and `meta/args`.
 
@@ -55,9 +57,11 @@ title: "Menu Bar"
 
 - Source: control‑channel `agent` events (`ControlChannel.handleAgentEvent`).
 - Parsed fields:
+
   - `stream: "job"` with `data.state` for start/stop.
   - `stream: "tool"` with `data.phase`, `name`, optional `meta`/`args`.
 - Labels:
+
   - `exec`: first line of `args.command`.
   - `read`/`write`: shortened path.
   - `edit`: path plus inferred change kind from `meta`/diff counts.
@@ -66,6 +70,7 @@ title: "Menu Bar"
 ## Debug override
 
 - Settings ▸ Debug ▸ “Icon override” picker:
+
   - `System (auto)` (default)
   - `Working: main` (per tool kind)
   - `Working: other` (per tool kind)

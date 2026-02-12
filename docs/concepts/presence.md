@@ -1,15 +1,14 @@
 ---
-summary: "How OpenClaw presence entries are produced, merged, and displayed"
+summary: "How Moltbot presence entries are produced, merged, and displayed"
 read_when:
+
   - Debugging the Instances tab
   - Investigating duplicate or stale instance rows
   - Changing gateway WS connect or system-event beacons
-title: "Presence"
 ---
-
 # Presence
 
-OpenClaw “presence” is a lightweight, best‑effort view of:
+Moltbot “presence” is a lightweight, best‑effort view of:
 
 - the **Gateway** itself, and
 - **clients connected to the Gateway** (mac app, WebChat, CLI, etc.)
@@ -97,6 +96,7 @@ indicator (Active/Idle/Stale) based on the age of the last update.
 
 - To see the raw list, call `system-presence` against the Gateway.
 - If you see duplicates:
+
   - confirm clients send a stable `client.instanceId` in the handshake
   - confirm periodic beacons use the same `instanceId`
   - check whether the connection‑derived entry is missing `instanceId` (duplicates are expected)

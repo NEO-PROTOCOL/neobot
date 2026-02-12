@@ -51,7 +51,7 @@ describe("setupChannels", () => {
         throw new Error("unexpected Telegram token prompt");
       }
       if (message.includes("Your personal WhatsApp number")) {
-        return "+15555550123";
+        return "+5562983231110";
       }
       throw new Error(`unexpected text prompt: ${message}`);
     });

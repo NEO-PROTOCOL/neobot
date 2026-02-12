@@ -1,6 +1,7 @@
 ---
 summary: "Browser-based control UI for the Gateway (chat, nodes, config)"
 read_when:
+
   - You want to operate the Gateway from a browser
   - You want Tailnet access without SSH tunnels
 title: "Control UI"
@@ -90,6 +91,7 @@ Cron jobs panel notes:
 - Re-sending with the same `idempotencyKey` returns `{ status: "in_flight" }` while running, and `{ status: "ok" }` after completion.
 - `chat.inject` appends an assistant note to the session transcript and broadcasts a `chat` event for UI-only updates (no agent run, no channel delivery).
 - Stop:
+
   - Click **Stop** (calls `chat.abort`)
   - Type `/stop` (or `stop|esc|abort|wait|exit|interrupt`) to abort out-of-band
   - `chat.abort` supports `{ sessionKey }` (no `runId`) to abort all active runs for that session

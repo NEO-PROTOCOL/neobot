@@ -1,19 +1,9 @@
 {
   "name": "@openclaw/googlechat",
-  "version": "2026.2.10",
-  "private": true,
-  "description": "OpenClaw Google Chat channel plugin",
+  "version": "2026.1.26",
   "type": "module",
-  "dependencies": {
-    "google-auth-library": "^10.5.0"
-  },
-  "devDependencies": {
-    "openclaw": "workspace:*"
-  },
-  "peerDependencies": {
-    "openclaw": ">=2026.1.26"
-  },
-  "openclaw": {
+  "description": "Moltbot Google Chat channel plugin",
+  "moltbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -36,5 +26,14 @@
       "localPath": "extensions/googlechat",
       "defaultChoice": "npm"
     }
+  },
+  "dependencies": {
+    "google-auth-library": "^10.5.0"
+  },
+  "devDependencies": {
+    "moltbot": "workspace:*"
+  },
+  "peerDependencies": {
+    "moltbot": ">=2026.1.26"
   }
 }

@@ -1,12 +1,9 @@
 {
   "name": "@openclaw/nextcloud-talk",
-  "version": "2026.2.10",
-  "description": "OpenClaw Nextcloud Talk channel plugin",
+  "version": "2026.1.26",
   "type": "module",
-  "devDependencies": {
-    "openclaw": "workspace:*"
-  },
-  "openclaw": {
+  "description": "Moltbot Nextcloud Talk channel plugin",
+  "moltbot": {
     "extensions": [
       "./index.ts"
     ],

@@ -1,22 +1,23 @@
 ---
 summary: "Signal support via signal-cli (JSON-RPC + SSE), setup, and number model"
 read_when:
+
   - Setting up Signal support
   - Debugging Signal send/receive
-title: "Signal"
 ---
-
 # Signal (signal-cli)
+
 
 Status: external CLI integration. Gateway talks to `signal-cli` over HTTP JSON-RPC + SSE.
 
 ## Quick setup (beginner)
 
-1. Use a **separate Signal number** for the bot (recommended).
-2. Install `signal-cli` (Java required).
-3. Link the bot device and start the daemon:
-   - `signal-cli link -n "OpenClaw"`
-4. Configure OpenClaw and start the gateway.
+1) Use a **separate Signal number** for the bot (recommended).
+2) Install `signal-cli` (Java required).
+3) Link the bot device and start the daemon:
+
+   - `signal-cli link -n "Moltbot"`
+4) Configure Moltbot and start the gateway.
 
 Minimal config:
 
@@ -28,9 +29,9 @@ Minimal config:
       account: "+15551234567",
       cliPath: "signal-cli",
       dmPolicy: "pairing",
-      allowFrom: ["+15557654321"],
-    },
-  },
+      allowFrom: ["+15557654321"]
+    }
+  }
 }
 ```
 
@@ -48,7 +49,7 @@ Disable with:
 
 ```json5
 {
-  channels: { signal: { configWrites: false } },
+  channels: { signal: { configWrites: false } }
 }
 ```
 
@@ -60,10 +61,11 @@ Disable with:
 
 ## Setup (fast path)
 
-1. Install `signal-cli` (Java required).
-2. Link a bot account:
-   - `signal-cli link -n "OpenClaw"` then scan the QR in Signal.
-3. Configure Signal and start the gateway.
+1) Install `signal-cli` (Java required).
+2) Link a bot account:
+
+   - `signal-cli link -n "Moltbot"` then scan the QR in Signal.
+3) Configure Signal and start the gateway.
 
 Example:
 
@@ -75,9 +77,9 @@ Example:
       account: "+15551234567",
       cliPath: "signal-cli",
       dmPolicy: "pairing",
-      allowFrom: ["+15557654321"],
-    },
-  },
+      allowFrom: ["+15557654321"]
+    }
+  }
 }
 ```
 
@@ -85,20 +87,20 @@ Multi-account support: use `channels.signal.accounts` with per-account config an
 
 ## External daemon mode (httpUrl)
 
-If you want to manage `signal-cli` yourself (slow JVM cold starts, container init, or shared CPUs), run the daemon separately and point OpenClaw at it:
+If you want to manage `signal-cli` yourself (slow JVM cold starts, container init, or shared CPUs), run the daemon separately and point Moltbot at it:
 
 ```json5
 {
   channels: {
     signal: {
       httpUrl: "http://127.0.0.1:8080",
-      autoStart: false,
-    },
-  },
+      autoStart: false
+    }
+  }
 }
 ```
 
-This skips auto-spawn and the startup wait inside OpenClaw. For slow starts when auto-spawning, set `channels.signal.startupTimeoutMs`.
+This skips auto-spawn and the startup wait inside Moltbot. For slow starts when auto-spawning, set `channels.signal.startupTimeoutMs`.
 
 ## Access control (DMs + groups)
 
@@ -107,9 +109,10 @@ DMs:
 - Default: `channels.signal.dmPolicy = "pairing"`.
 - Unknown senders receive a pairing code; messages are ignored until approved (codes expire after 1 hour).
 - Approve via:
-  - `openclaw pairing list signal`
-  - `openclaw pairing approve signal <CODE>`
-- Pairing is the default token exchange for Signal DMs. Details: [Pairing](/channels/pairing)
+
+  - `moltbot pairing list signal`
+  - `moltbot pairing approve signal <CODE>`
+- Pairing is the default token exchange for Signal DMs. Details: [Pairing](/start/pairing)
 - UUID-only senders (from `sourceUuid`) are stored as `uuid:<id>` in `channels.signal.allowFrom`.
 
 Groups:
@@ -134,8 +137,8 @@ Groups:
 
 ## Typing + read receipts
 
-- **Typing indicators**: OpenClaw sends typing signals via `signal-cli sendTyping` and refreshes them while a reply is running.
-- **Read receipts**: when `channels.signal.sendReadReceipts` is true, OpenClaw forwards read receipts for allowed DMs.
+- **Typing indicators**: Moltbot sends typing signals via `signal-cli sendTyping` and refreshes them while a reply is running.
+- **Read receipts**: when `channels.signal.sendReadReceipts` is true, Moltbot forwards read receipts for allowed DMs.
 - Signal-cli does not expose read receipts for groups.
 
 ## Reactions (message tool)
@@ -167,32 +170,6 @@ Config:
 - UUID DMs: `uuid:<id>` (or bare UUID).
 - Groups: `signal:group:<groupId>`.
 - Usernames: `username:<name>` (if supported by your Signal account).
-
-## Troubleshooting
-
-Run this ladder first:
-
-```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
-openclaw doctor
-openclaw channels status --probe
-```
-
-Then confirm DM pairing state if needed:
-
-```bash
-openclaw pairing list signal
-```
-
-Common failures:
-
-- Daemon reachable but no replies: verify account/daemon settings (`httpUrl`, `account`) and receive mode.
-- DMs ignored: sender is pending pairing approval.
-- Group messages ignored: group sender/mention gating blocks delivery.
-
-For triage flow: [/channels/troubleshooting](/channels/troubleshooting).
 
 ## Configuration reference (Signal)
 

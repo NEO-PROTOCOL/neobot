@@ -299,7 +299,7 @@ describe("dispatchReplyFromConfig", () => {
     const ctx = buildTestCtx({
       Provider: "whatsapp",
       OriginatingChannel: "whatsapp",
-      OriginatingTo: "whatsapp:+15555550123",
+      OriginatingTo: "whatsapp:+5562983231110",
       MessageSid: "msg-1",
     });
     const replyResolver = vi.fn(async () => ({ text: "hi" }) as ReplyPayload);
@@ -341,7 +341,7 @@ describe("dispatchReplyFromConfig", () => {
       SenderId: "user-1",
       SenderName: "Alice",
       SenderUsername: "alice",
-      SenderE164: "+15555550123",
+      SenderE164: "+5562983231110",
       AccountId: "acc-1",
     });
 
@@ -360,7 +360,7 @@ describe("dispatchReplyFromConfig", () => {
           senderId: "user-1",
           senderName: "Alice",
           senderUsername: "alice",
-          senderE164: "+15555550123",
+          senderE164: "+5562983231110",
         }),
       }),
       expect.objectContaining({
@@ -413,7 +413,7 @@ describe("dispatchReplyFromConfig", () => {
     const ctx = buildTestCtx({
       Provider: "whatsapp",
       OriginatingChannel: "whatsapp",
-      OriginatingTo: "whatsapp:+15555550123",
+      OriginatingTo: "whatsapp:+5562983231110",
       MessageSid: "msg-dup",
     });
     const replyResolver = vi.fn(async () => ({ text: "hi" }) as ReplyPayload);

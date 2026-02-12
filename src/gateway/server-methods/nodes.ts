@@ -1,6 +1,3 @@
-import type { GatewayRequestHandlers } from "./types.js";
-import { loadConfig } from "../../config/config.js";
-import { listDevicePairing } from "../../infra/device-pairing.js";
 import {
   approveNodePairing,
   listNodePairing,
@@ -9,7 +6,7 @@ import {
   requestNodePairing,
   verifyNodeToken,
 } from "../../infra/node-pairing.js";
-import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
+import { listDevicePairing } from "../../infra/device-pairing.js";
 import {
   ErrorCodes,
   errorShape,
@@ -31,21 +28,20 @@ import {
   safeParseJson,
   uniqueSortedStrings,
 } from "./nodes.helpers.js";
+import { loadConfig } from "../../config/config.js";
+import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
+import type { GatewayRequestHandlers } from "./types.js";
+import { identityLoader } from "../../neo/identity/loader.js";
+import { SovereignAudit } from "../../neo/identity/audit.js";
 
 function isNodeEntry(entry: { role?: string; roles?: string[] }) {
-  if (entry.role === "node") {
-    return true;
-  }
-  if (Array.isArray(entry.roles) && entry.roles.includes("node")) {
-    return true;
-  }
+  if (entry.role === "node") return true;
+  if (Array.isArray(entry.roles) && entry.roles.includes("node")) return true;
   return false;
 }
 
 function normalizeNodeInvokeResultParams(params: unknown): unknown {
-  if (!params || typeof params !== "object") {
-    return params;
-  }
+  if (!params || typeof params !== "object") return params;
   const raw = params as Record<string, unknown>;
   const normalized: Record<string, unknown> = { ...raw };
   if (normalized.payloadJSON === null) {
@@ -290,17 +286,11 @@ export const nodeHandlers: GatewayRequestHandlers = {
       });
 
       nodes.sort((a, b) => {
-        if (a.connected !== b.connected) {
-          return a.connected ? -1 : 1;
-        }
+        if (a.connected !== b.connected) return a.connected ? -1 : 1;
         const an = (a.displayName ?? a.nodeId).toLowerCase();
         const bn = (b.displayName ?? b.nodeId).toLowerCase();
-        if (an < bn) {
-          return -1;
-        }
-        if (an > bn) {
-          return 1;
-        }
+        if (an < bn) return -1;
+        if (an > bn) return 1;
         return a.nodeId.localeCompare(b.nodeId);
       });
 
@@ -417,10 +407,36 @@ export const nodeHandlers: GatewayRequestHandlers = {
         );
         return;
       }
+
+      // MIO-Warrior Signature (Proof of Intent)
+      let warriorSignature: string | undefined;
+      let mioId: string | undefined;
+
+      try {
+        const warrior = identityLoader.getWarrior();
+        if (warrior) {
+          const poiPayload = `MIO-INVOKE:${nodeId}:${command}:${Date.now()}`;
+          warriorSignature = await warrior.manager.signMessage(poiPayload);
+          mioId = warrior.identity.id;
+        }
+      } catch (err) {
+        // Non-blocking signature failure
+        context.logGateway.warn(`MIO: Failed to sign node invoke: ${err}`);
+      }
+
+      // Audit Log
+      await SovereignAudit.log({
+        eventType: "NODE_INVOKE",
+        actor: "GATEWAY",
+        action: command,
+        details: { nodeId, command, params: p.params },
+        identityId: "mio-warrior"
+      });
+
       const res = await context.nodeRegistry.invoke({
         nodeId,
         command,
-        params: p.params,
+        params: { ...((p.params as object) || {}), _mio_sig: warriorSignature, _mio_id: mioId },
         timeoutMs: p.timeoutMs,
         idempotencyKey: p.idempotencyKey,
       });

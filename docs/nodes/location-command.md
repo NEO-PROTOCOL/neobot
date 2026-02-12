@@ -1,9 +1,9 @@
 ---
 summary: "Location command for nodes (location.get), permission modes, and background behavior"
 read_when:
+
   - Adding location node support or permissions UI
   - Designing background location + push flows
-title: "Location Command"
 ---
 
 # Location command (nodes)
@@ -18,7 +18,6 @@ title: "Location Command"
 ## Why a selector (not just a switch)
 
 OS permissions are multi-level. We can expose a selector in-app, but the OS still decides the actual grant.
-
 - iOS/macOS: user can choose **While Using** or **Always** in system prompts/Settings. App can request upgrade, but OS may require Settings.
 - Android: background location is a separate permission; on Android 10+ it often requires a Settings flow.
 - Precise location is a separate grant (iOS 14+ “Precise”, Android “fine” vs “coarse”).
@@ -90,9 +89,9 @@ Goal: model can request location even when node is backgrounded, but only when:
 
 Push-triggered flow (future):
 
-1. Gateway sends a push to the node (silent push or FCM data).
-2. Node wakes briefly and requests location from the device.
-3. Node forwards payload to Gateway.
+1) Gateway sends a push to the node (silent push or FCM data).
+2) Node wakes briefly and requests location from the device.
+3) Node forwards payload to Gateway.
 
 Notes:
 
@@ -102,12 +101,12 @@ Notes:
 ## Model/tooling integration
 
 - Tool surface: `nodes` tool adds `location_get` action (node required).
-- CLI: `openclaw nodes location get --node <id>`.
+- CLI: `moltbot nodes location get --node <id>`.
 - Agent guidelines: only call when user enabled location and understands the scope.
 
 ## UX copy (suggested)
 
 - Off: “Location sharing is disabled.”
-- While Using: “Only when OpenClaw is open.”
+- While Using: “Only when Moltbot is open.”
 - Always: “Allow background location. Requires system permission.”
 - Precise: “Use precise GPS location. Toggle off to share approximate location.”

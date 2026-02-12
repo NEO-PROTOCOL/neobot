@@ -15,3 +15,5 @@ paths:
       - "shellcheck reported issue.+"
       # Ignore intentional if: false for disabled jobs
       - 'constant expression "false" in condition'
+      # Ignore NEO_CI_FULL variable not found
+      - "context access might be invalid: NEO_CI_FULL"

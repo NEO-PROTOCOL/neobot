@@ -1,9 +1,9 @@
 ---
-summary: "Mattermost bot setup and OpenClaw config"
+summary: "Mattermost bot setup and Moltbot config"
 read_when:
+
   - Setting up Mattermost
   - Debugging Mattermost routing
-title: "Mattermost"
 ---
 
 # Mattermost (plugin)
@@ -19,26 +19,26 @@ Mattermost ships as a plugin and is not bundled with the core install.
 Install via CLI (npm registry):
 
 ```bash
-openclaw plugins install @openclaw/mattermost
+moltbot plugins install @openclaw/mattermost
 ```
 
 Local checkout (when running from a git repo):
 
 ```bash
-openclaw plugins install ./extensions/mattermost
+moltbot plugins install ./extensions/mattermost
 ```
 
 If you choose Mattermost during configure/onboarding and a git checkout is detected,
-OpenClaw will offer the local install path automatically.
+Moltbot will offer the local install path automatically.
 
-Details: [Plugins](/tools/plugin)
+Details: [Plugins](/plugin)
 
 ## Quick setup
 
-1. Install the Mattermost plugin.
-2. Create a Mattermost bot account and copy the **bot token**.
-3. Copy the Mattermost **base URL** (e.g., `https://chat.example.com`).
-4. Configure OpenClaw and start the gateway.
+1) Install the Mattermost plugin.
+2) Create a Mattermost bot account and copy the **bot token**.
+3) Copy the Mattermost **base URL** (e.g., `https://chat.example.com`).
+4) Configure Moltbot and start the gateway.
 
 Minimal config:
 
@@ -49,9 +49,9 @@ Minimal config:
       enabled: true,
       botToken: "mm-token",
       baseUrl: "https://chat.example.com",
-      dmPolicy: "pairing",
-    },
-  },
+      dmPolicy: "pairing"
+    }
+  }
 }
 ```
 
@@ -79,9 +79,9 @@ Config example:
   channels: {
     mattermost: {
       chatmode: "onchar",
-      oncharPrefixes: [">", "!"],
-    },
-  },
+      oncharPrefixes: [">", "!"]
+    }
+  }
 }
 ```
 
@@ -94,8 +94,9 @@ Notes:
 
 - Default: `channels.mattermost.dmPolicy = "pairing"` (unknown senders get a pairing code).
 - Approve via:
-  - `openclaw pairing list mattermost`
-  - `openclaw pairing approve mattermost <CODE>`
+
+  - `moltbot pairing list mattermost`
+  - `moltbot pairing approve mattermost <CODE>`
 - Public DMs: `channels.mattermost.dmPolicy="open"` plus `channels.mattermost.allowFrom=["*"]`.
 
 ## Channels (groups)
@@ -106,7 +107,7 @@ Notes:
 
 ## Targets for outbound delivery
 
-Use these target formats with `openclaw message send` or cron/webhooks:
+Use these target formats with `moltbot message send` or cron/webhooks:
 
 - `channel:<id>` for a channel
 - `user:<id>` for a DM
@@ -124,10 +125,10 @@ Mattermost supports multiple accounts under `channels.mattermost.accounts`:
     mattermost: {
       accounts: {
         default: { name: "Primary", botToken: "mm-token", baseUrl: "https://chat.example.com" },
-        alerts: { name: "Alerts", botToken: "mm-token-2", baseUrl: "https://alerts.example.com" },
-      },
-    },
-  },
+        alerts: { name: "Alerts", botToken: "mm-token-2", baseUrl: "https://alerts.example.com" }
+      }
+    }
+  }
 }
 ```
 

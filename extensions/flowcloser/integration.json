@@ -1,0 +1,28 @@
+{
+  "name": "FlowCloser Agent",
+  "version": "1.0.0",
+  "type": "remote",
+  "status": "active",
+  "location": {
+    "local": "/Users/nettomello/CODIGOS/flowcloser-local",
+    "repository": "https://github.com/neomello/flowcloser-agent",
+    "production": "https://flowcloser-agent-production.up.railway.app"
+  },
+  "endpoints": {
+    "health": "/health",
+    "dashboard": "/dashboard",
+    "api_leads": "/api/leads",
+    "api_agents": "/api/agents",
+    "webhook_instagram": "/api/webhooks/instagram",
+    "webhook_whatsapp": "/api/webhooks/whatsapp",
+    "privacy_policy": "/privacy-policy",
+    "terms_of_service": "/terms-of-service"
+  },
+  "data": {
+    "sqlite": "/Users/nettomello/CODIGOS/flowcloser-local/data/flowcloser.db",
+    "leads_json": "/Users/nettomello/CODIGOS/flowcloser-local/data/leads.json"
+  },
+  "ide": "Antigravity",
+  "maintainer": "NODE NEØ",
+  "last_updated": "2026-01-30"
+}

@@ -1,28 +1,26 @@
 ---
 summary: "Group chat behavior across surfaces (WhatsApp/Telegram/Discord/Slack/Signal/iMessage/Microsoft Teams)"
 read_when:
-  - Changing group chat behavior or mention gating
-title: "Groups"
----
 
+  - Changing group chat behavior or mention gating
+---
 # Groups
 
-OpenClaw treats group chats consistently across surfaces: WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Microsoft Teams.
+Moltbot treats group chats consistently across surfaces: WhatsApp, Telegram, Discord, Slack, Signal, iMessage, Microsoft Teams.
 
 ## Beginner intro (2 minutes)
 
-OpenClaw “lives” on your own messaging accounts. There is no separate WhatsApp bot user.
-If **you** are in a group, OpenClaw can see that group and respond there.
+Moltbot “lives” on your own messaging accounts. There is no separate WhatsApp bot user.
+If **you** are in a group, Moltbot can see that group and respond there.
 
 Default behavior:
 
 - Groups are restricted (`groupPolicy: "allowlist"`).
 - Replies require a mention unless you explicitly disable mention gating.
 
-Translation: allowlisted senders can trigger OpenClaw by mentioning it.
+Translation: allowlisted senders can trigger Moltbot by mentioning it.
 
 > TL;DR
->
 > - **DM access** is controlled by `*.allowFrom`.
 > - **Group access** is controlled by `*.groupPolicy` + allowlists (`*.groups`, `*.groupAllowFrom`).
 > - **Reply triggering** is controlled by mention gating (`requireMention`, `/activation`).
@@ -39,13 +37,12 @@ otherwise -> reply
 ![Group message flow](/images/groups-flow.svg)
 
 If you want...
-
-| Goal                                         | What to set                                                |
-| -------------------------------------------- | ---------------------------------------------------------- |
-| Allow all groups but only reply on @mentions | `groups: { "*": { requireMention: true } }`                |
-| Disable all group replies                    | `groupPolicy: "disabled"`                                  |
-| Only specific groups                         | `groups: { "<group-id>": { ... } }` (no `"*"` key)         |
-| Only you can trigger in groups               | `groupPolicy: "allowlist"`, `groupAllowFrom: ["+1555..."]` |
+| Goal | What to set |
+|------|-------------|
+| Allow all groups but only reply on @mentions | `groups: { "*": { requireMention: true } }` |
+| Disable all group replies | `groupPolicy: "disabled"` |
+| Only specific groups | `groups: { "<group-id>": { ... } }` (no `"*"` key) |
+| Only you can trigger in groups | `groupPolicy: "allowlist"`, `groupAllowFrom: ["+1555..."]` |
 
 ## Session keys
 
@@ -76,19 +73,19 @@ Example (DMs on host, groups sandboxed + messaging-only tools):
       sandbox: {
         mode: "non-main", // groups/channels are non-main -> sandboxed
         scope: "session", // strongest isolation (one container per group/channel)
-        workspaceAccess: "none",
-      },
-    },
+        workspaceAccess: "none"
+      }
+    }
   },
   tools: {
     sandbox: {
       tools: {
         // If allow is non-empty, everything else is blocked (deny still wins).
         allow: ["group:messaging", "group:sessions"],
-        deny: ["group:runtime", "group:fs", "group:ui", "nodes", "cron", "gateway"],
-      },
-    },
-  },
+        deny: ["group:runtime", "group:fs", "group:ui", "nodes", "cron", "gateway"]
+      }
+    }
+  }
 }
 ```
 
@@ -105,12 +102,12 @@ Want “groups can only see folder X” instead of “no host access”? Keep `w
         docker: {
           binds: [
             // hostPath:containerPath:mode
-            "~/FriendsShared:/data:ro",
-          ],
-        },
-      },
-    },
-  },
+            "~/FriendsShared:/data:ro"
+          ]
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -134,50 +131,50 @@ Control how group/room messages are handled per channel:
   channels: {
     whatsapp: {
       groupPolicy: "disabled", // "open" | "disabled" | "allowlist"
-      groupAllowFrom: ["+15551234567"],
+      groupAllowFrom: ["+15551234567"]
     },
     telegram: {
       groupPolicy: "disabled",
-      groupAllowFrom: ["123456789", "@username"],
+      groupAllowFrom: ["123456789", "@username"]
     },
     signal: {
       groupPolicy: "disabled",
-      groupAllowFrom: ["+15551234567"],
+      groupAllowFrom: ["+15551234567"]
     },
     imessage: {
       groupPolicy: "disabled",
-      groupAllowFrom: ["chat_id:123"],
+      groupAllowFrom: ["chat_id:123"]
     },
     msteams: {
       groupPolicy: "disabled",
-      groupAllowFrom: ["user@org.com"],
+      groupAllowFrom: ["user@org.com"]
     },
     discord: {
       groupPolicy: "allowlist",
       guilds: {
-        GUILD_ID: { channels: { help: { allow: true } } },
-      },
+        "GUILD_ID": { channels: { help: { allow: true } } }
+      }
     },
     slack: {
       groupPolicy: "allowlist",
-      channels: { "#general": { allow: true } },
+      channels: { "#general": { allow: true } }
     },
     matrix: {
       groupPolicy: "allowlist",
       groupAllowFrom: ["@owner:example.org"],
       groups: {
         "!roomId:example.org": { allow: true },
-        "#alias:example.org": { allow: true },
-      },
-    },
-  },
+        "#alias:example.org": { allow: true }
+      }
+    }
+  }
 }
 ```
 
-| Policy        | Behavior                                                     |
-| ------------- | ------------------------------------------------------------ |
-| `"open"`      | Groups bypass allowlists; mention-gating still applies.      |
-| `"disabled"`  | Block all group messages entirely.                           |
+| Policy | Behavior |
+|--------|----------|
+| `"open"` | Groups bypass allowlists; mention-gating still applies. |
+| `"disabled"` | Block all group messages entirely. |
 | `"allowlist"` | Only allow groups/rooms that match the configured allowlist. |
 
 Notes:
@@ -193,9 +190,9 @@ Notes:
 
 Quick mental model (evaluation order for group messages):
 
-1. `groupPolicy` (open/disabled/allowlist)
-2. group allowlists (`*.groups`, `*.groupAllowFrom`, channel-specific allowlist)
-3. mention gating (`requireMention`, `/activation`)
+1) `groupPolicy` (open/disabled/allowlist)
+2) group allowlists (`*.groups`, `*.groupAllowFrom`, channel-specific allowlist)
+3) mention gating (`requireMention`, `/activation`)
 
 ## Mention gating (default)
 
@@ -209,33 +206,33 @@ Replying to a bot message counts as an implicit mention (when the channel suppor
     whatsapp: {
       groups: {
         "*": { requireMention: true },
-        "123@g.us": { requireMention: false },
-      },
+        "123@g.us": { requireMention: false }
+      }
     },
     telegram: {
       groups: {
         "*": { requireMention: true },
-        "123456789": { requireMention: false },
-      },
+        "123456789": { requireMention: false }
+      }
     },
     imessage: {
       groups: {
         "*": { requireMention: true },
-        "123": { requireMention: false },
-      },
-    },
+        "123": { requireMention: false }
+      }
+    }
   },
   agents: {
     list: [
       {
         id: "main",
         groupChat: {
-          mentionPatterns: ["@openclaw", "openclaw", "\\+15555550123"],
-          historyLimit: 50,
-        },
-      },
-    ],
-  },
+          mentionPatterns: ["@clawd", "moltbot", "\\+15555550123"],
+          historyLimit: 50
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -257,10 +254,10 @@ Some channel configs support restricting which tools are available **inside a sp
 
 Resolution order (most specific wins):
 
-1. group/channel `toolsBySender` match
-2. group/channel `tools`
-3. default (`"*"`) `toolsBySender` match
-4. default (`"*"`) `tools`
+1) group/channel `toolsBySender` match
+2) group/channel `tools`
+3) default (`"*"`) `toolsBySender` match
+4) default (`"*"`) `tools`
 
 Example (Telegram):
 
@@ -273,12 +270,12 @@ Example (Telegram):
         "-1001234567890": {
           tools: { deny: ["exec", "read", "write"] },
           toolsBySender: {
-            "123456789": { alsoAllow: ["exec"] },
-          },
-        },
-      },
-    },
-  },
+            "123456789": { alsoAllow: ["exec"] }
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -293,52 +290,48 @@ When `channels.whatsapp.groups`, `channels.telegram.groups`, or `channels.imessa
 
 Common intents (copy/paste):
 
-1. Disable all group replies
-
+1) Disable all group replies
 ```json5
 {
-  channels: { whatsapp: { groupPolicy: "disabled" } },
+  channels: { whatsapp: { groupPolicy: "disabled" } }
 }
 ```
 
-2. Allow only specific groups (WhatsApp)
-
+2) Allow only specific groups (WhatsApp)
 ```json5
 {
   channels: {
     whatsapp: {
       groups: {
         "123@g.us": { requireMention: true },
-        "456@g.us": { requireMention: false },
-      },
-    },
-  },
+        "456@g.us": { requireMention: false }
+      }
+    }
+  }
 }
 ```
 
-3. Allow all groups but require mention (explicit)
-
+3) Allow all groups but require mention (explicit)
 ```json5
 {
   channels: {
     whatsapp: {
-      groups: { "*": { requireMention: true } },
-    },
-  },
+      groups: { "*": { requireMention: true } }
+    }
+  }
 }
 ```
 
-4. Only the owner can trigger in groups (WhatsApp)
-
+4) Only the owner can trigger in groups (WhatsApp)
 ```json5
 {
   channels: {
     whatsapp: {
       groupPolicy: "allowlist",
       groupAllowFrom: ["+15551234567"],
-      groups: { "*": { requireMention: true } },
-    },
-  },
+      groups: { "*": { requireMention: true } }
+    }
+  }
 }
 ```
 
@@ -371,4 +364,4 @@ The agent system prompt includes a group intro on the first turn of a new group 
 
 ## WhatsApp specifics
 
-See [Group messages](/channels/group-messages) for WhatsApp-only behavior (history injection, mention handling details).
+See [Group messages](/concepts/group-messages) for WhatsApp-only behavior (history injection, mention handling details).

@@ -1,6 +1,7 @@
 ---
 summary: "Directive syntax for /think + /verbose and how they affect model reasoning"
 read_when:
+
   - Adjusting thinking or verbose directive parsing or defaults
 title: "Thinking Levels"
 ---
@@ -19,6 +20,7 @@ title: "Thinking Levels"
   - `x-high`, `x_high`, `extra-high`, `extra high`, and `extra_high` map to `xhigh`.
   - `highest`, `max` map to `high`.
 - Provider notes:
+
   - Z.AI (`zai/*`) only supports binary thinking (`on`/`off`). Any non-`off` level is treated as `on` (mapped to `low`).
 
 ## Resolution order

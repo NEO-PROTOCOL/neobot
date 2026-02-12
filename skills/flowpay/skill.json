@@ -1,0 +1,71 @@
+{
+  "id": "flowpay",
+  "name": "FlowPay Integration",
+  "version": "1.0.0",
+  "author": "mio-skills",
+  "category": ["integration", "payment", "revenue", "pix"],
+  
+  "metadata": {
+    "description": "Payment gateway skills for PIX → Access Unlock. CRITICAL revenue gateway for NEØ Protocol. Model B: PIX payment → Unlock access with token as invisible ledger.",
+    "dependencies": [],
+    "permissions": ["http", "read", "write"],
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "architecture": {
+      "type": "modular",
+      "pattern": "orchestration",
+      "nodes": [
+        {
+          "id": "flowpay-app",
+          "name": "FlowPay App",
+          "role": "payment-gateway",
+          "repository": "https://github.com/flowpaycash/flowpay",
+          "description": "Payment gateway with PIX → Access Unlock. Model B: Access Unlock Primary with Web2 UX and Web3 infrastructure",
+          "tech": ["Astro", "Web3Auth", "Woovi/OpenPix", "QuickNode"],
+          "deployment": "Netlify",
+          "production": "flowpay-production-10d8.up.railway.app"
+        },
+        {
+          "id": "mio-system",
+          "name": "MIO System",
+          "role": "identity-registry",
+          "repository": "https://github.com/neomello/mio-system",
+          "description": "Sistema de Identidade Operacional - gerenciamento de identidades de agentes e plataformas",
+          "tech": ["Identity Management", "Web3 Signatures"]
+        }
+      ],
+      "flow": {
+        "primary": "PIX → Access (Model B)",
+        "secondary": "Token → Ledger",
+        "decision": "ADR-002-access-unlock-primary.md"
+      }
+    },
+    "revenue_impact": {
+      "priority": "HIGHEST",
+      "critical": true,
+      "description": "This pays NODE NEØ's bills! Without FlowPay: no agency revenue, no Smart Factory monetization, no WOD/FLUXX sales, no closed loop."
+    },
+    "commands": [
+      {
+        "name": "buy",
+        "file": "buy.ts",
+        "description": "Create PIX charge for product/service (returns QR code, copy-paste code, checkout URL)"
+      },
+      {
+        "name": "status",
+        "file": "status.ts",
+        "description": "Check payment confirmation status (PAID, PENDING, etc)"
+      },
+      {
+        "name": "unlock",
+        "file": "unlock.ts",
+        "description": "Transform PAID status into access (returns UNLOCK_RECEIPT, unlock_token, access_url, permissions)"
+      }
+    ]
+  },
+  
+  "files": {
+    "main": "buy.ts",
+    "readme": "SKILL.md"
+  }
+}

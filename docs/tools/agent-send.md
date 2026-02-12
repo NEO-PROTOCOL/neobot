@@ -1,6 +1,7 @@
 ---
 summary: "Direct `openclaw agent` CLI runs (with optional delivery)"
 read_when:
+
   - Adding or modifying the agent CLI entrypoint
 title: "Agent Send"
 ---
@@ -15,12 +16,14 @@ runtime on the current machine.
 
 - Required: `--message <text>`
 - Session selection:
+
   - `--to <dest>` derives the session key (group/channel targets preserve isolation; direct chats collapse to `main`), **or**
   - `--session-id <id>` reuses an existing session by id, **or**
   - `--agent <id>` targets a configured agent directly (uses that agent's `main` session key)
 - Runs the same embedded agent runtime as normal inbound replies.
 - Thinking/verbose flags persist into the session store.
 - Output:
+
   - default: prints reply text (plus `MEDIA:<url>` lines)
   - `--json`: prints structured payload + metadata
 - Optional delivery back to a channel with `--deliver` + `--channel` (target formats match `openclaw message --target`).

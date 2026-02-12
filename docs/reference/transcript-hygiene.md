@@ -1,6 +1,7 @@
 ---
 summary: "Reference: provider-specific transcript sanitization and repair rules"
 read_when:
+
   - You are debugging provider request rejections tied to transcript shape
   - You are changing transcript sanitization or tool-call repair logic
   - You are investigating tool-call id mismatches across providers
@@ -116,10 +117,12 @@ Implementation:
 Before the 2026.1.22 release, OpenClaw applied multiple layers of transcript hygiene:
 
 - A **transcript-sanitize extension** ran on every context build and could:
+
   - Repair tool use/result pairing.
   - Sanitize tool call ids (including a non-strict mode that preserved `_`/`-`).
 - The runner also performed provider-specific sanitization, which duplicated work.
 - Additional mutations occurred outside the provider policy, including:
+
   - Stripping `<final>` tags from assistant text before persistence.
   - Dropping empty assistant error turns.
   - Trimming assistant content after tool calls.

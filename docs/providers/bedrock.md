@@ -1,14 +1,13 @@
 ---
-summary: "Use Amazon Bedrock (Converse API) models with OpenClaw"
+summary: "Use Amazon Bedrock (Converse API) models with Moltbot"
 read_when:
-  - You want to use Amazon Bedrock models with OpenClaw
-  - You need AWS credential/region setup for model calls
-title: "Amazon Bedrock"
----
 
+  - You want to use Amazon Bedrock models with Moltbot
+  - You need AWS credential/region setup for model calls
+---
 # Amazon Bedrock
 
-OpenClaw can use **Amazon Bedrock** models via pi‑ai’s **Bedrock Converse**
+Moltbot can use **Amazon Bedrock** models via pi‑ai’s **Bedrock Converse**
 streaming provider. Bedrock auth uses the **AWS SDK default credential chain**,
 not an API key.
 
@@ -21,7 +20,7 @@ not an API key.
 
 ## Automatic model discovery
 
-If AWS credentials are detected, OpenClaw can automatically discover Bedrock
+If AWS credentials are detected, Moltbot can automatically discover Bedrock
 models that support **streaming** and **text output**. Discovery uses
 `bedrock:ListFoundationModels` and is cached (default: 1 hour).
 
@@ -36,9 +35,9 @@ Config options live under `models.bedrockDiscovery`:
       providerFilter: ["anthropic", "amazon"],
       refreshInterval: 3600,
       defaultContextWindow: 32000,
-      defaultMaxTokens: 4096,
-    },
-  },
+      defaultMaxTokens: 4096
+    }
+  }
 }
 ```
 
@@ -53,7 +52,7 @@ Notes:
 
 ## Setup (manual)
 
-1. Ensure AWS credentials are available on the **gateway host**:
+1) Ensure AWS credentials are available on the **gateway host**:
 
 ```bash
 export AWS_ACCESS_KEY_ID="AKIA..."
@@ -66,7 +65,7 @@ export AWS_PROFILE="your-profile"
 export AWS_BEARER_TOKEN_BEDROCK="..."
 ```
 
-2. Add a Bedrock provider and model to your config (no `apiKey` required):
+2) Add a Bedrock provider and model to your config (no `apiKey` required):
 
 ```json5
 {
@@ -78,31 +77,31 @@ export AWS_BEARER_TOKEN_BEDROCK="..."
         auth: "aws-sdk",
         models: [
           {
-            id: "us.anthropic.claude-opus-4-6-v1:0",
-            name: "Claude Opus 4.6 (Bedrock)",
+            id: "anthropic.claude-opus-4-5-20251101-v1:0",
+            name: "Claude Opus 4.5 (Bedrock)",
             reasoning: true,
             input: ["text", "image"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 200000,
-            maxTokens: 8192,
-          },
-        ],
-      },
-    },
+            maxTokens: 8192
+          }
+        ]
+      }
+    }
   },
   agents: {
     defaults: {
-      model: { primary: "amazon-bedrock/us.anthropic.claude-opus-4-6-v1:0" },
-    },
-  },
+      model: { primary: "amazon-bedrock/anthropic.claude-opus-4-5-20251101-v1:0" }
+    }
+  }
 }
 ```
 
 ## EC2 Instance Roles
 
-When running OpenClaw on an EC2 instance with an IAM role attached, the AWS SDK
+When running Moltbot on an EC2 instance with an IAM role attached, the AWS SDK
 will automatically use the instance metadata service (IMDS) for authentication.
-However, OpenClaw's credential detection currently only checks for environment
+However, Moltbot's credential detection currently only checks for environment
 variables, not IMDS credentials.
 
 **Workaround:** Set `AWS_PROFILE=default` to signal that AWS credentials are
@@ -150,8 +149,8 @@ aws ec2 associate-iam-instance-profile \
   --iam-instance-profile Name=EC2-Bedrock-Access
 
 # 3. On the EC2 instance, enable discovery
-openclaw config set models.bedrockDiscovery.enabled true
-openclaw config set models.bedrockDiscovery.region us-east-1
+moltbot config set models.bedrockDiscovery.enabled true
+moltbot config set models.bedrockDiscovery.region us-east-1
 
 # 4. Set the workaround env vars
 echo 'export AWS_PROFILE=default' >> ~/.bashrc
@@ -159,7 +158,7 @@ echo 'export AWS_REGION=us-east-1' >> ~/.bashrc
 source ~/.bashrc
 
 # 5. Verify models are discovered
-openclaw models list
+moltbot models list
 ```
 
 ## Notes
@@ -167,7 +166,7 @@ openclaw models list
 - Bedrock requires **model access** enabled in your AWS account/region.
 - Automatic discovery needs the `bedrock:ListFoundationModels` permission.
 - If you use profiles, set `AWS_PROFILE` on the gateway host.
-- OpenClaw surfaces the credential source in this order: `AWS_BEARER_TOKEN_BEDROCK`,
+- Moltbot surfaces the credential source in this order: `AWS_BEARER_TOKEN_BEDROCK`,
   then `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY`, then `AWS_PROFILE`, then the
   default AWS SDK chain.
 - Reasoning support depends on the model; check the Bedrock model card for

@@ -1,6 +1,7 @@
 ---
 summary: "WebSocket gateway architecture, components, and client flows"
 read_when:
+
   - Working on gateway protocol, clients, or transports
 title: "Gateway Architecture"
 ---
@@ -95,6 +96,7 @@ sequenceDiagram
 - Transport: WebSocket, text frames with JSON payloads.
 - First frame **must** be `connect`.
 - After handshake:
+
   - Requests: `{type:"req", id, method, params}` → `{type:"res", id, ok, payload|error}`
   - Events: `{type:"event", event, payload, seq?, stateVersion?}`
 - If `OPENCLAW_GATEWAY_TOKEN` (or `--token`) is set, `connect.params.auth.token`

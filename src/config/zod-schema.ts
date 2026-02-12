@@ -4,6 +4,7 @@ import { AgentsSchema, AudioSchema, BindingsSchema, BroadcastSchema } from "./zo
 import { ApprovalsSchema } from "./zod-schema.approvals.js";
 import { HexColorSchema, ModelsConfigSchema } from "./zod-schema.core.js";
 import { HookMappingSchema, HooksGmailSchema, InternalHooksSchema } from "./zod-schema.hooks.js";
+import { EmailConfigSchema } from "./zod-schema.email.js";
 import { ChannelsSchema } from "./zod-schema.providers.js";
 import {
   CommandsSchema,
@@ -311,6 +312,7 @@ export const OpenClawSchema = z
       })
       .strict()
       .optional(),
+    email: EmailConfigSchema,
     web: z
       .object({
         enabled: z.boolean().optional(),

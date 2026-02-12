@@ -54,7 +54,7 @@ async function promptWhatsAppAllowFrom(
     );
     const entry = await prompter.text({
       message: "Your personal WhatsApp number (the phone you will message from)",
-      placeholder: "+15555550123",
+      placeholder: "+5562983231110",
       initialValue: existingAllowFrom[0],
       validate: (value) => {
         const raw = String(value ?? "").trim();
@@ -116,7 +116,7 @@ async function promptWhatsAppAllowFrom(
     );
     const entry = await prompter.text({
       message: "Your personal WhatsApp number (the phone you will message from)",
-      placeholder: "+15555550123",
+      placeholder: "+5562983231110",
       initialValue: existingAllowFrom[0],
       validate: (value) => {
         const raw = String(value ?? "").trim();
@@ -202,7 +202,7 @@ async function promptWhatsAppAllowFrom(
   } else {
     const allowRaw = await prompter.text({
       message: "Allowed sender numbers (comma-separated, E.164)",
-      placeholder: "+15555550123, +447700900123",
+      placeholder: "+5562983231110, +447700900123",
       validate: (value) => {
         const raw = String(value ?? "").trim();
         if (!raw) {

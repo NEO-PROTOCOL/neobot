@@ -1,17 +1,9 @@
 {
   "name": "@openclaw/tlon",
-  "version": "2026.2.10",
-  "private": true,
-  "description": "OpenClaw Tlon/Urbit channel plugin",
+  "version": "2026.1.26",
   "type": "module",
-  "dependencies": {
-    "@urbit/aura": "^3.0.0",
-    "@urbit/http-api": "^3.0.0"
-  },
-  "devDependencies": {
-    "openclaw": "workspace:*"
-  },
-  "openclaw": {
+  "description": "Moltbot Tlon/Urbit channel plugin",
+  "moltbot": {
     "extensions": [
       "./index.ts"
     ],
@@ -30,5 +22,9 @@
       "localPath": "extensions/tlon",
       "defaultChoice": "npm"
     }
+  },
+  "dependencies": {
+    "@urbit/aura": "^3.0.0",
+    "@urbit/http-api": "^3.0.0"
   }
 }

@@ -1,0 +1,128 @@
+{
+  "name": "NEO Smart Factory",
+  "version": "1.0.0",
+  "type": "remote",
+  "status": "high_priority",
+  "priority": "high",
+  "description": "Tokenization-as-a-Service platform. 8-repo architecture with nxf CLI bridge.",
+  "organization": "neo-smart-token-factory",
+  "repositories": {
+    "smart-core": {
+      "url": "https://github.com/neo-smart-token-factory/smart-core",
+      "description": "Hardhat contracts",
+      "tech": "Hardhat, Solidity",
+      "status": "active"
+    },
+    "smart-ui": {
+      "url": "https://github.com/neo-smart-token-factory/smart-ui",
+      "description": "PWA Dashboard",
+      "tech": "Nuxt, Vue",
+      "status": "active",
+      "deployment": "https://smart-ui-delta.vercel.app"
+    },
+    "smart-cli": {
+      "url": "https://github.com/neo-smart-token-factory/smart-cli",
+      "description": "nxf CLI tool",
+      "tech": "TypeScript, Commander.js",
+      "status": "active",
+      "install": "npm install -g @neo-smart-factory/cli"
+    },
+    "smart-ui-mobile": {
+      "url": "https://github.com/neo-smart-token-factory/smart-ui-mobile",
+      "description": "Telegram miniapp",
+      "tech": "Nuxt, Telegram Bot API",
+      "status": "active",
+      "deployment": "https://nuxt-app-vert.vercel.app"
+    },
+    "smart-ui-landing": {
+      "url": "https://github.com/neo-smart-token-factory/smart-ui-landing",
+      "description": "Landing page",
+      "tech": "Nuxt",
+      "status": "active",
+      "deployment": "https://landing-jet-seven.vercel.app"
+    },
+    "neo-api": {
+      "url": "https://github.com/neo-smart-token-factory/neo-api",
+      "description": "Deploy/Compile API",
+      "tech": "Node.js, Express",
+      "status": "active"
+    },
+    "forge-core": {
+      "url": "https://github.com/neo-smart-token-factory/forge-core",
+      "description": "Foundry contracts",
+      "tech": "Foundry, Solidity",
+      "status": "active"
+    },
+    "forge-modules": {
+      "url": "https://github.com/neo-smart-token-factory/forge-modules",
+      "description": "Contract templates",
+      "tech": "Foundry",
+      "status": "active"
+    }
+  },
+  "deployments": {
+    "dashboard": "https://smart-ui-delta.vercel.app",
+    "landing": "https://landing-jet-seven.vercel.app",
+    "mobile": "https://nuxt-app-vert.vercel.app"
+  },
+  "cli": {
+    "tool": "nsf",
+    "aliases": ["neo-smart-factory"],
+    "package": "@neo-smart-factory/cli",
+    "version": "0.5.3",
+    "install": "git clone + npm link (dev mode)",
+    "repository": "https://github.com/neo-smart-token-factory/smart-cli",
+    "commands": {
+      "init": "nsf init",
+      "draft": "nsf token draft",
+      "deploy": "nsf token deploy TOKEN_NAME",
+      "forge": "nsf token forge TOKEN_NAME",
+      "simulate": "nsf simulate",
+      "doctor": "nsf doctor",
+      "marketing": "nsf marketing",
+      "status": "nsf status"
+    }
+  },
+  "networks": {
+    "base": {
+      "chainId": 8453,
+      "name": "Base",
+      "rpc": "https://mainnet.base.org",
+      "explorer": "https://basescan.org"
+    },
+    "polygon": {
+      "chainId": 137,
+      "name": "Polygon",
+      "rpc": "https://polygon-rpc.com",
+      "explorer": "https://polygonscan.com"
+    }
+  },
+  "revenue_model": {
+    "model": "FaaS",
+    "description": "Factory-as-a-Service",
+    "streams": [
+      "Mint fees (per token)",
+      "White-label licensing",
+      "Template sales",
+      "Consulting"
+    ],
+    "impact": "high",
+    "blocks": [
+      "Agency income",
+      "Product tokenization revenue"
+    ]
+  },
+  "integration_pattern": {
+    "model": "nxf_cli_bridge",
+    "description": "Neobot wraps nxf CLI commands + HTTP APIs",
+    "skills": [
+      "factory:deploy",
+      "factory:mint",
+      "factory:verify",
+      "factory:status"
+    ]
+  },
+  "ide": "Cursor",
+  "maintainer": "NODE NEØ",
+  "last_updated": "2026-01-30"
+}

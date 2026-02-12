@@ -1,84 +1,81 @@
-node_modules
-**/node_modules/
+# Identidades NEO (Private Keys & Public IDs)
+.neo-identities/*
+!.neo-identities/.env.example
+
+# Debug & State
+.state-debug/
+.tmp-debug/
+
+# Environment variables
 .env
-docker-compose.extra.yml
-dist
-pnpm-lock.yaml
-bun.lock
-bun.lockb
-coverage
-__pycache__/
-*.pyc
-.tsbuildinfo
-.pnpm-store
-.worktrees/
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+dist/
+.cache/
+
+# Tests
+coverage/
+.nyc_output/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
-**/.DS_Store
-ui/src/ui/__screenshots__/
-ui/playwright-report/
-ui/test-results/
+Thumbs.db
 
-# Android build artifacts
-apps/android/.gradle/
-apps/android/app/build/
-apps/android/.cxx/
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Bun build artifacts
-*.bun-build
-apps/macos/.build/
-apps/shared/MoltbotKit/.build/
-**/ModuleCache/
-bin/
-bin/clawdbot-mac
-bin/docs-list
-apps/macos/.build-local/
-apps/macos/.swiftpm/
-apps/shared/MoltbotKit/.swiftpm/
-Core/
-apps/ios/*.xcodeproj/
-apps/ios/*.xcworkspace/
-apps/ios/.swiftpm/
-vendor/
-apps/ios/Clawdbot.xcodeproj/
-apps/ios/Clawdbot.xcodeproj/**
-apps/macos/.build/**
-**/*.bun-build
-apps/ios/*.xcfilelist
+# Temporary
+tmp/
+temp/
+*.tmp
 
-# Vendor build artifacts
-vendor/a2ui/renderers/lit/dist/
-src/canvas-host/a2ui/*.bundle.js
-src/canvas-host/a2ui/*.map
-.bundle.hash
+# Build
+build/
+out/
 
-# fastlane (iOS)
-apps/ios/fastlane/README.md
-apps/ios/fastlane/report.xml
-apps/ios/fastlane/Preview.html
-apps/ios/fastlane/screenshots/
-apps/ios/fastlane/test_output/
-apps/ios/fastlane/logs/
-apps/ios/fastlane/.env
+# Keys & Secrets (redundância)
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+.cursor/mcp.backup.json
+.cursor/mcp*.json
 
-# fastlane build artifacts (local)
-apps/ios/*.ipa
-apps/ios/*.dSYM.zip
+# FlowPay (Sensitive Data)
+data/flowpay/*.db
+data/flowpay/*.sqlite
+data/flowpay/orders/*.json
+data/flowpay/receipts/*.json
+data/flowpay/products/*.json
 
-# provisioning profiles (local)
-apps/ios/*.mobileprovision
+# Clawdbot config (pode conter tokens)
+.clawdbot/moltbot.json
+.clawdbot/*.json
 
-# Local untracked files
-.local/
-docs/.local/
-IDENTITY.md
-USER.md
-.tgz
+# Documentation (Sensitive/Historical)
+docs/guides/
+docs/history/
+docs/audits/
+docs/arc/
 
-# local tooling
-.serena/
-
-# Agent credentials and memory (NEVER COMMIT)
-/memory/
-.agent/*.json
-!.agent/workflows/
-local/
+# Package Manager
+.pnpm-store/
+pnpm-lock.yaml
+neo-identities/

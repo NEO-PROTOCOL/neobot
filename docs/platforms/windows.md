@@ -1,18 +1,16 @@
 ---
 summary: "Windows (WSL2) support + companion app status"
 read_when:
-  - Installing OpenClaw on Windows
-  - Looking for Windows companion app status
-title: "Windows (WSL2)"
----
 
+  - Installing Moltbot on Windows
+  - Looking for Windows companion app status
+---
 # Windows (WSL2)
 
-OpenClaw on Windows is recommended **via WSL2** (Ubuntu recommended). The
+Moltbot on Windows is recommended **via WSL2** (Ubuntu recommended). The
 CLI + Gateway run inside Linux, which keeps the runtime consistent and makes
 tooling far more compatible (Node/Bun/pnpm, Linux binaries, skills). Native
-Windows might be trickier. WSL2 gives you the full Linux experience — one command
-to install: `wsl --install`.
+Windows installs are untested and more problematic.
 
 Native Windows companion apps are planned.
 
@@ -20,7 +18,7 @@ Native Windows companion apps are planned.
 
 - [Getting Started](/start/getting-started) (use inside WSL)
 - [Install & updates](/install/updating)
-- Official WSL2 guide (Microsoft): [https://learn.microsoft.com/windows/wsl/install](https://learn.microsoft.com/windows/wsl/install)
+- Official WSL2 guide (Microsoft): https://learn.microsoft.com/windows/wsl/install
 
 ## Gateway
 
@@ -32,19 +30,19 @@ Native Windows companion apps are planned.
 Inside WSL2:
 
 ```
-openclaw onboard --install-daemon
+moltbot onboard --install-daemon
 ```
 
 Or:
 
 ```
-openclaw gateway install
+moltbot gateway install
 ```
 
 Or:
 
 ```
-openclaw configure
+moltbot configure
 ```
 
 Select **Gateway service** when prompted.
@@ -52,7 +50,7 @@ Select **Gateway service** when prompted.
 Repair/migrate:
 
 ```
-openclaw doctor
+moltbot doctor
 ```
 
 ## Advanced: expose WSL services over LAN (portproxy)
@@ -95,7 +93,7 @@ Notes:
 
 - SSH from another machine targets the **Windows host IP** (example: `ssh user@windows-host -p 2222`).
 - Remote nodes must point at a **reachable** Gateway URL (not `127.0.0.1`); use
-  `openclaw status --all` to confirm.
+  `moltbot status --all` to confirm.
 - Use `listenaddress=0.0.0.0` for LAN access; `127.0.0.1` keeps it local only.
 - If you want this automatic, register a Scheduled Task to run the refresh
   step at login.
@@ -138,17 +136,17 @@ Re-open Ubuntu, then verify:
 systemctl --user status
 ```
 
-### 3) Install OpenClaw (inside WSL)
+### 3) Install Moltbot (inside WSL)
 
 Follow the Linux Getting Started flow inside WSL:
 
 ```bash
 git clone https://github.com/openclaw/openclaw.git
-cd openclaw
+cd moltbot
 pnpm install
 pnpm ui:build # auto-installs UI deps on first run
 pnpm build
-openclaw onboard
+moltbot onboard
 ```
 
 Full guide: [Getting Started](/start/getting-started)

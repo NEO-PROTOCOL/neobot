@@ -31,12 +31,12 @@ describe("web inbound helpers", () => {
           "BEGIN:VCARD",
           "VERSION:3.0",
           "FN:Ada Lovelace",
-          "TEL;TYPE=CELL:+15555550123",
+          "TEL;TYPE=CELL:+5562983231110",
           "END:VCARD",
         ].join("\n"),
       },
     } as unknown as import("@whiskeysockets/baileys").proto.IMessage);
-    expect(body).toBe("<contact: Ada Lovelace, +15555550123>");
+    expect(body).toBe("<contact: Ada Lovelace, +5562983231110>");
   });
 
   it("prefers FN over N in WhatsApp vcards", () => {
@@ -47,12 +47,12 @@ describe("web inbound helpers", () => {
           "VERSION:3.0",
           "N:Lovelace;Ada;;;",
           "FN:Ada Lovelace",
-          "TEL;TYPE=CELL:+15555550123",
+          "TEL;TYPE=CELL:+5562983231110",
           "END:VCARD",
         ].join("\n"),
       },
     } as unknown as import("@whiskeysockets/baileys").proto.IMessage);
-    expect(body).toBe("<contact: Ada Lovelace, +15555550123>");
+    expect(body).toBe("<contact: Ada Lovelace, +5562983231110>");
   });
 
   it("normalizes tel: prefixes in WhatsApp vcards", () => {
@@ -62,12 +62,12 @@ describe("web inbound helpers", () => {
           "BEGIN:VCARD",
           "VERSION:3.0",
           "FN:Ada Lovelace",
-          "TEL;TYPE=CELL:tel:+15555550123",
+          "TEL;TYPE=CELL:tel:+5562983231110",
           "END:VCARD",
         ].join("\n"),
       },
     } as unknown as import("@whiskeysockets/baileys").proto.IMessage);
-    expect(body).toBe("<contact: Ada Lovelace, +15555550123>");
+    expect(body).toBe("<contact: Ada Lovelace, +5562983231110>");
   });
 
   it("trims and skips empty WhatsApp vcard phones", () => {
@@ -77,14 +77,14 @@ describe("web inbound helpers", () => {
           "BEGIN:VCARD",
           "VERSION:3.0",
           "FN:Ada Lovelace",
-          "TEL;TYPE=CELL:  +15555550123  ",
+          "TEL;TYPE=CELL:  +5562983231110  ",
           "TEL;TYPE=HOME:   ",
           "TEL;TYPE=WORK:+15555550124",
           "END:VCARD",
         ].join("\n"),
       },
     } as unknown as import("@whiskeysockets/baileys").proto.IMessage);
-    expect(body).toBe("<contact: Ada Lovelace, +15555550123 (+1 more)>");
+    expect(body).toBe("<contact: Ada Lovelace, +5562983231110 (+1 more)>");
   });
 
   it("extracts multiple WhatsApp contact cards", () => {

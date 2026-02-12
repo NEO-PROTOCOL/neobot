@@ -1,16 +1,17 @@
 ---
 summary: "Exec approvals, allowlists, and sandbox escape prompts"
 read_when:
+
   - Configuring exec approvals or allowlists
   - Implementing exec approval UX in the macOS app
   - Reviewing sandbox escape prompts and implications
-title: "Exec Approvals"
 ---
 
 # Exec approvals
 
 Exec approvals are the **companion app / node host guardrail** for letting a sandboxed agent run
 commands on a real host (`gateway` or `node`). Think of it like a safety interlock:
+
 commands are allowed only when policy + allowlist + (optional) user approval all agree.
 Exec approvals are **in addition** to tool policy and elevated gating (unless elevated is set to `full`, which skips approvals).
 Effective policy is the **stricter** of `tools.exec.*` and approvals defaults; if an approvals field is omitted, the `tools.exec` value is used.
@@ -22,7 +23,7 @@ resolved by the **ask fallback** (default: deny).
 
 Exec approvals are enforced locally on the execution host:
 
-- **gateway host** → `openclaw` process on the gateway machine
+- **gateway host** → `moltbot` process on the gateway machine
 - **node host** → node runner (macOS companion app or headless node host)
 
 macOS split:
@@ -34,7 +35,7 @@ macOS split:
 
 Approvals live in a local JSON file on the execution host:
 
-`~/.openclaw/exec-approvals.json`
+`~/.clawdbot/exec-approvals.json`
 
 Example schema:
 
@@ -42,7 +43,7 @@ Example schema:
 {
   "version": 1,
   "socket": {
-    "path": "~/.openclaw/exec-approvals.sock",
+    "path": "~/.clawdbot/exec-approvals.sock",
     "token": "base64url-token"
   },
   "defaults": {
@@ -102,7 +103,7 @@ Legacy `agents.default` entries are migrated to `agents.main` on load.
 
 Examples:
 
-- `~/Projects/**/bin/peekaboo`
+- `~/Projects/**/bin/bird`
 - `~/.local/bin/*`
 - `/opt/homebrew/bin/rg`
 
@@ -128,8 +129,6 @@ Shell chaining and redirections are not auto-allowed in allowlist mode.
 
 Shell chaining (`&&`, `||`, `;`) is allowed when every top-level segment satisfies the allowlist
 (including safe bins or skill auto-allow). Redirections remain unsupported in allowlist mode.
-Command substitution (`$()` / backticks) is rejected during allowlist parsing, including inside
-double quotes; use single quotes if you need literal `$()` text.
 
 Default safe bins: `jq`, `grep`, `cut`, `sort`, `uniq`, `head`, `tail`, `tr`, `wc`.
 
@@ -143,9 +142,9 @@ per pattern so you can keep the list tidy.
 The target selector chooses **Gateway** (local approvals) or a **Node**. Nodes
 must advertise `system.execApprovals.get/set` (macOS app or headless node host).
 If a node does not advertise exec approvals yet, edit its local
-`~/.openclaw/exec-approvals.json` directly.
+`~/.clawdbot/exec-approvals.json` directly.
 
-CLI: `openclaw approvals` supports gateway or node editing (see [Approvals CLI](/cli/approvals)).
+CLI: `moltbot approvals` supports gateway or node editing (see [Approvals CLI](/cli/approvals)).
 
 ## Approval flow
 
@@ -188,10 +187,10 @@ Config:
       sessionFilter: ["discord"], // substring or regex
       targets: [
         { channel: "slack", to: "U12345678" },
-        { channel: "telegram", to: "123456789" },
-      ],
-    },
-  },
+        { channel: "telegram", to: "123456789" }
+      ]
+    }
+  }
 }
 ```
 

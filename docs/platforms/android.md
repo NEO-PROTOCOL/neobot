@@ -1,6 +1,7 @@
 ---
 summary: "Android app (node): connection runbook + Canvas/Chat/Camera"
 read_when:
+
   - Pairing or reconnecting the Android node
   - Debugging Android gateway discovery or auth
   - Verifying chat history parity across clients
@@ -31,6 +32,7 @@ Android connects directly to the Gateway WebSocket (default `ws://<host>:18789`)
 
 - You can run the Gateway on the “master” machine.
 - Android device/emulator can reach the gateway WebSocket:
+
   - Same LAN with mDNS/NSD, **or**
   - Same Tailscale tailnet using Wide-Area Bonjour / unicast DNS-SD (see below), **or**
   - Manual gateway host/port (fallback)

@@ -1,6 +1,3 @@
-import type { CliDeps } from "../cli/deps.js";
-import type { loadConfig } from "../config/config.js";
-import type { loadOpenClawPlugins } from "../plugins/loader.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
 import { loadModelCatalog } from "../agents/model-catalog.js";
 import {
@@ -8,6 +5,9 @@ import {
   resolveConfiguredModelRef,
   resolveHooksGmailModel,
 } from "../agents/model-selection.js";
+import type { CliDeps } from "../cli/deps.js";
+import type { loadConfig } from "../config/config.js";
+import { isTruthyEnvValue } from "../infra/env.js";
 import { startGmailWatcher } from "../hooks/gmail-watcher.js";
 import {
   clearInternalHooks,
@@ -15,22 +15,27 @@ import {
   triggerInternalHook,
 } from "../hooks/internal-hooks.js";
 import { loadInternalHooks } from "../hooks/loader.js";
-import { isTruthyEnvValue } from "../infra/env.js";
+import type { loadMoltbotPlugins } from "../plugins/loader.js";
 import { type PluginServicesHandle, startPluginServices } from "../plugins/services.js";
 import { startBrowserControlServerIfEnabled } from "./server-browser.js";
 import {
   scheduleRestartSentinelWake,
   shouldWakeFromRestartSentinel,
 } from "./server-restart-sentinel.js";
-import { startGatewayMemoryBackend } from "./server-startup-memory.js";
+import { identityLoader } from "../neo/identity/loader.js";
+import { setupNexusReactors } from "../nexus/index.js";
+import chalk from "chalk";
 
 export async function startGatewaySidecars(params: {
   cfg: ReturnType<typeof loadConfig>;
-  pluginRegistry: ReturnType<typeof loadOpenClawPlugins>;
+  pluginRegistry: ReturnType<typeof loadMoltbotPlugins>;
   defaultWorkspaceDir: string;
   deps: CliDeps;
   startChannels: () => Promise<void>;
-  log: { warn: (msg: string) => void };
+  log: {
+    info: (msg: string, meta?: Record<string, unknown>) => void;
+    warn: (msg: string) => void;
+  };
   logHooks: {
     info: (msg: string) => void;
     warn: (msg: string) => void;
@@ -39,7 +44,36 @@ export async function startGatewaySidecars(params: {
   logChannels: { info: (msg: string) => void; error: (msg: string) => void };
   logBrowser: { error: (msg: string) => void };
 }) {
-  // Start OpenClaw browser control server (unless disabled via config).
+  // Initialize Protocol Nexus (Event Bus)
+  setupNexusReactors();
+
+  // Initialize MIO Sovereign Identities
+  try {
+    const loadedCount = await identityLoader.loadAll();
+    if (loadedCount > 0) {
+      const warrior = identityLoader.getWarrior();
+      const status = warrior ? `Active (${warrior.identity.id})` : "Active (No Warrior)";
+      const loadedIds = identityLoader.listLoaded().join(", ");
+
+      params.log.info(`MIO System: Identity Loader initialized. ${loadedCount} identities active.`, {
+        consoleMessage: `${chalk.cyan("MIO System:")} Sovereign Identities ${chalk.green("Active")} (${chalk.yellow(loadedCount)}) [${chalk.dim(loadedIds)}]`,
+      });
+
+      if (warrior) {
+        // Sign startup "pulse" to prove consciousness
+        const pulse = `MIO-PULSE:${new Date().toISOString()}:GATEWAY_STARTUP:${process.pid}`;
+        const signature = await warrior.manager.signMessage(pulse);
+        params.log.info(`MIO Warrior: Signed startup pulse.`, {
+          consoleMessage: `${chalk.red("MIO Warrior:")} Identity ${chalk.whiteBright(warrior.identity.id)} attested. Pulse signed: ${chalk.dim(signature?.slice(0, 20))}...`,
+        });
+      }
+    } else {
+      params.log.warn("MIO System: No sovereign identities loaded. Running in legacy mode.");
+    }
+  } catch (err) {
+    params.log.warn(`MIO System: Identity initialization failed: ${String(err)}`);
+  }
+  // Start clawd browser control server (unless disabled via config).
   let browserControl: Awaited<ReturnType<typeof startBrowserControlServerIfEnabled>> = null;
   try {
     browserControl = await startBrowserControlServerIfEnabled();
@@ -48,7 +82,7 @@ export async function startGatewaySidecars(params: {
   }
 
   // Start Gmail watcher if configured (hooks.gmail.account).
-  if (!isTruthyEnvValue(process.env.OPENCLAW_SKIP_GMAIL_WATCHER)) {
+  if (!isTruthyEnvValue(process.env.CLAWDBOT_SKIP_GMAIL_WATCHER)) {
     try {
       const gmailResult = await startGmailWatcher(params.cfg);
       if (gmailResult.started) {
@@ -113,10 +147,10 @@ export async function startGatewaySidecars(params: {
   }
 
   // Launch configured channels so gateway replies via the surface the message came from.
-  // Tests can opt out via OPENCLAW_SKIP_CHANNELS (or legacy OPENCLAW_SKIP_PROVIDERS).
+  // Tests can opt out via CLAWDBOT_SKIP_CHANNELS (or legacy CLAWDBOT_SKIP_PROVIDERS).
   const skipChannels =
-    isTruthyEnvValue(process.env.OPENCLAW_SKIP_CHANNELS) ||
-    isTruthyEnvValue(process.env.OPENCLAW_SKIP_PROVIDERS);
+    isTruthyEnvValue(process.env.CLAWDBOT_SKIP_CHANNELS) ||
+    isTruthyEnvValue(process.env.CLAWDBOT_SKIP_PROVIDERS);
   if (!skipChannels) {
     try {
       await params.startChannels();
@@ -125,7 +159,7 @@ export async function startGatewaySidecars(params: {
     }
   } else {
     params.logChannels.info(
-      "skipping channel start (OPENCLAW_SKIP_CHANNELS=1 or OPENCLAW_SKIP_PROVIDERS=1)",
+      "skipping channel start (CLAWDBOT_SKIP_CHANNELS=1 or CLAWDBOT_SKIP_PROVIDERS=1)",
     );
   }
 
@@ -150,10 +184,6 @@ export async function startGatewaySidecars(params: {
   } catch (err) {
     params.log.warn(`plugin services failed to start: ${String(err)}`);
   }
-
-  void startGatewayMemoryBackend({ cfg: params.cfg, log: params.log }).catch((err) => {
-    params.log.warn(`qmd memory startup initialization failed: ${String(err)}`);
-  });
 
   if (shouldWakeFromRestartSentinel()) {
     setTimeout(() => {

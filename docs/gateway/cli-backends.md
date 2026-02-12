@@ -1,6 +1,7 @@
 ---
 summary: "CLI backends: text-only fallback via local AI CLIs"
 read_when:
+
   - You want a reliable fallback when API providers fail
   - You are running Claude Code CLI or other local AI CLIs and want to reuse them
   - You need a text-only, tool-free path that still supports sessions and images
@@ -149,6 +150,7 @@ The provider id becomes the left side of your model ref:
   `resumeArgs` (replaces `args` when resuming) and optionally `resumeOutput`
   (for non-JSON resumes).
 - `sessionMode`:
+
   - `always`: always send a session id (new UUID if none stored).
   - `existing`: only send a session id if one was stored before.
   - `none`: never send a session id.

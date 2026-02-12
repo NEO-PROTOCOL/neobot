@@ -48,7 +48,7 @@ describe("Agent-specific tool filtering", () => {
             tools: {
               elevated: {
                 enabled: true,
-                allowFrom: { whatsapp: ["+15555550123"] },
+                allowFrom: { whatsapp: ["+5562983231110"] },
               },
             },
           },

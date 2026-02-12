@@ -1,0 +1,10 @@
+{
+  "name": "neo-ipfs-status",
+  "version": "1.0.0",
+  "description": "Checks the health and status of the local IPFS node",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "index.js",
+  "permissions": [
+    "ipfs:read"
+  ]
+}

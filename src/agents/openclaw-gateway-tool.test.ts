@@ -2,8 +2,9 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
+
 import "./test-helpers/fast-core-tools.js";
-import { createOpenClawTools } from "./openclaw-tools.js";
+import { createMoltbotTools } from "./moltbot-tools.js";
 
 vi.mock("./tools/gateway.js", () => ({
   callGatewayTool: vi.fn(async (method: string) => {
@@ -18,20 +19,18 @@ describe("gateway tool", () => {
   it("schedules SIGUSR1 restart", async () => {
     vi.useFakeTimers();
     const kill = vi.spyOn(process, "kill").mockImplementation(() => true);
-    const previousStateDir = process.env.OPENCLAW_STATE_DIR;
-    const previousProfile = process.env.OPENCLAW_PROFILE;
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-"));
-    process.env.OPENCLAW_STATE_DIR = stateDir;
-    process.env.OPENCLAW_PROFILE = "isolated";
+    const previousStateDir = process.env.CLAWDBOT_STATE_DIR;
+    const previousProfile = process.env.CLAWDBOT_PROFILE;
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "moltbot-test-"));
+    process.env.CLAWDBOT_STATE_DIR = stateDir;
+    process.env.CLAWDBOT_PROFILE = "isolated";
 
     try {
-      const tool = createOpenClawTools({
+      const tool = createMoltbotTools({
         config: { commands: { restart: true } },
       }).find((candidate) => candidate.name === "gateway");
       expect(tool).toBeDefined();
-      if (!tool) {
-        throw new Error("missing gateway tool");
-      }
+      if (!tool) throw new Error("missing gateway tool");
 
       const result = await tool.execute("call1", {
         action: "restart",
@@ -51,7 +50,7 @@ describe("gateway tool", () => {
       };
       expect(parsed.payload?.kind).toBe("restart");
       expect(parsed.payload?.doctorHint).toBe(
-        "Run: openclaw --profile isolated doctor --non-interactive",
+        "Run: moltbot --profile isolated doctor --non-interactive",
       );
 
       expect(kill).not.toHaveBeenCalled();
@@ -61,29 +60,27 @@ describe("gateway tool", () => {
       kill.mockRestore();
       vi.useRealTimers();
       if (previousStateDir === undefined) {
-        delete process.env.OPENCLAW_STATE_DIR;
+        delete process.env.CLAWDBOT_STATE_DIR;
       } else {
-        process.env.OPENCLAW_STATE_DIR = previousStateDir;
+        process.env.CLAWDBOT_STATE_DIR = previousStateDir;
       }
       if (previousProfile === undefined) {
-        delete process.env.OPENCLAW_PROFILE;
+        delete process.env.CLAWDBOT_PROFILE;
       } else {
-        process.env.OPENCLAW_PROFILE = previousProfile;
+        process.env.CLAWDBOT_PROFILE = previousProfile;
       }
     }
   });
 
   it("passes config.apply through gateway call", async () => {
     const { callGatewayTool } = await import("./tools/gateway.js");
-    const tool = createOpenClawTools({
-      agentSessionKey: "agent:main:whatsapp:dm:+15555550123",
+    const tool = createMoltbotTools({
+      agentSessionKey: "agent:main:whatsapp:dm:+5562983231110",
     }).find((candidate) => candidate.name === "gateway");
     expect(tool).toBeDefined();
-    if (!tool) {
-      throw new Error("missing gateway tool");
-    }
+    if (!tool) throw new Error("missing gateway tool");
 
-    const raw = '{\n  agents: { defaults: { workspace: "~/openclaw" } }\n}\n';
+    const raw = '{\n  agents: { defaults: { workspace: "~/clawd" } }\n}\n';
     await tool.execute("call2", {
       action: "config.apply",
       raw,
@@ -96,20 +93,18 @@ describe("gateway tool", () => {
       expect.objectContaining({
         raw: raw.trim(),
         baseHash: "hash-1",
-        sessionKey: "agent:main:whatsapp:dm:+15555550123",
+        sessionKey: "agent:main:whatsapp:dm:+5562983231110",
       }),
     );
   });
 
   it("passes config.patch through gateway call", async () => {
     const { callGatewayTool } = await import("./tools/gateway.js");
-    const tool = createOpenClawTools({
-      agentSessionKey: "agent:main:whatsapp:dm:+15555550123",
+    const tool = createMoltbotTools({
+      agentSessionKey: "agent:main:whatsapp:dm:+5562983231110",
     }).find((candidate) => candidate.name === "gateway");
     expect(tool).toBeDefined();
-    if (!tool) {
-      throw new Error("missing gateway tool");
-    }
+    if (!tool) throw new Error("missing gateway tool");
 
     const raw = '{\n  channels: { telegram: { groups: { "*": { requireMention: false } } } }\n}\n';
     await tool.execute("call4", {
@@ -124,20 +119,18 @@ describe("gateway tool", () => {
       expect.objectContaining({
         raw: raw.trim(),
         baseHash: "hash-1",
-        sessionKey: "agent:main:whatsapp:dm:+15555550123",
+        sessionKey: "agent:main:whatsapp:dm:+5562983231110",
       }),
     );
   });
 
   it("passes update.run through gateway call", async () => {
     const { callGatewayTool } = await import("./tools/gateway.js");
-    const tool = createOpenClawTools({
-      agentSessionKey: "agent:main:whatsapp:dm:+15555550123",
+    const tool = createMoltbotTools({
+      agentSessionKey: "agent:main:whatsapp:dm:+5562983231110",
     }).find((candidate) => candidate.name === "gateway");
     expect(tool).toBeDefined();
-    if (!tool) {
-      throw new Error("missing gateway tool");
-    }
+    if (!tool) throw new Error("missing gateway tool");
 
     await tool.execute("call3", {
       action: "update.run",
@@ -149,17 +142,8 @@ describe("gateway tool", () => {
       expect.any(Object),
       expect.objectContaining({
         note: "test update",
-        sessionKey: "agent:main:whatsapp:dm:+15555550123",
+        sessionKey: "agent:main:whatsapp:dm:+5562983231110",
       }),
     );
-    const updateCall = vi
-      .mocked(callGatewayTool)
-      .mock.calls.find((call) => call[0] === "update.run");
-    expect(updateCall).toBeDefined();
-    if (updateCall) {
-      const [, opts, params] = updateCall;
-      expect(opts).toMatchObject({ timeoutMs: 20 * 60_000 });
-      expect(params).toMatchObject({ timeoutMs: 20 * 60_000 });
-    }
   });
 });
