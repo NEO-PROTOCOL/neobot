@@ -4,7 +4,7 @@
  * Busca skills no NEO Skills Registry por nome, descrição, categoria ou tag
  */
 
-import { createNeoSkillsRegistry } from "../registry/index.js";
+import { createNeoSkillsRegistry, type NeoSkill } from "../registry/index.js";
 
 export async function skillSearchCommand(query: string): Promise<void> {
   if (!query) {
@@ -35,8 +35,8 @@ export async function skillSearchCommand(query: string): Promise<void> {
         : (s.category || "").toLowerCase();
 
       // Also check metadata tags if present
-      const tags = (s as any).metadata?.tags
-        ? ((s as any).metadata.tags as string[]).join(" ").toLowerCase()
+      const tags = (s as NeoSkill).metadata?.tags
+        ? ((s as NeoSkill).metadata?.tags || []).join(" ").toLowerCase()
         : "";
 
       return (

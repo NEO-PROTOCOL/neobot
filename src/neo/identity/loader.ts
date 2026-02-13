@@ -69,7 +69,11 @@ export class IdentityLoader {
                         // Se não houver JSON, criar uma nova (v0 do sistema)
                         identity = await manager.createIdentity(template.metadata, {
                             roles: [template.role],
-                            permissions: template.permissions as any,
+                            permissions: {
+                                channels: [...template.permissions.channels],
+                                skills: [...template.permissions.skills],
+                                tools: [...template.permissions.tools],
+                            },
                         });
                     }
 

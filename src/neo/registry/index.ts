@@ -14,6 +14,10 @@ export interface SkillManifest {
   permissions?: string[];
   signature?: string; // Web3 signature
   cid?: string; // IPFS CID after publish
+  metadata?: {
+    tags?: string[];
+    [key: string]: any;
+  };
 }
 
 export interface NeoRegistryConfig {
