@@ -69,13 +69,12 @@ data/flowpay/products/*.json
 .clawdbot/moltbot.json
 .clawdbot/*.json
 
-<<<<<<< HEAD
 # Documentation (Sensitive/Historical)
 docs/guides/
 docs/history/
 docs/audits/
 docs/arc/
-=======
+
 # Local untracked files
 .local/
 docs/.local/
@@ -83,9 +82,7 @@ IDENTITY.md
 USER.md
 .tgz
 .idea
->>>>>>> upstream/main
 
 # Package Manager
 .pnpm-store/
-pnpm-lock.yaml
 neo-identities/
