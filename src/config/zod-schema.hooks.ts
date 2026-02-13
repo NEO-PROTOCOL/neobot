@@ -23,7 +23,6 @@ export const HookMappingSchema = z
       .union([
         z.literal("last"),
         z.literal("whatsapp"),
-        z.literal("telegram"),
         z.literal("discord"),
         z.literal("irc"),
         z.literal("slack"),

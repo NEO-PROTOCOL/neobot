@@ -1540,12 +1540,10 @@ export async function maybeApplyTtsToPayload(params: {
       latencyMs: result.latencyMs,
     };
 
-    const channelId = resolveChannelId(params.channel);
-    const shouldVoice = channelId === "telegram" && result.voiceCompatible === true;
     const finalPayload = {
       ...nextPayload,
       mediaUrl: result.audioPath,
-      audioAsVoice: shouldVoice || params.payload.audioAsVoice,
+      audioAsVoice: params.payload.audioAsVoice,
     };
     return finalPayload;
   }
