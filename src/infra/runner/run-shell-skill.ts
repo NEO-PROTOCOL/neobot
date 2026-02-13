@@ -9,7 +9,7 @@ export type RunShellSkillParams = {
   scriptPath: string;
   args?: string[];
   risk?: LedgerRisk;
-  channel?: "cli" | "tui" | "telegram" | "discord" | "scheduler" | "cron" | "unknown";
+  channel?: "cli" | "tui" | "discord" | "scheduler" | "cron" | "unknown";
   actor?: "user" | "agent" | "cron";
 };
 

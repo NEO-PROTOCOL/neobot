@@ -289,7 +289,6 @@ function applyConfigFixes(params: { cfg: OpenClawConfig; env: NodeJS.ProcessEnv 
   }
 
   for (const channel of [
-    "telegram",
     "whatsapp",
     "discord",
     "signal",

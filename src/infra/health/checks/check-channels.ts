@@ -7,17 +7,7 @@ export async function checkChannelsStatus(): Promise<HealthCheckResult> {
   const results: Record<string, any> = {};
   let overallStatus: HealthStatus = "ok";
 
-  // 1. Telegram Check
-  if (config.channels?.telegram?.enabled) {
-    const hasToken = !!process.env.TELEGRAM_BOT_TOKEN;
-    const hasChatId = !!process.env.TELEGRAM_CHAT_ID;
-    results.telegram = hasToken && hasChatId ? "ok" : "fail (config missing)";
-    if (results.telegram !== "ok") overallStatus = "fail";
-  } else {
-    results.telegram = "disabled";
-  }
-
-  // 2. Social Automation
+  // 1. Social Automation
   if (config.social_browser_automation?.enabled) {
     let targets = Object.entries(config.social_browser_automation.targets)
       .filter(([_, enabled]) => enabled)
