@@ -92,6 +92,9 @@ git push origin main
 
 ## Troubleshooting
 
+**EPERM / sandbox macOS:**
+Se `pnpm install`, `pnpm build` ou qualquer script falhar com `EPERM` ou `operation not permitted` — **PARAR e pedir ao usuário para rodar o comando manualmente no terminal.** Não tentar novamente, não usar sudo. Aguardar confirmação antes de continuar.
+
 **Build falha após sync:**
 ```bash
 rm -rf node_modules dist

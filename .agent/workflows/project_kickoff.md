@@ -26,4 +26,4 @@ Mostra status dos projetos do stack (git, branches, pendências).
 - Se existirem ⚠️ warnings, resolver antes de continuar
 - Se upstream do neobot tiver divergido, rodar `/update_clawdbot`
 
-> **macOS:** Se qualquer comando falhar com `EPERM`, pedir ao usuário para rodar manualmente no terminal.
+> **macOS / EPERM:** Se qualquer comando falhar com `EPERM`, `operation not permitted`, ou `sandbox` error — **PARAR imediatamente** e pedir ao usuário para rodar o comando manualmente no terminal. Não tentar novamente, não usar flags de bypass. Aguardar confirmação do usuário antes de continuar.
