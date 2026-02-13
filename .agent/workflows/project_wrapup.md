@@ -4,20 +4,34 @@ description: Check status of all stack projects and ensure clean exit.
 
 # Project Wrap-up: Safe Shutdown
 
-1. **Check Stack Status**
-   - Run the wrap-up script to see if any project has uncommitted changes or unpushed code.
+## 1. Audit Stack
 
-// turbo
-2. Audit Stack
-   - node --import tsx scripts/wrapup.ts
+```bash
+node --import tsx scripts/wrapup.ts
+```
 
-3. **Manual Actions (if needed)**
-   - If the script above shows ⚠️ warnings, navigate to the specific folders and commit your changes.
-   - Separate commits by context (Agência, Agent, Protocol, etc.).
+Mostra projetos com mudanças não commitadas ou não enviadas.
 
-4. **Final Sync**
-   - After handling code, ensure the Notion Sync is up to date:
-   - `node --import tsx scripts/notion-sync.ts`
+## 2. Commit Pendências (se necessário)
 
-5. **Shutdown**
-   - You are safe to close the session.
+Se o script acima mostrar ⚠️ warnings:
+
+- Navegar até as pastas específicas e commitar
+- Separar commits por contexto (neobot, smart-core, dashboard, etc.)
+- Fazer push após cada commit
+
+```bash
+git add .
+git commit -m "chore: wrapup session"
+git push origin main
+```
+
+## 3. Notion Sync (se necessário)
+
+```bash
+node --import tsx scripts/notion-sync.ts
+```
+
+## 4. Shutdown
+
+Sessão encerrada com segurança.

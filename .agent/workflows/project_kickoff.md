@@ -2,20 +2,28 @@
 description: Start the project session, checking connections and status.
 ---
 
-# Project Kickoff: Node Warrior
+# Project Kickoff: NΞØ Node Warrior
 
-1. **Initialize System**
-   - Execute the cleanup and checks script.
+## 1. System Check
 
-// turbo 2. Mission Briefing & System Check
-- node scripts/kickoff.js && (source scripts/load-secrets-bitwarden.sh 2>/dev/null || true) && node --import tsx scripts/wrapup.ts
+```bash
+node scripts/kickoff.js
+```
 
-**Note on macOS Permissions**: If `pnpm audit`, `build`, or other validations fail due to `EPERM` or permission locks, request the USER (Executor User) to run the command manually in their terminal.
+Verifica: `.env` carregado, Anthropic, Notion, Linear, Telegram, build `dist/` e contexto do roadmap.
 
-**Note on macOS Permissions**: If any command in this flow fails with `EPERM` or requires `sudo`, delegate the execution to the USER (Executor User) and proceed after their confirmation.
+## 2. Mission Briefing
 
-3. **Session Planning**
-   - Review the output above (Notion, Linear, Warp status).
-   - If Bitwarden is locked, run `export BW_SESSION=$(bw unlock --raw)` then retry Step 2.
-   - If warnings exist, resolve them before proceeding.
-   - Run `/update_clawdbot` if upstream updates are needed.
+```bash
+node --import tsx scripts/wrapup.ts
+```
+
+Mostra status dos projetos do stack (git, branches, pendências).
+
+## 3. Session Planning
+
+- Revisar output acima (Notion, Linear, warnings)
+- Se existirem ⚠️ warnings, resolver antes de continuar
+- Se upstream do neobot tiver divergido, rodar `/update_clawdbot`
+
+> **macOS:** Se qualquer comando falhar com `EPERM`, pedir ao usuário para rodar manualmente no terminal.
