@@ -20,7 +20,7 @@ import { clearAgentRunContext, onAgentEvent } from "../infra/agent-events.js";
 import { onHeartbeatEvent } from "../infra/heartbeat-events.js";
 import { startHeartbeatRunner } from "../infra/heartbeat-runner.js";
 import { getMachineDisplayName } from "../infra/machine-name.js";
-import { ensureMoltbotCliOnPath } from "../infra/path-env.js";
+import { ensureOpenClawCliOnPath } from "../infra/path-env.js";
 import {
   primeRemoteSkillsCache,
   refreshRemoteBinsForConnectedNodes,
@@ -30,12 +30,9 @@ import { scheduleGatewayUpdateCheck } from "../infra/update-startup.js";
 import { setGatewaySigusr1RestartPolicy } from "../infra/restart.js";
 import { startDiagnosticHeartbeat, stopDiagnosticHeartbeat } from "../logging/diagnostic.js";
 import { createSubsystemLogger, runtimeForLogger } from "../logging/subsystem.js";
-<<<<<<< HEAD
-import type { PluginServicesHandle } from "../plugins/services.js";
-import type { RuntimeEnv } from "../runtime.js";
-=======
+
 import { getGlobalHookRunner } from "../plugins/hook-runner-global.js";
->>>>>>> upstream/main
+
 import { runOnboardingWizard } from "../wizard/onboarding.js";
 import { createAuthRateLimiter, type AuthRateLimiter } from "./auth-rate-limit.js";
 import { startGatewayConfigReloader } from "./config-reload.js";
@@ -78,7 +75,7 @@ import { attachGatewayWsHandlers } from "./server-ws-runtime.js";
 
 export { __resetModelCatalogCacheForTest } from "./server-model-catalog.js";
 
-ensureMoltbotCliOnPath();
+ensureOpenClawCliOnPath();
 
 const log = createSubsystemLogger("gateway");
 const logDiscovery = log.child("discovery");
@@ -172,7 +169,7 @@ export async function startGatewayServer(
     const { config: migrated, changes } = migrateLegacyConfig(configSnapshot.parsed);
     if (!migrated) {
       throw new Error(
-        `Legacy config entries detected but auto-migration failed. Run "${formatCliCommand("moltbot doctor")}" to migrate.`,
+        `Legacy config entries detected but auto-migration failed. Run "${formatCliCommand("openclaw doctor")}" to migrate.`,
       );
     }
     await writeConfigFile(migrated);
@@ -194,7 +191,7 @@ export async function startGatewayServer(
             .join("\n")
         : "Unknown validation issue.";
     throw new Error(
-      `Invalid config at ${configSnapshot.path}.\n${issues}\nRun "${formatCliCommand("moltbot doctor")}" to repair, then retry.`,
+      `Invalid config at ${configSnapshot.path}.\n${issues}\nRun "${formatCliCommand("openclaw doctor")}" to repair, then retry.`,
     );
   }
 
@@ -261,8 +258,7 @@ export async function startGatewayServer(
     tailscaleMode,
   } = runtimeConfig;
   let hooksConfig = runtimeConfig.hooksConfig;
-<<<<<<< HEAD
-=======
+
   const canvasHostEnabled = runtimeConfig.canvasHostEnabled;
 
   // Create auth rate limiter only when explicitly configured.
@@ -302,7 +298,7 @@ export async function startGatewayServer(
       ? { kind: "resolved", path: resolvedRoot }
       : { kind: "missing" };
   }
->>>>>>> upstream/main
+
 
   const wizardRunner = opts.wizardRunner ?? runOnboardingWizard;
   const { wizardSessions, findRunningWizard, purgeWizardSession } = createWizardSessionTracker();

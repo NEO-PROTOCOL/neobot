@@ -1,18 +1,8 @@
-import {
-  createServer as createHttpServer,
-  type Server as HttpServer,
-  type IncomingMessage,
-  type ServerResponse,
-} from "node:http";
+import { createServer as createHttpServer, type Server as HttpServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { createServer as createHttpsServer } from "node:https";
-<<<<<<< HEAD
 import type { TlsOptions } from "node:tls";
 import type { WebSocketServer } from "ws";
-import { loadConfig } from "../config/config.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveAgentAvatar } from "../agents/identity-avatar.js";
-import { handleControlUiAvatarRequest, handleControlUiHttpRequest } from "./control-ui.js";
-=======
+
 import type { CanvasHostHandler } from "../canvas-host/server.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
 import type { AuthRateLimiter } from "./auth-rate-limit.js";
@@ -26,7 +16,7 @@ import {
 } from "../canvas-host/a2ui.js";
 import { loadConfig } from "../config/config.js";
 import { safeEqualSecret } from "../security/secret-equal.js";
-import { handleSlackHttpRequest } from "../slack/http/index.js";
+
 import {
   authorizeGatewayConnect,
   isLocalDirectRequest,
@@ -39,7 +29,7 @@ import {
   type ControlUiRootState,
 } from "./control-ui.js";
 import { applyHookMappings } from "./hooks-mapping.js";
->>>>>>> upstream/main
+
 import {
   extractHookToken,
   getHookChannelError,
@@ -49,21 +39,18 @@ import {
   normalizeHookHeaders,
   normalizeWakePayload,
   readJsonBody,
-<<<<<<< HEAD
-  resolveHookChannel,
-  resolveHookDeliver,
-} from "./hooks.js";
-import { applyHookMappings } from "./hooks-mapping.js";
-=======
+
   resolveHookSessionKey,
   resolveHookTargetAgentId,
   resolveHookChannel,
   resolveHookDeliver,
+  getHookAgentPolicyError,
+  isHookAgentAllowed,
 } from "./hooks.js";
 import { sendGatewayAuthFailure } from "./http-common.js";
 import { getBearerToken, getHeader } from "./http-utils.js";
 import { isPrivateOrLoopbackAddress, resolveGatewayClientIp } from "./net.js";
->>>>>>> upstream/main
+
 import { handleOpenAiHttpRequest } from "./openai-http.js";
 import { handleOpenResponsesHttpRequest } from "./openresponses-http.js";
 import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.js";
@@ -83,6 +70,7 @@ type HookDispatchers = {
   dispatchAgentHook: (value: {
     message: string;
     name: string;
+    agentId?: string;
     wakeMode: "now" | "next-heartbeat";
     sessionKey: string;
     deliver: boolean;
@@ -101,8 +89,7 @@ function sendJson(res: ServerResponse, status: number, body: unknown) {
   res.end(JSON.stringify(body));
 }
 
-<<<<<<< HEAD
-=======
+
 function isCanvasPath(pathname: string): boolean {
   return (
     pathname === A2UI_PATH ||
@@ -201,7 +188,7 @@ function writeUpgradeAuthFailure(
   socket.write("HTTP/1.1 401 Unauthorized\r\nConnection: close\r\n\r\n");
 }
 
->>>>>>> upstream/main
+
 export type HooksRequestHandler = (req: IncomingMessage, res: ServerResponse) => Promise<boolean>;
 
 export function createHooksRequestHandler(
@@ -255,10 +242,7 @@ export function createHooksRequestHandler(
       return false;
     }
 
-<<<<<<< HEAD
-    const { token, fromQuery } = extractHookToken(req, url);
-    if (!token || token !== hooksConfig.token) {
-=======
+
     if (url.searchParams.has("token")) {
       res.statusCode = 400;
       res.setHeader("Content-Type", "text/plain; charset=utf-8");
@@ -281,23 +265,15 @@ export function createHooksRequestHandler(
         logHooks.warn(`hook auth throttled for ${clientKey}; retry-after=${retryAfter}s`);
         return true;
       }
->>>>>>> upstream/main
+
       res.statusCode = 401;
       res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.end("Unauthorized");
       return true;
     }
-<<<<<<< HEAD
-    if (fromQuery) {
-      logHooks.warn(
-        "Hook token provided via query parameter is deprecated for security reasons. " +
-        "Tokens in URLs appear in logs, browser history, and referrer headers. " +
-        "Use Authorization: Bearer <token> or X-Moltbot-Token header instead.",
-      );
-    }
-=======
+
     clearHookAuthFailure(clientKey);
->>>>>>> upstream/main
+
 
     if (req.method !== "POST") {
       res.statusCode = 405;
@@ -342,9 +318,7 @@ export function createHooksRequestHandler(
         sendJson(res, 400, { ok: false, error: normalized.error });
         return true;
       }
-<<<<<<< HEAD
-      const runId = dispatchAgentHook(normalized.value);
-=======
+
       if (!isHookAgentAllowed(hooksConfig, normalized.value.agentId)) {
         sendJson(res, 400, { ok: false, error: getHookAgentPolicyError() });
         return true;
@@ -363,7 +337,7 @@ export function createHooksRequestHandler(
         sessionKey: sessionKey.value,
         agentId: resolveHookTargetAgentId(hooksConfig, normalized.value.agentId),
       });
->>>>>>> upstream/main
+
       sendJson(res, 202, { ok: true, runId });
       return true;
     }
@@ -399,8 +373,7 @@ export function createHooksRequestHandler(
             sendJson(res, 400, { ok: false, error: getHookChannelError() });
             return true;
           }
-<<<<<<< HEAD
-=======
+
           if (!isHookAgentAllowed(hooksConfig, mapped.action.agentId)) {
             sendJson(res, 400, { ok: false, error: getHookAgentPolicyError() });
             return true;
@@ -414,7 +387,7 @@ export function createHooksRequestHandler(
             sendJson(res, 400, { ok: false, error: sessionKey.error });
             return true;
           }
->>>>>>> upstream/main
+
           const runId = dispatchAgentHook({
             message: mapped.action.message,
             name: mapped.action.name ?? "Hook",
@@ -453,14 +426,15 @@ export function createGatewayHttpServer(opts: {
   openResponsesConfig?: import("../config/types.gateway.js").GatewayHttpResponsesConfig;
   handleHooksRequest: HooksRequestHandler;
   handlePluginRequest?: HooksRequestHandler;
-<<<<<<< HEAD
-  resolvedAuth: import("./auth.js").ResolvedGatewayAuth;
-=======
+
   resolvedAuth: ResolvedGatewayAuth;
   /** Optional rate limiter for auth brute-force protection. */
   rateLimiter?: AuthRateLimiter;
->>>>>>> upstream/main
+
   tlsOptions?: TlsOptions;
+
+  canvasHost: CanvasHostHandler | null;
+  clients: Set<GatewayWsClient>;
 }): HttpServer {
   const {
     controlUiEnabled,
@@ -472,6 +446,8 @@ export function createGatewayHttpServer(opts: {
     handlePluginRequest,
     resolvedAuth,
     rateLimiter,
+    canvasHost,
+    clients,
   } = opts;
   const httpServer: HttpServer = opts.tlsOptions
     ? createHttpsServer(opts.tlsOptions, (req, res) => {
@@ -509,17 +485,12 @@ export function createGatewayHttpServer(opts: {
     try {
       const configSnapshot = loadConfig();
       const trustedProxies = configSnapshot.gateway?.trustedProxies ?? [];
-<<<<<<< HEAD
-      if (await handleEcosystemHttpRequest(req, res)) return;
-      if (await handleNexusWebhookHttpRequest(req, res)) return;
-      if (await handleHooksRequest(req, res)) return;
 
-=======
       const requestPath = new URL(req.url ?? "/", "http://localhost").pathname;
       if (await handleHooksRequest(req, res)) {
         return;
       }
->>>>>>> upstream/main
+
       if (
         await handleToolsInvokeHttpRequest(req, res, {
           auth: resolvedAuth,
@@ -528,13 +499,8 @@ export function createGatewayHttpServer(opts: {
         })
       )
         return;
-<<<<<<< HEAD
-      if (handlePluginRequest && (await handlePluginRequest(req, res))) return;
-=======
-      }
-      if (await handleSlackHttpRequest(req, res)) {
-        return;
-      }
+
+
       if (handlePluginRequest) {
         // Channel HTTP endpoints are gateway-auth protected by default.
         // Non-channel plugin routes remain plugin-owned and must enforce
@@ -557,7 +523,7 @@ export function createGatewayHttpServer(opts: {
           return;
         }
       }
->>>>>>> upstream/main
+
       if (openResponsesEnabled) {
         if (
           await handleOpenResponsesHttpRequest(req, res, {
@@ -578,9 +544,7 @@ export function createGatewayHttpServer(opts: {
           })
         )
           return;
-<<<<<<< HEAD
-=======
-        }
+
       }
       if (canvasHost) {
         if (isCanvasPath(requestPath)) {
@@ -602,7 +566,7 @@ export function createGatewayHttpServer(opts: {
         if (await canvasHost.handleHttpRequest(req, res)) {
           return;
         }
->>>>>>> upstream/main
+
       }
 
       if (controlUiEnabled) {
@@ -638,13 +602,7 @@ export function createGatewayHttpServer(opts: {
 export function attachGatewayUpgradeHandler(opts: {
   httpServer: HttpServer;
   wss: WebSocketServer;
-<<<<<<< HEAD
-}) {
-  const { httpServer, wss } = opts;
-  httpServer.on("upgrade", (req, socket, head) => {
-    wss.handleUpgrade(req, socket, head, (ws) => {
-      wss.emit("connection", ws, req);
-=======
+
   canvasHost: CanvasHostHandler | null;
   clients: Set<GatewayWsClient>;
   resolvedAuth: ResolvedGatewayAuth;
@@ -681,7 +639,7 @@ export function attachGatewayUpgradeHandler(opts: {
       });
     })().catch(() => {
       socket.destroy();
->>>>>>> upstream/main
+
     });
   });
 }

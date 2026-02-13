@@ -27,7 +27,7 @@ export type LedgerEvent = {
 };
 
 function defaultStateDir(): string {
-  // Use the standard moltbot state directory usually at ~/.clawdbot/
+  // Use the standard openclaw state directory usually at ~/.clawdbot/
   // But for simple local consistency we can check environment or default
   return path.join(os.homedir(), ".clawdbot", "state");
 }

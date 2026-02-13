@@ -8,7 +8,7 @@ import {
   CHANNEL_MESSAGE_ACTION_NAMES,
   type ChannelMessageActionName,
 } from "../../channels/plugins/types.js";
-import type { MoltbotConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import { loadConfig } from "../../config/config.js";
 import { GATEWAY_CLIENT_IDS, GATEWAY_CLIENT_MODES } from "../../gateway/protocol/client-info.js";
 import { getToolResult, runMessageAction } from "../../infra/outbound/message-action-runner.js";
@@ -239,7 +239,7 @@ const MessageToolSchema = buildMessageToolSchemaFromActions(AllMessageActions, {
 type MessageToolOptions = {
   agentAccountId?: string;
   agentSessionKey?: string;
-  config?: MoltbotConfig;
+  config?: OpenClawConfig;
   currentChannelId?: string;
   currentChannelProvider?: string;
   currentThreadTs?: string;
@@ -247,7 +247,7 @@ type MessageToolOptions = {
   hasRepliedRef?: { value: boolean };
 };
 
-function buildMessageToolSchema(cfg: MoltbotConfig) {
+function buildMessageToolSchema(cfg: OpenClawConfig) {
   const actions = listChannelMessageActions(cfg);
   const includeButtons = supportsChannelMessageButtons(cfg);
   const includeCards = supportsChannelMessageCards(cfg);
@@ -272,7 +272,7 @@ function filterActionsForContext(params: {
 }
 
 function buildMessageToolDescription(options?: {
-  config?: MoltbotConfig;
+  config?: OpenClawConfig;
   currentChannel?: string;
   currentChannelId?: string;
 }): string {

@@ -1,8 +1,8 @@
 import type { OAuthCredentials } from "@mariozechner/pi-ai";
-import { resolveMoltbotAgentDir } from "../agents/agent-paths.js";
+import { resolveOpenClawAgentDir } from "../agents/agent-paths.js";
 import { upsertAuthProfile } from "../agents/auth-profiles.js";
 
-const resolveAuthAgentDir = (agentDir?: string) => agentDir ?? resolveMoltbotAgentDir();
+const resolveAuthAgentDir = (agentDir?: string) => agentDir ?? resolveOpenClawAgentDir();
 
 export async function writeOAuthCredentials(
   provider: string,
@@ -112,11 +112,7 @@ export async function setVeniceApiKey(key: string, agentDir?: string) {
   });
 }
 
-<<<<<<< HEAD
-export const ZAI_DEFAULT_MODEL_REF = "zai/glm-4.7";
-export const OPENROUTER_DEFAULT_MODEL_REF = "openrouter/auto";
-export const VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF = "vercel-ai-gateway/anthropic/claude-opus-4.5";
-=======
+
 export const ZAI_DEFAULT_MODEL_REF = "zai/glm-5";
 export const XIAOMI_DEFAULT_MODEL_REF = "xiaomi/mimo-v2-flash";
 export const OPENROUTER_DEFAULT_MODEL_REF = "openrouter/auto";
@@ -124,7 +120,7 @@ export const HUGGINGFACE_DEFAULT_MODEL_REF = "huggingface/deepseek-ai/DeepSeek-R
 export const TOGETHER_DEFAULT_MODEL_REF = "together/moonshotai/Kimi-K2.5";
 export const LITELLM_DEFAULT_MODEL_REF = "litellm/claude-opus-4-6";
 export const VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF = "vercel-ai-gateway/anthropic/claude-opus-4.6";
->>>>>>> upstream/main
+
 
 export async function setZaiApiKey(key: string, agentDir?: string) {
   // Write to resolved agent dir so gateway finds credentials on startup.
@@ -176,8 +172,7 @@ export async function setOpencodeZenApiKey(key: string, agentDir?: string) {
     agentDir: resolveAuthAgentDir(agentDir),
   });
 }
-<<<<<<< HEAD
-=======
+
 
 export async function setTogetherApiKey(key: string, agentDir?: string) {
   upsertAuthProfile({
@@ -226,4 +221,58 @@ export function setXaiApiKey(key: string, agentDir?: string) {
     agentDir: resolveAuthAgentDir(agentDir),
   });
 }
->>>>>>> upstream/main
+
+
+export const CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF = "cloudflare-ai-gateway/anthropic/claude-3-5-sonnet-latest";
+export const XAI_DEFAULT_MODEL_REF = "xai/grok-4";
+
+export async function setXiaomiApiKey(key: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "xiaomi:default",
+    credential: {
+      type: "api_key",
+      provider: "xiaomi",
+      key,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
+export async function setLitellmApiKey(key: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "litellm:default",
+    credential: {
+      type: "api_key",
+      provider: "litellm",
+      key,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
+export async function setCloudflareAiGatewayConfig(accountId: string, gatewayId: string, apiKey: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "cloudflare-ai-gateway:default",
+    credential: {
+      type: "api_key",
+      provider: "cloudflare-ai-gateway",
+      key: apiKey,
+      // @ts-ignore
+      accountId,
+      gatewayId,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
+export async function setKimiCodingApiKey(key: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "kimi-coding:default",
+    credential: {
+      type: "api_key",
+      provider: "kimi-coding",
+      key,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}

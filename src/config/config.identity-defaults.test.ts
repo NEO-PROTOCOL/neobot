@@ -95,29 +95,7 @@ describe("config identity defaults", () => {
 
   it("supports provider textChunkLimit config", async () => {
     await withTempHome(async (home) => {
-<<<<<<< HEAD
-      const configDir = path.join(home, ".openclaw");
-      await fs.mkdir(configDir, { recursive: true });
-      await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
-        JSON.stringify(
-          {
-            messages: {
-              messagePrefix: "[openclaw]",
-              responsePrefix: "🦞",
-            },
-            channels: {
-              whatsapp: { allowFrom: ["+5562983231110"], textChunkLimit: 4444 },
-              telegram: { enabled: true, textChunkLimit: 3333 },
-              discord: {
-                enabled: true,
-                textChunkLimit: 1999,
-                maxLinesPerMessage: 17,
-              },
-              signal: { enabled: true, textChunkLimit: 2222 },
-              imessage: { enabled: true, textChunkLimit: 1111 },
-            },
-=======
+
       const cfg = await writeAndLoadConfig(home, {
         messages: {
           messagePrefix: "[openclaw]",
@@ -130,7 +108,7 @@ describe("config identity defaults", () => {
             enabled: true,
             textChunkLimit: 1999,
             maxLinesPerMessage: 17,
->>>>>>> upstream/main
+
           },
           signal: { enabled: true, textChunkLimit: 2222 },
           imessage: { enabled: true, textChunkLimit: 1111 },

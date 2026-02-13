@@ -13,7 +13,7 @@ export async function sendEmail(
   const emailConfig = config.email;
 
   if (!emailConfig) {
-    return { success: false, error: "Email not configured in moltbot.json" };
+    return { success: false, error: "Email not configured in openclaw.json" };
   }
 
   const resendApiKey = process.env.RESEND_API_KEY || emailConfig.resend?.apiKey;
@@ -43,7 +43,7 @@ async function sendViaResend(
     // 1. Forçado no parâmetro 'opts.from'
     // 2. Mapeado via 'skillId' (ex: flowpay:unlock)
     // 3. Mapeado via 'nodeId' (ex: flowpay)
-    // 4. Default do Resend config no moltbot.json
+    // 4. Default do Resend config no openclaw.json
     // 5. Hardcoded fallback
 
     let from = opts.from;

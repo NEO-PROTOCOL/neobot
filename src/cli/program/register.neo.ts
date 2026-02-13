@@ -1,7 +1,7 @@
 /**
  * NEO Protocol CLI Registration
  *
- * Registers all NEO Protocol commands in the moltbot CLI
+ * Registers all NEO Protocol commands in the openclaw CLI
  */
 
 import type { Command } from "commander";

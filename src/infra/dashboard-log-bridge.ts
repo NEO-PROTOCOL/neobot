@@ -15,7 +15,7 @@ export function startDashboardLogBridge() {
     ? `${dashboardUrl}api/logs`
     : `${dashboardUrl}/api/logs`;
 
-  console.log(`[moltbot] Dashboard log bridge active -> ${target}`);
+  console.log(`[openclaw] Dashboard log bridge active -> ${target}`);
 
   registerLogTransport(async (logObj) => {
     try {

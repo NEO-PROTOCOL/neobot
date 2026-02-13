@@ -513,7 +513,7 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
     process.exit(0);
   }
 
-  // Commands not handled above (message, channels, gateway, etc.) delegate to full Moltbot CLI
+  // Commands not handled above (message, channels, gateway, etc.) delegate to full OpenClaw CLI
   const { runCli } = await import("./run-main.js");
   await runCli(process.argv);
 }

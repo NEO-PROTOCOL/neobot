@@ -6,7 +6,7 @@
 
 import { Type } from "@sinclair/typebox";
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { MoltbotConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import type { AnyAgentTool } from "./common.js";
 import { jsonResult, readStringParam, readNumberParam } from "./common.js";
 
@@ -81,7 +81,7 @@ const ASI1AIToolSchema = Type.Object({
   ),
 });
 
-export function createASI1AITool(_options?: { config?: MoltbotConfig }): AnyAgentTool {
+export function createASI1AITool(_options?: { config?: OpenClawConfig }): AnyAgentTool {
   return {
     label: "ASI1:One",
     name: "asi1ai",

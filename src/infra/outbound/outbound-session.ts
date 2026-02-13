@@ -1,6 +1,6 @@
 import { getChannelPlugin } from "../../channels/plugins/index.js";
 import type { ChannelId } from "../../channels/plugins/types.js";
-import type { MoltbotConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import { recordSessionMetaFromInbound, resolveStorePath } from "../../config/sessions.js";
 import {
   buildAgentSessionKey,
@@ -24,7 +24,7 @@ export type OutboundSessionRoute = {
 };
 
 export type ResolveOutboundSessionRouteParams = {
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   channel: ChannelId;
   agentId: string;
   accountId?: string | null;
@@ -75,7 +75,7 @@ function inferPeerKind(params: {
 }
 
 function buildBaseSessionKey(params: {
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   agentId: string;
   channel: ChannelId;
   peer: RoutePeer;
@@ -203,7 +203,7 @@ export async function resolveOutboundSessionRoute(
 }
 
 export async function ensureOutboundSessionEntry(params: {
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   agentId: string;
   channel: ChannelId;
   accountId?: string | null;

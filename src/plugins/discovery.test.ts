@@ -8,25 +8,19 @@ import { discoverOpenClawPlugins } from "./discovery.js";
 const tempDirs: string[] = [];
 
 function makeTempDir() {
-  const dir = path.join(os.tmpdir(), `moltbot-plugins-${randomUUID()}`);
+  const dir = path.join(os.tmpdir(), `openclaw-plugins-${randomUUID()}`);
   fs.mkdirSync(dir, { recursive: true });
   tempDirs.push(dir);
   return dir;
 }
 
 async function withStateDir<T>(stateDir: string, fn: () => Promise<T>) {
-<<<<<<< HEAD
-  const prev = process.env.CLAWDBOT_STATE_DIR;
-  const prevBundled = process.env.CLAWDBOT_BUNDLED_PLUGINS_DIR;
-  process.env.CLAWDBOT_STATE_DIR = stateDir;
-  process.env.CLAWDBOT_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
-  vi.resetModules();
-=======
+
   const prev = process.env.OPENCLAW_STATE_DIR;
   const prevBundled = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
   process.env.OPENCLAW_STATE_DIR = stateDir;
   process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
->>>>>>> upstream/main
+
   try {
     return await fn();
   } finally {
@@ -53,7 +47,7 @@ afterEach(() => {
   }
 });
 
-describe("discoverMoltbotPlugins", () => {
+describe("discoverOpenClawPlugins", () => {
   it("discovers global and workspace extensions", async () => {
     const stateDir = makeTempDir();
     const workspaceDir = path.join(stateDir, "workspace");
@@ -67,12 +61,9 @@ describe("discoverMoltbotPlugins", () => {
     fs.writeFileSync(path.join(workspaceExt, "beta.ts"), "export default function () {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-<<<<<<< HEAD
-      const { discoverMoltbotPlugins } = await import("./discovery.js");
-      return discoverMoltbotPlugins({ workspaceDir });
-=======
+
       return discoverOpenClawPlugins({ workspaceDir });
->>>>>>> upstream/main
+
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -89,7 +80,7 @@ describe("discoverMoltbotPlugins", () => {
       path.join(globalExt, "package.json"),
       JSON.stringify({
         name: "pack",
-        moltbot: { extensions: ["./src/one.ts", "./src/two.ts"] },
+        openclaw: { extensions: ["./src/one.ts", "./src/two.ts"] },
       }),
       "utf-8",
     );
@@ -105,12 +96,9 @@ describe("discoverMoltbotPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-<<<<<<< HEAD
-      const { discoverMoltbotPlugins } = await import("./discovery.js");
-      return discoverMoltbotPlugins({});
-=======
+
       return discoverOpenClawPlugins({});
->>>>>>> upstream/main
+
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -127,7 +115,7 @@ describe("discoverMoltbotPlugins", () => {
       path.join(globalExt, "package.json"),
       JSON.stringify({
         name: "@openclaw/voice-call",
-        moltbot: { extensions: ["./src/index.ts"] },
+        openclaw: { extensions: ["./src/index.ts"] },
       }),
       "utf-8",
     );
@@ -138,12 +126,9 @@ describe("discoverMoltbotPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-<<<<<<< HEAD
-      const { discoverMoltbotPlugins } = await import("./discovery.js");
-      return discoverMoltbotPlugins({});
-=======
+
       return discoverOpenClawPlugins({});
->>>>>>> upstream/main
+
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -159,19 +144,16 @@ describe("discoverMoltbotPlugins", () => {
       path.join(packDir, "package.json"),
       JSON.stringify({
         name: "@openclaw/demo-plugin-dir",
-        moltbot: { extensions: ["./index.js"] },
+        openclaw: { extensions: ["./index.js"] },
       }),
       "utf-8",
     );
     fs.writeFileSync(path.join(packDir, "index.js"), "module.exports = {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-<<<<<<< HEAD
-      const { discoverMoltbotPlugins } = await import("./discovery.js");
-      return discoverMoltbotPlugins({ extraPaths: [packDir] });
-=======
+
       return discoverOpenClawPlugins({ extraPaths: [packDir] });
->>>>>>> upstream/main
+
     });
 
     const ids = candidates.map((c) => c.idHint);

@@ -256,7 +256,7 @@ test("dmScope=per-account-channel-peer uses default accountId when not provided"
 
 describe("parentPeer binding inheritance (thread support)", () => {
   test("thread inherits binding from parent channel when no direct match", () => {
-    const cfg: MoltbotConfig = {
+    const cfg: OpenClawConfig = {
       bindings: [
         {
           agentId: "adecco",
@@ -278,7 +278,7 @@ describe("parentPeer binding inheritance (thread support)", () => {
   });
 
   test("direct peer binding wins over parent peer binding", () => {
-    const cfg: MoltbotConfig = {
+    const cfg: OpenClawConfig = {
       bindings: [
         {
           agentId: "thread-agent",
@@ -307,7 +307,7 @@ describe("parentPeer binding inheritance (thread support)", () => {
   });
 
   test("parent peer binding wins over guild binding", () => {
-    const cfg: MoltbotConfig = {
+    const cfg: OpenClawConfig = {
       bindings: [
         {
           agentId: "parent-agent",
@@ -337,7 +337,7 @@ describe("parentPeer binding inheritance (thread support)", () => {
   });
 
   test("falls back to guild binding when no parent peer match", () => {
-    const cfg: MoltbotConfig = {
+    const cfg: OpenClawConfig = {
       bindings: [
         {
           agentId: "other-parent-agent",
@@ -367,7 +367,7 @@ describe("parentPeer binding inheritance (thread support)", () => {
   });
 
   test("parentPeer with empty id is ignored", () => {
-    const cfg: MoltbotConfig = {
+    const cfg: OpenClawConfig = {
       bindings: [
         {
           agentId: "parent-agent",
@@ -389,7 +389,7 @@ describe("parentPeer binding inheritance (thread support)", () => {
   });
 
   test("null parentPeer is handled gracefully", () => {
-    const cfg: MoltbotConfig = {
+    const cfg: OpenClawConfig = {
       bindings: [
         {
           agentId: "parent-agent",

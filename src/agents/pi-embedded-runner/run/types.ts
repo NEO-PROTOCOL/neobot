@@ -5,19 +5,16 @@ type discoverAuthStorageFn = typeof discoverAuthStorage;
 type discoverModelsFn = typeof discoverModels;
 
 import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.js";
-import type { MoltbotConfig } from "../../../config/config.js";
-import type { AgentStreamParams } from "../../../commands/agent/types.js";
-<<<<<<< HEAD
-=======
 import type { OpenClawConfig } from "../../../config/config.js";
+import type { AgentStreamParams } from "../../../commands/agent/types.js";
+
 import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
 import type { InputProvenance } from "../../../sessions/input-provenance.js";
->>>>>>> upstream/main
+
 import type { ExecElevatedDefaults, ExecToolDefaults } from "../../bash-tools.js";
 import type { MessagingToolSend } from "../../pi-embedded-messaging.js";
 import type { BlockReplyChunking, ToolResultFormat } from "../../pi-embedded-subscribe.js";
 import type { SkillSnapshot } from "../../skills.js";
-import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
 import type { ClientToolDefinition } from "./params.js";
 
 type AuthStorage = ReturnType<discoverAuthStorageFn>;
@@ -50,7 +47,7 @@ export type EmbeddedRunAttemptParams = {
   sessionFile: string;
   workspaceDir: string;
   agentDir?: string;
-  config?: MoltbotConfig;
+  config?: OpenClawConfig;
   skillsSnapshot?: SkillSnapshot;
   prompt: string;
   images?: ImageContent[];

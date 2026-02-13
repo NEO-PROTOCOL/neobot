@@ -1,27 +1,11 @@
-<<<<<<< HEAD
-import fs from "node:fs/promises";
-import path from "node:path";
 
-import {
-  type Api,
-  type AssistantMessage,
-  type Context,
-  complete,
-  type Model,
-} from "@mariozechner/pi-ai";
-// import { discoverAuthStorage, discoverModels } from "../../pi-stub.js";
-import { discoverAuthStorage, discoverModels } from "../../infra/pi-adapter.js";
-import { Type } from "@sinclair/typebox";
-
-import type { MoltbotConfig } from "../../config/config.js";
-=======
 import { type Api, type Context, complete, type Model } from "@mariozechner/pi-ai";
 import { Type } from "@sinclair/typebox";
 import path from "node:path";
 import type { OpenClawConfig } from "../../config/config.js";
 import type { SandboxFsBridge } from "../sandbox/fs-bridge.js";
 import type { AnyAgentTool } from "./common.js";
->>>>>>> upstream/main
+
 import { resolveUserPath } from "../../utils.js";
 import { loadWebMedia } from "../../web/media.js";
 import { ensureAuthProfileStore, listProfilesForProvider } from "../auth-profiles.js";
@@ -30,14 +14,10 @@ import { minimaxUnderstandImage } from "../minimax-vlm.js";
 import { getApiKeyForModel, requireApiKey, resolveEnvApiKey } from "../model-auth.js";
 import { runWithImageModelFallback } from "../model-fallback.js";
 import { resolveConfiguredModelRef } from "../model-selection.js";
-<<<<<<< HEAD
-import { ensureMoltbotModelsJson } from "../models-config.js";
-import { assertSandboxPath } from "../sandbox-paths.js";
-import type { AnyAgentTool } from "./common.js";
-=======
+
 import { ensureOpenClawModelsJson } from "../models-config.js";
 import { discoverAuthStorage, discoverModels } from "../pi-model-discovery.js";
->>>>>>> upstream/main
+
 import {
   coerceImageAssistantText,
   coerceImageModelConfig,
@@ -54,9 +34,7 @@ export const __testing = {
   resolveImageToolMaxTokens,
 } as const;
 
-<<<<<<< HEAD
-function resolveDefaultModelRef(cfg?: MoltbotConfig): {
-=======
+
 function resolveImageToolMaxTokens(modelMaxTokens: number | undefined, requestedMaxTokens = 4096) {
   if (
     typeof modelMaxTokens !== "number" ||
@@ -69,7 +47,7 @@ function resolveImageToolMaxTokens(modelMaxTokens: number | undefined, requested
 }
 
 function resolveDefaultModelRef(cfg?: OpenClawConfig): {
->>>>>>> upstream/main
+
   provider: string;
   model: string;
 } {
@@ -101,7 +79,7 @@ function hasAuthForProvider(params: { provider: string; agentDir: string }): boo
  *   - fall back to OpenAI/Anthropic when available
  */
 export function resolveImageModelConfigForTool(params: {
-  cfg?: MoltbotConfig;
+  cfg?: OpenClawConfig;
   agentDir: string;
 }): ImageModelConfig | null {
   // Note: We intentionally do NOT gate based on primarySupportsImages here.
@@ -179,7 +157,7 @@ export function resolveImageModelConfigForTool(params: {
   return null;
 }
 
-function pickMaxBytes(cfg?: MoltbotConfig, maxBytesMb?: number): number | undefined {
+function pickMaxBytes(cfg?: OpenClawConfig, maxBytesMb?: number): number | undefined {
   if (typeof maxBytesMb === "number" && Number.isFinite(maxBytesMb) && maxBytesMb > 0) {
     return Math.floor(maxBytesMb * 1024 * 1024);
   }
@@ -245,7 +223,7 @@ async function resolveSandboxedImagePath(params: {
 }
 
 async function runImagePrompt(params: {
-  cfg?: MoltbotConfig;
+  cfg?: OpenClawConfig;
   agentDir: string;
   imageModelConfig: ImageModelConfig;
   modelOverride?: string;
@@ -258,7 +236,7 @@ async function runImagePrompt(params: {
   model: string;
   attempts: Array<{ provider: string; model: string; error: string }>;
 }> {
-  const effectiveCfg: MoltbotConfig | undefined = params.cfg
+  const effectiveCfg: OpenClawConfig | undefined = params.cfg
     ? {
       ...params.cfg,
       agents: {
@@ -271,7 +249,7 @@ async function runImagePrompt(params: {
     }
     : undefined;
 
-  await ensureMoltbotModelsJson(effectiveCfg, params.agentDir);
+  await ensureOpenClawModelsJson(effectiveCfg, params.agentDir);
   const authStorage = discoverAuthStorage(params.agentDir);
   const modelRegistry = discoverModels(authStorage, params.agentDir);
 
@@ -306,15 +284,11 @@ async function runImagePrompt(params: {
       }
 
       const context = buildImageContext(params.prompt, params.base64, params.mimeType);
-      const message = (await complete(model, context, {
+      const message = await complete(model, context, {
         apiKey,
-<<<<<<< HEAD
-        maxTokens: 512,
-      })) as AssistantMessage;
-=======
         maxTokens: resolveImageToolMaxTokens(model.maxTokens),
       });
->>>>>>> upstream/main
+
       const text = coerceImageAssistantText({
         message,
         provider: model.provider,
@@ -337,7 +311,7 @@ async function runImagePrompt(params: {
 }
 
 export function createImageTool(options?: {
-  config?: MoltbotConfig;
+  config?: OpenClawConfig;
   agentDir?: string;
   sandbox?: ImageSandboxConfig;
   /** If true, the model has native vision capability and images in the prompt are auto-injected */
@@ -424,32 +398,25 @@ export function createImageTool(options?: {
       }
 
       const resolvedImage = (() => {
-<<<<<<< HEAD
-        if (sandboxRoot) return imageRaw;
-        if (imageRaw.startsWith("~")) return resolveUserPath(imageRaw);
-=======
+
         if (sandboxConfig) {
           return imageRaw;
         }
         if (imageRaw.startsWith("~")) {
           return resolveUserPath(imageRaw);
         }
->>>>>>> upstream/main
+
         return imageRaw;
       })();
       const resolvedPathInfo: { resolved: string; rewrittenFrom?: string } = isDataUrl
         ? { resolved: "" }
         : sandboxConfig
           ? await resolveSandboxedImagePath({
-<<<<<<< HEAD
-            sandboxRoot,
-            imagePath: resolvedImage,
-          })
-=======
+
               sandbox: sandboxConfig,
               imagePath: resolvedImage,
             })
->>>>>>> upstream/main
+
           : {
             resolved: resolvedImage.startsWith("file://")
               ? resolvedImage.slice("file://".length)

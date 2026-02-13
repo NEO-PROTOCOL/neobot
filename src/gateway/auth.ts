@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-import { timingSafeEqual } from "node:crypto";
-import type { IncomingMessage } from "node:http";
-import type { GatewayAuthConfig, GatewayTailscaleMode } from "../config/config.js";
-import { readTailscaleWhoisIdentity, type TailscaleWhoisIdentity } from "../infra/tailscale.js";
-import { isTrustedProxyAddress, parseForwardedForClientIp, resolveGatewayClientIp } from "./net.js";
-=======
+
 import type { IncomingMessage } from "node:http";
 import type { GatewayAuthConfig, GatewayTailscaleMode } from "../config/config.js";
 import { readTailscaleWhoisIdentity, type TailscaleWhoisIdentity } from "../infra/tailscale.js";
@@ -21,7 +15,7 @@ import {
   resolveGatewayClientIp,
 } from "./net.js";
 
->>>>>>> upstream/main
+
 export type ResolvedGatewayAuthMode = "token" | "password";
 
 export type ResolvedGatewayAuth = {
@@ -55,14 +49,8 @@ type TailscaleUser = {
 
 type TailscaleWhoisLookup = (ip: string) => Promise<TailscaleWhoisIdentity | null>;
 
-<<<<<<< HEAD
-function safeEqual(a: string, b: string): boolean {
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
-}
 
-=======
->>>>>>> upstream/main
+
 function normalizeLogin(login: string): string {
   return login.trim().toLowerCase();
 }

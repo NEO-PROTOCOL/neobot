@@ -1,9 +1,9 @@
 import type { Api, Model } from "@mariozechner/pi-ai";
 import { discoverAuthStorage, discoverModels } from "../../infra/pi-adapter.js";
 
-import type { MoltbotConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import type { ModelDefinitionConfig } from "../../config/types.js";
-import { resolveMoltbotAgentDir } from "../agent-paths.js";
+import { resolveOpenClawAgentDir } from "../agent-paths.js";
 import { DEFAULT_CONTEXT_TOKENS } from "../defaults.js";
 import { normalizeModelCompat } from "../model-compat.js";
 import { normalizeProviderId } from "../model-selection.js";
@@ -15,8 +15,7 @@ type InlineProviderConfig = {
   models?: ModelDefinitionConfig[];
 };
 
-<<<<<<< HEAD
-=======
+
 const OPENAI_CODEX_GPT_53_MODEL_ID = "gpt-5.3-codex";
 const OPENAI_CODEX_GPT_53_SPARK_MODEL_ID = "gpt-5.3-codex-spark";
 
@@ -199,7 +198,7 @@ function resolveAntigravityOpus46ForwardCompatModel(
   return undefined;
 }
 
->>>>>>> upstream/main
+
 export function buildInlineProviderModels(
   providers: Record<string, InlineProviderConfig>,
 ): InlineModelEntry[] {
@@ -215,7 +214,7 @@ export function buildInlineProviderModels(
   });
 }
 
-export function buildModelAliasLines(cfg?: MoltbotConfig) {
+export function buildModelAliasLines(cfg?: OpenClawConfig) {
   const models = cfg?.agents?.defaults?.models ?? {};
   const entries: Array<{ alias: string; model: string }> = [];
   for (const [keyRaw, entryRaw] of Object.entries(models)) {
@@ -234,14 +233,14 @@ export function resolveModel(
   provider: string,
   modelId: string,
   agentDir?: string,
-  cfg?: MoltbotConfig,
+  cfg?: OpenClawConfig,
 ): {
   model?: Model<Api>;
   error?: string;
   authStorage: ReturnType<typeof discoverAuthStorage>;
   modelRegistry: ReturnType<typeof discoverModels>;
 } {
-  const resolvedAgentDir = agentDir ?? resolveMoltbotAgentDir();
+  const resolvedAgentDir = agentDir ?? resolveOpenClawAgentDir();
   const authStorage = discoverAuthStorage(resolvedAgentDir);
   const modelRegistry = discoverModels(authStorage, resolvedAgentDir);
   const model = modelRegistry.find(provider, modelId) as Model<Api> | null;
@@ -260,8 +259,7 @@ export function resolveModel(
         modelRegistry,
       };
     }
-<<<<<<< HEAD
-=======
+
     // Codex gpt-5.3 forward-compat fallback must be checked BEFORE the generic providerCfg fallback.
     // Otherwise, if cfg.models.providers["openai-codex"] is configured, the generic fallback fires
     // with api: "openai-responses" instead of the correct "openai-codex-responses".
@@ -293,7 +291,7 @@ export function resolveModel(
     if (zaiForwardCompat) {
       return { model: zaiForwardCompat, authStorage, modelRegistry };
     }
->>>>>>> upstream/main
+
     const providerCfg = providers[provider];
     if (providerCfg || modelId.startsWith("mock-")) {
       const fallbackModel: Model<Api> = normalizeModelCompat({

@@ -7,21 +7,16 @@ import {
 import type { ReplyPayload } from "../../auto-reply/types.js";
 import { loadChannelOutboundAdapter } from "../../channels/plugins/outbound/load.js";
 import type { ChannelOutboundAdapter } from "../../channels/plugins/types.js";
-import type { MoltbotConfig } from "../../config/config.js";
-import type { sendMessageTelegram } from "../../telegram/send.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import type { sendMessageWhatsApp } from "../../web/outbound.js";
 import {
   appendAssistantMessageToSessionTranscript,
   resolveMirroredTranscriptText,
 } from "../../config/sessions.js";
-<<<<<<< HEAD
-import type { NormalizedOutboundPayload } from "./payloads.js";
-=======
+
 import { getGlobalHookRunner } from "../../plugins/hook-runner-global.js";
-import { markdownToSignalTextChunks, type SignalTextStyleRange } from "../../signal/format.js";
-import { sendMessageSignal } from "../../signal/send.js";
 import { throwIfAborted } from "./abort.js";
->>>>>>> upstream/main
+
 import { normalizeReplyPayloadsForDelivery } from "./payloads.js";
 import type { OutboundChannel } from "./targets.js";
 
@@ -30,7 +25,6 @@ export { normalizeOutboundPayloads } from "./payloads.js";
 
 export type OutboundSendDeps = {
   sendWhatsApp?: typeof sendMessageWhatsApp;
-  sendTelegram?: typeof sendMessageTelegram;
 };
 
 export type OutboundDeliveryResult = {
@@ -57,14 +51,8 @@ type ChannelHandler = {
   sendMedia: (caption: string, mediaUrl: string) => Promise<OutboundDeliveryResult>;
 };
 
-function throwIfAborted(abortSignal?: AbortSignal): void {
-  if (abortSignal?.aborted) {
-    throw new Error("Outbound delivery aborted");
-  }
-}
-
 async function createChannelHandler(params: {
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   channel: Exclude<OutboundChannel, "none">;
   to: string;
   accountId?: string;
@@ -96,7 +84,7 @@ async function createChannelHandler(params: {
 
 function createPluginHandler(params: {
   outbound?: ChannelOutboundAdapter;
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   channel: Exclude<OutboundChannel, "none">;
   to: string;
   accountId?: string;
@@ -157,7 +145,7 @@ function createPluginHandler(params: {
 }
 
 export async function deliverOutboundPayloads(params: {
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   channel: Exclude<OutboundChannel, "none">;
   to: string;
   accountId?: string;
@@ -168,8 +156,8 @@ export async function deliverOutboundPayloads(params: {
   gifPlayback?: boolean;
   abortSignal?: AbortSignal;
   bestEffort?: boolean;
-  onError?: (err: unknown, payload: NormalizedOutboundPayload) => void;
-  onPayload?: (payload: NormalizedOutboundPayload) => void;
+  onError?: (err: unknown, payload: any) => void;
+  onPayload?: (payload: any) => void;
   mirror?: {
     sessionKey: string;
     agentId?: string;
@@ -230,58 +218,6 @@ export async function deliverOutboundPayloads(params: {
     }
   };
 
-<<<<<<< HEAD
-  const normalizedPayloads = normalizeReplyPayloadsForDelivery(payloads);
-=======
-  const sendSignalText = async (text: string, styles: SignalTextStyleRange[]) => {
-    throwIfAborted(abortSignal);
-    return {
-      channel: "signal" as const,
-      ...(await sendSignal(to, text, {
-        maxBytes: signalMaxBytes,
-        accountId: accountId ?? undefined,
-        textMode: "plain",
-        textStyles: styles,
-      })),
-    };
-  };
-
-  const sendSignalTextChunks = async (text: string) => {
-    throwIfAborted(abortSignal);
-    let signalChunks =
-      textLimit === undefined
-        ? markdownToSignalTextChunks(text, Number.POSITIVE_INFINITY, {
-            tableMode: signalTableMode,
-          })
-        : markdownToSignalTextChunks(text, textLimit, { tableMode: signalTableMode });
-    if (signalChunks.length === 0 && text) {
-      signalChunks = [{ text, styles: [] }];
-    }
-    for (const chunk of signalChunks) {
-      throwIfAborted(abortSignal);
-      results.push(await sendSignalText(chunk.text, chunk.styles));
-    }
-  };
-
-  const sendSignalMedia = async (caption: string, mediaUrl: string) => {
-    throwIfAborted(abortSignal);
-    const formatted = markdownToSignalTextChunks(caption, Number.POSITIVE_INFINITY, {
-      tableMode: signalTableMode,
-    })[0] ?? {
-      text: caption,
-      styles: [],
-    };
-    return {
-      channel: "signal" as const,
-      ...(await sendSignal(to, formatted.text, {
-        mediaUrl,
-        maxBytes: signalMaxBytes,
-        accountId: accountId ?? undefined,
-        textMode: "plain",
-        textStyles: formatted.styles,
-      })),
-    };
-  };
   const normalizeWhatsAppPayload = (payload: ReplyPayload): ReplyPayload | null => {
     const hasMedia = Boolean(payload.mediaUrl) || (payload.mediaUrls?.length ?? 0) > 0;
     const rawText = typeof payload.text === "string" ? payload.text : "";
@@ -300,6 +236,7 @@ export async function deliverOutboundPayloads(params: {
       text: normalizedText,
     };
   };
+
   const normalizedPayloads = normalizeReplyPayloadsForDelivery(payloads).flatMap((payload) => {
     if (channel !== "whatsapp") {
       return [payload];
@@ -308,9 +245,9 @@ export async function deliverOutboundPayloads(params: {
     return normalized ? [normalized] : [];
   });
   const hookRunner = getGlobalHookRunner();
->>>>>>> upstream/main
+
   for (const payload of normalizedPayloads) {
-    const payloadSummary: NormalizedOutboundPayload = {
+    const payloadSummary = {
       text: payload.text ?? "",
       mediaUrls: payload.mediaUrls ?? (payload.mediaUrl ? [payload.mediaUrl] : []),
       channelData: payload.channelData,
@@ -371,16 +308,8 @@ export async function deliverOutboundPayloads(params: {
         continue;
       }
       if (payloadSummary.mediaUrls.length === 0) {
-<<<<<<< HEAD
         await sendTextChunks(payloadSummary.text);
-=======
-        if (isSignalChannel) {
-          await sendSignalTextChunks(payloadSummary.text);
-        } else {
-          await sendTextChunks(payloadSummary.text);
-        }
         emitMessageSent(true);
->>>>>>> upstream/main
         continue;
       }
 
@@ -393,14 +322,10 @@ export async function deliverOutboundPayloads(params: {
       }
       emitMessageSent(true);
     } catch (err) {
-<<<<<<< HEAD
-      if (!params.bestEffort) throw err;
-=======
       emitMessageSent(false, err instanceof Error ? err.message : String(err));
       if (!params.bestEffort) {
         throw err;
       }
->>>>>>> upstream/main
       params.onError?.(err, payloadSummary);
     }
   }

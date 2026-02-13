@@ -42,3 +42,4 @@ export async function listPagesViaPlaywright(opts: any): Promise<any[]> { return
 export async function createPageViaPlaywright(opts: any): Promise<any> { throw new Error("Playwright disabled"); }
 export async function closePageByTargetIdViaPlaywright(opts: any): Promise<void> { }
 export async function focusPageByTargetIdViaPlaywright(opts: any): Promise<void> { }
+export async function forceDisconnectPlaywrightForTarget(opts: any): Promise<void> { }

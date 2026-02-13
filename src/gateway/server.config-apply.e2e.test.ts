@@ -15,22 +15,16 @@ let server: Awaited<ReturnType<typeof startGatewayServer>>;
 let port = 0;
 
 beforeAll(async () => {
-<<<<<<< HEAD
-  previousToken = process.env.CLAWDBOT_GATEWAY_TOKEN;
-  delete process.env.CLAWDBOT_GATEWAY_TOKEN;
-=======
->>>>>>> upstream/main
+
+
   port = await getFreePort();
   server = await startGatewayServer(port, { controlUiEnabled: true });
 });
 
 afterAll(async () => {
   await server.close();
-<<<<<<< HEAD
-  if (previousToken === undefined) delete process.env.CLAWDBOT_GATEWAY_TOKEN;
-  else process.env.CLAWDBOT_GATEWAY_TOKEN = previousToken;
-=======
->>>>>>> upstream/main
+
+
 });
 
 const openClient = async () => {
@@ -41,50 +35,8 @@ const openClient = async () => {
 };
 
 describe("gateway config.apply", () => {
-<<<<<<< HEAD
-  it("writes config, stores sentinel, and schedules restart", async () => {
-    const ws = await openClient();
-    try {
-      const id = "req-1";
-      ws.send(
-        JSON.stringify({
-          type: "req",
-          id,
-          method: "config.apply",
-          params: {
-            raw: '{ "agents": { "list": [{ "id": "main", "workspace": "~/clawd" }] } }',
-            sessionKey: "agent:main:whatsapp:dm:+5562983231110",
-            restartDelayMs: 0,
-          },
-        }),
-      );
-      const res = await onceMessage<{ ok: boolean; payload?: unknown }>(
-        ws,
-        (o) => o.type === "res" && o.id === id,
-      );
-      expect(res.ok).toBe(true);
 
-      // Verify sentinel file was created (restart was scheduled)
-      const sentinelPath = path.join(os.homedir(), ".clawdbot", "restart-sentinel.json");
 
-      // Wait for file to be written
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      try {
-        const raw = await fs.readFile(sentinelPath, "utf-8");
-        const parsed = JSON.parse(raw) as { payload?: { kind?: string } };
-        expect(parsed.payload?.kind).toBe("config-apply");
-      } catch {
-        // File may not exist if signal delivery is mocked, verify response was ok instead
-        expect(res.ok).toBe(true);
-      }
-    } finally {
-      ws.close();
-    }
-  });
-
-=======
->>>>>>> upstream/main
   it("rejects invalid raw config", async () => {
     const ws = await openClient();
     try {

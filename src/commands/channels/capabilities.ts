@@ -2,7 +2,7 @@ import { getChannelPlugin, listChannelPlugins } from "../../channels/plugins/ind
 import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.js";
 import type { ChannelCapabilities, ChannelPlugin } from "../../channels/plugins/types.js";
 import { danger } from "../../globals.js";
-import type { MoltbotConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
 import { theme } from "../../terminal/theme.js";
 import { formatChannelAccountLabel, requireValidConfig } from "./shared.js";
@@ -93,7 +93,7 @@ function formatProbeLines(channelId: string, probe: unknown): string[] {
 
 async function resolveChannelReports(params: {
   plugin: ChannelPlugin;
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   timeoutMs: number;
   accountOverride?: string;
   target?: string;

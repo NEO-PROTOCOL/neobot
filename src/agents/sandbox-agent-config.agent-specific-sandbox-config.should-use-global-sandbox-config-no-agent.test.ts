@@ -55,7 +55,7 @@ describe("Agent-specific sandbox config", () => {
   beforeEach(async () => {
     spawnCalls.length = 0;
     previousStateDir = process.env.MOLTBOT_STATE_DIR;
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "moltbot-test-state-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-test-state-"));
     process.env.MOLTBOT_STATE_DIR = tempStateDir;
     vi.resetModules();
   });

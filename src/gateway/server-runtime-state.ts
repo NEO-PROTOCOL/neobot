@@ -2,13 +2,11 @@ import type { Server as HttpServer } from "node:http";
 import { WebSocketServer } from "ws";
 import type { CliDeps } from "../cli/deps.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
-<<<<<<< HEAD
 
-=======
 import type { PluginRegistry } from "../plugins/registry.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { AuthRateLimiter } from "./auth-rate-limit.js";
->>>>>>> upstream/main
+
 import type { ResolvedGatewayAuth } from "./auth.js";
 import type { ChatAbortControllerEntry } from "./chat-abort.js";
 import type { HooksConfigResolved } from "./hooks.js";
@@ -22,11 +20,11 @@ import { type ChatRunEntry, createChatRunState } from "./server-chat.js";
 import { MAX_PAYLOAD_BYTES } from "./server-constants.js";
 import { attachGatewayUpgradeHandler, createGatewayHttpServer } from "./server-http.js";
 import type { DedupeEntry } from "./server-shared.js";
-import type { PluginRegistry } from "../plugins/registry.js";
+
 import type { GatewayTlsRuntime } from "./server/tls.js";
 
 export async function createGatewayRuntimeState(params: {
-  cfg: import("../config/config.js").MoltbotConfig;
+  cfg: import("../config/config.js").OpenClawConfig;
   bindHost: string;
   port: number;
   controlUiEnabled: boolean;
@@ -84,6 +82,9 @@ export async function createGatewayRuntimeState(params: {
     log: params.logPlugins,
   });
 
+  const clients = new Set<GatewayWsClient>();
+  const canvasHost = null; // Canvas host logic is currently disabled in this runtime
+
   const bindHosts = await resolveGatewayListenHosts(params.bindHost);
   const httpServers: HttpServer[] = [];
   const httpBindHosts: string[] = [];
@@ -99,6 +100,8 @@ export async function createGatewayRuntimeState(params: {
       resolvedAuth: params.resolvedAuth,
       rateLimiter: params.rateLimiter,
       tlsOptions: params.gatewayTls?.enabled ? params.gatewayTls.tlsOptions : undefined,
+      canvasHost,
+      clients,
     });
     try {
       await listenGatewayHttpServer({
@@ -125,9 +128,6 @@ export async function createGatewayRuntimeState(params: {
     maxPayload: MAX_PAYLOAD_BYTES,
   });
   for (const server of httpServers) {
-<<<<<<< HEAD
-    attachGatewayUpgradeHandler({ httpServer: server, wss });
-=======
     attachGatewayUpgradeHandler({
       httpServer: server,
       wss,
@@ -136,10 +136,8 @@ export async function createGatewayRuntimeState(params: {
       resolvedAuth: params.resolvedAuth,
       rateLimiter: params.rateLimiter,
     });
->>>>>>> upstream/main
   }
 
-  const clients = new Set<GatewayWsClient>();
   const { broadcast } = createGatewayBroadcaster({ clients });
   const agentRunSeq = new Map<string, number>();
   const dedupe = new Map<string, DedupeEntry>();

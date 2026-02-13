@@ -2,8 +2,8 @@
 // the agent reports a model id. This includes custom models.json entries.
 
 import { loadConfig } from "../config/config.js";
-import { resolveMoltbotAgentDir } from "./agent-paths.js";
-import { ensureMoltbotModelsJson } from "./models-config.js";
+import { resolveOpenClawAgentDir } from "./agent-paths.js";
+import { ensureOpenClawModelsJson } from "./models-config.js";
 
 type ModelEntry = { id: string; contextWindow?: number };
 
@@ -15,8 +15,8 @@ const loadPromise = (async () => {
     // const discoverAuthStorage = (_agentDir: string) => ({ setRuntimeApiKey: () => {}, getApiKey: () => null });
     // const discoverModels = (_auth: any, _agentDir: string) => ({ getAll: () => [] });
     const cfg = loadConfig();
-    await ensureMoltbotModelsJson(cfg);
-    const agentDir = resolveMoltbotAgentDir();
+    await ensureOpenClawModelsJson(cfg);
+    const agentDir = resolveOpenClawAgentDir();
     const authStorage = discoverAuthStorage(agentDir);
     const modelRegistry = discoverModels(authStorage, agentDir);
     const models = modelRegistry.getAll() as ModelEntry[];

@@ -12,23 +12,24 @@ import { resolveHeartbeatPrompt } from "../../auto-reply/heartbeat.js";
 import type { ReasoningLevel, ThinkLevel } from "../../auto-reply/thinking.js";
 import { listChannelSupportedActions, resolveChannelMessageToolHints } from "../channel-tools.js";
 import { resolveChannelCapabilities } from "../../config/channel-capabilities.js";
-import type { MoltbotConfig } from "../../config/config.js";
+import { resolveTranscriptPolicy } from "../transcript-policy.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import { getMachineDisplayName } from "../../infra/machine-name.js";
-import { resolveTelegramInlineButtonsScope } from "../../telegram/inline-buttons.js";
-import { resolveTelegramReactionLevel } from "../../telegram/reaction-level.js";
+// import { resolveTelegramInlineButtonsScope } from "../../telegram/inline-buttons.js";
+// import { resolveTelegramReactionLevel } from "../../telegram/reaction-level.js";
 import { type enqueueCommand, enqueueCommandInLane } from "../../process/command-queue.js";
 import { normalizeMessageChannel } from "../../utils/message-channel.js";
 import { isSubagentSessionKey } from "../../routing/session-key.js";
 import { isReasoningTagProvider } from "../../utils/provider-utils.js";
 import { resolveUserPath } from "../../utils.js";
-import { resolveMoltbotAgentDir } from "../agent-paths.js";
+import { resolveOpenClawAgentDir } from "../agent-paths.js";
 import { resolveSessionAgentIds } from "../agent-scope.js";
 import { makeBootstrapWarn, resolveBootstrapContextForRun } from "../bootstrap-files.js";
-import { resolveMoltbotDocsPath } from "../docs-path.js";
+import { resolveOpenClawDocsPath } from "../docs-path.js";
 import type { ExecElevatedDefaults } from "../bash-tools.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.js";
 import { getApiKeyForModel, resolveModelAuthMode } from "../model-auth.js";
-import { ensureMoltbotModelsJson } from "../models-config.js";
+import { ensureOpenClawModelsJson } from "../models-config.js";
 import {
   ensureSessionHeader,
   validateAnthropicTurns,
@@ -38,14 +39,12 @@ import {
   ensurePiCompactionReserveTokens,
   resolveCompactionReserveTokensFloor,
 } from "../pi-settings.js";
-import { createMoltbotCodingTools } from "../pi-tools.js";
+import { createOpenClawCodingTools } from "../pi-tools.js";
 import { resolveSandboxContext } from "../sandbox.js";
 import { guardSessionManager } from "../session-tool-result-guard-wrapper.js";
-<<<<<<< HEAD
-import { resolveTranscriptPolicy } from "../transcript-policy.js";
-=======
+
 import { sanitizeToolUseResultPairing } from "../session-transcript-repair.js";
->>>>>>> upstream/main
+
 import { acquireSessionWriteLock } from "../session-write-lock.js";
 import {
   applySkillEnvOverrides,
@@ -66,7 +65,11 @@ import { log } from "./logger.js";
 import { buildModelAliasLines, resolveModel } from "./model.js";
 import { buildEmbeddedSandboxInfo } from "./sandbox-info.js";
 import { prewarmSessionFile, trackSessionManagerAccess } from "./session-manager-cache.js";
-import { buildEmbeddedSystemPrompt, createSystemPromptOverride } from "./system-prompt.js";
+import {
+  applySystemPromptOverrideToSession,
+  buildEmbeddedSystemPrompt,
+  createSystemPromptOverride,
+} from "./system-prompt.js";
 import { splitSdkTools } from "./tool-split.js";
 import type { EmbeddedPiCompactResult } from "./types.js";
 import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.js";
@@ -91,7 +94,7 @@ export type CompactEmbeddedPiSessionParams = {
   sessionFile: string;
   workspaceDir: string;
   agentDir?: string;
-  config?: MoltbotConfig;
+  config?: OpenClawConfig;
   skillsSnapshot?: SkillSnapshot;
   provider?: string;
   model?: string;
@@ -117,8 +120,8 @@ export async function compactEmbeddedPiSessionDirect(
 
   const provider = (params.provider ?? DEFAULT_PROVIDER).trim() || DEFAULT_PROVIDER;
   const modelId = (params.model ?? DEFAULT_MODEL).trim() || DEFAULT_MODEL;
-  const agentDir = params.agentDir ?? resolveMoltbotAgentDir();
-  await ensureMoltbotModelsJson(params.config, agentDir);
+  const agentDir = params.agentDir ?? resolveOpenClawAgentDir();
+  await ensureOpenClawModelsJson(params.config, agentDir);
   const { model, error, authStorage, modelRegistry } = resolveModel(
     provider,
     modelId,
@@ -214,7 +217,7 @@ export async function compactEmbeddedPiSessionDirect(
       warn: makeBootstrapWarn({ sessionLabel, warn: (message) => log.warn(message) }),
     });
     const runAbortController = new AbortController();
-    const toolsRaw = createMoltbotCodingTools({
+    const toolsRaw = createOpenClawCodingTools({
       exec: {
         ...resolveExecToolDefaults(params.config),
         elevated: params.bashElevated,
@@ -246,6 +249,7 @@ export async function compactEmbeddedPiSessionDirect(
         accountId: params.agentAccountId,
       }) ?? [])
       : undefined;
+    /*
     if (runtimeChannel === "telegram" && params.config) {
       const inlineButtonsScope = resolveTelegramInlineButtonsScope({
         cfg: params.config,
@@ -260,7 +264,9 @@ export async function compactEmbeddedPiSessionDirect(
         }
       }
     }
-    const reactionGuidance =
+    */
+    const reactionGuidance = undefined;
+    /*
       runtimeChannel && params.config
         ? (() => {
           if (runtimeChannel === "telegram") {
@@ -274,6 +280,7 @@ export async function compactEmbeddedPiSessionDirect(
           return undefined;
         })()
         : undefined;
+    */
     // Resolve channel-specific message actions for system prompt
     const channelActions = runtimeChannel
       ? listChannelSupportedActions({
@@ -310,7 +317,7 @@ export async function compactEmbeddedPiSessionDirect(
     });
     const isDefaultAgent = sessionAgentId === defaultAgentId;
     const promptMode = isSubagentSessionKey(params.sessionKey) ? "minimal" : "full";
-    const docsPath = await resolveMoltbotDocsPath({
+    const docsPath = await resolveOpenClawDocsPath({
       workspaceDir: effectiveWorkspace,
       argv1: process.argv[1],
       cwd: process.cwd(),
@@ -382,19 +389,17 @@ export async function compactEmbeddedPiSessionDirect(
       ({ session } = await createAgentSession({
         cwd: resolvedWorkspace,
         agentDir,
-        authStorage,
-        modelRegistry,
+        authStorage: authStorage as any,
+        modelRegistry: modelRegistry as any,
         model,
         thinkingLevel: mapThinkingLevel(params.thinkLevel),
-        systemPrompt,
         tools: builtInTools,
         customTools,
         sessionManager,
         settingsManager,
-        skills: [],
-        contextFiles: [],
-        additionalExtensionPaths,
       }));
+
+      applySystemPromptOverrideToSession(session, systemPrompt);
 
       try {
         const prior = await sanitizeSessionHistory({

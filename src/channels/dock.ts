@@ -1,11 +1,8 @@
-import type { MoltbotConfig } from "../config/config.js";
-import { resolveTelegramAccount } from "../telegram/accounts.js";
+import type { OpenClawConfig } from "../config/config.js";
 import { resolveWhatsAppAccount } from "../web/accounts.js";
 import { normalizeWhatsAppTarget } from "../whatsapp/normalize.js";
 import { requireActivePluginRegistry } from "../plugins/runtime.js";
 import {
-  resolveTelegramGroupRequireMention,
-  resolveTelegramGroupToolPolicy,
   resolveWhatsAppGroupRequireMention,
   resolveWhatsAppGroupToolPolicy,
 } from "./plugins/group-mentions.js";
@@ -33,11 +30,11 @@ export type ChannelDock = {
   elevated?: ChannelElevatedAdapter;
   config?: {
     resolveAllowFrom?: (params: {
-      cfg: MoltbotConfig;
+      cfg: OpenClawConfig;
       accountId?: string | null;
     }) => Array<string | number> | undefined;
     formatAllowFrom?: (params: {
-      cfg: MoltbotConfig;
+      cfg: OpenClawConfig;
       accountId?: string | null;
       allowFrom: Array<string | number>;
     }) => string[];
@@ -59,42 +56,7 @@ const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\
 
 // Channel docks: lightweight channel metadata/behavior for shared code paths.
 const DOCKS: Record<ChatChannelId, ChannelDock> = {
-  telegram: {
-    id: "telegram",
-    capabilities: {
-      chatTypes: ["direct", "group", "channel", "thread"],
-      nativeCommands: true,
-      blockStreaming: true,
-    },
-    outbound: { textChunkLimit: 4000 },
-    config: {
-      resolveAllowFrom: ({ cfg, accountId }) =>
-        (resolveTelegramAccount({ cfg, accountId }).config.allowFrom ?? []).map((entry) =>
-          String(entry),
-        ),
-      formatAllowFrom: ({ allowFrom }) =>
-        allowFrom
-          .map((entry) => String(entry).trim())
-          .filter(Boolean)
-          .map((entry) => entry.replace(/^(telegram|tg):/i, ""))
-          .map((entry) => entry.toLowerCase()),
-    },
-    groups: {
-      resolveRequireMention: resolveTelegramGroupRequireMention,
-      resolveToolPolicy: resolveTelegramGroupToolPolicy,
-    },
-    threading: {
-      resolveReplyToMode: ({ cfg }) => cfg.channels?.telegram?.replyToMode ?? "first",
-      buildToolContext: ({ context, hasRepliedRef }) => {
-        const threadId = context.MessageThreadId ?? context.ReplyToId;
-        return {
-          currentChannelId: context.To?.trim() || undefined,
-          currentThreadTs: threadId != null ? String(threadId) : undefined,
-          hasRepliedRef,
-        };
-      },
-    },
-  },
+
   whatsapp: {
     id: "whatsapp",
     capabilities: {

@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import type { MoltbotConfig } from "../config/config.js";
-=======
+
 import type { OpenClawConfig } from "../config/config.js";
 import type { GatewayMessageChannel } from "../utils/message-channel.js";
 import type { SandboxFsBridge } from "./sandbox/fs-bridge.js";
-import type { AnyAgentTool } from "./tools/common.js";
->>>>>>> upstream/main
 import { resolvePluginTools } from "../plugins/tools.js";
-import type { GatewayMessageChannel } from "../utils/message-channel.js";
 import { resolveSessionAgentId } from "./agent-scope.js";
 import { createAgentsListTool } from "./tools/agents-list-tool.js";
 import { createBrowserTool } from "./tools/browser-tool.js";
@@ -28,7 +23,7 @@ import { createTtsTool } from "./tools/tts-tool.js";
 import { createFlowPayTool } from "./tools/flowpay-tool.js";
 import { createASI1AITool } from "./tools/asi1ai-tool.js";
 
-export function createMoltbotTools(options?: {
+export function createOpenClawTools(options?: {
   sandboxBrowserBridgeUrl?: string;
   allowHostBrowserControl?: boolean;
   agentSessionKey?: string;
@@ -49,7 +44,7 @@ export function createMoltbotTools(options?: {
   sandboxFsBridge?: SandboxFsBridge;
   workspaceDir?: string;
   sandboxed?: boolean;
-  config?: MoltbotConfig;
+  config?: OpenClawConfig;
   pluginToolAllowlist?: string[];
   /** Current channel ID for auto-threading (Slack). */
   currentChannelId?: string;

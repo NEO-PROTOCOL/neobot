@@ -5,7 +5,7 @@
 
 import { Type } from "@sinclair/typebox";
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { MoltbotConfig } from "../../config/config.js";
+import type { OpenClawConfig } from "../../config/config.js";
 import type { AnyAgentTool } from "./common.js";
 import { jsonResult, readStringParam, readNumberParam } from "./common.js";
 
@@ -45,7 +45,7 @@ const FlowPayToolSchema = Type.Object({
   ),
 });
 
-export function createFlowPayTool(_options?: { config?: MoltbotConfig }): AnyAgentTool {
+export function createFlowPayTool(_options?: { config?: OpenClawConfig }): AnyAgentTool {
   return {
     label: "FlowPay Sovereign",
     name: "flowpay",

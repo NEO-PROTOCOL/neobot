@@ -32,7 +32,7 @@ import {
 import { resolveModel } from "../agents/pi-embedded-runner/model.js";
 import { normalizeChannelId } from "../channels/plugins/index.js";
 import { logVerbose } from "../globals.js";
-import { stripMarkdown } from "../line/markdown-to-line.js";
+import { stripMarkdown } from "../markdown/strip.js";
 import { isVoiceCompatibleAudio } from "../media/audio.js";
 import { CONFIG_DIR, resolveUserPath } from "../utils.js";
 

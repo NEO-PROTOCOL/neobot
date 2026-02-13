@@ -9,27 +9,43 @@ import type { Model, Api } from "@mariozechner/pi-ai";
 // --- Type Definitions ---
 
 export interface AuthStorage {
+    authPath: string;
+    data: any;
+    runtimeOverrides: any;
     setRuntimeApiKey(provider: string, key: string): void;
+    removeRuntimeApiKey(provider: string): void;
     getApiKey(provider: string): string | null;
     load(): void;
     save(): void;
+    [key: string]: any;
 }
 
 export interface ModelRegistry {
+    authStorage: AuthStorage;
+    modelsJsonPath: string;
+    models: Model<Api>[];
+    customProviderApiKeys: any;
     find(provider: string, modelId: string): Model<Api> | null;
     getAll(): Model<Api>[];
     getAvailable(): Model<Api>[];
+    [key: string]: any;
 }
 
 // --- Implementation ---
 
-export const discoverAuthStorage = (_agentDir: string): AuthStorage => {
+export const discoverAuthStorage = (agentDir: string): AuthStorage => {
     // In-memory runtime storage for session keys
     const runtimeKeys = new Map<string, string>();
 
     return {
+        authPath: agentDir,
+        data: {},
+        runtimeOverrides: {},
         setRuntimeApiKey: (provider: string, key: string) => {
             runtimeKeys.set(provider, key);
+        },
+        removeRuntimeApiKey: (provider: string) => {
+            runtimeKeys.delete(provider);
         },
         getApiKey: (provider: string) => {
             // Priority: Runtime > Environment Variable
@@ -46,11 +62,15 @@ export const discoverAuthStorage = (_agentDir: string): AuthStorage => {
         save: () => {
             // No-op: We do not persist keys to disk in this adapter for security (read-only filesystem compat).
         }
-    };
+    } as AuthStorage;
 };
 
-export const discoverModels = (_auth: any, _agentDir: string): ModelRegistry => {
+export const discoverModels = (auth: any, agentDir: string): ModelRegistry => {
     return {
+        authStorage: auth,
+        modelsJsonPath: agentDir,
+        models: [],
+        customProviderApiKeys: {},
         find: (provider: string, modelId: string): Model<Api> | null => {
             // Dynamic Model Construction on Request
             return {
@@ -63,10 +83,9 @@ export const discoverModels = (_auth: any, _agentDir: string): ModelRegistry => 
                 maxTokens: 4096,
                 cost: { input: 0, output: 0 },
                 description: "Sovereign Adapter Model",
-                // Extra fields to satisfy strict interfaces if needed, handled via 'as any' cast below
-            } as unknown as Model<Api>;
+            } as any;
         },
         getAll: () => [],
         getAvailable: () => []
-    };
+    } as ModelRegistry;
 };

@@ -13,18 +13,19 @@ import {
 } from "../../channel-tools.js";
 import { resolveChannelCapabilities } from "../../../config/channel-capabilities.js";
 import { getMachineDisplayName } from "../../../infra/machine-name.js";
-import { resolveTelegramInlineButtonsScope } from "../../../telegram/inline-buttons.js";
-import { resolveTelegramReactionLevel } from "../../../telegram/reaction-level.js";
+// import { resolveTelegramInlineButtonsScope } from "../../../telegram/inline-buttons.js";
+// import { resolveTelegramReactionLevel } from "../../../telegram/reaction-level.js";
+import { resolveTranscriptPolicy } from "../../transcript-policy.js";
 import { normalizeMessageChannel } from "../../../utils/message-channel.js";
 import { isReasoningTagProvider } from "../../../utils/provider-utils.js";
-import { isSubagentSessionKey } from "../../../routing/session-key.js";
+import { isSubagentSessionKey, normalizeAgentId } from "../../../routing/session-key.js";
 import { resolveUserPath } from "../../../utils.js";
 import { createCacheTrace } from "../../cache-trace.js";
 import { createAnthropicPayloadLogger } from "../../anthropic-payload-log.js";
-import { resolveMoltbotAgentDir } from "../../agent-paths.js";
+import { resolveOpenClawAgentDir } from "../../agent-paths.js";
 import { resolveSessionAgentIds } from "../../agent-scope.js";
 import { makeBootstrapWarn, resolveBootstrapContextForRun } from "../../bootstrap-files.js";
-import { resolveMoltbotDocsPath } from "../../docs-path.js";
+import { resolveOpenClawDocsPath } from "../../docs-path.js";
 import { resolveModelAuthMode } from "../../model-auth.js";
 import {
   isCloudCodeAssistFormatError,
@@ -37,14 +38,12 @@ import {
   ensurePiCompactionReserveTokens,
   resolveCompactionReserveTokensFloor,
 } from "../../pi-settings.js";
-import { createMoltbotCodingTools } from "../../pi-tools.js";
+import { createOpenClawCodingTools } from "../../pi-tools.js";
 import { resolveSandboxContext } from "../../sandbox.js";
 import { guardSessionManager } from "../../session-tool-result-guard-wrapper.js";
-<<<<<<< HEAD
-import { resolveTranscriptPolicy } from "../../transcript-policy.js";
-=======
+
 import { sanitizeToolUseResultPairing } from "../../session-transcript-repair.js";
->>>>>>> upstream/main
+
 import { acquireSessionWriteLock } from "../../session-write-lock.js";
 import {
   applySkillEnvOverrides,
@@ -56,7 +55,7 @@ import { DEFAULT_BOOTSTRAP_FILENAME } from "../../workspace.js";
 import { buildSystemPromptReport } from "../../system-prompt-report.js";
 import { resolveDefaultModelForAgent } from "../../model-selection.js";
 
-import { isAbortError } from "../abort.js";
+import { isRunnerAbortError } from "../abort.js";
 import { buildEmbeddedExtensionPaths } from "../extensions.js";
 import { applyExtraParamsToAgent } from "../extra-params.js";
 import { appendCacheTtlTimestamp, isCacheTtlEligibleProvider } from "../cache-ttl.js";
@@ -77,7 +76,11 @@ import {
 import { buildEmbeddedSandboxInfo } from "../sandbox-info.js";
 import { prewarmSessionFile, trackSessionManagerAccess } from "../session-manager-cache.js";
 import { prepareSessionManagerForRun } from "../session-manager-init.js";
-import { buildEmbeddedSystemPrompt, createSystemPromptOverride } from "../system-prompt.js";
+import {
+  applySystemPromptOverrideToSession,
+  buildEmbeddedSystemPrompt,
+  createSystemPromptOverride,
+} from "../system-prompt.js";
 import { splitSdkTools } from "../tool-split.js";
 import { toClientToolDefinitions } from "../../pi-tool-definition-adapter.js";
 import { buildSystemPromptParams } from "../../system-prompt-params.js";
@@ -199,13 +202,13 @@ export async function runEmbeddedAttempt(
       ? ["Reminder: commit your changes in this workspace after edits."]
       : undefined;
 
-    const agentDir = params.agentDir ?? resolveMoltbotAgentDir();
+    const agentDir = params.agentDir ?? resolveOpenClawAgentDir();
 
     // Check if the model supports native image input
     const modelHasVision = params.model.input?.includes("image") ?? false;
     const toolsRaw = params.disableTools
       ? []
-      : createMoltbotCodingTools({
+      : createOpenClawCodingTools({
         exec: {
           ...params.execOverrides,
           elevated: params.bashElevated,
@@ -249,6 +252,7 @@ export async function runEmbeddedAttempt(
         accountId: params.agentAccountId,
       }) ?? [])
       : undefined;
+    /*
     if (runtimeChannel === "telegram" && params.config) {
       const inlineButtonsScope = resolveTelegramInlineButtonsScope({
         cfg: params.config,
@@ -263,7 +267,9 @@ export async function runEmbeddedAttempt(
         }
       }
     }
-    const reactionGuidance =
+    */
+    const reactionGuidance = undefined;
+    /*
       runtimeChannel && params.config
         ? (() => {
           if (runtimeChannel === "telegram") {
@@ -277,6 +283,7 @@ export async function runEmbeddedAttempt(
           return undefined;
         })()
         : undefined;
+    */
     const { defaultAgentId, sessionAgentId } = resolveSessionAgentIds({
       sessionKey: params.sessionKey,
       config: params.config,
@@ -322,7 +329,7 @@ export async function runEmbeddedAttempt(
     });
     const isDefaultAgent = sessionAgentId === defaultAgentId;
     const promptMode = isSubagentSessionKey(params.sessionKey) ? "minimal" : "full";
-    const docsPath = await resolveMoltbotDocsPath({
+    const docsPath = await resolveOpenClawDocsPath({
       workspaceDir: effectiveWorkspace,
       argv1: process.argv[1],
       cwd: process.cwd(),
@@ -450,19 +457,17 @@ export async function runEmbeddedAttempt(
       ({ session } = await createAgentSession({
         cwd: resolvedWorkspace,
         agentDir,
-        authStorage: params.authStorage,
-        modelRegistry: params.modelRegistry,
+        authStorage: params.authStorage as any,
+        modelRegistry: params.modelRegistry as any,
         model: params.model,
         thinkingLevel: mapThinkingLevel(params.thinkLevel),
-        systemPrompt,
         tools: builtInTools,
         customTools: allCustomTools,
         sessionManager,
         settingsManager,
-        skills: [],
-        contextFiles: [],
-        additionalExtensionPaths,
       }));
+
+      applySystemPromptOverrideToSession(session, systemPrompt);
       if (!session) {
         throw new Error("Embedded agent session missing");
       }
@@ -683,19 +688,13 @@ export async function runEmbeddedAttempt(
         }
       }
 
-<<<<<<< HEAD
-      // Get hook runner once for both before_agent_start and agent_end hooks
-      const hookRunner = getGlobalHookRunner();
-=======
+
       // Hook runner was already obtained earlier before tool creation
-      const hookAgentId =
-        typeof params.agentId === "string" && params.agentId.trim()
-          ? normalizeAgentId(params.agentId)
-          : resolveSessionAgentIds({
-              sessionKey: params.sessionKey,
-              config: params.config,
-            }).sessionAgentId;
->>>>>>> upstream/main
+      const hookAgentId = resolveSessionAgentIds({
+               sessionKey: params.sessionKey,
+               config: params.config,
+             }).sessionAgentId;
+
 
       let promptError: unknown = null;
       try {
@@ -807,7 +806,7 @@ export async function runEmbeddedAttempt(
         try {
           await waitForCompactionRetry();
         } catch (err) {
-          if (isAbortError(err)) {
+          if (isRunnerAbortError(err)) {
             if (!promptError) promptError = err;
           } else {
             throw err;

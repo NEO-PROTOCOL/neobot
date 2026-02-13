@@ -18,8 +18,7 @@ import { sensitive } from "./zod-schema.sensitive.js";
 
 const ToolPolicyBySenderSchema = z.record(z.string(), ToolPolicySchema).optional();
 
-<<<<<<< HEAD
-=======
+
 const TelegramInlineButtonsScopeSchema = z.enum(["off", "dm", "group", "all", "allowlist"]);
 
 const TelegramCapabilitiesSchema = z.union([
@@ -204,7 +203,7 @@ export const TelegramConfigSchema = TelegramAccountSchemaBase.extend({
   }
 });
 
->>>>>>> upstream/main
+
 export const DiscordDmSchema = z
   .object({
     enabled: z.boolean().optional(),

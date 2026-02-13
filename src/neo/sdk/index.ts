@@ -38,7 +38,7 @@ export const NEO_PROTOCOL_VERSION = "1.0.0-alpha";
 export const NEO_PROTOCOL_INFO = {
   name: "NEO Protocol",
   version: NEO_PROTOCOL_VERSION,
-  description: "Camada descentralizada e autônoma sobre Moltbot Core",
+  description: "Camada descentralizada e autônoma sobre OpenClaw Core",
 
   components: {
     registry: "IPFS-based Skills Registry",
@@ -49,7 +49,7 @@ export const NEO_PROTOCOL_INFO = {
 
   autonomy: {
     neo: "60%",
-    moltbot: "40%",
+    openclaw: "40%",
   },
 
   links: {
