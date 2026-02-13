@@ -19,7 +19,6 @@ const ENV_MAP: Record<string, string> = {
     "mio-factory": "NEO_FACTORY_PRIVATE_KEY",
     "mio-flowpay": "NEO_FLOWPAY_PRIVATE_KEY",
     "mio-asi1": "NEO_ASI1_PRIVATE_KEY",
-    "mio-telegram": "NEO_TELEGRAM_PRIVATE_KEY",
     "mio-whatsapp": "NEO_WHATSAPP_PRIVATE_KEY",
     "mio-ipfs": "NEO_IPFS_PRIVATE_KEY",
     "mio-warrior": "NEO_WARRIOR_PRIVATE_KEY",

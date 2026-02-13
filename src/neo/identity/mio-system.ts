@@ -21,7 +21,7 @@ export interface NeoIdentity {
   roles: string[]; // Roles (ex: ["system", "gateway", "developer"])
 
   permissions: {
-    channels: string[]; // Canais permitidos (ex: ["whatsapp", "telegram", "*"])
+    channels: string[]; // Canais permitidos (ex: ["whatsapp", "*"])
     skills: string[]; // Skills permitidas (ex: ["ipfs-status", "*"])
     tools: string[]; // Tools permitidas (ex: ["read", "write", "exec"])
   };

@@ -54,7 +54,7 @@ export type AgentCommandOpts = {
   threadId?: string | number;
   /** Message channel context (webchat|voicewake|whatsapp|...). */
   messageChannel?: string;
-  channel?: string; // delivery channel (whatsapp|telegram|...)
+  channel?: string; // delivery channel (whatsapp|slack|...)
   /** Account ID for multi-account channel routing (e.g., WhatsApp account). */
   accountId?: string;
   /** Context for embedded run routing (channel/account/thread). */

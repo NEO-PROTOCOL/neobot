@@ -3,8 +3,6 @@ import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { OpenClawConfig } from "../config/config.js";
-import { telegramPlugin } from "../../extensions/telegram/src/channel.js";
-import { setTelegramRuntime } from "../../extensions/telegram/src/runtime.js";
 import { whatsappPlugin } from "../../extensions/whatsapp/src/channel.js";
 import { setWhatsAppRuntime } from "../../extensions/whatsapp/src/runtime.js";
 import { HEARTBEAT_PROMPT } from "../auto-reply/heartbeat.js";
@@ -33,9 +31,27 @@ import {
 // Avoid pulling optional runtime deps during isolated runs.
 vi.mock("jiti", () => ({ createJiti: () => () => ({}) }));
 
+const telegramPlugin: any = {
+  meta: { id: "telegram", label: "Telegram" },
+  config: {
+    listAccountIds: (cfg: OpenClawConfig) =>
+      Object.keys(cfg.channels?.telegram?.accounts ?? {}),
+    resolveAllowFrom: (params: any) => {
+      const accounts = params.cfg.channels?.telegram?.accounts ?? {};
+      if (params.accountId && accounts[params.accountId]) {
+        return accounts[params.accountId].allowFrom;
+      }
+      return params.cfg.channels?.telegram?.allowFrom;
+    },
+  },
+  outbound: {
+    resolveTarget: (params: any) => ({ ok: true, to: params.to }),
+  },
+  messaging: { targetResolver: { hint: "Use @username" } },
+};
+
 beforeEach(() => {
   const runtime = createPluginRuntime();
-  setTelegramRuntime(runtime);
   setWhatsAppRuntime(runtime);
   setActivePluginRegistry(
     createTestRegistry([
@@ -44,6 +60,7 @@ beforeEach(() => {
     ]),
   );
 });
+
 
 describe("resolveHeartbeatIntervalMs", () => {
   it("returns default when unset", () => {

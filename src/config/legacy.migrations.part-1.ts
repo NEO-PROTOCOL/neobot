@@ -161,7 +161,6 @@ export const LEGACY_CONFIG_MIGRATIONS_PART_1: LegacyConfigMigration[] = [
     apply: (raw, changes) => {
       const legacyKeys = [
         "whatsapp",
-        "telegram",
         "discord",
         "slack",
         "signal",
@@ -253,7 +252,7 @@ export const LEGACY_CONFIG_MIGRATIONS_PART_1: LegacyConfigMigration[] = [
 
       const channels = ensureRecord(raw, "channels");
       const applyTo = (
-        key: "whatsapp" | "telegram" | "imessage",
+        key: "whatsapp" | "imessage",
         options?: { requireExisting?: boolean },
       ) => {
         if (options?.requireExisting && !isRecord(channels[key])) {
@@ -288,7 +287,6 @@ export const LEGACY_CONFIG_MIGRATIONS_PART_1: LegacyConfigMigration[] = [
       };
 
       applyTo("whatsapp", { requireExisting: true });
-      applyTo("telegram");
       applyTo("imessage");
 
       delete groupChat.requireMention;
@@ -333,47 +331,6 @@ export const LEGACY_CONFIG_MIGRATIONS_PART_1: LegacyConfigMigration[] = [
         gatewayObj.auth = auth;
       }
       raw.gateway = gatewayObj;
-    },
-  },
-  {
-    id: "telegram.requireMention->channels.telegram.groups.*.requireMention",
-    describe: "Move telegram.requireMention to channels.telegram.groups.*.requireMention",
-    apply: (raw, changes) => {
-      const channels = ensureRecord(raw, "channels");
-      const telegram = channels.telegram;
-      if (!telegram || typeof telegram !== "object") {
-        return;
-      }
-      const requireMention = (telegram as Record<string, unknown>).requireMention;
-      if (requireMention === undefined) {
-        return;
-      }
-
-      const groups =
-        (telegram as Record<string, unknown>).groups &&
-        typeof (telegram as Record<string, unknown>).groups === "object"
-          ? ((telegram as Record<string, unknown>).groups as Record<string, unknown>)
-          : {};
-      const defaultKey = "*";
-      const entry =
-        groups[defaultKey] && typeof groups[defaultKey] === "object"
-          ? (groups[defaultKey] as Record<string, unknown>)
-          : {};
-
-      if (entry.requireMention === undefined) {
-        entry.requireMention = requireMention;
-        groups[defaultKey] = entry;
-        (telegram as Record<string, unknown>).groups = groups;
-        changes.push(
-          'Moved telegram.requireMention → channels.telegram.groups."*".requireMention.',
-        );
-      } else {
-        changes.push('Removed telegram.requireMention (channels.telegram.groups."*" already set).');
-      }
-
-      delete (telegram as Record<string, unknown>).requireMention;
-      channels.telegram = telegram as Record<string, unknown>;
-      raw.channels = channels;
     },
   },
 ];

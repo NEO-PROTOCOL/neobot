@@ -7,9 +7,6 @@ import {
   type RoutePeer,
   type RoutePeerKind,
 } from "../../routing/resolve-route.js";
-import { resolveTelegramTargetChatType } from "../../telegram/inline-buttons.js";
-import { parseTelegramTarget } from "../../telegram/targets.js";
-import { buildTelegramGroupPeerId } from "../../telegram/bot/helpers.js";
 import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.js";
 import type { ResolvedMessagingTarget } from "./target-resolver.js";
 
@@ -61,7 +58,7 @@ function inferPeerKind(params: {
   resolvedTarget?: ResolvedMessagingTarget;
 }): RoutePeerKind {
   const resolvedKind = params.resolvedTarget?.kind;
-  if (resolvedKind === "user") return "dm";
+  if (resolvedKind === "user") return "direct";
   if (resolvedKind === "channel") return "channel";
   if (resolvedKind === "group") {
     const plugin = getChannelPlugin(params.channel);
@@ -71,7 +68,7 @@ function inferPeerKind(params: {
     if (supportsChannel && !supportsGroup) return "channel";
     return "group";
   }
-  return "dm";
+  return "direct";
 }
 
 function buildBaseSessionKey(params: {
@@ -89,45 +86,6 @@ function buildBaseSessionKey(params: {
   });
 }
 
-function resolveTelegramSession(
-  params: ResolveOutboundSessionRouteParams,
-): OutboundSessionRoute | null {
-  const parsed = parseTelegramTarget(params.target);
-  const chatId = parsed.chatId.trim();
-  if (!chatId) return null;
-  const parsedThreadId = parsed.messageThreadId;
-  const fallbackThreadId = normalizeThreadId(params.threadId);
-  const resolvedThreadId =
-    parsedThreadId ?? (fallbackThreadId ? Number.parseInt(fallbackThreadId, 10) : undefined);
-  // Telegram topics are encoded in the peer id (chatId:topic:<id>).
-  const chatType = resolveTelegramTargetChatType(params.target);
-  // If the target is a username and we lack a resolvedTarget, default to DM to avoid group keys.
-  const isGroup =
-    chatType === "group" ||
-    (chatType === "unknown" &&
-      params.resolvedTarget?.kind &&
-      params.resolvedTarget.kind !== "user");
-  const peerId = isGroup ? buildTelegramGroupPeerId(chatId, resolvedThreadId) : chatId;
-  const peer: RoutePeer = {
-    kind: isGroup ? "group" : "dm",
-    id: peerId,
-  };
-  const baseSessionKey = buildBaseSessionKey({
-    cfg: params.cfg,
-    agentId: params.agentId,
-    channel: "telegram",
-    peer,
-  });
-  return {
-    sessionKey: baseSessionKey,
-    baseSessionKey,
-    peer,
-    chatType: isGroup ? "group" : "direct",
-    from: isGroup ? `telegram:group:${peerId}` : `telegram:${chatId}`,
-    to: `telegram:${chatId}`,
-    threadId: resolvedThreadId,
-  };
-}
 
 function resolveWhatsAppSession(
   params: ResolveOutboundSessionRouteParams,
@@ -136,7 +94,7 @@ function resolveWhatsAppSession(
   if (!normalized) return null;
   const isGroup = isWhatsAppGroupJid(normalized);
   const peer: RoutePeer = {
-    kind: isGroup ? "group" : "dm",
+    kind: isGroup ? "group" : "direct",
     id: normalized,
   };
   const baseSessionKey = buildBaseSessionKey({
@@ -173,10 +131,10 @@ function resolveFallbackSession(
     channel: params.channel,
     peer,
   });
-  const chatType = peerKind === "dm" ? "direct" : peerKind === "channel" ? "channel" : "group";
+  const chatType = peerKind === "direct" ? "direct" : peerKind === "channel" ? "channel" : "group";
   const from =
-    peerKind === "dm" ? `${params.channel}:${peerId}` : `${params.channel}:${peerKind}:${peerId}`;
-  const toPrefix = peerKind === "dm" ? "user" : "channel";
+    peerKind === "direct" ? `${params.channel}:${peerId}` : `${params.channel}:${peerKind}:${peerId}`;
+  const toPrefix = peerKind === "direct" ? "user" : "channel";
   return {
     sessionKey: baseSessionKey,
     baseSessionKey,
@@ -193,8 +151,6 @@ export async function resolveOutboundSessionRoute(
   const target = params.target.trim();
   if (!target) return null;
   switch (params.channel) {
-    case "telegram":
-      return resolveTelegramSession({ ...params, target });
     case "whatsapp":
       return resolveWhatsAppSession({ ...params, target });
     default:

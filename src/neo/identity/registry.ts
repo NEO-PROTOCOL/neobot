@@ -58,7 +58,7 @@ export const NEO_IDENTITY_TEMPLATES = [
     id: "mio-factory",
     role: "Smart Factory",
     permissions: {
-      channels: ["telegram", "whatsapp"],
+      channels: ["whatsapp"],
       skills: ["smart-factory"],
       tools: ["blockchain", "deploy", "mint", "read"],
     },
@@ -72,7 +72,7 @@ export const NEO_IDENTITY_TEMPLATES = [
     id: "mio-flowpay",
     role: "FlowPay System",
     permissions: {
-      channels: ["telegram", "whatsapp"],
+      channels: ["whatsapp"],
       skills: ["flowpay"],
       tools: ["blockchain", "tokens", "transactions", "read"],
     },
@@ -86,27 +86,13 @@ export const NEO_IDENTITY_TEMPLATES = [
     id: "mio-asi1",
     role: "ASI1 LLM",
     permissions: {
-      channels: ["telegram", "whatsapp"],
+      channels: ["whatsapp"],
       skills: ["asi1-llm"],
       tools: ["ai", "inference", "read"],
     },
     metadata: {
       name: "ASI1 LLM Agent",
       bio: "Modelo de linguagem local (llama.cpp). Inferência AI descentralizada e privada.",
-    },
-  },
-
-  {
-    id: "mio-telegram",
-    role: "Telegram Bot",
-    permissions: {
-      channels: ["telegram"],
-      skills: ["telegram"],
-      tools: ["messaging", "read", "write"],
-    },
-    metadata: {
-      name: "NEO Telegram",
-      bio: "Bot Telegram oficial do protocolo NEO. Interface de comandos e automações.",
     },
   },
 

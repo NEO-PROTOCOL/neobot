@@ -108,7 +108,7 @@ export type MsgContext = {
   SenderTag?: string;
   SenderE164?: string;
   Timestamp?: number;
-  /** Provider label (e.g. whatsapp, telegram). */
+  /** Provider label (e.g. whatsapp). */
   Provider?: string;
   /** Provider surface label (e.g. discord, slack). Prefer this over `Provider` when available. */
   Surface?: string;
@@ -118,10 +118,8 @@ export type MsgContext = {
   CommandTargetSessionKey?: string;
   /** Gateway client scopes when the message originates from the gateway. */
   GatewayClientScopes?: string[];
-  /** Thread identifier (Telegram topic id or Matrix thread event id). */
+  /** Thread identifier (Matrix thread event id). */
   MessageThreadId?: string | number;
-  /** Telegram forum supergroup marker. */
-  IsForum?: boolean;
   /**
    * Originating channel for reply routing.
    * When set, replies should be routed back to this provider
