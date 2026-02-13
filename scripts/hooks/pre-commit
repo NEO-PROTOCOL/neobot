@@ -1,0 +1,44 @@
+#!/bin/bash
+# Pre-commit hook para detectar secrets
+# Atualizado: verifica apenas valores reais, ignora placeholders em docs
+
+echo "🔍 Scanning for secrets..."
+
+STAGED_DIFF=$(git diff --cached)
+
+check_pattern() {
+    local pattern="$1"
+    local label="$2"
+    local matches
+    matches=$(echo "$STAGED_DIFF" | grep -E "$pattern" || true)
+    if [ -n "$matches" ]; then
+        # Ignorar se for placeholder/exemplo
+        if echo "$matches" | grep -qiE "PLACEHOLDER|your_|example|123456|abcdef|XXXXX|sk-abcde"; then
+            return 0
+        fi
+        echo "✗ Potential secret found: $label"
+        echo ""
+        echo "╔════════════════════════════════════════╗"
+        echo "║  COMMIT BLOCKED: SECRETS DETECTED     ║"
+        echo "╚════════════════════════════════════════╝"
+        echo ""
+        echo "To bypass (NOT RECOMMENDED): git commit --no-verify"
+        exit 1
+    fi
+}
+
+check_pattern "ANTHROPIC_API_KEY\s*=\s*sk-ant-api[0-9]+-[A-Za-z0-9_-]{20,}" "Anthropic API Key"
+check_pattern "ANTHROPIC_API_KEY\s*=\s*sk-ant-oat[0-9]+-[A-Za-z0-9_-]{20,}" "Anthropic OAuth Token"
+check_pattern "LINEAR_API_KEY\s*=\s*lin_api_[A-Za-z0-9]{20,}" "Linear API Key"
+check_pattern "NOTION_API_KEY\s*=\s*ntn_[A-Za-z0-9]{30,}" "Notion API Key"
+check_pattern "RESEND_API_KEY\s*=\s*re_[A-Za-z0-9]{20,}" "Resend API Key"
+check_pattern "TELEGRAM_BOT_TOKEN\s*=\s*[0-9]{8,}:[A-Za-z0-9_-]{30,}" "Telegram Bot Token"
+
+# Bloquear commit de .env real
+if git diff --cached --name-only | grep -qE "(^|/)\.env$"; then
+    echo "⚠️  WARNING: Tentando commitar arquivo .env — use .env.example"
+    exit 1
+fi
+
+echo "✓ No secrets detected. Safe to commit."
+exit 0
