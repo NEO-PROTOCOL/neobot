@@ -14,7 +14,8 @@
     "test": "node scripts/test-parallel.mjs",
     "test:live": "CLAWDBOT_LIVE_TEST=1 vitest run --config vitest.live.config.ts",
     "analyze": "node --import tsx scripts/code-analysis.ts",
-    "notion-sync": "tsx scripts/notion-sync.ts"
+    "notion-sync": "tsx scripts/notion-sync.ts",
+    "postinstall": "bash scripts/hooks/install.sh"
   },
   "dependencies": {
     "@agentclientprotocol/sdk": "latest",
