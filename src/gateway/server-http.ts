@@ -1,8 +1,12 @@
-import { createServer as createHttpServer, type Server as HttpServer, type IncomingMessage, type ServerResponse } from "node:http";
-import { createServer as createHttpsServer } from "node:https";
 import type { TlsOptions } from "node:tls";
 import type { WebSocketServer } from "ws";
-
+import {
+  createServer as createHttpServer,
+  type Server as HttpServer,
+  type IncomingMessage,
+  type ServerResponse,
+} from "node:http";
+import { createServer as createHttpsServer } from "node:https";
 import type { CanvasHostHandler } from "../canvas-host/server.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
 import type { AuthRateLimiter } from "./auth-rate-limit.js";
@@ -16,7 +20,7 @@ import {
 } from "../canvas-host/a2ui.js";
 import { loadConfig } from "../config/config.js";
 import { safeEqualSecret } from "../security/secret-equal.js";
-
+import { handleSlackHttpRequest } from "../slack/http/index.js";
 import {
   authorizeGatewayConnect,
   isLocalDirectRequest,
@@ -29,34 +33,28 @@ import {
   type ControlUiRootState,
 } from "./control-ui.js";
 import { applyHookMappings } from "./hooks-mapping.js";
-
 import {
   extractHookToken,
+  getHookAgentPolicyError,
   getHookChannelError,
   type HookMessageChannel,
   type HooksConfigResolved,
+  isHookAgentAllowed,
   normalizeAgentPayload,
   normalizeHookHeaders,
   normalizeWakePayload,
   readJsonBody,
-
   resolveHookSessionKey,
   resolveHookTargetAgentId,
   resolveHookChannel,
   resolveHookDeliver,
-  getHookAgentPolicyError,
-  isHookAgentAllowed,
 } from "./hooks.js";
 import { sendGatewayAuthFailure } from "./http-common.js";
 import { getBearerToken, getHeader } from "./http-utils.js";
-import { isPrivateOrLoopbackAddress, resolveGatewayClientIp } from "./net.js";
-
+import { resolveGatewayClientIp } from "./net.js";
 import { handleOpenAiHttpRequest } from "./openai-http.js";
 import { handleOpenResponsesHttpRequest } from "./openresponses-http.js";
 import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.js";
-import { handleEcosystemHttpRequest } from "./ecosystem-http.js";
-import { handleNexusWebhookHttpRequest } from "./nexus-webhook-http.js";
-
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 type HookAuthFailure = { count: number; windowStartedAtMs: number };
@@ -88,7 +86,6 @@ function sendJson(res: ServerResponse, status: number, body: unknown) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.end(JSON.stringify(body));
 }
-
 
 function isCanvasPath(pathname: string): boolean {
   return (
@@ -146,13 +143,6 @@ async function authorizeCanvasRequest(params: {
   if (!clientIp) {
     return lastAuthFailure ?? { ok: false, reason: "unauthorized" };
   }
-
-  // IP-based fallback is only safe for machine-scoped addresses.
-  // Only allow IP-based fallback for private/loopback addresses to prevent
-  // cross-session access in shared-IP environments (corporate NAT, cloud).
-  if (!isPrivateOrLoopbackAddress(clientIp)) {
-    return lastAuthFailure ?? { ok: false, reason: "unauthorized" };
-  }
   if (hasAuthorizedWsClientForIp(clients, clientIp)) {
     return { ok: true };
   }
@@ -187,7 +177,6 @@ function writeUpgradeAuthFailure(
   }
   socket.write("HTTP/1.1 401 Unauthorized\r\nConnection: close\r\n\r\n");
 }
-
 
 export type HooksRequestHandler = (req: IncomingMessage, res: ServerResponse) => Promise<boolean>;
 
@@ -235,13 +224,14 @@ export function createHooksRequestHandler(
 
   return async (req, res) => {
     const hooksConfig = getHooksConfig();
-    if (!hooksConfig) return false;
+    if (!hooksConfig) {
+      return false;
+    }
     const url = new URL(req.url ?? "/", `http://${bindHost}:${port}`);
     const basePath = hooksConfig.basePath;
     if (url.pathname !== basePath && !url.pathname.startsWith(`${basePath}/`)) {
       return false;
     }
-
 
     if (url.searchParams.has("token")) {
       res.statusCode = 400;
@@ -265,15 +255,12 @@ export function createHooksRequestHandler(
         logHooks.warn(`hook auth throttled for ${clientKey}; retry-after=${retryAfter}s`);
         return true;
       }
-
       res.statusCode = 401;
       res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.end("Unauthorized");
       return true;
     }
-
     clearHookAuthFailure(clientKey);
-
 
     if (req.method !== "POST") {
       res.statusCode = 405;
@@ -318,7 +305,6 @@ export function createHooksRequestHandler(
         sendJson(res, 400, { ok: false, error: normalized.error });
         return true;
       }
-
       if (!isHookAgentAllowed(hooksConfig, normalized.value.agentId)) {
         sendJson(res, 400, { ok: false, error: getHookAgentPolicyError() });
         return true;
@@ -337,7 +323,6 @@ export function createHooksRequestHandler(
         sessionKey: sessionKey.value,
         agentId: resolveHookTargetAgentId(hooksConfig, normalized.value.agentId),
       });
-
       sendJson(res, 202, { ok: true, runId });
       return true;
     }
@@ -373,7 +358,6 @@ export function createHooksRequestHandler(
             sendJson(res, 400, { ok: false, error: getHookChannelError() });
             return true;
           }
-
           if (!isHookAgentAllowed(hooksConfig, mapped.action.agentId)) {
             sendJson(res, 400, { ok: false, error: getHookAgentPolicyError() });
             return true;
@@ -387,10 +371,10 @@ export function createHooksRequestHandler(
             sendJson(res, 400, { ok: false, error: sessionKey.error });
             return true;
           }
-
           const runId = dispatchAgentHook({
             message: mapped.action.message,
             name: mapped.action.name ?? "Hook",
+            agentId: resolveHookTargetAgentId(hooksConfig, mapped.action.agentId),
             wakeMode: mapped.action.wakeMode,
             sessionKey: sessionKey.value,
             deliver: resolveHookDeliver(mapped.action.deliver),
@@ -419,26 +403,27 @@ export function createHooksRequestHandler(
 }
 
 export function createGatewayHttpServer(opts: {
+  canvasHost: CanvasHostHandler | null;
+  clients: Set<GatewayWsClient>;
   controlUiEnabled: boolean;
   controlUiBasePath: string;
+  controlUiRoot?: ControlUiRootState;
   openAiChatCompletionsEnabled: boolean;
   openResponsesEnabled: boolean;
   openResponsesConfig?: import("../config/types.gateway.js").GatewayHttpResponsesConfig;
   handleHooksRequest: HooksRequestHandler;
   handlePluginRequest?: HooksRequestHandler;
-
   resolvedAuth: ResolvedGatewayAuth;
   /** Optional rate limiter for auth brute-force protection. */
   rateLimiter?: AuthRateLimiter;
-
   tlsOptions?: TlsOptions;
-
-  canvasHost: CanvasHostHandler | null;
-  clients: Set<GatewayWsClient>;
 }): HttpServer {
   const {
+    canvasHost,
+    clients,
     controlUiEnabled,
     controlUiBasePath,
+    controlUiRoot,
     openAiChatCompletionsEnabled,
     openResponsesEnabled,
     openResponsesConfig,
@@ -446,61 +431,40 @@ export function createGatewayHttpServer(opts: {
     handlePluginRequest,
     resolvedAuth,
     rateLimiter,
-    canvasHost,
-    clients,
   } = opts;
   const httpServer: HttpServer = opts.tlsOptions
     ? createHttpsServer(opts.tlsOptions, (req, res) => {
-      void handleRequest(req, res);
-    })
+        void handleRequest(req, res);
+      })
     : createHttpServer((req, res) => {
-      void handleRequest(req, res);
-    });
+        void handleRequest(req, res);
+      });
 
   async function handleRequest(req: IncomingMessage, res: ServerResponse) {
-    // Railway/Infra Health Check
-    if (req.url === "/health") {
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.end(
-        JSON.stringify({
-          status: "ok",
-          service: "neobot-core",
-          timestamp: new Date().toISOString(),
-        }),
-      );
-      return;
-    }
-
-    // Favicon Fallback (prevent 404/502 noise if missing)
-    if (req.url === "/favicon.ico") {
-      res.statusCode = 204; // No Content
-      res.end();
-      return;
-    }
-
     // Don't interfere with WebSocket upgrades; ws handles the 'upgrade' event.
-    if (String(req.headers.upgrade ?? "").toLowerCase() === "websocket") return;
+    if (String(req.headers.upgrade ?? "").toLowerCase() === "websocket") {
+      return;
+    }
 
     try {
       const configSnapshot = loadConfig();
       const trustedProxies = configSnapshot.gateway?.trustedProxies ?? [];
-
       const requestPath = new URL(req.url ?? "/", "http://localhost").pathname;
       if (await handleHooksRequest(req, res)) {
         return;
       }
-
       if (
         await handleToolsInvokeHttpRequest(req, res, {
           auth: resolvedAuth,
           trustedProxies,
           rateLimiter,
         })
-      )
+      ) {
         return;
-
-
+      }
+      if (await handleSlackHttpRequest(req, res)) {
+        return;
+      }
       if (handlePluginRequest) {
         // Channel HTTP endpoints are gateway-auth protected by default.
         // Non-channel plugin routes remain plugin-owned and must enforce
@@ -523,7 +487,6 @@ export function createGatewayHttpServer(opts: {
           return;
         }
       }
-
       if (openResponsesEnabled) {
         if (
           await handleOpenResponsesHttpRequest(req, res, {
@@ -532,8 +495,9 @@ export function createGatewayHttpServer(opts: {
             trustedProxies,
             rateLimiter,
           })
-        )
+        ) {
           return;
+        }
       }
       if (openAiChatCompletionsEnabled) {
         if (
@@ -542,9 +506,9 @@ export function createGatewayHttpServer(opts: {
             trustedProxies,
             rateLimiter,
           })
-        )
+        ) {
           return;
-
+        }
       }
       if (canvasHost) {
         if (isCanvasPath(requestPath)) {
@@ -566,24 +530,25 @@ export function createGatewayHttpServer(opts: {
         if (await canvasHost.handleHttpRequest(req, res)) {
           return;
         }
-
       }
-
       if (controlUiEnabled) {
         if (
           handleControlUiAvatarRequest(req, res, {
             basePath: controlUiBasePath,
             resolveAvatar: (agentId) => resolveAgentAvatar(configSnapshot, agentId),
           })
-        )
+        ) {
           return;
+        }
         if (
           handleControlUiHttpRequest(req, res, {
             basePath: controlUiBasePath,
             config: configSnapshot,
+            root: controlUiRoot,
           })
-        )
+        ) {
           return;
+        }
       }
 
       res.statusCode = 404;
@@ -602,7 +567,6 @@ export function createGatewayHttpServer(opts: {
 export function attachGatewayUpgradeHandler(opts: {
   httpServer: HttpServer;
   wss: WebSocketServer;
-
   canvasHost: CanvasHostHandler | null;
   clients: Set<GatewayWsClient>;
   resolvedAuth: ResolvedGatewayAuth;
@@ -639,7 +603,6 @@ export function attachGatewayUpgradeHandler(opts: {
       });
     })().catch(() => {
       socket.destroy();
-
     });
   });
 }

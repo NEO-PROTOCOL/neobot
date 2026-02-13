@@ -1,4 +1,3 @@
-
 import type { IncomingMessage } from "node:http";
 import type { GatewayAuthConfig, GatewayTailscaleMode } from "../config/config.js";
 import { readTailscaleWhoisIdentity, type TailscaleWhoisIdentity } from "../infra/tailscale.js";
@@ -14,7 +13,6 @@ import {
   parseForwardedForClientIp,
   resolveGatewayClientIp,
 } from "./net.js";
-
 
 export type ResolvedGatewayAuthMode = "token" | "password";
 
@@ -49,27 +47,20 @@ type TailscaleUser = {
 
 type TailscaleWhoisLookup = (ip: string) => Promise<TailscaleWhoisIdentity | null>;
 
-
-
 function normalizeLogin(login: string): string {
   return login.trim().toLowerCase();
 }
 
-function isLoopbackAddress(ip: string | undefined): boolean {
-  if (!ip) return false;
-  if (ip === "127.0.0.1") return true;
-  if (ip.startsWith("127.")) return true;
-  if (ip === "::1") return true;
-  if (ip.startsWith("::ffff:127.")) return true;
-  return false;
-}
-
 function getHostName(hostHeader?: string): string {
   const host = (hostHeader ?? "").trim().toLowerCase();
-  if (!host) return "";
+  if (!host) {
+    return "";
+  }
   if (host.startsWith("[")) {
     const end = host.indexOf("]");
-    if (end !== -1) return host.slice(1, end);
+    if (end !== -1) {
+      return host.slice(1, end);
+    }
   }
   const [name] = host.split(":");
   return name ?? "";
@@ -80,7 +71,9 @@ function headerValue(value: string | string[] | undefined): string | undefined {
 }
 
 function resolveTailscaleClientIp(req?: IncomingMessage): string | undefined {
-  if (!req) return undefined;
+  if (!req) {
+    return undefined;
+  }
   const forwardedFor = headerValue(req.headers?.["x-forwarded-for"]);
   return forwardedFor ? parseForwardedForClientIp(forwardedFor) : undefined;
 }
@@ -89,7 +82,9 @@ function resolveRequestClientIp(
   req?: IncomingMessage,
   trustedProxies?: string[],
 ): string | undefined {
-  if (!req) return undefined;
+  if (!req) {
+    return undefined;
+  }
   return resolveGatewayClientIp({
     remoteAddr: req.socket?.remoteAddress ?? "",
     forwardedFor: headerValue(req.headers?.["x-forwarded-for"]),
@@ -99,9 +94,13 @@ function resolveRequestClientIp(
 }
 
 export function isLocalDirectRequest(req?: IncomingMessage, trustedProxies?: string[]): boolean {
-  if (!req) return false;
+  if (!req) {
+    return false;
+  }
   const clientIp = resolveRequestClientIp(req, trustedProxies) ?? "";
-  if (!isLoopbackAddress(clientIp)) return false;
+  if (!isLoopbackAddress(clientIp)) {
+    return false;
+  }
 
   const host = getHostName(req.headers?.host);
   const hostIsLocal = host === "localhost" || host === "127.0.0.1" || host === "::1";
@@ -118,9 +117,13 @@ export function isLocalDirectRequest(req?: IncomingMessage, trustedProxies?: str
 }
 
 function getTailscaleUser(req?: IncomingMessage): TailscaleUser | null {
-  if (!req) return null;
+  if (!req) {
+    return null;
+  }
   const login = req.headers["tailscale-user-login"];
-  if (typeof login !== "string" || !login.trim()) return null;
+  if (typeof login !== "string" || !login.trim()) {
+    return null;
+  }
   const nameRaw = req.headers["tailscale-user-name"];
   const profilePic = req.headers["tailscale-user-profile-pic"];
   const name = typeof nameRaw === "string" && nameRaw.trim() ? nameRaw.trim() : login.trim();
@@ -132,7 +135,9 @@ function getTailscaleUser(req?: IncomingMessage): TailscaleUser | null {
 }
 
 function hasTailscaleProxyHeaders(req?: IncomingMessage): boolean {
-  if (!req) return false;
+  if (!req) {
+    return false;
+  }
   return Boolean(
     req.headers["x-forwarded-for"] &&
     req.headers["x-forwarded-proto"] &&
@@ -141,7 +146,9 @@ function hasTailscaleProxyHeaders(req?: IncomingMessage): boolean {
 }
 
 function isTailscaleProxyRequest(req?: IncomingMessage): boolean {
-  if (!req) return false;
+  if (!req) {
+    return false;
+  }
   return isLoopbackAddress(req.socket?.remoteAddress) && hasTailscaleProxyHeaders(req);
 }
 
@@ -185,9 +192,13 @@ export function resolveGatewayAuth(params: {
 }): ResolvedGatewayAuth {
   const authConfig = params.authConfig ?? {};
   const env = params.env ?? process.env;
-  const token = authConfig.token ?? env.GATEWAY_TOKEN ?? env.CLAWDBOT_GATEWAY_TOKEN ?? undefined;
+  const token =
+    authConfig.token ?? env.OPENCLAW_GATEWAY_TOKEN ?? env.CLAWDBOT_GATEWAY_TOKEN ?? undefined;
   const password =
-    authConfig.password ?? env.GATEWAY_PASSWORD ?? env.CLAWDBOT_GATEWAY_PASSWORD ?? undefined;
+    authConfig.password ??
+    env.OPENCLAW_GATEWAY_PASSWORD ??
+    env.CLAWDBOT_GATEWAY_PASSWORD ??
+    undefined;
   const mode: ResolvedGatewayAuth["mode"] = authConfig.mode ?? (password ? "password" : "token");
   const allowTailscale =
     authConfig.allowTailscale ?? (params.tailscaleMode === "serve" && mode !== "password");
@@ -201,9 +212,11 @@ export function resolveGatewayAuth(params: {
 
 export function assertGatewayAuthConfigured(auth: ResolvedGatewayAuth): void {
   if (auth.mode === "token" && !auth.token) {
-    if (auth.allowTailscale) return;
+    if (auth.allowTailscale) {
+      return;
+    }
     throw new Error(
-      "gateway auth mode is token, but no token was configured (set gateway.auth.token or CLAWDBOT_GATEWAY_TOKEN)",
+      "gateway auth mode is token, but no token was configured (set gateway.auth.token or OPENCLAW_GATEWAY_TOKEN)",
     );
   }
   if (auth.mode === "password" && !auth.password) {
