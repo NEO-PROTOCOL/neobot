@@ -7,6 +7,12 @@ type discoverModelsFn = typeof discoverModels;
 import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.js";
 import type { MoltbotConfig } from "../../../config/config.js";
 import type { AgentStreamParams } from "../../../commands/agent/types.js";
+<<<<<<< HEAD
+=======
+import type { OpenClawConfig } from "../../../config/config.js";
+import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
+import type { InputProvenance } from "../../../sessions/input-provenance.js";
+>>>>>>> upstream/main
 import type { ExecElevatedDefaults, ExecToolDefaults } from "../../bash-tools.js";
 import type { MessagingToolSend } from "../../pi-embedded-messaging.js";
 import type { BlockReplyChunking, ToolResultFormat } from "../../pi-embedded-subscribe.js";
@@ -85,6 +91,7 @@ export type EmbeddedRunAttemptParams = {
   onToolResult?: (payload: { text?: string; mediaUrls?: string[] }) => void | Promise<void>;
   onAgentEvent?: (evt: { stream: string; data: Record<string, unknown> }) => void;
   extraSystemPrompt?: string;
+  inputProvenance?: InputProvenance;
   streamParams?: AgentStreamParams;
   ownerNumbers?: string[];
   enforceFinalTag?: boolean;

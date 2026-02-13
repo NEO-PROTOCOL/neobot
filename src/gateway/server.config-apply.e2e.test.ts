@@ -1,6 +1,3 @@
-import fs from "node:fs/promises";
-import os from "node:os";
-import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { WebSocket } from "ws";
 
@@ -16,19 +13,24 @@ installGatewayTestHooks({ scope: "suite" });
 
 let server: Awaited<ReturnType<typeof startGatewayServer>>;
 let port = 0;
-let previousToken: string | undefined;
 
 beforeAll(async () => {
+<<<<<<< HEAD
   previousToken = process.env.CLAWDBOT_GATEWAY_TOKEN;
   delete process.env.CLAWDBOT_GATEWAY_TOKEN;
+=======
+>>>>>>> upstream/main
   port = await getFreePort();
-  server = await startGatewayServer(port);
+  server = await startGatewayServer(port, { controlUiEnabled: true });
 });
 
 afterAll(async () => {
   await server.close();
+<<<<<<< HEAD
   if (previousToken === undefined) delete process.env.CLAWDBOT_GATEWAY_TOKEN;
   else process.env.CLAWDBOT_GATEWAY_TOKEN = previousToken;
+=======
+>>>>>>> upstream/main
 });
 
 const openClient = async () => {
@@ -39,6 +41,7 @@ const openClient = async () => {
 };
 
 describe("gateway config.apply", () => {
+<<<<<<< HEAD
   it("writes config, stores sentinel, and schedules restart", async () => {
     const ws = await openClient();
     try {
@@ -80,10 +83,12 @@ describe("gateway config.apply", () => {
     }
   });
 
+=======
+>>>>>>> upstream/main
   it("rejects invalid raw config", async () => {
     const ws = await openClient();
     try {
-      const id = "req-2";
+      const id = "req-1";
       ws.send(
         JSON.stringify({
           type: "req",
@@ -94,11 +99,37 @@ describe("gateway config.apply", () => {
           },
         }),
       );
-      const res = await onceMessage<{ ok: boolean; error?: unknown }>(
+      const res = await onceMessage<{ ok: boolean; error?: { message?: string } }>(
         ws,
         (o) => o.type === "res" && o.id === id,
       );
       expect(res.ok).toBe(false);
+      expect(res.error?.message ?? "").toMatch(/invalid|SyntaxError/i);
+    } finally {
+      ws.close();
+    }
+  });
+
+  it("requires raw to be a string", async () => {
+    const ws = await openClient();
+    try {
+      const id = "req-2";
+      ws.send(
+        JSON.stringify({
+          type: "req",
+          id,
+          method: "config.apply",
+          params: {
+            raw: { gateway: { mode: "local" } },
+          },
+        }),
+      );
+      const res = await onceMessage<{ ok: boolean; error?: { message?: string } }>(
+        ws,
+        (o) => o.type === "res" && o.id === id,
+      );
+      expect(res.ok).toBe(false);
+      expect(res.error?.message ?? "").toContain("raw");
     } finally {
       ws.close();
     }

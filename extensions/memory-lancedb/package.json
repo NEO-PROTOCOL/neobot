@@ -1,12 +1,24 @@
 {
   "name": "@openclaw/memory-lancedb",
+<<<<<<< HEAD
   "version": "2026.1.26",
+=======
+  "version": "2026.2.13",
+  "private": true,
+  "description": "OpenClaw LanceDB-backed long-term memory plugin with auto-recall/capture",
+>>>>>>> upstream/main
   "type": "module",
   "description": "Moltbot LanceDB-backed long-term memory plugin with auto-recall/capture",
   "dependencies": {
+<<<<<<< HEAD
     "@lancedb/lancedb": "^0.23.0",
     "@sinclair/typebox": "0.34.47",
     "openai": "^6.16.0"
+=======
+    "@lancedb/lancedb": "^0.26.2",
+    "@sinclair/typebox": "0.34.48",
+    "openai": "^6.21.0"
+>>>>>>> upstream/main
   },
   "moltbot": {
     "extensions": [

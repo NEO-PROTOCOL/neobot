@@ -2,7 +2,8 @@ import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
+import { discoverOpenClawPlugins } from "./discovery.js";
 
 const tempDirs: string[] = [];
 
@@ -14,11 +15,18 @@ function makeTempDir() {
 }
 
 async function withStateDir<T>(stateDir: string, fn: () => Promise<T>) {
+<<<<<<< HEAD
   const prev = process.env.CLAWDBOT_STATE_DIR;
   const prevBundled = process.env.CLAWDBOT_BUNDLED_PLUGINS_DIR;
   process.env.CLAWDBOT_STATE_DIR = stateDir;
   process.env.CLAWDBOT_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
   vi.resetModules();
+=======
+  const prev = process.env.OPENCLAW_STATE_DIR;
+  const prevBundled = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+>>>>>>> upstream/main
   try {
     return await fn();
   } finally {
@@ -32,7 +40,6 @@ async function withStateDir<T>(stateDir: string, fn: () => Promise<T>) {
     } else {
       process.env.CLAWDBOT_BUNDLED_PLUGINS_DIR = prevBundled;
     }
-    vi.resetModules();
   }
 }
 
@@ -60,8 +67,12 @@ describe("discoverMoltbotPlugins", () => {
     fs.writeFileSync(path.join(workspaceExt, "beta.ts"), "export default function () {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
+<<<<<<< HEAD
       const { discoverMoltbotPlugins } = await import("./discovery.js");
       return discoverMoltbotPlugins({ workspaceDir });
+=======
+      return discoverOpenClawPlugins({ workspaceDir });
+>>>>>>> upstream/main
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -94,8 +105,12 @@ describe("discoverMoltbotPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
+<<<<<<< HEAD
       const { discoverMoltbotPlugins } = await import("./discovery.js");
       return discoverMoltbotPlugins({});
+=======
+      return discoverOpenClawPlugins({});
+>>>>>>> upstream/main
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -123,8 +138,12 @@ describe("discoverMoltbotPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
+<<<<<<< HEAD
       const { discoverMoltbotPlugins } = await import("./discovery.js");
       return discoverMoltbotPlugins({});
+=======
+      return discoverOpenClawPlugins({});
+>>>>>>> upstream/main
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -147,8 +166,12 @@ describe("discoverMoltbotPlugins", () => {
     fs.writeFileSync(path.join(packDir, "index.js"), "module.exports = {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
+<<<<<<< HEAD
       const { discoverMoltbotPlugins } = await import("./discovery.js");
       return discoverMoltbotPlugins({ extraPaths: [packDir] });
+=======
+      return discoverOpenClawPlugins({ extraPaths: [packDir] });
+>>>>>>> upstream/main
     });
 
     const ids = candidates.map((c) => c.idHint);

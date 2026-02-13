@@ -1,6 +1,12 @@
 {
   "name": "@openclaw/whatsapp",
+<<<<<<< HEAD
   "version": "2026.1.26",
+=======
+  "version": "2026.2.13",
+  "private": true,
+  "description": "OpenClaw WhatsApp channel plugin",
+>>>>>>> upstream/main
   "type": "module",
   "description": "Moltbot WhatsApp channel plugin",
   "moltbot": {

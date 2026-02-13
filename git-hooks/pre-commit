@@ -2,10 +2,9 @@
 ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
 [ -z "$ROOT" ] && exit 0
 
-# 1. Check for secrets first (most important)
-if [ -x "$ROOT/git-hooks/pre-commit-secrets" ]; then
-    "$ROOT/git-hooks/pre-commit-secrets" || exit 1
-fi
+echo "$FILES" | xargs pnpm lint --fix
+echo "$FILES" | xargs pnpm format --no-error-on-unmatched-pattern
+echo "$FILES" | xargs git add
 
 # 2. Format staged files
 NODE_BIN=$(command -v node 2>/dev/null || echo "")

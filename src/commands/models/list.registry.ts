@@ -9,9 +9,15 @@ import {
   resolveAwsSdkEnvVarName,
   resolveEnvApiKey,
 } from "../../agents/model-auth.js";
+<<<<<<< HEAD
 import { ensureMoltbotModelsJson } from "../../agents/models-config.js";
 import type { MoltbotConfig } from "../../config/config.js";
 import type { ModelRow } from "./list.types.js";
+=======
+import { ensureOpenClawModelsJson } from "../../agents/models-config.js";
+import { ensurePiAuthJsonFromAuthProfiles } from "../../agents/pi-auth-json.js";
+import { discoverAuthStorage, discoverModels } from "../../agents/pi-model-discovery.js";
+>>>>>>> upstream/main
 import { modelKey } from "./shared.js";
 
 const isLocalBaseUrl = (baseUrl: string) => {
@@ -38,9 +44,16 @@ const hasAuthForProvider = (provider: string, cfg: MoltbotConfig, authStore: Aut
   return false;
 };
 
+<<<<<<< HEAD
 export async function loadModelRegistry(cfg: MoltbotConfig) {
   await ensureMoltbotModelsJson(cfg);
   const agentDir = resolveMoltbotAgentDir();
+=======
+export async function loadModelRegistry(cfg: OpenClawConfig) {
+  await ensureOpenClawModelsJson(cfg);
+  const agentDir = resolveOpenClawAgentDir();
+  await ensurePiAuthJsonFromAuthProfiles(agentDir);
+>>>>>>> upstream/main
   const authStorage = discoverAuthStorage(agentDir);
   const registry = discoverModels(authStorage, agentDir);
   const models = registry.getAll() as Model<Api>[];

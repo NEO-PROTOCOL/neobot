@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 summary: "CLI reference for `moltbot plugins` (list, install, enable/disable, doctor)"
+=======
+summary: "CLI reference for `openclaw plugins` (list, install, uninstall, enable/disable, doctor)"
+>>>>>>> upstream/main
 read_when:
 
   - You want to install or manage in-process Gateway plugins
@@ -19,6 +23,7 @@ Related:
 ## Commands
 
 ```bash
+<<<<<<< HEAD
 moltbot plugins list
 moltbot plugins info <id>
 moltbot plugins enable <id>
@@ -26,6 +31,16 @@ moltbot plugins disable <id>
 moltbot plugins doctor
 moltbot plugins update <id>
 moltbot plugins update --all
+=======
+openclaw plugins list
+openclaw plugins info <id>
+openclaw plugins enable <id>
+openclaw plugins disable <id>
+openclaw plugins uninstall <id>
+openclaw plugins doctor
+openclaw plugins update <id>
+openclaw plugins update --all
+>>>>>>> upstream/main
 ```
 
 Bundled plugins ship with Moltbot but start disabled. Use `plugins enable` to
@@ -50,6 +65,24 @@ Use `--link` to avoid copying a local directory (adds to `plugins.load.paths`):
 ```bash
 moltbot plugins install -l ./my-plugin
 ```
+
+### Uninstall
+
+```bash
+openclaw plugins uninstall <id>
+openclaw plugins uninstall <id> --dry-run
+openclaw plugins uninstall <id> --keep-files
+```
+
+`uninstall` removes plugin records from `plugins.entries`, `plugins.installs`,
+the plugin allowlist, and linked `plugins.load.paths` entries when applicable.
+For active memory plugins, the memory slot resets to `memory-core`.
+
+By default, uninstall also removes the plugin install directory under the active
+state dir extensions root (`$OPENCLAW_STATE_DIR/extensions/<id>`). Use
+`--keep-files` to keep files on disk.
+
+`--keep-config` is supported as a deprecated alias for `--keep-files`.
 
 ### Update
 

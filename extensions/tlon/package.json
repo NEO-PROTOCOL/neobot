@@ -1,6 +1,12 @@
 {
   "name": "@openclaw/tlon",
+<<<<<<< HEAD
   "version": "2026.1.26",
+=======
+  "version": "2026.2.13",
+  "private": true,
+  "description": "OpenClaw Tlon/Urbit channel plugin",
+>>>>>>> upstream/main
   "type": "module",
   "description": "Moltbot Tlon/Urbit channel plugin",
   "moltbot": {

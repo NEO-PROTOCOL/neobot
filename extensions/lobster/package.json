@@ -1,6 +1,11 @@
 {
   "name": "@openclaw/lobster",
+<<<<<<< HEAD
   "version": "2026.1.26",
+=======
+  "version": "2026.2.13",
+  "description": "Lobster workflow tool plugin (typed pipelines + resumable approvals)",
+>>>>>>> upstream/main
   "type": "module",
   "description": "Lobster workflow tool plugin (typed pipelines + resumable approvals)",
   "moltbot": {

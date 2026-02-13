@@ -2,7 +2,13 @@ import type { Server as HttpServer } from "node:http";
 import { WebSocketServer } from "ws";
 import type { CliDeps } from "../cli/deps.js";
 import type { createSubsystemLogger } from "../logging/subsystem.js";
+<<<<<<< HEAD
 
+=======
+import type { PluginRegistry } from "../plugins/registry.js";
+import type { RuntimeEnv } from "../runtime.js";
+import type { AuthRateLimiter } from "./auth-rate-limit.js";
+>>>>>>> upstream/main
 import type { ResolvedGatewayAuth } from "./auth.js";
 import type { ChatAbortControllerEntry } from "./chat-abort.js";
 import type { HooksConfigResolved } from "./hooks.js";
@@ -29,6 +35,8 @@ export async function createGatewayRuntimeState(params: {
   openResponsesEnabled: boolean;
   openResponsesConfig?: import("../config/types.gateway.js").GatewayHttpResponsesConfig;
   resolvedAuth: ResolvedGatewayAuth;
+  /** Optional rate limiter for auth brute-force protection. */
+  rateLimiter?: AuthRateLimiter;
   gatewayTls?: GatewayTlsRuntime;
   hooksConfig: () => HooksConfigResolved | null;
   pluginRegistry: PluginRegistry;
@@ -89,6 +97,7 @@ export async function createGatewayRuntimeState(params: {
       handleHooksRequest,
       handlePluginRequest,
       resolvedAuth: params.resolvedAuth,
+      rateLimiter: params.rateLimiter,
       tlsOptions: params.gatewayTls?.enabled ? params.gatewayTls.tlsOptions : undefined,
     });
     try {
@@ -116,7 +125,18 @@ export async function createGatewayRuntimeState(params: {
     maxPayload: MAX_PAYLOAD_BYTES,
   });
   for (const server of httpServers) {
+<<<<<<< HEAD
     attachGatewayUpgradeHandler({ httpServer: server, wss });
+=======
+    attachGatewayUpgradeHandler({
+      httpServer: server,
+      wss,
+      canvasHost,
+      clients,
+      resolvedAuth: params.resolvedAuth,
+      rateLimiter: params.rateLimiter,
+    });
+>>>>>>> upstream/main
   }
 
   const clients = new Set<GatewayWsClient>();

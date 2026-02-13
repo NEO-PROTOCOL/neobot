@@ -30,9 +30,14 @@ import { scheduleGatewayUpdateCheck } from "../infra/update-startup.js";
 import { setGatewaySigusr1RestartPolicy } from "../infra/restart.js";
 import { startDiagnosticHeartbeat, stopDiagnosticHeartbeat } from "../logging/diagnostic.js";
 import { createSubsystemLogger, runtimeForLogger } from "../logging/subsystem.js";
+<<<<<<< HEAD
 import type { PluginServicesHandle } from "../plugins/services.js";
 import type { RuntimeEnv } from "../runtime.js";
+=======
+import { getGlobalHookRunner } from "../plugins/hook-runner-global.js";
+>>>>>>> upstream/main
 import { runOnboardingWizard } from "../wizard/onboarding.js";
+import { createAuthRateLimiter, type AuthRateLimiter } from "./auth-rate-limit.js";
 import { startGatewayConfigReloader } from "./config-reload.js";
 import {
   getHealthCache,
@@ -256,6 +261,48 @@ export async function startGatewayServer(
     tailscaleMode,
   } = runtimeConfig;
   let hooksConfig = runtimeConfig.hooksConfig;
+<<<<<<< HEAD
+=======
+  const canvasHostEnabled = runtimeConfig.canvasHostEnabled;
+
+  // Create auth rate limiter only when explicitly configured.
+  const rateLimitConfig = cfgAtStart.gateway?.auth?.rateLimit;
+  const authRateLimiter: AuthRateLimiter | undefined = rateLimitConfig
+    ? createAuthRateLimiter(rateLimitConfig)
+    : undefined;
+
+  let controlUiRootState: ControlUiRootState | undefined;
+  if (controlUiRootOverride) {
+    const resolvedOverride = resolveControlUiRootOverrideSync(controlUiRootOverride);
+    const resolvedOverridePath = path.resolve(controlUiRootOverride);
+    controlUiRootState = resolvedOverride
+      ? { kind: "resolved", path: resolvedOverride }
+      : { kind: "invalid", path: resolvedOverridePath };
+    if (!resolvedOverride) {
+      log.warn(`gateway: controlUi.root not found at ${resolvedOverridePath}`);
+    }
+  } else if (controlUiEnabled) {
+    let resolvedRoot = resolveControlUiRootSync({
+      moduleUrl: import.meta.url,
+      argv1: process.argv[1],
+      cwd: process.cwd(),
+    });
+    if (!resolvedRoot) {
+      const ensureResult = await ensureControlUiAssetsBuilt(gatewayRuntime);
+      if (!ensureResult.ok && ensureResult.message) {
+        log.warn(`gateway: ${ensureResult.message}`);
+      }
+      resolvedRoot = resolveControlUiRootSync({
+        moduleUrl: import.meta.url,
+        argv1: process.argv[1],
+        cwd: process.cwd(),
+      });
+    }
+    controlUiRootState = resolvedRoot
+      ? { kind: "resolved", path: resolvedRoot }
+      : { kind: "missing" };
+  }
+>>>>>>> upstream/main
 
   const wizardRunner = opts.wizardRunner ?? runOnboardingWizard;
   const { wizardSessions, findRunningWizard, purgeWizardSession } = createWizardSessionTracker();
@@ -292,6 +339,7 @@ export async function startGatewayServer(
     openResponsesEnabled,
     openResponsesConfig,
     resolvedAuth,
+    rateLimiter: authRateLimiter,
     gatewayTls,
     hooksConfig: () => hooksConfig,
     pluginRegistry,
@@ -418,6 +466,7 @@ export async function startGatewayServer(
     canvasHostEnabled: false,
     canvasHostServerPort: undefined,
     resolvedAuth,
+    rateLimiter: authRateLimiter,
     gatewayMethods,
     events: GATEWAY_EVENTS,
     logGateway: log,
@@ -497,6 +546,16 @@ export async function startGatewayServer(
     logBrowser,
   }));
 
+  // Run gateway_start plugin hook (fire-and-forget)
+  {
+    const hookRunner = getGlobalHookRunner();
+    if (hookRunner?.hasHooks("gateway_start")) {
+      void hookRunner.runGatewayStart({ port }, { port }).catch((err) => {
+        log.warn(`gateway_start hook failed: ${String(err)}`);
+      });
+    }
+  }
+
   const { applyHotReload, requestGatewayRestart } = createGatewayReloadHandlers({
     deps,
     broadcast,
@@ -561,6 +620,20 @@ export async function startGatewayServer(
 
   return {
     close: async (opts) => {
+      // Run gateway_stop plugin hook before shutdown
+      {
+        const hookRunner = getGlobalHookRunner();
+        if (hookRunner?.hasHooks("gateway_stop")) {
+          try {
+            await hookRunner.runGatewayStop(
+              { reason: opts?.reason ?? "gateway stopping" },
+              { port },
+            );
+          } catch (err) {
+            log.warn(`gateway_stop hook failed: ${String(err)}`);
+          }
+        }
+      }
       if (diagnosticsEnabled) {
         stopDiagnosticHeartbeat();
       }
@@ -569,6 +642,7 @@ export async function startGatewayServer(
         skillsRefreshTimer = null;
       }
       skillsChangeUnsub();
+      authRateLimiter?.dispose();
       await close(opts);
     },
   };

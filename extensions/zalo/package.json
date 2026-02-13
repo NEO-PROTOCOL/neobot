@@ -1,6 +1,11 @@
 {
   "name": "@openclaw/zalo",
+<<<<<<< HEAD
   "version": "2026.1.26",
+=======
+  "version": "2026.2.13",
+  "description": "OpenClaw Zalo channel plugin",
+>>>>>>> upstream/main
   "type": "module",
   "description": "Moltbot Zalo channel plugin",
   "moltbot": {

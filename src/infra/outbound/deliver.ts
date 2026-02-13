@@ -14,7 +14,14 @@ import {
   appendAssistantMessageToSessionTranscript,
   resolveMirroredTranscriptText,
 } from "../../config/sessions.js";
+<<<<<<< HEAD
 import type { NormalizedOutboundPayload } from "./payloads.js";
+=======
+import { getGlobalHookRunner } from "../../plugins/hook-runner-global.js";
+import { markdownToSignalTextChunks, type SignalTextStyleRange } from "../../signal/format.js";
+import { sendMessageSignal } from "../../signal/send.js";
+import { throwIfAborted } from "./abort.js";
+>>>>>>> upstream/main
 import { normalizeReplyPayloadsForDelivery } from "./payloads.js";
 import type { OutboundChannel } from "./targets.js";
 
@@ -223,22 +230,157 @@ export async function deliverOutboundPayloads(params: {
     }
   };
 
+<<<<<<< HEAD
   const normalizedPayloads = normalizeReplyPayloadsForDelivery(payloads);
+=======
+  const sendSignalText = async (text: string, styles: SignalTextStyleRange[]) => {
+    throwIfAborted(abortSignal);
+    return {
+      channel: "signal" as const,
+      ...(await sendSignal(to, text, {
+        maxBytes: signalMaxBytes,
+        accountId: accountId ?? undefined,
+        textMode: "plain",
+        textStyles: styles,
+      })),
+    };
+  };
+
+  const sendSignalTextChunks = async (text: string) => {
+    throwIfAborted(abortSignal);
+    let signalChunks =
+      textLimit === undefined
+        ? markdownToSignalTextChunks(text, Number.POSITIVE_INFINITY, {
+            tableMode: signalTableMode,
+          })
+        : markdownToSignalTextChunks(text, textLimit, { tableMode: signalTableMode });
+    if (signalChunks.length === 0 && text) {
+      signalChunks = [{ text, styles: [] }];
+    }
+    for (const chunk of signalChunks) {
+      throwIfAborted(abortSignal);
+      results.push(await sendSignalText(chunk.text, chunk.styles));
+    }
+  };
+
+  const sendSignalMedia = async (caption: string, mediaUrl: string) => {
+    throwIfAborted(abortSignal);
+    const formatted = markdownToSignalTextChunks(caption, Number.POSITIVE_INFINITY, {
+      tableMode: signalTableMode,
+    })[0] ?? {
+      text: caption,
+      styles: [],
+    };
+    return {
+      channel: "signal" as const,
+      ...(await sendSignal(to, formatted.text, {
+        mediaUrl,
+        maxBytes: signalMaxBytes,
+        accountId: accountId ?? undefined,
+        textMode: "plain",
+        textStyles: formatted.styles,
+      })),
+    };
+  };
+  const normalizeWhatsAppPayload = (payload: ReplyPayload): ReplyPayload | null => {
+    const hasMedia = Boolean(payload.mediaUrl) || (payload.mediaUrls?.length ?? 0) > 0;
+    const rawText = typeof payload.text === "string" ? payload.text : "";
+    const normalizedText = rawText.replace(/^(?:[ \t]*\r?\n)+/, "");
+    if (!normalizedText.trim()) {
+      if (!hasMedia) {
+        return null;
+      }
+      return {
+        ...payload,
+        text: "",
+      };
+    }
+    return {
+      ...payload,
+      text: normalizedText,
+    };
+  };
+  const normalizedPayloads = normalizeReplyPayloadsForDelivery(payloads).flatMap((payload) => {
+    if (channel !== "whatsapp") {
+      return [payload];
+    }
+    const normalized = normalizeWhatsAppPayload(payload);
+    return normalized ? [normalized] : [];
+  });
+  const hookRunner = getGlobalHookRunner();
+>>>>>>> upstream/main
   for (const payload of normalizedPayloads) {
     const payloadSummary: NormalizedOutboundPayload = {
       text: payload.text ?? "",
       mediaUrls: payload.mediaUrls ?? (payload.mediaUrl ? [payload.mediaUrl] : []),
       channelData: payload.channelData,
     };
+    const emitMessageSent = (success: boolean, error?: string) => {
+      if (!hookRunner?.hasHooks("message_sent")) {
+        return;
+      }
+      void hookRunner
+        .runMessageSent(
+          {
+            to,
+            content: payloadSummary.text,
+            success,
+            ...(error ? { error } : {}),
+          },
+          {
+            channelId: channel,
+            accountId: accountId ?? undefined,
+          },
+        )
+        .catch(() => {});
+    };
     try {
       throwIfAborted(abortSignal);
+
+      // Run message_sending plugin hook (may modify content or cancel)
+      let effectivePayload = payload;
+      if (hookRunner?.hasHooks("message_sending")) {
+        try {
+          const sendingResult = await hookRunner.runMessageSending(
+            {
+              to,
+              content: payloadSummary.text,
+              metadata: { channel, accountId, mediaUrls: payloadSummary.mediaUrls },
+            },
+            {
+              channelId: channel,
+              accountId: accountId ?? undefined,
+            },
+          );
+          if (sendingResult?.cancel) {
+            continue;
+          }
+          if (sendingResult?.content != null) {
+            effectivePayload = { ...payload, text: sendingResult.content };
+            payloadSummary.text = sendingResult.content;
+          }
+        } catch {
+          // Don't block delivery on hook failure
+        }
+      }
+
       params.onPayload?.(payloadSummary);
-      if (handler.sendPayload && payload.channelData) {
-        results.push(await handler.sendPayload(payload));
+      if (handler.sendPayload && effectivePayload.channelData) {
+        results.push(await handler.sendPayload(effectivePayload));
+        emitMessageSent(true);
         continue;
       }
       if (payloadSummary.mediaUrls.length === 0) {
+<<<<<<< HEAD
         await sendTextChunks(payloadSummary.text);
+=======
+        if (isSignalChannel) {
+          await sendSignalTextChunks(payloadSummary.text);
+        } else {
+          await sendTextChunks(payloadSummary.text);
+        }
+        emitMessageSent(true);
+>>>>>>> upstream/main
         continue;
       }
 
@@ -249,8 +391,16 @@ export async function deliverOutboundPayloads(params: {
         first = false;
         results.push(await handler.sendMedia(caption, url));
       }
+      emitMessageSent(true);
     } catch (err) {
+<<<<<<< HEAD
       if (!params.bestEffort) throw err;
+=======
+      emitMessageSent(false, err instanceof Error ? err.message : String(err));
+      if (!params.bestEffort) {
+        throw err;
+      }
+>>>>>>> upstream/main
       params.onError?.(err, payloadSummary);
     }
   }

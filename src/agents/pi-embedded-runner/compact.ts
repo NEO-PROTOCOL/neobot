@@ -41,7 +41,11 @@ import {
 import { createMoltbotCodingTools } from "../pi-tools.js";
 import { resolveSandboxContext } from "../sandbox.js";
 import { guardSessionManager } from "../session-tool-result-guard-wrapper.js";
+<<<<<<< HEAD
 import { resolveTranscriptPolicy } from "../transcript-policy.js";
+=======
+import { sanitizeToolUseResultPairing } from "../session-transcript-repair.js";
+>>>>>>> upstream/main
 import { acquireSessionWriteLock } from "../session-write-lock.js";
 import {
   applySkillEnvOverrides,
@@ -408,10 +412,16 @@ export async function compactEmbeddedPiSessionDirect(
         const validated = transcriptPolicy.validateAnthropicTurns
           ? validateAnthropicTurns(validatedGemini)
           : validatedGemini;
-        const limited = limitHistoryTurns(
+        const truncated = limitHistoryTurns(
           validated,
           getDmHistoryLimitFromSessionKey(params.sessionKey, params.config),
         );
+        // Re-run tool_use/tool_result pairing repair after truncation, since
+        // limitHistoryTurns can orphan tool_result blocks by removing the
+        // assistant message that contained the matching tool_use.
+        const limited = transcriptPolicy.repairToolUseResultPairing
+          ? sanitizeToolUseResultPairing(truncated)
+          : truncated;
         if (limited.length > 0) {
           session.agent.replaceMessages(limited);
         }

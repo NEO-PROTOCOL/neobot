@@ -1,9 +1,26 @@
 {
   "name": "@openclaw/matrix",
+<<<<<<< HEAD:extensions/_matrix.disabled/package.json
   "version": "2026.1.26",
   "type": "module",
   "description": "Moltbot Matrix channel plugin",
   "moltbot": {
+=======
+  "version": "2026.2.13",
+  "description": "OpenClaw Matrix channel plugin",
+  "type": "module",
+  "dependencies": {
+    "@matrix-org/matrix-sdk-crypto-nodejs": "^0.4.0",
+    "@vector-im/matrix-bot-sdk": "0.8.0-element.3",
+    "markdown-it": "14.1.1",
+    "music-metadata": "^11.12.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "openclaw": "workspace:*"
+  },
+  "openclaw": {
+>>>>>>> upstream/main:extensions/matrix/package.json
     "extensions": [
       "./index.ts"
     ],

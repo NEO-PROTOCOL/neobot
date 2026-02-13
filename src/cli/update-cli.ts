@@ -44,6 +44,7 @@ import { stylePromptHint, stylePromptMessage } from "../terminal/prompt-style.js
 import { theme } from "../terminal/theme.js";
 import { renderTable } from "../terminal/table.js";
 import { formatHelpExamples } from "./help-format.js";
+<<<<<<< HEAD
 import {
   formatUpdateAvailableHint,
   formatUpdateOneLiner,
@@ -51,6 +52,9 @@ import {
 } from "../commands/status.update.js";
 import { syncPluginsForUpdateChannel, updateNpmInstalledPlugins } from "../plugins/update.js";
 import { runCommandWithTimeout } from "../process/exec.js";
+=======
+import { suppressDeprecations } from "./update-cli/suppress-deprecations.js";
+>>>>>>> upstream/main
 
 export type UpdateCommandOptions = {
   json?: boolean;
@@ -564,8 +568,7 @@ function printResult(result: UpdateRunResult, opts: PrintResultOptions) {
 }
 
 export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
-  process.noDeprecation = true;
-  process.env.NODE_NO_WARNINGS = "1";
+  suppressDeprecations();
   const timeoutMs = opts.timeout ? Number.parseInt(opts.timeout, 10) * 1000 : undefined;
   const shouldRestart = opts.restart !== false;
 

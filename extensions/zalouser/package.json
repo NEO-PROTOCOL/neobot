@@ -1,6 +1,11 @@
 {
   "name": "@openclaw/zalouser",
+<<<<<<< HEAD
   "version": "2026.1.26",
+=======
+  "version": "2026.2.13",
+  "description": "OpenClaw Zalo Personal Account plugin via zca-cli",
+>>>>>>> upstream/main
   "type": "module",
   "description": "Moltbot Zalo Personal Account plugin via zca-cli",
   "dependencies": {
