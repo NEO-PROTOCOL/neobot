@@ -4,12 +4,13 @@ import {
   setupMorningBriefing,
   setupWeeklySummary,
   setupHealthCheck,
-  TelegramBot,
+  NotificationService,
 } from "./intelligent-daily-report.js";
 
 export interface AutomationConfig {
   enabledAutomations: string[];
-  telegram?: TelegramBot;
+  notifier?: NotificationService;
+  telegram?: NotificationService; // Deprecated: alias for notifier
 }
 
 export class AutomationManager {
@@ -27,28 +28,29 @@ export class AutomationManager {
   async initialize(): Promise<void> {
     console.log("🤖 Inicializando Automações Avançadas...");
 
-    const { telegram } = this.config;
+    // Accept either notifier (preferred) or telegram (legacy alias)
+    const notifier = this.config.notifier || this.config.telegram;
 
-    if (!telegram) {
-      console.warn("⚠️ Telegram não configurado, algumas automações podem não funcionar");
+    if (!notifier) {
+      console.warn("⚠️ Notificador não configurado, algumas automações podem não funcionar");
       return;
     }
 
     // Setup automations based on config
     if (this.isEnabled("intelligent-report")) {
-      setupIntelligentReport(this.scheduler, telegram);
+      setupIntelligentReport(this.scheduler, notifier);
     }
 
     if (this.isEnabled("morning-briefing")) {
-      setupMorningBriefing(this.scheduler, telegram);
+      setupMorningBriefing(this.scheduler, notifier);
     }
 
     if (this.isEnabled("weekly-summary")) {
-      setupWeeklySummary(this.scheduler, telegram);
+      setupWeeklySummary(this.scheduler, notifier);
     }
 
     if (this.isEnabled("health-check")) {
-      setupHealthCheck(this.scheduler, telegram);
+      setupHealthCheck(this.scheduler, notifier);
     }
 
     // Listen to scheduler events

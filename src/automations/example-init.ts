@@ -7,17 +7,10 @@
 
 import { initializeAutomations, AutomationConfig } from "./automation-manager.js";
 
-// Exemplo de implementação do TelegramBot
-class ExampleTelegramBot {
+// Exemplo de implementação do Bot
+class ExampleBot {
   async sendMessage(chatId: string, message: string, _options?: unknown): Promise<void> {
     console.log(`📤 Sending to ${chatId}:`, message);
-
-    // Aqui você implementaria o envio real via Telegram API
-    // Exemplo com a biblioteca 'node-telegram-bot-api':
-    // await this.bot.sendMessage(chatId, message, options);
-
-    // Ou com Grammy:
-    // await this.bot.api.sendMessage(chatId, message, options);
   }
 }
 
@@ -29,7 +22,7 @@ const config: AutomationConfig = {
     "weekly-summary", // Resumo semanal segunda às 9h
     "health-check", // Health check a cada 5 minutos
   ],
-  telegram: new ExampleTelegramBot(),
+  telegram: new ExampleBot(), // Mantendo a chave 'telegram' temporariamente se o AutomationConfig exigir, mas será 'notifier' em breve
 };
 
 // Inicializar automações

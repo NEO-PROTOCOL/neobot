@@ -11,7 +11,7 @@ export type LedgerEvent = {
   ts: string;
 
   actor: "user" | "agent" | "cron";
-  channel: "cli" | "tui" | "telegram" | "discord" | "scheduler" | "cron" | "unknown";
+  channel: "cli" | "tui" | "discord" | "scheduler" | "cron" | "unknown";
 
   skill: string;
   intent?: string;

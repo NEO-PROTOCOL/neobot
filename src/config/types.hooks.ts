@@ -25,7 +25,6 @@ export type HookMappingConfig = {
   channel?:
     | "last"
     | "whatsapp"
-    | "telegram"
     | "discord"
     | "irc"
     | "googlechat"

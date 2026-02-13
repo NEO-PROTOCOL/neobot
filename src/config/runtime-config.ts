@@ -20,7 +20,6 @@ export interface NeobotRuntimeConfig {
 
 const DEFAULT_CONFIG: NeobotRuntimeConfig = {
   channels: {
-    telegram: { enabled: true }, // Default safest
     whatsapp: { enabled: true },
   },
   executors: {

@@ -1,7 +1,7 @@
 import { TaskScheduler } from "./scheduler.js";
 import { getReportService } from "./intelligent-report-service.js";
 
-export interface TelegramBot {
+export interface NotificationService {
   sendMessage(chatId: string, message: string, options?: any): Promise<void>;
 }
 
@@ -9,13 +9,13 @@ export interface ClaudeService {
   chat(message: string, context?: string): Promise<{ message: string }>;
 }
 
-const ADMIN_CHAT = process.env.TELEGRAM_ADMIN_CHAT || "[CHAT_ID]";
+const ADMIN_CHAT = process.env.ADMIN_CHAT_ID || "[CHAT_ID]";
 
 /**
  * Setup Intelligent Daily Report Automation
  * Envia relatório diário inteligente às 18h
  */
-export function setupIntelligentReport(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupIntelligentReport(scheduler: TaskScheduler, notifier: NotificationService) {
   scheduler.add({
     id: "intelligent-report",
     name: "Relatório Diário Inteligente",
@@ -34,8 +34,8 @@ export function setupIntelligentReport(scheduler: TaskScheduler, telegram: Teleg
         const filepath = await reportService.saveReport(report);
         console.log(`💾 Relatório salvo em: ${filepath}`);
 
-        // Enviar via Telegram com formatação
-        await telegram.sendMessage(
+        // Enviar via Notifier com formatação
+        await notifier.sendMessage(
           ADMIN_CHAT,
           `
 📊 *Relatório Inteligente - ${new Date().toLocaleDateString("pt-BR")}*
@@ -52,7 +52,7 @@ ${report}
         console.error("❌ Erro ao gerar relatório:", error);
 
         // Enviar notificação de erro
-        await telegram.sendMessage(
+        await notifier.sendMessage(
           ADMIN_CHAT,
           `
 ⚠️ *Erro ao gerar relatório diário*
@@ -78,7 +78,7 @@ Timestamp: ${new Date().toISOString()}
  * Setup Morning Briefing
  * Envia briefing matinal às 8h
  */
-export function setupMorningBriefing(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupMorningBriefing(scheduler: TaskScheduler, notifier: NotificationService) {
   scheduler.add({
     id: "morning-briefing",
     name: "Briefing Matinal",
@@ -112,7 +112,7 @@ ${data.errors.length > 0 ? `\n⚠️ *Atenção*\n${data.errors.map((e) => `• 
 Tenha um ótimo dia! 🚀
                 `.trim();
 
-        await telegram.sendMessage(ADMIN_CHAT, message, {
+        await notifier.sendMessage(ADMIN_CHAT, message, {
           parse_mode: "Markdown",
         });
 
@@ -131,7 +131,7 @@ Tenha um ótimo dia! 🚀
  * Setup Weekly Summary
  * Envia resumo semanal toda segunda às 9h
  */
-export function setupWeeklySummary(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupWeeklySummary(scheduler: TaskScheduler, notifier: NotificationService) {
   scheduler.add({
     id: "weekly-summary",
     name: "Resumo Semanal",
@@ -166,7 +166,7 @@ Foco em otimização e novas features!
 Ótima semana pela frente! 💪
                 `.trim();
 
-        await telegram.sendMessage(ADMIN_CHAT, message, {
+        await notifier.sendMessage(ADMIN_CHAT, message, {
           parse_mode: "Markdown",
         });
 
@@ -185,7 +185,7 @@ Foco em otimização e novas features!
  * Setup Health Check
  * Verifica saúde do sistema a cada 5 minutos
  */
-export function setupHealthCheck(scheduler: TaskScheduler, telegram: TelegramBot) {
+export function setupHealthCheck(scheduler: TaskScheduler, notifier: NotificationService) {
   let lastAlertTime = 0;
   const ALERT_COOLDOWN = 15 * 60 * 1000; // 15 minutos
 
@@ -206,7 +206,7 @@ export function setupHealthCheck(scheduler: TaskScheduler, telegram: TelegramBot
           const now = Date.now();
 
           if (now - lastAlertTime > ALERT_COOLDOWN) {
-            await telegram.sendMessage(
+            await notifier.sendMessage(
               ADMIN_CHAT,
               `
 ⚠️ *Alerta: Memória Alta*

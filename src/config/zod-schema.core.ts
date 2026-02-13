@@ -308,7 +308,6 @@ export const RetryConfigSchema = z
 export const QueueModeBySurfaceSchema = z
   .object({
     whatsapp: QueueModeSchema.optional(),
-    telegram: QueueModeSchema.optional(),
     discord: QueueModeSchema.optional(),
     irc: QueueModeSchema.optional(),
     slack: QueueModeSchema.optional(),
