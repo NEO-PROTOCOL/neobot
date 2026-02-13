@@ -58,19 +58,33 @@ try {
 // 4. Token Check (Bitwarden / Env)
 const notionKey = process.env.NOTION_API_KEY || envVars.NOTION_API_KEY;
 const linearKey = process.env.LINEAR_API_KEY || envVars.LINEAR_API_KEY;
+const anthropicKey = process.env.ANTHROPIC_API_KEY || envVars.ANTHROPIC_API_KEY;
+const telegramToken = process.env.TELEGRAM_BOT_TOKEN || envVars.TELEGRAM_BOT_TOKEN;
 
 if (notionKey) {
-    const source = process.env.NOTION_API_KEY ? "Process Env (Start Script?)" : ".env File";
+    const source = process.env.NOTION_API_KEY ? "Process Env" : ".env File";
     console.log(`${GREEN}✔ Notion Connected (${source})${RESET}`);
 } else {
     console.log(`${YELLOW}⚠ Notion API Key missing${RESET}`);
 }
 
 if (linearKey) {
-    const source = process.env.LINEAR_API_KEY ? "Process Env (Start Script?)" : ".env File";
+    const source = process.env.LINEAR_API_KEY ? "Process Env" : ".env File";
     console.log(`${GREEN}✔ Linear Connected (${source})${RESET}`);
 } else {
     console.log(`${YELLOW}⚠ Linear API Key missing${RESET}`);
+}
+
+if (anthropicKey) {
+    console.log(`${GREEN}✔ Anthropic AI Ready${RESET}`);
+} else {
+    console.log(`${YELLOW}⚠ Anthropic API Key missing${RESET}`);
+}
+
+if (telegramToken) {
+    console.log(`${GREEN}✔ Telegram Bot active${RESET}`);
+} else {
+    console.log(`${YELLOW}⚠ Telegram Bot Token missing${RESET}`);
 }
 
 
@@ -84,8 +98,20 @@ if (fs.existsSync(path.join(process.cwd(), 'dist'))) {
 // 6. Roadmap Context
 console.log(`\n${BRIGHT}${CYAN}--- CURRENT MISSION CONTEXT ---${RESET}`);
 try {
-    const roadmapPath = path.join(process.cwd(), 'NEXT_STEPS_V2.md');
-    if (fs.existsSync(roadmapPath)) {
+    const possiblePaths = [
+        path.join(process.cwd(), 'NEXT_STEPS_V2.md'),
+        path.join(process.cwd(), 'docs/core/NEXT_STEPS_V2.md')
+    ];
+    
+    let roadmapPath = null;
+    for (const p of possiblePaths) {
+        if (fs.existsSync(p)) {
+            roadmapPath = p;
+            break;
+        }
+    }
+
+    if (roadmapPath) {
         const content = fs.readFileSync(roadmapPath, 'utf8');
         const lines = content.split('\n');
         // Find the "Status Atual" section
@@ -95,14 +121,14 @@ try {
             if (line.includes('Status Atual:')) {
                 printing = true;
             }
-            if (printing && count < 5) {
+            if (printing && count < 10) { // Aumentado para 10 linhas para mais contexto
                 console.log(`${YELLOW}${line}${RESET}`);
                 count++;
             }
-            if (count >= 5) break;
+            if (count >= 10) break;
         }
     } else {
-        console.log(`${YELLOW}Roadmap file not found.${RESET}`);
+        console.log(`${YELLOW}Roadmap file not found (Checked root and docs/core/)${RESET}`);
     }
 } catch (e) {
     console.log(`${RED}Error reading roadmap: ${e.message}${RESET}`);

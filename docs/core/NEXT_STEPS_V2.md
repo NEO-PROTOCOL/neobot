@@ -26,7 +26,7 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
 - Fase 1.0: COMPLETA (Foundation: IPFS, CLI, Keys, Identity Map)
-- Fase 2.0: EM PROGRESSO (Autonomous & Orchestration: Nexus, FlowCloser)
+- Fase 2.0: EM PROGRESSO (Autonomous & Orchestration: Nexus, NEO Agent Full)
 - Fase 3.0: PREVISTA (Dashboard & Global Deploy)
 ```
 --------------------------------------------------------------
@@ -337,7 +337,7 @@ COMPONENTES NEO LAYER
 │ ▓▓▓ MIGRACAO                                             │
 ├──────────────────────────────────────────────────────────┤
 │ └─ [####] Migrar skill: neo-ipfs-status                  │
-│ └─ [####] Migrar skill: flowcloser                       │
+│ └─ [####] Migrar skill: neo-agent-full                    │
 │ └─ [####] Migrar skill: flowpay                          │
 │ └─ [####] Migrar skill: smart-factory                     │
 │ └─ [ ] Migrar skill: asi1-llm                            │
