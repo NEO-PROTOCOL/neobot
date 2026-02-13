@@ -1,3 +1,7 @@
+import type { OpenClawConfig } from "../../config/config.js";
+import type { ReplyPayload } from "../types.js";
+import type { CommandHandler } from "./commands-types.js";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.js";
 import { loadModelCatalog } from "../../agents/model-catalog.js";
 import {
   buildAllowedModelSet,
@@ -6,13 +10,104 @@ import {
   resolveConfiguredModelRef,
   resolveModelRefFromString,
 } from "../../agents/model-selection.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.js";
-import type { MoltbotConfig } from "../../config/config.js";
-import type { ReplyPayload } from "../types.js";
-import type { CommandHandler } from "./commands-types.js";
 
 const PAGE_SIZE_DEFAULT = 20;
 const PAGE_SIZE_MAX = 100;
+
+export type ModelsProviderData = {
+  byProvider: Map<string, Set<string>>;
+  providers: string[];
+  resolvedDefault: { provider: string; model: string };
+};
+
+/**
+ * Build provider/model data from config and catalog.
+ * Exported for reuse by callback handlers.
+ */
+export async function buildModelsProviderData(cfg: OpenClawConfig): Promise<ModelsProviderData> {
+  const resolvedDefault = resolveConfiguredModelRef({
+    cfg,
+    defaultProvider: DEFAULT_PROVIDER,
+    defaultModel: DEFAULT_MODEL,
+  });
+
+  const catalog = await loadModelCatalog({ config: cfg });
+  const allowed = buildAllowedModelSet({
+    cfg,
+    catalog,
+    defaultProvider: resolvedDefault.provider,
+    defaultModel: resolvedDefault.model,
+  });
+
+  const aliasIndex = buildModelAliasIndex({
+    cfg,
+    defaultProvider: resolvedDefault.provider,
+  });
+
+  const byProvider = new Map<string, Set<string>>();
+  const add = (p: string, m: string) => {
+    const key = normalizeProviderId(p);
+    const set = byProvider.get(key) ?? new Set<string>();
+    set.add(m);
+    byProvider.set(key, set);
+  };
+
+  const addRawModelRef = (raw?: string) => {
+    const trimmed = raw?.trim();
+    if (!trimmed) {
+      return;
+    }
+    const resolved = resolveModelRefFromString({
+      raw: trimmed,
+      defaultProvider: resolvedDefault.provider,
+      aliasIndex,
+    });
+    if (!resolved) {
+      return;
+    }
+    add(resolved.ref.provider, resolved.ref.model);
+  };
+
+  const addModelConfigEntries = () => {
+    const modelConfig = cfg.agents?.defaults?.model;
+    if (typeof modelConfig === "string") {
+      addRawModelRef(modelConfig);
+    } else if (modelConfig && typeof modelConfig === "object") {
+      addRawModelRef(modelConfig.primary);
+      for (const fallback of modelConfig.fallbacks ?? []) {
+        addRawModelRef(fallback);
+      }
+    }
+
+    const imageConfig = cfg.agents?.defaults?.imageModel;
+    if (typeof imageConfig === "string") {
+      addRawModelRef(imageConfig);
+    } else if (imageConfig && typeof imageConfig === "object") {
+      addRawModelRef(imageConfig.primary);
+      for (const fallback of imageConfig.fallbacks ?? []) {
+        addRawModelRef(fallback);
+      }
+    }
+  };
+
+  for (const entry of allowed.allowedCatalog) {
+    add(entry.provider, entry.id);
+  }
+
+  // Include config-only allowlist keys that aren't in the curated catalog.
+  for (const raw of Object.keys(cfg.agents?.defaults?.models ?? {})) {
+    addRawModelRef(raw);
+  }
+
+  // Ensure configured defaults/fallbacks/image models show up even when the
+  // curated catalog doesn't know about them (custom providers, dev builds, etc.).
+  add(resolvedDefault.provider, resolvedDefault.model);
+  addModelConfigEntries();
+
+  const providers = [...byProvider.keys()].toSorted();
+
+  return { byProvider, providers, resolvedDefault };
+}
 
 function formatProviderLine(params: { provider: string; count: number }): string {
   return `- ${params.provider} (${params.count})`;
@@ -42,12 +137,16 @@ function parseModelsArgs(raw: string): {
     }
     if (lower.startsWith("page=")) {
       const value = Number.parseInt(lower.slice("page=".length), 10);
-      if (Number.isFinite(value) && value > 0) page = value;
+      if (Number.isFinite(value) && value > 0) {
+        page = value;
+      }
       continue;
     }
     if (/^[0-9]+$/.test(lower)) {
       const value = Number.parseInt(lower, 10);
-      if (Number.isFinite(value) && value > 0) page = value;
+      if (Number.isFinite(value) && value > 0) {
+        page = value;
+      }
     }
   }
 
@@ -57,7 +156,9 @@ function parseModelsArgs(raw: string): {
     if (lower.startsWith("limit=") || lower.startsWith("size=")) {
       const rawValue = lower.slice(lower.indexOf("=") + 1);
       const value = Number.parseInt(rawValue, 10);
-      if (Number.isFinite(value) && value > 0) pageSize = Math.min(PAGE_SIZE_MAX, value);
+      if (Number.isFinite(value) && value > 0) {
+        pageSize = Math.min(PAGE_SIZE_MAX, value);
+      }
     }
   }
 
@@ -70,92 +171,22 @@ function parseModelsArgs(raw: string): {
 }
 
 export async function resolveModelsCommandReply(params: {
-  cfg: MoltbotConfig;
+  cfg: OpenClawConfig;
   commandBodyNormalized: string;
+  surface?: string;
+  currentModel?: string;
 }): Promise<ReplyPayload | null> {
   const body = params.commandBodyNormalized.trim();
-  if (!body.startsWith("/models")) return null;
+  if (!body.startsWith("/models")) {
+    return null;
+  }
 
   const argText = body.replace(/^\/models\b/i, "").trim();
   const { provider, page, pageSize, all } = parseModelsArgs(argText);
 
-  const resolvedDefault = resolveConfiguredModelRef({
-    cfg: params.cfg,
-    defaultProvider: DEFAULT_PROVIDER,
-    defaultModel: DEFAULT_MODEL,
-  });
+  const { byProvider, providers } = await buildModelsProviderData(params.cfg);
 
-  const catalog = await loadModelCatalog({ config: params.cfg });
-  const allowed = buildAllowedModelSet({
-    cfg: params.cfg,
-    catalog,
-    defaultProvider: resolvedDefault.provider,
-    defaultModel: resolvedDefault.model,
-  });
-
-  const aliasIndex = buildModelAliasIndex({
-    cfg: params.cfg,
-    defaultProvider: resolvedDefault.provider,
-  });
-
-  const byProvider = new Map<string, Set<string>>();
-  const add = (p: string, m: string) => {
-    const key = normalizeProviderId(p);
-    const set = byProvider.get(key) ?? new Set<string>();
-    set.add(m);
-    byProvider.set(key, set);
-  };
-
-  const addRawModelRef = (raw?: string) => {
-    const trimmed = raw?.trim();
-    if (!trimmed) return;
-    const resolved = resolveModelRefFromString({
-      raw: trimmed,
-      defaultProvider: resolvedDefault.provider,
-      aliasIndex,
-    });
-    if (!resolved) return;
-    add(resolved.ref.provider, resolved.ref.model);
-  };
-
-  const addModelConfigEntries = () => {
-    const modelConfig = params.cfg.agents?.defaults?.model;
-    if (typeof modelConfig === "string") {
-      addRawModelRef(modelConfig);
-    } else if (modelConfig && typeof modelConfig === "object") {
-      addRawModelRef(modelConfig.primary);
-      for (const fallback of modelConfig.fallbacks ?? []) {
-        addRawModelRef(fallback);
-      }
-    }
-
-    const imageConfig = params.cfg.agents?.defaults?.imageModel;
-    if (typeof imageConfig === "string") {
-      addRawModelRef(imageConfig);
-    } else if (imageConfig && typeof imageConfig === "object") {
-      addRawModelRef(imageConfig.primary);
-      for (const fallback of imageConfig.fallbacks ?? []) {
-        addRawModelRef(fallback);
-      }
-    }
-  };
-
-  for (const entry of allowed.allowedCatalog) {
-    add(entry.provider, entry.id);
-  }
-
-  // Include config-only allowlist keys that aren't in the curated catalog.
-  for (const raw of Object.keys(params.cfg.agents?.defaults?.models ?? {})) {
-    addRawModelRef(raw);
-  }
-
-  // Ensure configured defaults/fallbacks/image models show up even when the
-  // curated catalog doesn't know about them (custom providers, dev builds, etc.).
-  add(resolvedDefault.provider, resolvedDefault.model);
-  addModelConfigEntries();
-
-  const providers = [...byProvider.keys()].sort();
-
+  // Provider list (no provider specified)
   if (!provider) {
     const lines: string[] = [
       "Providers:",
@@ -181,7 +212,7 @@ export async function resolveModelsCommandReply(params: {
     return { text: lines.join("\n") };
   }
 
-  const models = [...(byProvider.get(provider) ?? new Set<string>())].sort();
+  const models = [...(byProvider.get(provider) ?? new Set<string>())].toSorted();
   const total = models.length;
 
   if (total === 0) {
@@ -227,17 +258,22 @@ export async function resolveModelsCommandReply(params: {
     lines.push(`All: /models ${provider} all`);
   }
 
-  const payload: ReplyPayload = { text: lines.join("\n") };
-  return payload;
+  return { text: lines.join("\n") };
 }
 
 export const handleModelsCommand: CommandHandler = async (params, allowTextCommands) => {
-  if (!allowTextCommands) return null;
+  if (!allowTextCommands) {
+    return null;
+  }
 
   const reply = await resolveModelsCommandReply({
     cfg: params.cfg,
     commandBodyNormalized: params.command.commandBodyNormalized,
+    surface: params.ctx.Surface,
+    currentModel: params.model ? `${params.provider}/${params.model}` : undefined,
   });
-  if (!reply) return null;
+  if (!reply) {
+    return null;
+  }
   return { reply, shouldContinue: false };
 };

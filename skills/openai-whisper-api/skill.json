@@ -1,0 +1,15 @@
+{
+  "id": "openai-whisper-api",
+  "name": "Whisper API",
+  "version": "1.0.0",
+  "description": "Transcribe audio via OpenAI Audio Transcriptions API (Whisper)",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "transcription", "speech", "openai"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["whisper", "openai", "transcription", "api"]
+  }
+}

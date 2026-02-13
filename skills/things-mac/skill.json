@@ -1,0 +1,15 @@
+{
+  "id": "things-mac",
+  "name": "Things 3",
+  "version": "1.0.0",
+  "description": "Manage Things 3 via the things CLI on macOS: add/update projects and todos, list inbox/today/upcoming, search tasks",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "tasks", "macos"],
+  "permissions": ["exec"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["things3", "tasks", "macos", "gtd"]
+  }
+}

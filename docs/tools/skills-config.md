@@ -4,39 +4,38 @@ read_when:
 
   - Adding or modifying skills config
   - Adjusting bundled allowlist or install behavior
+title: "Skills Config"
 ---
+
 # Skills Config
 
-All skills-related configuration lives under `skills` in `~/.clawdbot/moltbot.json`.
+All skills-related configuration lives under `skills` in `~/.openclaw/openclaw.json`.
 
 ```json5
 {
   skills: {
     allowBundled: ["gemini", "peekaboo"],
     load: {
-      extraDirs: [
-        "~/Projects/agent-scripts/skills",
-        "~/Projects/oss/some-skill-pack/skills"
-      ],
+      extraDirs: ["~/Projects/agent-scripts/skills", "~/Projects/oss/some-skill-pack/skills"],
       watch: true,
-      watchDebounceMs: 250
+      watchDebounceMs: 250,
     },
     install: {
       preferBrew: true,
-      nodeManager: "npm" // npm | pnpm | yarn | bun (Gateway runtime still Node; bun not recommended)
+      nodeManager: "npm", // npm | pnpm | yarn | bun (Gateway runtime still Node; bun not recommended)
     },
     entries: {
       "nano-banana-pro": {
         enabled: true,
         apiKey: "GEMINI_KEY_HERE",
         env: {
-          GEMINI_API_KEY: "GEMINI_KEY_HERE"
-        }
+          GEMINI_API_KEY: "GEMINI_KEY_HERE",
+        },
       },
       peekaboo: { enabled: true },
-      sag: { enabled: false }
-    }
-  }
+      sag: { enabled: false },
+    },
+  },
 }
 ```
 
@@ -62,7 +61,7 @@ Per-skill fields:
 ## Notes
 
 - Keys under `entries` map to the skill name by default. If a skill defines
-  `metadata.clawdbot.skillKey`, use that key instead.
+  `metadata.openclaw.skillKey`, use that key instead.
 - Changes to skills are picked up on the next agent turn when the watcher is enabled.
 
 ### Sandboxed skills + env vars

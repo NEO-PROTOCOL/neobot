@@ -1,0 +1,15 @@
+{
+  "id": "nano-pdf",
+  "name": "Nano PDF",
+  "version": "1.0.0",
+  "description": "Edit PDFs with natural-language instructions using the nano-pdf CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "pdf", "editing"],
+  "permissions": ["exec", "fs:read", "fs:write"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["pdf", "editing", "nano-pdf"]
+  }
+}

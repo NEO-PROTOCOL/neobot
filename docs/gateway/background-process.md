@@ -4,11 +4,12 @@ read_when:
 
   - Adding or modifying background exec behavior
   - Debugging long-running exec tasks
+title: "Background Exec and Process Tool"
 ---
 
 # Background Exec + Process Tool
 
-Moltbot runs shell commands through the `exec` tool and keeps long‑running tasks in memory. The `process` tool manages those background sessions.
+OpenClaw runs shell commands through the `exec` tool and keeps long‑running tasks in memory. The `process` tool manages those background sessions.
 
 ## exec tool
 
@@ -37,7 +38,7 @@ Environment overrides:
 
 - `PI_BASH_YIELD_MS`: default yield (ms)
 - `PI_BASH_MAX_OUTPUT_CHARS`: in‑memory output cap (chars)
-- `CLAWDBOT_BASH_PENDING_MAX_OUTPUT_CHARS`: pending stdout/stderr cap per stream (chars)
+- `OPENCLAW_BASH_PENDING_MAX_OUTPUT_CHARS`: pending stdout/stderr cap per stream (chars)
 - `PI_BASH_JOB_TTL_MS`: TTL for finished sessions (ms, bounded to 1m–3h)
 
 Config (preferred):
@@ -45,7 +46,7 @@ Config (preferred):
 - `tools.exec.backgroundMs` (default 10000)
 - `tools.exec.timeoutSec` (default 1800)
 - `tools.exec.cleanupMs` (default 1800000)
- - `tools.exec.notifyOnExit` (default true): enqueue a system event + request heartbeat when a backgrounded exec exits.
+- `tools.exec.notifyOnExit` (default true): enqueue a system event + request heartbeat when a backgrounded exec exits.
 
 ## process tool
 
@@ -73,20 +74,21 @@ Notes:
 Run a long task and poll later:
 
 ```json
-{"tool": "exec", "command": "sleep 5 && echo done", "yieldMs": 1000}
+{ "tool": "exec", "command": "sleep 5 && echo done", "yieldMs": 1000 }
 ```
+
 ```json
-{"tool": "process", "action": "poll", "sessionId": "<id>"}
+{ "tool": "process", "action": "poll", "sessionId": "<id>" }
 ```
 
 Start immediately in background:
 
 ```json
-{"tool": "exec", "command": "npm run build", "background": true}
+{ "tool": "exec", "command": "npm run build", "background": true }
 ```
 
 Send stdin:
 
 ```json
-{"tool": "process", "action": "write", "sessionId": "<id>", "data": "y\n"}
+{ "tool": "process", "action": "write", "sessionId": "<id>", "data": "y\n" }
 ```

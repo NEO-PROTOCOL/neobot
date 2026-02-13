@@ -126,22 +126,18 @@ src/automations/
 Crie ou atualize seu `.env`:
 
 ```env
-# Telegram
-TELEGRAM_BOT_TOKEN=seu_token_aqui
-TELEGRAM_ADMIN_CHAT=[CHAT_ID]
-
-# Claude AI (já configurado)
-ANTHROPIC_API_KEY=sua_api_key
+# Claude AI — defina no .env:
+# Obtenha em console.anthropic.com e adicione como ANTHROPIC_API_KEY
 ```
 
 ### 2. Inicializar Automações
 
 #### Opção A: Integração no Bot Principal
 
-```typescript
+<!-- # aborted ```typescript
 import { initializeAutomations } from './src/automations/index.js';
 import { TelegramBot } from './seu-bot-telegram.js';
-
+  
 const config = {
     enabledAutomations: [
         'intelligent-report',
@@ -154,8 +150,7 @@ const config = {
 
 const manager = initializeAutomations(config);
 await manager.initialize();
-```
-
+``` --> 
 
 #### Opção B: Standalone
 

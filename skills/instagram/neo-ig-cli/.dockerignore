@@ -1,0 +1,54 @@
+# Dependências
+node_modules
+npm-debug.log
+package-lock.json
+
+# Build
+dist
+*.tsbuildinfo
+
+# Desenvolvimento
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentação
+docs
+*.md
+!README.md
+
+# Testes
+tests
+coverage
+.nyc_output
+
+# Outros
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+Thumbs.db
+
+# Python (se não for usar)
+instagram-py
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Assets temporários
+attached_assets
+resource
+
+# Husky
+.husky
+

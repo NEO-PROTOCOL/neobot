@@ -7,7 +7,7 @@ status: active
 
 # Sandbox vs Tool Policy vs Elevated
 
-Moltbot has three related (but different) controls:
+OpenClaw has three related (but different) controls:
 
 1. **Sandbox** (`agents.defaults.sandbox.*` / `agents.list[].sandbox.*`) decides **where tools run** (Docker vs host).
 2. **Tool policy** (`tools.*`, `tools.sandbox.tools.*`, `agents.list[].tools.*`) decides **which tools are available/allowed**.
@@ -15,13 +15,13 @@ Moltbot has three related (but different) controls:
 
 ## Quick debug
 
-Use the inspector to see what Moltbot is *actually* doing:
+Use the inspector to see what OpenClaw is _actually_ doing:
 
 ```bash
-moltbot sandbox explain
-moltbot sandbox explain --session agent:main:main
-moltbot sandbox explain --agent work
-moltbot sandbox explain --json
+openclaw sandbox explain
+openclaw sandbox explain --session agent:main:main
+openclaw sandbox explain --agent work
+openclaw sandbox explain --json
 ```
 
 It prints:
@@ -43,7 +43,7 @@ See [Sandboxing](/gateway/sandboxing) for the full matrix (scope, workspace moun
 
 ### Bind mounts (security quick check)
 
-- `docker.binds` *pierces* the sandbox filesystem: whatever you mount is visible inside the container with the mode you set (`:ro` or `:rw`).
+- `docker.binds` _pierces_ the sandbox filesystem: whatever you mount is visible inside the container with the mode you set (`:ro` or `:rw`).
 - Default is read-write if you omit the mode; prefer `:ro` for source/secrets.
 - `scope: "shared"` ignores per-agent binds (only global binds apply).
 - Binding `/var/run/docker.sock` effectively hands host control to the sandbox; only do this intentionally.
@@ -65,7 +65,7 @@ Rules of thumb:
 - If `allow` is non-empty, everything else is treated as blocked.
 - Tool policy is the hard stop: `/exec` cannot override a denied `exec` tool.
 - `/exec` only changes session defaults for authorized senders; it does not grant tool access.
-Provider tool keys accept either `provider` (e.g. `google-antigravity`) or `provider/model` (e.g. `openai/gpt-5.2`).
+  Provider tool keys accept either `provider` (e.g. `google-antigravity`) or `provider/model` (e.g. `openai/gpt-5.2`).
 
 ### Tool groups (shorthands)
 
@@ -76,10 +76,10 @@ Tool policies (global, agent, sandbox) support `group:*` entries that expand to 
   tools: {
     sandbox: {
       tools: {
-        allow: ["group:runtime", "group:fs", "group:sessions", "group:memory"]
-      }
-    }
-  }
+        allow: ["group:runtime", "group:fs", "group:sessions", "group:memory"],
+      },
+    },
+  },
 }
 ```
 
@@ -93,11 +93,12 @@ Available groups:
 - `group:automation`: `cron`, `gateway`
 - `group:messaging`: `message`
 - `group:nodes`: `nodes`
-- `group:moltbot`: all built-in Moltbot tools (excludes provider plugins)
+- `group:openclaw`: all built-in OpenClaw tools (excludes provider plugins)
 
 ## Elevated: exec-only “run on host”
 
 Elevated does **not** grant extra tools; it only affects `exec`.
+
 - If you’re sandboxed, `/elevated on` (or `exec` with `elevated: true`) runs on the host (approvals may still apply).
 - Use `/elevated full` to skip exec approvals for the session.
 - If you’re already running direct, elevated is effectively a no-op (still gated).
@@ -125,4 +126,4 @@ Fix-it keys (pick one):
 
 ### “I thought this was main, why is it sandboxed?”
 
-In `"non-main"` mode, group/channel keys are *not* main. Use the main session key (shown by `sandbox explain`) or switch mode to `"off"`.
+In `"non-main"` mode, group/channel keys are _not_ main. Use the main session key (shown by `sandbox explain`) or switch mode to `"off"`.

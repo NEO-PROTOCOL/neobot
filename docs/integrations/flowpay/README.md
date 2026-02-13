@@ -261,7 +261,7 @@ See: [7-DAY-EXECUTION-PLAN.md](./7-DAY-EXECUTION-PLAN.md)
 Core Architect · NΞØ Protocol
 neo@neoprotocol.space
 
-"Revenue First. Sovereignty Follows.
+"Revenue First. Autonomous Follows.
  Access is Product. Token is Proof.
  Closed Loop > Open Dream."
 

@@ -4,6 +4,7 @@ read_when:
 
   - You want the fastest local dev loop (bun + watch)
   - You hit Bun install/patch/lifecycle script issues
+title: "Bun (Experimental)"
 ---
 
 # Bun (experimental)
@@ -27,7 +28,7 @@ Default:
 bun install
 ```
 
-Note: `bun.lock`/`bun.lockb` are gitignored, so there’s no repo churn either way. If you want *no lockfile writes*:
+Note: `bun.lock`/`bun.lockb` are gitignored, so there’s no repo churn either way. If you want _no lockfile writes_:
 
 ```sh
 bun install --no-save

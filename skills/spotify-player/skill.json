@@ -1,0 +1,15 @@
+{
+  "id": "spotify-player",
+  "name": "Spotify Player",
+  "version": "1.0.0",
+  "description": "Terminal Spotify playback and search via spogo or spotify_player",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["audio", "music", "spotify"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["spotify", "music", "playback", "terminal"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "himalaya",
+  "name": "Himalaya Email",
+  "version": "1.0.0",
+  "description": "CLI to manage emails via IMAP/SMTP. List, read, write, reply, forward, search, and organize emails",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["email", "imap", "smtp", "communication"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["email", "imap", "smtp", "himalaya"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "mcporter",
+  "name": "MCP Server Manager",
+  "version": "1.0.0",
+  "description": "Use mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio)",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["mcp", "tools", "integration"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["mcp", "tools", "server", "mcporter"]
+  }
+}

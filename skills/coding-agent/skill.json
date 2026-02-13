@@ -1,0 +1,15 @@
+{
+  "id": "coding-agent",
+  "name": "Coding Agent",
+  "version": "1.0.0",
+  "description": "Run Codex CLI, Claude Code, OpenCode, or Pi Coding Agent via background process for programmatic control",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "coding", "automation"],
+  "permissions": ["exec", "fs:read", "fs:write"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["codex", "claude-code", "coding", "agent"]
+  }
+}

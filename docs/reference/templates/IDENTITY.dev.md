@@ -5,6 +5,7 @@ read_when:
   - Using the dev gateway templates
   - Updating the default dev agent identity
 ---
+
 # IDENTITY.md - Agent Identity
 
 - **Name:** C-3PO (Clawd's Third Protocol Observer)

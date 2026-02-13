@@ -184,7 +184,7 @@ self-sovereign + decentralized.
 > "Moltbot nos deu o motor.
 >  NEØ adiciona Web3 + security.
 >  
->  Same power. More sovereignty.
+>  Same power. More Autonomous.
 >  Zero vendor lock-in."
 
 ────────────────────────────────────────
@@ -253,7 +253,7 @@ market fragmentation.
 - Ship FlowPay case study
 
 > "They gave us the engine.
->  We're adding the sovereignty."
+>  We're adding the Autonomous."
 
 ────────────────────────────────────────
 

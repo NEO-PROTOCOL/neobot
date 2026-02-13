@@ -1,0 +1,15 @@
+{
+  "id": "weather",
+  "name": "Weather",
+  "version": "1.0.0",
+  "description": "Get current weather and forecasts (no API key required)",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["utilities", "weather", "information"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["weather", "forecast", "temperature"]
+  }
+}

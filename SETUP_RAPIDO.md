@@ -183,7 +183,6 @@ pnpm moltbot skills list    # Listar skills
 
 - **Issues:** https://github.com/neomello/neobot/issues
 - **Documentação:** https://github.com/neomello/neobot/tree/main/docs
-- **Telegram:** @neoprotocol
 - **Email:** neo@neoprotocol.space
 
 ---

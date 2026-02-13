@@ -1,0 +1,25 @@
+node_modules
+dist
+.tsimp/
+.yalc/
+.env
+.env.local
+.env.*.local
+!.env.example
+!env.example
+
+*.tsbuildinfo
+*.js
+.next
+build
+coverage
+.eslintcache
+
+*.DS_Store
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Railway
+.railway/

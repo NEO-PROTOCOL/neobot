@@ -1,0 +1,15 @@
+{
+  "id": "summarize",
+  "name": "Summarize",
+  "version": "1.0.0",
+  "description": "Summarize or extract text/transcripts from URLs, podcasts, and local files. Great for YouTube/video transcription",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "summarization", "media"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["summarize", "transcript", "youtube", "podcast"]
+  }
+}

@@ -128,7 +128,7 @@ Without FlowPay:
 Core Architect · NΞØ Protocol
 neo@neoprotocol.space
 
-"Revenue first. Sovereignty follows.
+"Revenue first. Autonomous follows.
  Access is product. Token is proof."
 
 Closed loop > Open dream.

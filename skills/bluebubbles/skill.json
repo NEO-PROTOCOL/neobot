@@ -1,0 +1,15 @@
+{
+  "id": "bluebubbles",
+  "name": "BlueBubbles iMessage",
+  "version": "1.0.0",
+  "description": "Send and manage iMessages via BlueBubbles. Calls go through the generic message tool with channel='bluebubbles'",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["channel", "messaging", "imessage"],
+  "permissions": ["exec", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["bluebubbles", "imessage", "messaging"]
+  }
+}

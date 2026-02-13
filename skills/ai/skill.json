@@ -1,0 +1,15 @@
+{
+  "id": "ai",
+  "name": "AI Chat Integration",
+  "version": "1.0.0",
+  "description": "Claude AI integration for intelligent conversation and content generation",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "chat", "claude"],
+  "permissions": ["http", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["ai", "claude", "chat"]
+  }
+}

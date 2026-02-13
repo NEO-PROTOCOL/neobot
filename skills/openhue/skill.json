@@ -1,0 +1,15 @@
+{
+  "id": "openhue",
+  "name": "Philips Hue",
+  "version": "1.0.0",
+  "description": "Control Philips Hue lights and scenes via OpenHue CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["smart-home", "lights", "hue"],
+  "permissions": ["exec", "network:local"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["hue", "philips", "lights", "smart-home"]
+  }
+}

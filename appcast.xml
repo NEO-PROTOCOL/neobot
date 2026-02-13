@@ -32,8 +32,8 @@
 <li>Channels: LINE plugin (Messaging API) with rich replies + quick replies. (#1630) Thanks @plum-dawg.</li>
 <li>TTS: Edge fallback (keyless) + <code>/tts</code> auto modes. (#1668, #1667) Thanks @steipete, @sebslight. https://docs.molt.bot/tts</li>
 <li>Exec approvals: approve in-chat via <code>/approve</code> across all channels (including plugins). (#1621) Thanks @czekaj. https://docs.molt.bot/tools/exec-approvals https://docs.molt.bot/tools/slash-commands</li>
-<li>Telegram: DM topics as separate sessions + outbound link preview toggle. (#1597, #1700) Thanks @rohannagpal, @zerone0x. https://docs.molt.bot/channels/telegram</li>
-</ul>
+<!-- <li>Telegram: DM topics as separate sessions + outbound link preview toggle. (#1597, #1700) Thanks @rohannagpal, @zerone0x. https://docs.molt.bot/channels/telegram</li> -->
+</ul> aborted -->
 <h3>Changes</h3>
 <ul>
 <li>Channels: add LINE plugin (Messaging API) with rich replies, quick replies, and plugin HTTP registry. (#1630) Thanks @plum-dawg.</li>

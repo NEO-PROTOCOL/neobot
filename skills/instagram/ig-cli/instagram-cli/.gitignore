@@ -1,0 +1,14 @@
+node_modules
+dist
+.tsimp/
+.yalc/
+.env
+
+*.tsbuildinfo
+*.js
+.next
+build
+coverage
+.eslintcache
+
+*.DS_Store

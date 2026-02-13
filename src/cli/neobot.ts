@@ -52,6 +52,15 @@ Como eu posso te ajudar hoje? Aqui está o que eu sei fazer:
   neobot cron run <job>              Me faz rodar uma tarefa agendada agora mesmo
   neobot cron start                  Coloca meu relógio para despertar sozinho
 
+🔮 NEO PROTOCOL
+  neobot neo:info                    Visão geral do NEO Protocol Stack
+  neobot neo:help                    Ajuda completa dos comandos NEO
+  neobot neo:version                 Versão do NEO Protocol
+  neobot neo:skill:list              Lista skills no registry
+  neobot neo:skill:search <query>    Busca skills por nome/tag
+  neobot neo:skill:publish <path>    Publica skill no IPFS
+  neobot neo:skill:install <name>    Instala skill do IPFS
+
 Dica: Se estiver perdido, tente "pnpm neobot health --full" para um papo mais detalhado.
 `.trim(),
   );
@@ -442,7 +451,69 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
     process.exit(1);
   }
 
-  // Commands not handled above (message, channels, gateway, neo:*, etc.) delegate to full Moltbot CLI
+  // NEO Protocol commands
+  if (cmd === "neo:info") {
+    const { neoInfoCommand } = await import("../neo/cli/info.js");
+    await neoInfoCommand();
+    process.exit(0);
+  }
+
+  if (cmd === "neo:help") {
+    const { neoHelpCommand } = await import("../neo/cli/help.js");
+    await neoHelpCommand();
+    process.exit(0);
+  }
+
+  if (cmd === "neo:version") {
+    const { neoVersionCommand } = await import("../neo/cli/version.js");
+    await neoVersionCommand();
+    process.exit(0);
+  }
+
+  if (cmd === "neo:skill:publish") {
+    const path = subcmd;
+    if (!path) {
+      console.error("❌ Usage: neobot neo:skill:publish <path>");
+      process.exit(1);
+    }
+    const { skillPublishCommand } = await import("../neo/cli/skill-publish.js");
+    await skillPublishCommand(path);
+    process.exit(0);
+  }
+
+  if (cmd === "neo:skill:install") {
+    const nameVer = subcmd;
+    if (!nameVer) {
+      console.error("❌ Usage: neobot neo:skill:install <name[@version]>");
+      process.exit(1);
+    }
+    const { skillInstallCommand } = await import("../neo/cli/skill-install.js");
+    await skillInstallCommand(nameVer);
+    process.exit(0);
+  }
+
+  if (cmd === "neo:skill:list") {
+    const { skillListCommand } = await import("../neo/cli/skill-list.js");
+    const searchIdx = process.argv.indexOf("--search");
+    const search = searchIdx !== -1 ? process.argv[searchIdx + 1] : undefined;
+    await skillListCommand({ search });
+    process.exit(0);
+  }
+
+  if (cmd === "neo:skill:search") {
+    const query = [subcmd, ...rest].filter(Boolean).join(" ");
+    const { skillSearchCommand } = await import("../neo/cli/skill-search.js");
+    await skillSearchCommand(query);
+    process.exit(0);
+  }
+
+  if (cmd === "neo:index:create") {
+    const { indexCreateCommand } = await import("../neo/cli/index-create.js");
+    await indexCreateCommand();
+    process.exit(0);
+  }
+
+  // Commands not handled above (message, channels, gateway, etc.) delegate to full Moltbot CLI
   const { runCli } = await import("./run-main.js");
   await runCli(process.argv);
 }

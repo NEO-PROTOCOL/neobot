@@ -3,7 +3,9 @@ summary: "Exploration: model config, auth profiles, and fallback behavior"
 read_when:
 
   - Exploring future model selection + auth profile ideas
+title: "Model Config Exploration"
 ---
+
 # Model Config (Exploration)
 
 This document captures **ideas** for future model configuration. It is not a

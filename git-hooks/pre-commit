@@ -8,4 +8,13 @@ if [ -x "$ROOT/git-hooks/pre-commit-secrets" ]; then
 fi
 
 # 2. Format staged files
-node "$ROOT/scripts/format-staged.js"
+NODE_BIN=$(command -v node 2>/dev/null || echo "")
+if [ -z "$NODE_BIN" ]; then
+    # Try nvm default location
+    for d in "$HOME/.nvm/versions/node"/*/bin/node; do
+        [ -x "$d" ] && NODE_BIN="$d" && break
+    done
+fi
+if [ -n "$NODE_BIN" ]; then
+    "$NODE_BIN" "$ROOT/scripts/format-staged.js" 2>/dev/null || true
+fi

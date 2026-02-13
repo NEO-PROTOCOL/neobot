@@ -4,6 +4,7 @@ read_when:
 
   - You need structured file edits across multiple files
   - You want to document or debug patch-based edits
+title: "apply_patch Tool"
 ---
 
 # apply_patch tool

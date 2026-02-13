@@ -1,0 +1,19 @@
+{
+  "id": "llm",
+  "name": "LLM Integration (ASI-1)",
+  "version": "1.0.0",
+  "description": "LLM integration for NEO Protocol featuring ASI-1 model support. Enables AI-powered chat, inference, and agent reasoning via local and remote LLM providers.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "asi1/chat.ts",
+  "category": ["ai", "llm", "inference", "chat"],
+  "permissions": [
+    "http",
+    "network:outbound",
+    "env:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["llm", "asi1", "ai", "inference", "chat"]
+  }
+}

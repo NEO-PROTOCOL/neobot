@@ -1,0 +1,19 @@
+{
+  "id": "github",
+  "name": "GitHub Integration",
+  "version": "1.0.0",
+  "description": "Interact with GitHub using the gh CLI: manage issues, pull requests, CI runs, and advanced API queries for repository automation.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["devops", "git", "github", "automation"],
+  "permissions": [
+    "exec",
+    "network:outbound",
+    "env:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["github", "git", "ci", "devops", "gh"]
+  }
+}

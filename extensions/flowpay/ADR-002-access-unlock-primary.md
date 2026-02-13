@@ -96,7 +96,7 @@ FlowPay implements:
 2. **Revenue first**
    - PIX → Access = value
    - Token = bonus
-   - Sovereignty follows
+   - Autonomous follows
 
 3. **Simple onboarding**
    - No wallet setup required
@@ -277,7 +277,7 @@ async function authMiddleware(req, res, next) {
 Core Architect · NΞØ Protocol
 neo@neoprotocol.space
 
-"Revenue First. Sovereignty Follows.
+"Revenue First. Autonomous Follows.
  Access is Product. Token is Proof.
  Closed Loop > Open Dream."
 

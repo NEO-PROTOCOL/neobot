@@ -1,0 +1,15 @@
+{
+  "id": "reminders",
+  "name": "Personal Reminders",
+  "version": "1.0.0",
+  "description": "Personal reminders system via Telegram",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "reminders", "telegram"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["reminders", "telegram", "personal"]
+  }
+}

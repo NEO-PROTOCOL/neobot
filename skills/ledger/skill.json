@@ -1,0 +1,19 @@
+{
+  "id": "ledger",
+  "name": "Execution Ledger",
+  "version": "1.0.0",
+  "description": "Execution Ledger and Policy Gate for Neobot System Governance. Tracks all agent actions, enforces policies, and provides audit trail.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["governance", "audit", "security", "policy"],
+  "permissions": [
+    "fs:read",
+    "fs:write",
+    "exec"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["ledger", "audit", "governance", "policy"]
+  }
+}

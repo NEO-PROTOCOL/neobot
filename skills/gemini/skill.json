@@ -1,0 +1,15 @@
+{
+  "id": "gemini",
+  "name": "Gemini CLI",
+  "version": "1.0.0",
+  "description": "Gemini CLI for one-shot Q&A, summaries, and AI generation",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "llm", "gemini"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["gemini", "ai", "llm", "google"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "tmux",
+  "name": "Tmux Control",
+  "version": "1.0.0",
+  "description": "Remote-control tmux sessions by sending keystrokes and scraping pane output for interactive CLIs",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["automation", "terminal", "tmux"],
+  "permissions": ["exec"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["tmux", "terminal", "automation", "sessions"]
+  }
+}

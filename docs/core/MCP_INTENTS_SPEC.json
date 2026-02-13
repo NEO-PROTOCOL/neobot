@@ -1,0 +1,101 @@
+{
+  "version": "1.1.0",
+  "ecosystem": "NΞØ",
+  "philosophy": "Decentralization First",
+  "intents": {
+    "qualify_lead": {
+      "description": "Analyze lead via NΞØ:One (ASI1) with advanced reasoning",
+      "params": {
+        "lead_data": { "type": "object", "required": true },
+        "criteria": { "type": "array", "default": ["budget", "urgency", "fit"] },
+        "model": { "type": "string", "default": "asi1-mini" },
+        "temperature": { "type": "number", "default": 0.7 },
+        "max_tokens": { "type": "number", "default": 1000 }
+      },
+      "auth": "api_key",
+      "executor": "neo-one",
+      "storage": ["kwil", "ceramic"],
+      "response": ["qualified", "score", "next_action", "insights", "reasoning", "executable_data", "intermediate_steps", "usage"]
+    },
+    "generate_proposal": {
+      "description": "Create proposal document via NΞØ:One (ASI1)",
+      "params": {
+        "lead_id": { "type": "string", "required": true },
+        "template": { "type": "string", "default": "web3_service" },
+        "custom_data": { "type": "object", "required": false },
+        "model": { "type": "string", "default": "asi1-mini" },
+        "temperature": { "type": "number", "default": 0.8 },
+        "max_tokens": { "type": "number", "default": 2000 }
+      },
+      "auth": "api_key",
+      "executor": "neo-one",
+      "storage": ["ipfs", "ceramic"],
+      "response": ["document_url", "ipfs_hash", "ceramic_stream", "content", "reasoning", "usage"]
+    },
+    "chat_completion": {
+      "description": "Generic chat completion via NΞØ:One (ASI1)",
+      "params": {
+        "messages": { "type": "array", "required": true },
+        "system_prompt": { "type": "string", "required": false },
+        "model": { "type": "string", "default": "asi1-mini" },
+        "temperature": { "type": "number", "default": 0.7 },
+        "max_tokens": { "type": "number", "default": 1000 }
+      },
+      "auth": "api_key",
+      "executor": "neo-one",
+      "storage": ["ceramic"],
+      "response": ["content", "reasoning", "executable_data", "intermediate_steps", "usage"]
+    },
+    "structured_output": {
+      "description": "Get structured JSON output from NΞØ:One (ASI1)",
+      "params": {
+        "prompt": { "type": "string", "required": true },
+        "output_schema": { "type": "object", "required": true },
+        "model": { "type": "string", "default": "asi1-mini" },
+        "temperature": { "type": "number", "default": 0.3 },
+        "max_tokens": { "type": "number", "default": 2000 }
+      },
+      "auth": "api_key",
+      "executor": "neo-one",
+      "storage": ["ceramic"],
+      "response": ["output", "reasoning", "usage"]
+    },
+    "user_login": {
+      "description": "Login de usuário com wallet abstraction",
+      "params": {
+        "method": { "type": "string", "required": true, "enum": ["wallet", "email", "social"] },
+        "wallet_address": { "type": "string", "required": false },
+        "signature": { "type": "string", "required": false },
+        "message": { "type": "string", "required": false },
+        "email": { "type": "string", "required": false },
+        "provider": { "type": "string", "required": false, "enum": ["google", "telegram"] }
+      },
+      "auth": "none",
+      "executor": "auth",
+      "storage": ["ceramic"],
+      "response": ["session_id", "wallet", "neoflow_balance", "expires_at"]
+    },
+    "get_neoflow_balance": {
+      "description": "Obtém saldo de tokens NEOFLW",
+      "params": {
+        "address": { "type": "string", "required": true }
+      },
+      "auth": "wallet",
+      "executor": "neoflow",
+      "response": ["balance", "formatted", "token_info"]
+    },
+    "transfer_neoflow": {
+      "description": "Transfere tokens NEOFLW",
+      "params": {
+        "to": { "type": "string", "required": true },
+        "amount": { "type": "string", "required": true },
+        "gasless": { "type": "boolean", "default": false }
+      },
+      "auth": "wallet",
+      "executor": "neoflow",
+      "storage": ["ceramic", "kwil"],
+      "response": ["tx_hash", "explorer_url", "from", "to", "amount"]
+    }
+  }
+}
+

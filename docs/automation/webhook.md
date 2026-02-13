@@ -3,7 +3,8 @@ summary: "Webhook ingress for wake and isolated agent runs"
 read_when:
 
   - Adding or changing webhook endpoints
-  - Wiring external systems into Moltbot
+  - Wiring external systems into OpenClaw
+title: "Webhooks"
 ---
 
 # Webhooks
@@ -17,8 +18,12 @@ Gateway can expose a small HTTP webhook endpoint for external triggers.
   hooks: {
     enabled: true,
     token: "shared-secret",
-    path: "/hooks"
-  }
+    path: "/hooks",
+    // Optional: restrict explicit `agentId` routing to this allowlist.
+    // Omit or include "*" to allow any agent.
+    // Set [] to deny all explicit `agentId` routing.
+    allowedAgentIds: ["hooks", "main"],
+  },
 }
 ```
 
@@ -32,7 +37,7 @@ Notes:
 Every request must include the hook token. Prefer headers:
 
 - `Authorization: Bearer <token>` (recommended)
-- `x-moltbot-token: <token>`
+- `x-openclaw-token: <token>`
 - `?token=<token>` (deprecated; logs a warning and will be removed in a future major release)
 
 ## Endpoints
@@ -61,6 +66,7 @@ Payload:
 {
   "message": "Run this",
   "name": "Email",
+  "agentId": "hooks",
   "sessionKey": "hook:email:msg-123",
   "wakeMode": "now",
   "deliver": true,
@@ -74,6 +80,7 @@ Payload:
 
 - `message` **required** (string): The prompt or message for the agent to process.
 - `name` optional (string): Human-readable name for the hook (e.g., "GitHub"), used as a prefix in session summaries.
+- `agentId` optional (string): Route this hook to a specific agent. Unknown IDs fall back to the default agent. When set, the hook runs using the resolved agent's workspace and configuration.
 - `sessionKey` optional (string): The key used to identify the agent's session. Defaults to a random `hook:<uuid>`. Using a consistent key allows for a multi-turn conversation within the hook context.
 - `wakeMode` optional (`now` | `next-heartbeat`): Whether to trigger an immediate heartbeat (default `now`) or wait for the next periodic check.
 - `deliver` optional (boolean): If `true`, the agent's response will be sent to the messaging channel. Defaults to `true`. Responses that are only heartbeat acknowledgments are automatically skipped.
@@ -104,10 +111,12 @@ Mapping options (summary):
 - TS transforms require a TS loader (e.g. `bun` or `tsx`) or precompiled `.js` at runtime.
 - Set `deliver: true` + `channel`/`to` on mappings to route replies to a chat surface
   (`channel` defaults to `last` and falls back to WhatsApp).
+- `agentId` routes the hook to a specific agent; unknown IDs fall back to the default agent.
+- `hooks.allowedAgentIds` restricts explicit `agentId` routing. Omit it (or include `*`) to allow any agent. Set `[]` to deny explicit `agentId` routing.
 - `allowUnsafeExternalContent: true` disables the external content safety wrapper for that hook
   (dangerous; only for trusted internal sources).
-- `moltbot webhooks gmail setup` writes `hooks.gmail` config for `moltbot webhooks gmail run`.
-See [Gmail Pub/Sub](/automation/gmail-pubsub) for the full Gmail watch flow.
+- `openclaw webhooks gmail setup` writes `hooks.gmail` config for `openclaw webhooks gmail run`.
+  See [Gmail Pub/Sub](/automation/gmail-pubsub) for the full Gmail watch flow.
 
 ## Responses
 
@@ -128,7 +137,7 @@ curl -X POST http://127.0.0.1:18789/hooks/wake \
 
 ```bash
 curl -X POST http://127.0.0.1:18789/hooks/agent \
-  -H 'x-moltbot-token: SECRET' \
+  -H 'x-openclaw-token: SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"message":"Summarize inbox","name":"Email","wakeMode":"next-heartbeat"}'
 ```
@@ -139,7 +148,7 @@ Add `model` to the agent payload (or mapping) to override the model for that run
 
 ```bash
 curl -X POST http://127.0.0.1:18789/hooks/agent \
-  -H 'x-moltbot-token: SECRET' \
+  -H 'x-openclaw-token: SECRET' \
   -H 'Content-Type: application/json' \
   -d '{"message":"Summarize inbox","name":"Email","model":"openai/gpt-5.2-mini"}'
 ```
@@ -157,6 +166,7 @@ curl -X POST http://127.0.0.1:18789/hooks/gmail \
 
 - Keep hook endpoints behind loopback, tailnet, or trusted reverse proxy.
 - Use a dedicated hook token; do not reuse gateway auth tokens.
+- If you use multi-agent routing, set `hooks.allowedAgentIds` to limit explicit `agentId` selection.
 - Avoid including sensitive raw payloads in webhook logs.
 - Hook payloads are treated as untrusted and wrapped with safety boundaries by default.
   If you must disable this for a specific hook, set `allowUnsafeExternalContent: true`

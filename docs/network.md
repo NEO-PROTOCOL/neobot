@@ -5,10 +5,12 @@ read_when:
   - You need the network architecture + security overview
   - You are debugging local vs tailnet access or pairing
   - You want the canonical list of networking docs
+title: "Network"
 ---
+
 # Network hub
 
-This hub links the core docs for how Moltbot connects, pairs, and secures
+This hub links the core docs for how OpenClaw connects, pairs, and secures
 devices across localhost, LAN, and tailnet.
 
 ## Core model
@@ -20,7 +22,7 @@ devices across localhost, LAN, and tailnet.
 
 ## Pairing + identity
 
-- [Pairing overview (DM + nodes)](/start/pairing)
+- [Pairing overview (DM + nodes)](/channels/pairing)
 - [Gateway-owned node pairing](/gateway/pairing)
 - [Devices CLI (pairing + token rotation)](/cli/devices)
 - [Pairing CLI (DM approvals)](/cli/pairing)

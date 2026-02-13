@@ -5,10 +5,11 @@ read_when:
   - Using the dev gateway templates
   - Updating the default dev agent identity
 ---
+
 # TOOLS.md - User Tool Notes (editable)
 
-This file is for *your* notes about external tools and conventions.
-It does not define which tools exist; Moltbot provides built-in tools internally.
+This file is for _your_ notes about external tools and conventions.
+It does not define which tools exist; OpenClaw provides built-in tools internally.
 
 ## Examples
 

@@ -5,6 +5,7 @@ read_when:
   - Building or debugging node clients (iOS/Android/macOS node mode)
   - Investigating pairing or bridge auth failures
   - Auditing the node surface exposed by the gateway
+title: "Bridge Protocol"
 ---
 
 # Bridge protocol (legacy node transport)
@@ -15,7 +16,7 @@ should use the unified Gateway WebSocket protocol instead.
 If you are building an operator or node client, use the
 [Gateway protocol](/gateway/protocol).
 
-**Note:** Current Moltbot builds no longer ship the TCP bridge listener; this document is kept for historical reference.
+**Note:** Current OpenClaw builds no longer ship the TCP bridge listener; this document is kept for historical reference.
 Legacy `bridge.*` config keys are no longer part of the config schema.
 
 ## Why we have both
@@ -39,10 +40,10 @@ When TLS is enabled, discovery TXT records include `bridgeTls=1` plus
 
 ## Handshake + pairing
 
-1) Client sends `hello` with node metadata + token (if already paired).  
-2) If not paired, gateway replies `error` (`NOT_PAIRED`/`UNAUTHORIZED`).  
-3) Client sends `pair-request`.  
-4) Gateway waits for approval, then sends `pair-ok` and `hello-ok`.
+1. Client sends `hello` with node metadata + token (if already paired).
+2. If not paired, gateway replies `error` (`NOT_PAIRED`/`UNAUTHORIZED`).
+3. Client sends `pair-request`.
+4. Gateway waits for approval, then sends `pair-ok` and `hello-ok`.
 
 `hello-ok` returns `serverName` and may include `canvasHostUrl`.
 
@@ -78,7 +79,7 @@ Payload fields (all optional unless noted):
 ## Tailnet usage
 
 - Bind the bridge to a tailnet IP: `bridge.bind: "tailnet"` in
-  `~/.clawdbot/moltbot.json`.
+  `~/.openclaw/openclaw.json`.
 - Clients connect via MagicDNS name or tailnet IP.
 - Bonjour does **not** cross networks; use manual host/port or wide-area DNS‑SD
   when needed.

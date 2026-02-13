@@ -1,0 +1,19 @@
+{
+  "id": "slack",
+  "name": "Slack Integration",
+  "version": "1.0.0",
+  "description": "Control Slack channels and DMs: send messages, react to messages, pin/unpin items, and manage workspace communication.",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["channel", "messaging", "slack", "communication"],
+  "permissions": [
+    "http",
+    "network:outbound",
+    "env:read"
+  ],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["slack", "messaging", "channel", "workspace"]
+  }
+}

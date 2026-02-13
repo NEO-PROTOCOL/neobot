@@ -1,0 +1,15 @@
+{
+  "id": "clawhub",
+  "name": "ClawHub Registry",
+  "version": "1.0.0",
+  "description": "Use ClawHub CLI to search, install, update, and publish agent skills from clawhub.com",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["registry", "skills", "package-manager"],
+  "permissions": ["exec", "network:outbound"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["clawhub", "skills", "registry"]
+  }
+}

@@ -1,6 +1,7 @@
 ---
 summary: "RPC protocol notes for onboarding wizard and config schema"
 read_when: "Changing onboarding wizard steps or config schema endpoints"
+title: "Onboarding and Config Protocol"
 ---
 
 # Onboarding + Config Protocol
@@ -24,6 +25,7 @@ Purpose: shared onboarding + config surfaces across CLI, macOS app, and Web UI.
 - `config.schema` params: `{}`
 
 Responses (shape)
+
 - Wizard: `{ sessionId, done, step?, status?, error? }`
 - Config schema: `{ schema, uiHints, version, generatedAt }`
 

@@ -1,0 +1,15 @@
+{
+  "id": "blucli",
+  "name": "BluOS CLI",
+  "version": "1.0.0",
+  "description": "BluOS CLI for discovery, playback, grouping, and volume control",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["audio", "music", "smart-home"],
+  "permissions": ["exec", "network:local"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["bluos", "audio", "playback"]
+  }
+}

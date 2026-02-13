@@ -1,0 +1,15 @@
+{
+  "id": "bear-notes",
+  "name": "Bear Notes",
+  "version": "1.0.0",
+  "description": "Create, search, and manage Bear notes via grizzly CLI",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["productivity", "notes", "macos"],
+  "permissions": ["exec"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["bear", "notes", "grizzly", "macos"]
+  }
+}

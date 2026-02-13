@@ -9,6 +9,6 @@ export function registerTuiCli(program: Command) {
     .description("TermUI is now removed in lean mode. Use your sovereign channel for interaction.")
     .action(() => {
       console.log(theme.error("TermUI is not available in NEØ 'Lean' mode."));
-      console.log(theme.muted("Deep sovereignty requires choosing your own UI (WhatsApp, Telegram, or Dashboard)."));
+      console.log(theme.muted("Deep Autonomous requires choosing your own UI (WhatsApp or Dashboard)."));
     });
 }

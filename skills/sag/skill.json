@@ -1,0 +1,15 @@
+{
+  "id": "sag",
+  "name": "SAG Text-to-Speech",
+  "version": "1.0.0",
+  "description": "ElevenLabs text-to-speech with mac-style say UX",
+  "author": "NEØ MELLØ <neo@neoprotocol.space>",
+  "entryPoint": "SKILL.md",
+  "category": ["ai", "tts", "audio"],
+  "permissions": ["exec", "network:outbound", "env:read"],
+  "metadata": {
+    "repository": "https://github.com/neomello/neobot",
+    "license": "MIT",
+    "tags": ["elevenlabs", "tts", "speech", "audio"]
+  }
+}
