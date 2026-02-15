@@ -68,14 +68,14 @@
             "enabled": true
         },
         "docker": {
-            "enabled": true
+            "enabled": false
         },
         "ipfs_local": {
-            "enabled": true
+            "enabled": false
         }
     },
     "social_browser_automation": {
-        "enabled": true,
+        "enabled": false,
         "targets": {
             "x": true,
             "instagram": true,
