@@ -4,6 +4,15 @@ description: Start the project session, checking connections and status.
 
 # Project Kickoff: NΞØ Node Warrior
 
+> **OUTPUT RULE:** Ao final, reportar APENAS o bloco abaixo. Sem menus, sem narrativa, sem raciocínio visível. Aguardar instrução do Operator.
+> ```
+> ⚡ KICKOFF REPORT
+> Stack: [ok | warnings]
+> Warnings: [lista curta ou "none"]
+> Upstream: [in sync | X behind]
+> Ready: [sim | bloqueado por: ...]
+> ```
+
 ## 1. System Check
 
 ```bash
