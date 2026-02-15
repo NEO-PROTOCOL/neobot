@@ -11,7 +11,16 @@
     },
     "channels": {
         "telegram": {
-            "enabled": false
+            "enabled": true,
+            "dmPolicy": "open",
+            "allowFrom": ["*"],
+            "accounts": {
+                "default": {
+                    "tokenFile": "TELEGRAM_BOT_TOKEN"
+                }
+            },
+            "webhookSecret": "${TELEGRAM_WEBHOOK_SECRET}",
+            "webhookUrl": "${TELEGRAM_WEBHOOK_URL}"
         },
         "whatsapp": {
             "enabled": true,
