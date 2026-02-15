@@ -32,6 +32,18 @@ git push origin main
 node --import tsx scripts/notion-sync.ts
 ```
 
-## 4. Shutdown
+## 4. Output Format
+
+**Reportar apenas o resumo final.** Não expor raciocínio interno ou passos intermediários. Formato obrigatório:
+
+```
+🛡️ WRAPUP REPORT
+Projetos: [ok | warnings]
+Pendências: [lista curta ou "none"]
+Push: [ok | falhou em: ...]
+Status: [clean | dirty]
+```
+
+## 5. Shutdown
 
 Sessão encerrada com segurança.

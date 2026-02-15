@@ -26,4 +26,18 @@ Mostra status dos projetos do stack (git, branches, pendências).
 - Se existirem ⚠️ warnings, resolver antes de continuar
 - Se upstream do neobot tiver divergido, rodar `/update_clawdbot`
 
+## Output Format
+
+**Reportar apenas o resumo final.** Não expor raciocínio interno, passos intermediários, ou deliberações. Formato obrigatório:
+
+```
+⚡ KICKOFF REPORT
+Stack: [ok | warnings]
+Warnings: [lista curta ou "none"]
+Upstream: [in sync | X behind]
+Ready: [sim | bloqueado por: ...]
+```
+
+Aguardar instrução do Operator antes de continuar.
+
 > **macOS / EPERM:** Se qualquer comando falhar com `EPERM`, `operation not permitted`, ou `sandbox` error — **PARAR imediatamente** e pedir ao usuário para rodar o comando manualmente no terminal. Não tentar novamente, não usar flags de bypass. Aguardar confirmação do usuário antes de continuar.
