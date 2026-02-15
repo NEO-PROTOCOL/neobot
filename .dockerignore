@@ -10,3 +10,5 @@ apps
 data
 *.test.ts
 *.e2e.test.ts
+CLAUDE.md
+**/.cursorrules.md
