@@ -84,6 +84,7 @@
     "@sinclair/typebox": "0.34.48",
     "@slack/bolt": "^4.6.0",
     "@slack/web-api": "^7.14.0",
+    "@whiskeysockets/baileys": "7.0.0-rc.9",
     "ajv": "^8.17.1",
     "@grammyjs/runner": "^2.0.3",
     "@grammyjs/transformer-throttler": "^1.2.1",
@@ -152,6 +153,7 @@
       "tar": "7.5.7"
     },
     "onlyBuiltDependencies": [
+      "@whiskeysockets/baileys",
       "better-sqlite3",
       "esbuild",
       "protobufjs",
