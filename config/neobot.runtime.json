@@ -13,9 +13,7 @@
         "telegram": {
             "enabled": true,
             "dmPolicy": "open",
-            "allowFrom": ["*"],
-            "webhookSecret": "${TELEGRAM_WEBHOOK_SECRET}",
-            "webhookUrl": "${TELEGRAM_WEBHOOK_URL}"
+            "allowFrom": ["*"]
         },
         "whatsapp": {
             "enabled": true,
