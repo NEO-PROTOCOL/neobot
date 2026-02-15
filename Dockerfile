@@ -9,7 +9,7 @@ COPY package.json pnpm-lock.yaml .npmrc ./
 COPY patches ./patches
 COPY scripts ./scripts
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 
 # ── Stage 2: build ─────────────────────────────────────────────────────────────
 FROM deps AS build
