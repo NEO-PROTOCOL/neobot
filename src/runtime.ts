@@ -22,3 +22,16 @@ export const defaultRuntime: RuntimeEnv = {
     throw new Error("unreachable"); // satisfies tests when mocked
   },
 };
+
+export function createNonExitingRuntime(): RuntimeEnv {
+  return {
+    log: defaultRuntime.log,
+    error: defaultRuntime.error,
+    exit: (code) => {
+      // Do not exit process; just throw to interrupt flow if needed, or log.
+      // Throwing ensures that code expecting termination doesn't continue unexpectedly.
+      defaultRuntime.error(`[NonExitingRuntime] exit called with code ${code}`);
+      throw new Error(`Exit code ${code}`);
+    },
+  };
+}
