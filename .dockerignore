@@ -5,7 +5,7 @@ dist
 .git
 .github
 prompts
-docs
+# docs
 apps
 data
 *.test.ts
