@@ -1,12 +1,14 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-
 import { describe, expect, it, vi } from "vitest";
 import { createOpenClawCodingTools } from "./pi-tools.js";
 import { createHostSandboxFsBridge } from "./test-helpers/host-sandbox-fs-bridge.js";
-:src/agents/pi-tools.workspace-paths.e2e.test.ts
 
+vi.mock("../infra/shell-env.js", async (importOriginal) => {
+  const mod = await importOriginal<typeof import("../infra/shell-env.js")>();
+  return { ...mod, getShellPathFromLoginShell: () => null };
+});
 async function withTempDir<T>(prefix: string, fn: (dir: string) => Promise<T>) {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix));
   try {
@@ -22,8 +24,6 @@ function getTextContent(result?: { content?: Array<{ type: string; text?: string
 }
 
 describe("workspace path resolution", () => {
-  // Stub process.cwd() instead of process.chdir() so we never leave the process in a temp dir
-  // (avoids ENOENT when a previous test timed out and temp dir was deleted).
   it("reads relative paths against workspaceDir even after cwd changes", async () => {
     await withTempDir("openclaw-ws-", async (workspaceDir) => {
       await withTempDir("openclaw-cwd-", async (otherDir) => {
@@ -31,8 +31,7 @@ describe("workspace path resolution", () => {
         const contents = "workspace read ok";
         await fs.writeFile(path.join(workspaceDir, testFile), contents, "utf8");
 
-        const realCwd = process.cwd.bind(process);
-        process.cwd = () => otherDir;
+        const cwdSpy = vi.spyOn(process, "cwd").mockReturnValue(otherDir);
         try {
           const tools = createOpenClawCodingTools({ workspaceDir });
           const readTool = tools.find((tool) => tool.name === "read");
@@ -41,7 +40,7 @@ describe("workspace path resolution", () => {
           const result = await readTool?.execute("ws-read", { path: testFile });
           expect(getTextContent(result)).toContain(contents);
         } finally {
-          process.cwd = realCwd;
+          cwdSpy.mockRestore();
         }
       });
     });
@@ -53,8 +52,7 @@ describe("workspace path resolution", () => {
         const testFile = "write.txt";
         const contents = "workspace write ok";
 
-        const realCwd = process.cwd.bind(process);
-        process.cwd = () => otherDir;
+        const cwdSpy = vi.spyOn(process, "cwd").mockReturnValue(otherDir);
         try {
           const tools = createOpenClawCodingTools({ workspaceDir });
           const writeTool = tools.find((tool) => tool.name === "write");
@@ -68,7 +66,7 @@ describe("workspace path resolution", () => {
           const written = await fs.readFile(path.join(workspaceDir, testFile), "utf8");
           expect(written).toBe(contents);
         } finally {
-          process.cwd = realCwd;
+          cwdSpy.mockRestore();
         }
       });
     });
@@ -80,8 +78,7 @@ describe("workspace path resolution", () => {
         const testFile = "edit.txt";
         await fs.writeFile(path.join(workspaceDir, testFile), "hello world", "utf8");
 
-        const realCwd = process.cwd.bind(process);
-        process.cwd = () => otherDir;
+        const cwdSpy = vi.spyOn(process, "cwd").mockReturnValue(otherDir);
         try {
           const tools = createOpenClawCodingTools({ workspaceDir });
           const editTool = tools.find((tool) => tool.name === "edit");
@@ -96,7 +93,7 @@ describe("workspace path resolution", () => {
           const updated = await fs.readFile(path.join(workspaceDir, testFile), "utf8");
           expect(updated).toBe("hello openclaw");
         } finally {
-          process.cwd = realCwd;
+          cwdSpy.mockRestore();
         }
       });
     });
@@ -104,7 +101,10 @@ describe("workspace path resolution", () => {
 
   it("defaults exec cwd to workspaceDir when workdir is omitted", async () => {
     await withTempDir("openclaw-ws-", async (workspaceDir) => {
-      const tools = createOpenClawCodingTools({ workspaceDir });
+      const tools = createOpenClawCodingTools({
+        workspaceDir,
+        exec: { host: "gateway", ask: "off", security: "full" },
+      });
       const execTool = tools.find((tool) => tool.name === "exec");
       expect(execTool).toBeDefined();
 
@@ -127,7 +127,10 @@ describe("workspace path resolution", () => {
   it("lets exec workdir override the workspace default", async () => {
     await withTempDir("openclaw-ws-", async (workspaceDir) => {
       await withTempDir("openclaw-override-", async (overrideDir) => {
-        const tools = createOpenClawCodingTools({ workspaceDir });
+        const tools = createOpenClawCodingTools({
+          workspaceDir,
+          exec: { host: "gateway", ask: "off", security: "full" },
+        });
         const execTool = tools.find((tool) => tool.name === "exec");
         expect(execTool).toBeDefined();
 
@@ -159,7 +162,7 @@ describe("sandboxed workspace paths", () => {
           sessionKey: "sandbox:test",
           workspaceDir: sandboxDir,
           agentWorkspaceDir: workspaceDir,
-          workspaceAccess: "rw" as const,
+          workspaceAccess: "rw",
           containerName: "openclaw-sbx-test",
           containerWorkdir: "/workspace",
           fsBridge: createHostSandboxFsBridge(sandboxDir),

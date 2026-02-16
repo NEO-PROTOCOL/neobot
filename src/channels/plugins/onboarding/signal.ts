@@ -115,7 +115,7 @@ async function promptSignalAllowFrom(params: {
     [
       "Allowlist Signal DMs by sender id.",
       "Examples:",
-      "- +5562983231110",
+      "- +15555550123",
       "- uuid:123e4567-e89b-12d3-a456-426614174000",
       "Multiple entries: comma-separated.",
       `Docs: ${formatDocsLink("/signal", "signal")}`,
@@ -124,7 +124,7 @@ async function promptSignalAllowFrom(params: {
   );
   const entry = await params.prompter.text({
     message: "Signal allowFrom (E.164 or uuid)",
-    placeholder: "+5562983231110, uuid:123e4567-e89b-12d3-a456-426614174000",
+    placeholder: "+15555550123, uuid:123e4567-e89b-12d3-a456-426614174000",
     initialValue: existing[0] ? String(existing[0]) : undefined,
     validate: (value) => {
       const raw = String(value ?? "").trim();

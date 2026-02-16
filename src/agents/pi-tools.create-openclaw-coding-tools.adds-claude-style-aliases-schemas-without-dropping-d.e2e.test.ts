@@ -73,12 +73,12 @@ describe("createOpenClawCodingTools", () => {
     }
   });
   it("filters tools by sandbox policy", () => {
-    const sandboxDir = path.join(os.tmpdir(), "openclaw-sandbox");
+    const sandboxDir = path.join(os.tmpdir(), "moltbot-sandbox");
     const sandbox = {
       enabled: true,
       sessionKey: "sandbox:test",
       workspaceDir: sandboxDir,
-      agentWorkspaceDir: path.join(os.tmpdir(), "openclaw-workspace"),
+      agentWorkspaceDir: path.join(os.tmpdir(), "moltbot-workspace"),
       workspaceAccess: "none",
       containerName: "openclaw-sbx-test",
       containerWorkdir: "/workspace",
@@ -106,12 +106,12 @@ describe("createOpenClawCodingTools", () => {
     expect(tools.some((tool) => tool.name === "browser")).toBe(false);
   });
   it("hard-disables write/edit when sandbox workspaceAccess is ro", () => {
-    const sandboxDir = path.join(os.tmpdir(), "openclaw-sandbox");
+    const sandboxDir = path.join(os.tmpdir(), "moltbot-sandbox");
     const sandbox = {
       enabled: true,
       sessionKey: "sandbox:test",
       workspaceDir: sandboxDir,
-      agentWorkspaceDir: path.join(os.tmpdir(), "openclaw-workspace"),
+      agentWorkspaceDir: path.join(os.tmpdir(), "moltbot-workspace"),
       workspaceAccess: "ro",
       containerName: "openclaw-sbx-test",
       containerWorkdir: "/workspace",

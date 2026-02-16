@@ -88,7 +88,7 @@ export type SessionConfig = {
   scope?: SessionScope;
   /** DM session scoping (default: "main"). */
   dmScope?: DmScope;
-  /** Map platform-prefixed identities (e.g. "whatsapp:123") to canonical DM peers. */
+  /** Map platform-prefixed identities (e.g. "telegram:123") to canonical DM peers. */
   identityLinks?: Record<string, string[]>;
   resetTriggers?: string[];
   idleMinutes?: number;
@@ -160,7 +160,7 @@ export type DiagnosticsCacheTraceConfig = {
 
 export type DiagnosticsConfig = {
   enabled?: boolean;
-  /** Optional ad-hoc diagnostics flags (e.g. "slack.http"). */
+  /** Optional ad-hoc diagnostics flags (e.g. "telegram.http"). */
   flags?: string[];
   otel?: DiagnosticsOtelConfig;
   cacheTrace?: DiagnosticsCacheTraceConfig;

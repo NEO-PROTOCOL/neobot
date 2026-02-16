@@ -4,6 +4,7 @@ import type { OpenClawConfig } from "../config/config.js";
 import {
   resolveAgentConfig,
   resolveAgentDir,
+  resolveEffectiveModelFallbacks,
   resolveAgentModelFallbacksOverride,
   resolveAgentModelPrimary,
   resolveAgentWorkspaceDir,
@@ -112,6 +113,60 @@ describe("resolveAgentConfig", () => {
       },
     };
     expect(resolveAgentModelFallbacksOverride(cfgDisable, "linus")).toEqual([]);
+
+    expect(
+      resolveEffectiveModelFallbacks({
+        cfg,
+        agentId: "linus",
+        hasSessionModelOverride: false,
+      }),
+    ).toEqual(["openai/gpt-5.2"]);
+    expect(
+      resolveEffectiveModelFallbacks({
+        cfg,
+        agentId: "linus",
+        hasSessionModelOverride: true,
+      }),
+    ).toEqual(["openai/gpt-5.2"]);
+    expect(
+      resolveEffectiveModelFallbacks({
+        cfg: cfgNoOverride,
+        agentId: "linus",
+        hasSessionModelOverride: true,
+      }),
+    ).toEqual([]);
+
+    const cfgInheritDefaults: OpenClawConfig = {
+      agents: {
+        defaults: {
+          model: {
+            fallbacks: ["openai/gpt-4.1"],
+          },
+        },
+        list: [
+          {
+            id: "linus",
+            model: {
+              primary: "anthropic/claude-opus-4",
+            },
+          },
+        ],
+      },
+    };
+    expect(
+      resolveEffectiveModelFallbacks({
+        cfg: cfgInheritDefaults,
+        agentId: "linus",
+        hasSessionModelOverride: true,
+      }),
+    ).toEqual(["openai/gpt-4.1"]);
+    expect(
+      resolveEffectiveModelFallbacks({
+        cfg: cfgDisable,
+        agentId: "linus",
+        hasSessionModelOverride: true,
+      }),
+    ).toEqual([]);
   });
 
   it("should return agent-specific sandbox config", () => {
@@ -154,7 +209,7 @@ describe("resolveAgentConfig", () => {
               deny: ["exec", "write", "edit"],
               elevated: {
                 enabled: false,
-                allowFrom: { whatsapp: ["+5562983231110"] },
+                allowFrom: { whatsapp: ["+15555550123"] },
               },
             },
           },
@@ -167,7 +222,7 @@ describe("resolveAgentConfig", () => {
       deny: ["exec", "write", "edit"],
       elevated: {
         enabled: false,
-        allowFrom: { whatsapp: ["+5562983231110"] },
+        allowFrom: { whatsapp: ["+15555550123"] },
       },
     });
   });

@@ -25,7 +25,7 @@ export type RunEmbeddedPiAgentParams = {
   messageChannel?: string;
   messageProvider?: string;
   agentAccountId?: string;
-  /** Delivery target (e.g. matrix:room:123) for topic/thread routing. */
+  /** Delivery target (e.g. telegram:group:123:topic:456) for topic/thread routing. */
   messageTo?: string;
   /** Thread/topic identifier for routing replies to the originating thread. */
   messageThreadId?: string | number;

@@ -4,7 +4,6 @@ import { AgentsSchema, AudioSchema, BindingsSchema, BroadcastSchema } from "./zo
 import { ApprovalsSchema } from "./zod-schema.approvals.js";
 import { HexColorSchema, ModelsConfigSchema } from "./zod-schema.core.js";
 import { HookMappingSchema, HooksGmailSchema, InternalHooksSchema } from "./zod-schema.hooks.js";
-import { EmailConfigSchema } from "./zod-schema.email.js";
 import { ChannelsSchema } from "./zod-schema.providers.js";
 import { sensitive } from "./zod-schema.sensitive.js";
 import {
@@ -96,6 +95,7 @@ const MemorySchema = z
 
 export const OpenClawSchema = z
   .object({
+    $schema: z.string().optional(),
     meta: z
       .object({
         lastTouchedVersion: z.string().optional(),
@@ -317,7 +317,6 @@ export const OpenClawSchema = z
       })
       .strict()
       .optional(),
-    email: EmailConfigSchema,
     web: z
       .object({
         enabled: z.boolean().optional(),
@@ -399,10 +398,29 @@ export const OpenClawSchema = z
           .optional(),
         auth: z
           .object({
-            mode: z.union([z.literal("token"), z.literal("password")]).optional(),
+            mode: z
+              .union([z.literal("token"), z.literal("password"), z.literal("trusted-proxy")])
+              .optional(),
             token: z.string().optional().register(sensitive),
             password: z.string().optional().register(sensitive),
             allowTailscale: z.boolean().optional(),
+            rateLimit: z
+              .object({
+                maxAttempts: z.number().optional(),
+                windowMs: z.number().optional(),
+                lockoutMs: z.number().optional(),
+                exemptLoopback: z.boolean().optional(),
+              })
+              .strict()
+              .optional(),
+            trustedProxy: z
+              .object({
+                userHeader: z.string().min(1, "userHeader is required for trusted-proxy mode"),
+                requiredHeaders: z.array(z.string()).optional(),
+                allowUsers: z.array(z.string()).optional(),
+              })
+              .strict()
+              .optional(),
           })
           .strict()
           .optional(),

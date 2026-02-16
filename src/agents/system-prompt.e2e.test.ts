@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { buildSubagentSystemPrompt } from "./subagent-announce.js";
 import { buildAgentSystemPrompt, buildRuntimeLine } from "./system-prompt.js";
 
 describe("buildAgentSystemPrompt", () => {
@@ -103,6 +104,26 @@ describe("buildAgentSystemPrompt", () => {
     expect(prompt).toContain("Do not invent commands");
   });
 
+  it("marks system message blocks as internal and not user-visible", () => {
+    const prompt = buildAgentSystemPrompt({
+      workspaceDir: "/tmp/openclaw",
+    });
+
+    expect(prompt).toContain("`[System Message] ...` blocks are internal context");
+    expect(prompt).toContain("are not user-visible by default");
+    expect(prompt).toContain("reports completed cron/subagent work");
+    expect(prompt).toContain("rewrite it in your normal assistant voice");
+  });
+
+  it("guides subagent workflows to avoid polling loops", () => {
+    const prompt = buildAgentSystemPrompt({
+      workspaceDir: "/tmp/openclaw",
+    });
+
+    expect(prompt).toContain("Completion is push-based: it will auto-announce when done.");
+    expect(prompt).toContain("Do not poll `subagents list` / `sessions_list` in a loop");
+  });
+
   it("lists available tools when provided", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
@@ -204,10 +225,10 @@ describe("buildAgentSystemPrompt", () => {
 
   // The system prompt intentionally does NOT include the current date/time.
   // Only the timezone is included, to keep the prompt stable for caching.
-  // See: https://github.com/openclaw/openclaw/commit/66eec295b894bce8333886cfbca3b960c57c4946
+  // See: https://github.com/moltbot/moltbot/commit/66eec295b894bce8333886cfbca3b960c57c4946
   // Agents should use session_status or message timestamps to determine the date/time.
-  // Related: https://github.com/openclaw/openclaw/issues/1897
-  //          https://github.com/openclaw/openclaw/issues/3658
+  // Related: https://github.com/moltbot/moltbot/issues/1897
+  //          https://github.com/moltbot/moltbot/issues/3658
   it("does NOT include a date or time in the system prompt (cache stability)", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/clawd",
@@ -219,7 +240,7 @@ describe("buildAgentSystemPrompt", () => {
     // The prompt should contain the timezone but NOT the formatted date/time string.
     // This is intentional for prompt cache stability — the date/time was removed in
     // commit 66eec295b. If you're here because you want to add it back, please see
-    // https://github.com/openclaw/openclaw/issues/3658 for the preferred approach:
+    // https://github.com/moltbot/moltbot/issues/3658 for the preferred approach:
     // gateway-level timestamp injection into messages, not the system prompt.
     expect(prompt).toContain("Time zone: America/Chicago");
     expect(prompt).not.toContain("Monday, January 5th, 2026");
@@ -418,12 +439,19 @@ describe("buildAgentSystemPrompt", () => {
       sandboxInfo: {
         enabled: true,
         workspaceDir: "/tmp/sandbox",
+        containerWorkspaceDir: "/workspace",
         workspaceAccess: "ro",
         agentWorkspaceMount: "/agent",
         elevated: { allowed: true, defaultLevel: "on" },
       },
     });
 
+    expect(prompt).toContain("Your working directory is: /workspace");
+    expect(prompt).toContain(
+      "For read/write/edit/apply_patch, file paths resolve against host workspace: /tmp/openclaw.",
+    );
+    expect(prompt).toContain("Sandbox container workdir: /workspace");
+    expect(prompt).toContain("Sandbox host workspace: /tmp/sandbox");
     expect(prompt).toContain("You are running in a sandboxed runtime");
     expect(prompt).toContain("Sub-agents stay sandboxed");
     expect(prompt).toContain("User can toggle with /elevated on|off|ask|full.");
@@ -441,5 +469,83 @@ describe("buildAgentSystemPrompt", () => {
 
     expect(prompt).toContain("## Reactions");
     expect(prompt).toContain("Reactions are enabled for Telegram in MINIMAL mode.");
+  });
+});
+
+describe("buildSubagentSystemPrompt", () => {
+  it("includes sub-agent spawning guidance for depth-1 orchestrator when maxSpawnDepth >= 2", () => {
+    const prompt = buildSubagentSystemPrompt({
+      childSessionKey: "agent:main:subagent:abc",
+      task: "research task",
+      childDepth: 1,
+      maxSpawnDepth: 2,
+    });
+
+    expect(prompt).toContain("## Sub-Agent Spawning");
+    expect(prompt).toContain("You CAN spawn your own sub-agents");
+    expect(prompt).toContain("sessions_spawn");
+    expect(prompt).toContain("`subagents` tool");
+    expect(prompt).toContain("announce their results back to you automatically");
+    expect(prompt).toContain("Do NOT repeatedly poll `subagents list`");
+  });
+
+  it("does not include spawning guidance for depth-1 leaf when maxSpawnDepth == 1", () => {
+    const prompt = buildSubagentSystemPrompt({
+      childSessionKey: "agent:main:subagent:abc",
+      task: "research task",
+      childDepth: 1,
+      maxSpawnDepth: 1,
+    });
+
+    expect(prompt).not.toContain("## Sub-Agent Spawning");
+    expect(prompt).not.toContain("You CAN spawn");
+  });
+
+  it("includes leaf worker note for depth-2 sub-sub-agents", () => {
+    const prompt = buildSubagentSystemPrompt({
+      childSessionKey: "agent:main:subagent:abc:subagent:def",
+      task: "leaf task",
+      childDepth: 2,
+      maxSpawnDepth: 2,
+    });
+
+    expect(prompt).toContain("## Sub-Agent Spawning");
+    expect(prompt).toContain("leaf worker");
+    expect(prompt).toContain("CANNOT spawn further sub-agents");
+  });
+
+  it("uses 'parent orchestrator' label for depth-2 agents", () => {
+    const prompt = buildSubagentSystemPrompt({
+      childSessionKey: "agent:main:subagent:abc:subagent:def",
+      task: "leaf task",
+      childDepth: 2,
+      maxSpawnDepth: 2,
+    });
+
+    expect(prompt).toContain("spawned by the parent orchestrator");
+    expect(prompt).toContain("reported to the parent orchestrator");
+  });
+
+  it("uses 'main agent' label for depth-1 agents", () => {
+    const prompt = buildSubagentSystemPrompt({
+      childSessionKey: "agent:main:subagent:abc",
+      task: "orchestrator task",
+      childDepth: 1,
+      maxSpawnDepth: 2,
+    });
+
+    expect(prompt).toContain("spawned by the main agent");
+    expect(prompt).toContain("reported to the main agent");
+  });
+
+  it("defaults to depth 1 and maxSpawnDepth 1 when not provided", () => {
+    const prompt = buildSubagentSystemPrompt({
+      childSessionKey: "agent:main:subagent:abc",
+      task: "basic task",
+    });
+
+    // Should not include spawning guidance (default maxSpawnDepth is 1, depth 1 is leaf)
+    expect(prompt).not.toContain("## Sub-Agent Spawning");
+    expect(prompt).toContain("spawned by the main agent");
   });
 });

@@ -21,7 +21,7 @@ describe("config strict validation", () => {
         path.join(configDir, "openclaw.json"),
         JSON.stringify({
           agents: { list: [{ id: "pi" }] },
-          routing: { allowFrom: ["+5562983231110"] },
+          routing: { allowFrom: ["+15555550123"] },
         }),
         "utf-8",
       );

@@ -1,23 +1,20 @@
-
 import { type Api, type Context, complete, type Model } from "@mariozechner/pi-ai";
 import { Type } from "@sinclair/typebox";
 import path from "node:path";
 import type { OpenClawConfig } from "../../config/config.js";
 import type { SandboxFsBridge } from "../sandbox/fs-bridge.js";
 import type { AnyAgentTool } from "./common.js";
-
 import { resolveUserPath } from "../../utils.js";
-import { loadWebMedia } from "../../web/media.js";
+import { getDefaultLocalRoots, loadWebMedia } from "../../web/media.js";
 import { ensureAuthProfileStore, listProfilesForProvider } from "../auth-profiles.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.js";
 import { minimaxUnderstandImage } from "../minimax-vlm.js";
 import { getApiKeyForModel, requireApiKey, resolveEnvApiKey } from "../model-auth.js";
 import { runWithImageModelFallback } from "../model-fallback.js";
 import { resolveConfiguredModelRef } from "../model-selection.js";
-
 import { ensureOpenClawModelsJson } from "../models-config.js";
 import { discoverAuthStorage, discoverModels } from "../pi-model-discovery.js";
-
+import { normalizeWorkspaceDir } from "../workspace-dir.js";
 import {
   coerceImageAssistantText,
   coerceImageModelConfig,
@@ -27,13 +24,14 @@ import {
 } from "./image-tool.helpers.js";
 
 const DEFAULT_PROMPT = "Describe the image.";
+const ANTHROPIC_IMAGE_PRIMARY = "anthropic/claude-opus-4-6";
+const ANTHROPIC_IMAGE_FALLBACK = "anthropic/claude-opus-4-5";
 
 export const __testing = {
   decodeDataUrl,
   coerceImageAssistantText,
   resolveImageToolMaxTokens,
 } as const;
-
 
 function resolveImageToolMaxTokens(modelMaxTokens: number | undefined, requestedMaxTokens = 4096) {
   if (
@@ -47,7 +45,6 @@ function resolveImageToolMaxTokens(modelMaxTokens: number | undefined, requested
 }
 
 function resolveDefaultModelRef(cfg?: OpenClawConfig): {
-
   provider: string;
   model: string;
 } {
@@ -63,7 +60,9 @@ function resolveDefaultModelRef(cfg?: OpenClawConfig): {
 }
 
 function hasAuthForProvider(params: { provider: string; agentDir: string }): boolean {
-  if (resolveEnvApiKey(params.provider)?.apiKey) return true;
+  if (resolveEnvApiKey(params.provider)?.apiKey) {
+    return true;
+  }
   const store = ensureAuthProfileStore(params.agentDir, {
     allowKeychainPrompt: false,
   });
@@ -104,8 +103,12 @@ export function resolveImageModelConfigForTool(params: {
   const fallbacks: string[] = [];
   const addFallback = (modelRef: string | null) => {
     const ref = (modelRef ?? "").trim();
-    if (!ref) return;
-    if (fallbacks.includes(ref)) return;
+    if (!ref) {
+      return;
+    }
+    if (fallbacks.includes(ref)) {
+      return;
+    }
     fallbacks.push(ref);
   };
 
@@ -125,15 +128,21 @@ export function resolveImageModelConfigForTool(params: {
     preferred = "minimax/MiniMax-VL-01";
   } else if (providerOk && providerVisionFromConfig) {
     preferred = providerVisionFromConfig;
+  } else if (primary.provider === "zai" && providerOk) {
+    preferred = "zai/glm-4.6v";
   } else if (primary.provider === "openai" && openaiOk) {
     preferred = "openai/gpt-5-mini";
   } else if (primary.provider === "anthropic" && anthropicOk) {
-    preferred = "anthropic/claude-opus-4-5";
+    preferred = ANTHROPIC_IMAGE_PRIMARY;
   }
 
   if (preferred?.trim()) {
-    if (openaiOk) addFallback("openai/gpt-5-mini");
-    if (anthropicOk) addFallback("anthropic/claude-opus-4-5");
+    if (openaiOk) {
+      addFallback("openai/gpt-5-mini");
+    }
+    if (anthropicOk) {
+      addFallback(ANTHROPIC_IMAGE_FALLBACK);
+    }
     // Don't duplicate primary in fallbacks.
     const pruned = fallbacks.filter((ref) => ref !== preferred);
     return {
@@ -144,14 +153,19 @@ export function resolveImageModelConfigForTool(params: {
 
   // Cross-provider fallback when we can't pair with the primary provider.
   if (openaiOk) {
-    if (anthropicOk) addFallback("anthropic/claude-opus-4-5");
+    if (anthropicOk) {
+      addFallback(ANTHROPIC_IMAGE_FALLBACK);
+    }
     return {
       primary: "openai/gpt-5-mini",
       ...(fallbacks.length ? { fallbacks } : {}),
     };
   }
   if (anthropicOk) {
-    return { primary: "anthropic/claude-opus-4-5" };
+    return {
+      primary: ANTHROPIC_IMAGE_PRIMARY,
+      fallbacks: [ANTHROPIC_IMAGE_FALLBACK],
+    };
   }
 
   return null;
@@ -238,15 +252,15 @@ async function runImagePrompt(params: {
 }> {
   const effectiveCfg: OpenClawConfig | undefined = params.cfg
     ? {
-      ...params.cfg,
-      agents: {
-        ...params.cfg.agents,
-        defaults: {
-          ...params.cfg.agents?.defaults,
-          imageModel: params.imageModelConfig,
+        ...params.cfg,
+        agents: {
+          ...params.cfg.agents,
+          defaults: {
+            ...params.cfg.agents?.defaults,
+            imageModel: params.imageModelConfig,
+          },
         },
-      },
-    }
+      }
     : undefined;
 
   await ensureOpenClawModelsJson(effectiveCfg, params.agentDir);
@@ -288,7 +302,6 @@ async function runImagePrompt(params: {
         apiKey,
         maxTokens: resolveImageToolMaxTokens(model.maxTokens),
       });
-
       const text = coerceImageAssistantText({
         message,
         provider: model.provider,
@@ -313,6 +326,7 @@ async function runImagePrompt(params: {
 export function createImageTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;
+  workspaceDir?: string;
   sandbox?: ImageSandboxConfig;
   /** If true, the model has native vision capability and images in the prompt are auto-injected */
   modelHasVision?: boolean;
@@ -329,13 +343,24 @@ export function createImageTool(options?: {
     cfg: options?.config,
     agentDir,
   });
-  if (!imageModelConfig) return null;
+  if (!imageModelConfig) {
+    return null;
+  }
 
   // If model has native vision, images in the prompt are auto-injected
   // so this tool is only needed when image wasn't provided in the prompt
   const description = options?.modelHasVision
     ? "Analyze an image with a vision model. Only use this tool when the image was NOT already provided in the user's message. Images mentioned in the prompt are automatically visible to you."
     : "Analyze an image with the configured image model (agents.defaults.imageModel). Provide a prompt and image path or URL.";
+
+  const localRoots = (() => {
+    const roots = getDefaultLocalRoots();
+    const workspaceDir = normalizeWorkspaceDir(options?.workspaceDir);
+    if (!workspaceDir) {
+      return roots;
+    }
+    return Array.from(new Set([...roots, workspaceDir]));
+  })();
 
   return {
     label: "Image",
@@ -353,7 +378,9 @@ export function createImageTool(options?: {
       const imageRaw = imageRawInput.startsWith("@")
         ? imageRawInput.slice(1).trim()
         : imageRawInput;
-      if (!imageRaw) throw new Error("image required");
+      if (!imageRaw) {
+        throw new Error("image required");
+      }
 
       // The tool accepts file paths, file/data URLs, or http(s) URLs. In some
       // agent/model contexts, images can be referenced as pseudo-URIs like
@@ -398,30 +425,26 @@ export function createImageTool(options?: {
       }
 
       const resolvedImage = (() => {
-
         if (sandboxConfig) {
           return imageRaw;
         }
         if (imageRaw.startsWith("~")) {
           return resolveUserPath(imageRaw);
         }
-
         return imageRaw;
       })();
       const resolvedPathInfo: { resolved: string; rewrittenFrom?: string } = isDataUrl
         ? { resolved: "" }
         : sandboxConfig
           ? await resolveSandboxedImagePath({
-
               sandbox: sandboxConfig,
               imagePath: resolvedImage,
             })
-
           : {
-            resolved: resolvedImage.startsWith("file://")
-              ? resolvedImage.slice("file://".length)
-              : resolvedImage,
-          };
+              resolved: resolvedImage.startsWith("file://")
+                ? resolvedImage.slice("file://".length)
+                : resolvedImage,
+            };
       const resolvedPath = isDataUrl ? null : resolvedPathInfo.resolved;
 
       const media = isDataUrl
@@ -429,10 +452,14 @@ export function createImageTool(options?: {
         : sandboxConfig
           ? await loadWebMedia(resolvedPath ?? resolvedImage, {
               maxBytes,
+              sandboxValidated: true,
               readFile: (filePath) =>
                 sandboxConfig.bridge.readFile({ filePath, cwd: sandboxConfig.root }),
             })
-          : await loadWebMedia(resolvedPath ?? resolvedImage, maxBytes);
+          : await loadWebMedia(resolvedPath ?? resolvedImage, {
+              maxBytes,
+              localRoots,
+            });
       if (media.kind !== "image") {
         throw new Error(`Unsupported media type: ${media.kind}`);
       }

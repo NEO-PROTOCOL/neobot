@@ -1,7 +1,9 @@
 import type { OpenClawConfig } from "./config.js";
+import type { TelegramCapabilitiesConfig } from "./types.telegram.js";
 import { normalizeChannelId } from "../channels/plugins/index.js";
 import { normalizeAccountId } from "../routing/session-key.js";
-type CapabilitiesConfig = string[];
+
+type CapabilitiesConfig = TelegramCapabilitiesConfig;
 
 const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every((entry) => typeof entry === "string");

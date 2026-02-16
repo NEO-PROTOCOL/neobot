@@ -1,6 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { WebSocket } from "ws";
-
 import {
   connectOk,
   getFreePort,
@@ -15,16 +14,12 @@ let server: Awaited<ReturnType<typeof startGatewayServer>>;
 let port = 0;
 
 beforeAll(async () => {
-
-
   port = await getFreePort();
   server = await startGatewayServer(port, { controlUiEnabled: true });
 });
 
 afterAll(async () => {
   await server.close();
-
-
 });
 
 const openClient = async () => {
@@ -35,8 +30,6 @@ const openClient = async () => {
 };
 
 describe("gateway config.apply", () => {
-
-
   it("rejects invalid raw config", async () => {
     const ws = await openClient();
     try {

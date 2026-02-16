@@ -71,6 +71,22 @@ function resolveChannelConfig(
   return isRecord(entry) ? entry : null;
 }
 
+function isTelegramConfigured(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): boolean {
+  if (hasNonEmptyString(env.TELEGRAM_BOT_TOKEN)) {
+    return true;
+  }
+  const entry = resolveChannelConfig(cfg, "telegram");
+  if (!entry) {
+    return false;
+  }
+  if (hasNonEmptyString(entry.botToken) || hasNonEmptyString(entry.tokenFile)) {
+    return true;
+  }
+  if (accountsHaveKeys(entry.accounts, ["botToken", "tokenFile"])) {
+    return true;
+  }
+  return recordHasKeys(entry);
+}
 
 function isDiscordConfigured(cfg: OpenClawConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.DISCORD_BOT_TOKEN)) {
@@ -186,6 +202,8 @@ export function isChannelConfigured(
   switch (channelId) {
     case "whatsapp":
       return isWhatsAppConfigured(cfg);
+    case "telegram":
+      return isTelegramConfigured(cfg, env);
     case "discord":
       return isDiscordConfigured(cfg, env);
     case "irc":
@@ -389,7 +407,7 @@ function registerPluginEntry(cfg: OpenClawConfig, pluginId: string): OpenClawCon
     ...cfg.plugins?.entries,
     [pluginId]: {
       ...(cfg.plugins?.entries?.[pluginId] as Record<string, unknown> | undefined),
-      enabled: false,
+      enabled: true,
     },
   };
   return {
@@ -408,7 +426,7 @@ function formatAutoEnableChange(entry: PluginEnableChange): string {
     const label = getChatChannelMeta(channelId).label;
     reason = reason.replace(new RegExp(`^${channelId}\\b`, "i"), label);
   }
-  return `${reason}, not enabled yet.`;
+  return `${reason}, enabled automatically.`;
 }
 
 export function applyPluginAutoEnable(params: {

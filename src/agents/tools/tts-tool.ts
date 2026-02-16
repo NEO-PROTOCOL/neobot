@@ -9,7 +9,7 @@ import { readStringParam } from "./common.js";
 const TtsToolSchema = Type.Object({
   text: Type.String({ description: "Text to convert to speech." }),
   channel: Type.Optional(
-    Type.String({ description: "Optional channel id to pick output format (e.g. whatsapp)." }),
+    Type.String({ description: "Optional channel id to pick output format (e.g. telegram)." }),
   ),
 });
 
@@ -36,7 +36,7 @@ export function createTtsTool(opts?: {
 
       if (result.success && result.audioPath) {
         const lines: string[] = [];
-        // Tag output as a voice bubble instead of a file attachment.
+        // Tag Telegram Opus output as a voice bubble instead of a file attachment.
         if (result.voiceCompatible) {
           lines.push("[[audio_as_voice]]");
         }
