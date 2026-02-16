@@ -18,6 +18,7 @@ FROM deps AS build
 
 COPY . .
 RUN pnpm build
+RUN pnpm ui:build
 
 # ── Stage 3: runtime ───────────────────────────────────────────────────────────
 FROM node:22-bookworm-slim AS runtime
@@ -27,6 +28,7 @@ WORKDIR /app
 # cache-bust: 20260216-02
 # Copy only what's needed to run
 COPY --from=build /app/dist ./dist
+COPY --from=build /app/ui/dist ./dist/control-ui
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/openclaw.mjs ./openclaw.mjs
