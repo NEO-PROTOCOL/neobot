@@ -38,8 +38,8 @@ ENV CLAWDBOT_STATE_DIR=/app/data
 ENV MOLTBOT_STATE_DIR=/app/data
 ENV TMPDIR=/app/tmp
 
-RUN mkdir -p /app/data /app/tmp && \
-    chown -R node:node /app/data /app/tmp && \
+RUN mkdir -p /app/data /app/tmp /app/config && \
+    chown -R node:node /app/data /app/tmp /app/config && \
     chmod 777 /app/tmp
 
 USER node
