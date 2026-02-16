@@ -47,4 +47,4 @@ USER node
 
 EXPOSE 18789
 
-CMD ["sh", "-c", "node dist/cli/neobot.js gateway --bind lan --allow-unconfigured --port ${PORT:-18789}"]
+CMD ["sh", "-c", "node dist/entry.js gateway --bind lan --allow-unconfigured --port ${PORT:-18789}"]
