@@ -253,6 +253,7 @@ export async function startGatewayServer(
     openResponsesEnabled,
     openResponsesConfig,
     controlUiBasePath,
+    controlUiRoot: controlUiRootOverride,
     resolvedAuth,
     tailscaleConfig,
     tailscaleMode,
