@@ -24,9 +24,7 @@ FROM node:22-bookworm-slim AS runtime
 
 WORKDIR /app
 
-ARG BUILD_DATE
-ENV BUILD_DATE=$BUILD_DATE
-
+# cache-bust: 20260216-02
 # Copy only what's needed to run
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/node_modules ./node_modules
