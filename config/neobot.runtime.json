@@ -16,7 +16,6 @@
         "telegram": {
             "dmPolicy": "open",
             "allowFrom": ["*"]
-        },
-        "dashboard_public_url": "https://neo-dashboard-production-2e56.up.railway.app"
+        }
     }
 }
