@@ -48,6 +48,9 @@ export async function runGatewayUpdateCheck(params: {
   isNixMode: boolean;
   allowInTests?: boolean;
 }): Promise<void> {
+  // Update check disabled by user request
+  return;
+
   if (shouldSkipCheck(Boolean(params.allowInTests))) {
     return;
   }
