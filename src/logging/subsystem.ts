@@ -6,13 +6,14 @@ import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
 import { clearActiveProgressLine } from "../terminal/progress-line.js";
 import { getConsoleSettings, shouldLogSubsystemToConsole } from "./console.js";
 import { type LogLevel, levelToMinLevel } from "./levels.js";
-import { getChildLogger } from "./logger.js";
 import { loggingState } from "./state.js";
+import { getChildLogger, isFileLogLevelEnabled } from "./logger.js";
 
 type LogObj = { date?: Date } & Record<string, unknown>;
 
 export type SubsystemLogger = {
   subsystem: string;
+  isEnabled: (level: LogLevel) => boolean;
   trace: (message: string, meta?: Record<string, unknown>) => void;
   debug: (message: string, meta?: Record<string, unknown>) => void;
   info: (message: string, meta?: Record<string, unknown>) => void;
@@ -274,6 +275,19 @@ export function createSubsystemLogger(subsystem: string): SubsystemLogger {
 
   const logger: SubsystemLogger = {
     subsystem,
+    isEnabled: (level) => {
+      if (isFileLogLevelEnabled(level)) {
+        return true;
+      }
+      const consoleSettings = getConsoleSettings();
+      if (
+        shouldLogSubsystemToConsole(subsystem) &&
+        shouldLogToConsole(level, { level: consoleSettings.level })
+      ) {
+        return true;
+      }
+      return false;
+    },
     trace: (message, meta) => emit("trace", message, meta),
     debug: (message, meta) => emit("debug", message, meta),
     info: (message, meta) => emit("info", message, meta),
