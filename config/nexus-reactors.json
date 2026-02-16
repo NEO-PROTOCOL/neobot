@@ -1,0 +1,25 @@
+[
+  {
+    "id": "rule-dynamic-mint",
+    "enabled": true,
+    "on": "FLOWPAY:PAYMENT_RECEIVED",
+    "dispatch": "FACTORY:MINT_REQUESTED",
+    "transform": {
+      "tokenId": "NEOFLW",
+      "amount": "{{amount}}",
+      "targetAddress": "{{payerId}}",
+      "reason": "purchase",
+      "refTransactionId": "{{orderId}}"
+    },
+    "priority": 10
+  },
+  {
+    "id": "rule-notify-success",
+    "enabled": true,
+    "on": "FACTORY:MINT_CONFIRMED",
+    "action": "notify_user",
+    "params": {
+      "message": "Success! Token minted. Tx: {{txId}}"
+    }
+  }
+]

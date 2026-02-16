@@ -1,5 +1,7 @@
 
 import EventEmitter from "events";
+import { loadRules, loadSafeMode } from "./config.js";
+import { runSafeHandler, CircuitBreaker, applyTemplate } from "./middleware.js";
 
 /**
  * ============================================================================
@@ -86,6 +88,29 @@ class ProtocolNexus extends EventEmitter {
      * @param payload Data associated with the event
      */
     public dispatch(event: ProtocolEvent, payload: any) {
+        // 1. Safe Mode Check
+        try {
+            const safeMode = loadSafeMode();
+            if (safeMode.blocklist.includes(event)) {
+                 console.warn(`[NEXUS] 🛡️ Event Blocked (Blocklist): ${event}`);
+                 return;
+            }
+            if (!safeMode.allowlist.includes("*") && !safeMode.allowlist.includes(event)) {
+                 console.warn(`[NEXUS] 🛡️ Event Blocked (Allowlist): ${event}`);
+                 return;
+            }
+        } catch (e) {
+            console.error("[NEXUS] Safe Mode Load Error", e);
+        }
+
+        // 2. Circuit Breaker (Anti-loop)
+        // Ensure payload is an object to attach metadata
+        if (typeof payload === 'object' && payload !== null) {
+             if (!CircuitBreaker.check(payload, event)) {
+                 return; // Blocked by Circuit Breaker
+             }
+        }
+
         console.log(`[NEXUS] ⚡ Dispatching ${event}`, JSON.stringify(payload, null, 0));
         this.emit(event, payload);
     }
@@ -93,7 +118,7 @@ class ProtocolNexus extends EventEmitter {
     /**
      * Register a reactor (handler) for a specific event.
      */
-    public onEvent(event: ProtocolEvent, handler: (payload: any) => void) {
+    public onEvent(event: ProtocolEvent | string, handler: (payload: any) => void) {
         this.on(event, handler);
     }
 }
@@ -107,29 +132,44 @@ export const Nexus = ProtocolNexus.getInstance();
 export function setupNexusReactors() {
     console.log("[NEXUS] 🔗 Wiring Protocol Reactors...");
 
-    // REACTOR: Payment -> Mint
-    // When FlowPay confirms payment, ask Smart Factory to mint tokens/receipt.
-    Nexus.onEvent(ProtocolEvent.PAYMENT_RECEIVED, (payload: PaymentPayload) => {
-        console.log(`[REACTOR] 💰 Payment confirmed for ${payload.payerId}. Requesting Mint...`);
+    // 1. Load Dynamic Rules (JSON)
+    const rules = loadRules();
+    console.log(`[NEXUS] 📜 Loaded ${rules.length} dynamic rules.`);
 
-        // Logic to calculate mint amount based on payment
-        // In a real scenario, this would call the Smart Factory API
-        const mintRequest: MintPayload = {
-            targetAddress: payload.payerId, // Assuming MIO ID maps to wallet
-            tokenId: "NEOFLW",
-            amount: payload.amount.toString(),
-            reason: "purchase",
-            refTransactionId: payload.orderId
-        };
-
-        // Dispatch the Mint Request (Smart Factory Node would listen to this)
-        Nexus.dispatch(ProtocolEvent.MINT_REQUESTED, mintRequest);
+    rules.forEach(rule => {
+        Nexus.onEvent(rule.on, async (payload: any) => {
+            await runSafeHandler(rule, payload, async (r, p) => {
+                // Dispatch Logic
+                if (r.dispatch) {
+                    const newPayload = r.transform ? applyTemplate(r.transform, p) : p;
+                    Nexus.dispatch(r.dispatch as ProtocolEvent, newPayload);
+                }
+                
+                // Action Logic
+                if (r.action) {
+                     if (r.action === 'notify_user') {
+                         const message = r.params?.message ? applyTemplate({ msg: r.params.message }, p).msg : 'No message';
+                         console.log(`[ACTION] 🔔 NOTIFY (via neo-agent-full): ${message}`, p);
+                     }
+                }
+            });
+        });
     });
 
+    // 2. Hardcoded Critical Reactors (Fallback / Core Logic)
+    
+    // REACTOR: Payment -> Mint (Legacy/Core)
+    // MOVED TO DYNAMIC RULES (nexus-reactors.json)
+    /* 
+    Nexus.onEvent(ProtocolEvent.PAYMENT_RECEIVED, (payload: PaymentPayload) => {
+        // Legacy handler removed to prevent duplicate minting.
+        // Logic is now in config/nexus-reactors.json rule "rule-dynamic-mint"
+    });
+    */
+
     // REACTOR: Mint -> Notification
-    // When Mint is confirmed on-chain, notify the user via FlowCloser.
     Nexus.onEvent(ProtocolEvent.MINT_CONFIRMED, (payload: any) => {
-        console.log(`[REACTOR] ✅ Mint Confirmed! Triggering FlowCloser notification...`);
+        console.log(`[REACTOR] ✅ Mint Confirmed! Triggering neo-agent-full notification...`);
         // Here we would call the WhatsApp/Telegram sender
     });
 

@@ -1,17 +1,17 @@
 ---
-summary: "How Moltbot memory works (workspace files + automatic memory flush)"
+title: "Memory"
+summary: "How OpenClaw memory works (workspace files + automatic memory flush)"
 read_when:
-
   - You want the memory file layout and workflow
   - You want to tune the automatic pre-compaction memory flush
 ---
+
 # Memory
 
-Moltbot memory is **plain Markdown in the agent workspace**. The files are the
+OpenClaw memory is **plain Markdown in the agent workspace**. The files are the
 source of truth; the model only "remembers" what gets written to disk.
 
 Memory search tools are provided by the active memory plugin (default:
-
 `memory-core`). Disable memory plugins with `plugins.slots.memory = "none"`.
 
 ## Memory files (Markdown)
@@ -26,7 +26,7 @@ The default workspace layout uses two memory layers:
   - **Only load in the main, private session** (never in group contexts).
 
 These files live under the workspace (`agents.defaults.workspace`, default
-`~/clawd`). See [Agent workspace](/concepts/agent-workspace) for the full layout.
+`~/.openclaw/workspace`). See [Agent workspace](/concepts/agent-workspace) for the full layout.
 
 ## When to write memory
 
@@ -38,9 +38,9 @@ These files live under the workspace (`agents.defaults.workspace`, default
 
 ## Automatic memory flush (pre-compaction ping)
 
-When a session is **close to auto-compaction**, Moltbot triggers a **silent,
+When a session is **close to auto-compaction**, OpenClaw triggers a **silent,
 agentic turn** that reminds the model to write durable memory **before** the
-context is compacted. The default prompts explicitly say the model *may reply*,
+context is compacted. The default prompts explicitly say the model _may reply_,
 but usually `NO_REPLY` is the correct response so the user never sees this turn.
 
 This is controlled by `agents.defaults.compaction.memoryFlush`:
@@ -55,11 +55,11 @@ This is controlled by `agents.defaults.compaction.memoryFlush`:
           enabled: true,
           softThresholdTokens: 4000,
           systemPrompt: "Session nearing compaction. Store durable memories now.",
-          prompt: "Write any lasting notes to memory/YYYY-MM-DD.md; reply with NO_REPLY if nothing to store."
-        }
-      }
-    }
-  }
+          prompt: "Write any lasting notes to memory/YYYY-MM-DD.md; reply with NO_REPLY if nothing to store.",
+        },
+      },
+    },
+  },
 }
 ```
 
@@ -78,31 +78,32 @@ For the full compaction lifecycle, see
 
 ## Vector memory search
 
-Moltbot can build a small vector index over `MEMORY.md` and `memory/*.md` so
+OpenClaw can build a small vector index over `MEMORY.md` and `memory/*.md` so
 semantic queries can find related notes even when wording differs.
 
 Defaults:
 
 - Enabled by default.
 - Watches memory files for changes (debounced).
-- Uses remote embeddings by default. If `memorySearch.provider` is not set, Moltbot auto-selects:
-
+- Configure memory search under `agents.defaults.memorySearch` (not top-level
+  `memorySearch`).
+- Uses remote embeddings by default. If `memorySearch.provider` is not set, OpenClaw auto-selects:
   1. `local` if a `memorySearch.local.modelPath` is configured and the file exists.
   2. `openai` if an OpenAI key can be resolved.
   3. `gemini` if a Gemini key can be resolved.
-  4. Otherwise memory search stays disabled until configured.
+  4. `voyage` if a Voyage key can be resolved.
+  5. Otherwise memory search stays disabled until configured.
 - Local mode uses node-llama-cpp and may require `pnpm approve-builds`.
 - Uses sqlite-vec (when available) to accelerate vector search inside SQLite.
 
-Remote embeddings **require** an API key for the embedding provider. Moltbot
+Remote embeddings **require** an API key for the embedding provider. OpenClaw
 resolves keys from auth profiles, `models.providers.*.apiKey`, or environment
 variables. Codex OAuth only covers chat/completions and does **not** satisfy
 embeddings for memory search. For Gemini, use `GEMINI_API_KEY` or
-`models.providers.google.apiKey`. When using a custom OpenAI-compatible endpoint,
+`models.providers.google.apiKey`. For Voyage, use `VOYAGE_API_KEY` or
+`models.providers.voyage.apiKey`. When using a custom OpenAI-compatible endpoint,
 set `memorySearch.remote.apiKey` (and optional `memorySearch.remote.headers`).
 
-<<<<<<< HEAD
-=======
 ### QMD backend (experimental)
 
 Set `memory.backend = "qmd"` to swap the built-in SQLite indexer for
@@ -138,8 +139,8 @@ out to QMD for retrieval. Key points:
 - Boot refresh now runs in the background by default so chat startup is not
   blocked; set `memory.qmd.update.waitForBootSync = true` to keep the previous
   blocking behavior.
-- Searches run via `memory.qmd.searchMode` (default `qmd query --json`; also
-  supports `search` and `vsearch`). If the selected mode rejects flags on your
+- Searches run via `memory.qmd.searchMode` (default `qmd search --json`; also
+  supports `vsearch` and `query`). If the selected mode rejects flags on your
   QMD build, OpenClaw retries with `qmd query`. If QMD fails or the binary is
   missing, OpenClaw automatically falls back to the builtin SQLite manager so
   memory tools keep working.
@@ -158,10 +159,6 @@ out to QMD for retrieval. Key points:
     ```bash
     # Pick the same state dir OpenClaw uses
     STATE_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
-    if [ -d "$HOME/.moltbot" ] && [ ! -d "$HOME/.openclaw" ] \
-      && [ -z "${OPENCLAW_STATE_DIR:-}" ]; then
-      STATE_DIR="$HOME/.moltbot"
-    fi
 
     export XDG_CONFIG_HOME="$STATE_DIR/agents/main/qmd/xdg-config"
     export XDG_CACHE_HOME="$STATE_DIR/agents/main/qmd/xdg-cache"
@@ -177,8 +174,8 @@ out to QMD for retrieval. Key points:
 **Config surface (`memory.qmd.*`)**
 
 - `command` (default `qmd`): override the executable path.
-- `searchMode` (default `query`): pick which QMD command backs
-  `memory_search` (`query`, `search`, `vsearch`).
+- `searchMode` (default `search`): pick which QMD command backs
+  `memory_search` (`search`, `vsearch`, `query`).
 - `includeDefaultMemory` (default `true`): auto-index `MEMORY.md` + `memory/**/*.md`.
 - `paths[]`: add extra directories/files (`path`, optional `pattern`, optional
   stable `name`).
@@ -270,7 +267,6 @@ Notes:
 - Only Markdown files are indexed.
 - Symlinks are ignored (files or directories).
 
->>>>>>> upstream/main
 ### Gemini embeddings (native)
 
 Set the provider to `gemini` to use the Gemini embeddings API directly:
@@ -322,9 +318,9 @@ Fallbacks:
 - `memorySearch.fallback` can be `openai`, `gemini`, `local`, or `none`.
 - The fallback provider is only used when the primary embedding provider fails.
 
-Batch indexing (OpenAI + Gemini):
+Batch indexing (OpenAI + Gemini + Voyage):
 
-- Enabled by default for OpenAI and Gemini embeddings. Set `agents.defaults.memorySearch.remote.batch.enabled = false` to disable.
+- Disabled by default. Set `agents.defaults.memorySearch.remote.batch.enabled = true` to enable for large-corpus indexing (OpenAI, Gemini, and Voyage).
 - Default behavior waits for batch completion; tune `remote.batch.wait`, `remote.batch.pollIntervalMs`, and `remote.batch.timeoutMinutes` if needed.
 - Set `remote.batch.concurrency` to control how many batch jobs we submit in parallel (default: 2).
 - Batch mode applies when `memorySearch.provider = "openai"` or `"gemini"` and uses the corresponding API key.
@@ -335,9 +331,8 @@ Why OpenAI batch is fast + cheap:
 - For large backfills, OpenAI is typically the fastest option we support because we can submit many embedding requests in a single batch job and let OpenAI process them asynchronously.
 - OpenAI offers discounted pricing for Batch API workloads, so large indexing runs are usually cheaper than sending the same requests synchronously.
 - See the OpenAI Batch API docs and pricing for details:
-
-  - https://platform.openai.com/docs/api-reference/batch
-  - https://platform.openai.com/pricing
+  - [https://platform.openai.com/docs/api-reference/batch](https://platform.openai.com/docs/api-reference/batch)
+  - [https://platform.openai.com/pricing](https://platform.openai.com/pricing)
 
 Config example:
 
@@ -377,18 +372,18 @@ Local mode:
 ### What gets indexed (and when)
 
 - File type: Markdown only (`MEMORY.md`, `memory/**/*.md`).
-- Index storage: per-agent SQLite at `~/.clawdbot/memory/<agentId>.sqlite` (configurable via `agents.defaults.memorySearch.store.path`, supports `{agentId}` token).
+- Index storage: per-agent SQLite at `~/.openclaw/memory/<agentId>.sqlite` (configurable via `agents.defaults.memorySearch.store.path`, supports `{agentId}` token).
 - Freshness: watcher on `MEMORY.md` + `memory/` marks the index dirty (debounce 1.5s). Sync is scheduled on session start, on search, or on an interval and runs asynchronously. Session transcripts use delta thresholds to trigger background sync.
-- Reindex triggers: the index stores the embedding **provider/model + endpoint fingerprint + chunking params**. If any of those change, Moltbot automatically resets and reindexes the entire store.
+- Reindex triggers: the index stores the embedding **provider/model + endpoint fingerprint + chunking params**. If any of those change, OpenClaw automatically resets and reindexes the entire store.
 
 ### Hybrid search (BM25 + vector)
 
-When enabled, Moltbot combines:
+When enabled, OpenClaw combines:
 
 - **Vector similarity** (semantic match, wording can differ)
 - **BM25 keyword relevance** (exact tokens like IDs, env vars, code symbols)
 
-If full-text search is unavailable on your platform, Moltbot falls back to vector-only search.
+If full-text search is unavailable on your platform, OpenClaw falls back to vector-only search.
 
 #### Why hybrid?
 
@@ -411,16 +406,16 @@ good results for both “natural language” queries and “needle in a haystack
 
 Implementation sketch:
 
-1) Retrieve a candidate pool from both sides:
+1. Retrieve a candidate pool from both sides:
 
 - **Vector**: top `maxResults * candidateMultiplier` by cosine similarity.
 - **BM25**: top `maxResults * candidateMultiplier` by FTS5 BM25 rank (lower is better).
 
-2) Convert BM25 rank into a 0..1-ish score:
+2. Convert BM25 rank into a 0..1-ish score:
 
 - `textScore = 1 / (1 + max(0, bm25Rank))`
 
-3) Union candidates by chunk id and compute a weighted score:
+3. Union candidates by chunk id and compute a weighted score:
 
 - `finalScore = vectorWeight * vectorScore + textWeight * textScore`
 
@@ -455,7 +450,7 @@ agents: {
 
 ### Embedding cache
 
-Moltbot can cache **chunk embeddings** in SQLite so reindexing and frequent updates (especially session transcripts) don't re-embed unchanged text.
+OpenClaw can cache **chunk embeddings** in SQLite so reindexing and frequent updates (especially session transcripts) don't re-embed unchanged text.
 
 Config:
 
@@ -495,7 +490,7 @@ Notes:
 - `memory_search` never blocks on indexing; results can be slightly stale until background sync finishes.
 - Results still include snippets only; `memory_get` remains limited to memory files.
 - Session indexing is isolated per agent (only that agent’s session logs are indexed).
-- Session logs live on disk (`~/.clawdbot/agents/<agentId>/sessions/*.jsonl`). Any process/user with filesystem access can read them, so treat disk access as the trust boundary. For stricter isolation, run agents under separate OS users or hosts.
+- Session logs live on disk (`~/.openclaw/agents/<agentId>/sessions/*.jsonl`). Any process/user with filesystem access can read them, so treat disk access as the trust boundary. For stricter isolation, run agents under separate OS users or hosts.
 
 Delta thresholds (defaults shown):
 
@@ -516,7 +511,7 @@ agents: {
 
 ### SQLite vector acceleration (sqlite-vec)
 
-When the sqlite-vec extension is available, Moltbot stores embeddings in a
+When the sqlite-vec extension is available, OpenClaw stores embeddings in a
 SQLite virtual table (`vec0`) and performs vector distance queries in the
 database. This keeps search fast without loading every embedding into JS.
 
@@ -541,14 +536,14 @@ Notes:
 
 - `enabled` defaults to true; when disabled, search falls back to in-process
   cosine similarity over stored embeddings.
-- If the sqlite-vec extension is missing or fails to load, Moltbot logs the
+- If the sqlite-vec extension is missing or fails to load, OpenClaw logs the
   error and continues with the JS fallback (no vector table).
 - `extensionPath` overrides the bundled sqlite-vec path (useful for custom builds
   or non-standard install locations).
 
 ### Local embedding auto-download
 
-- Default local embedding model: `hf:ggml-org/embeddinggemma-300M-GGUF/embeddinggemma-300M-Q8_0.gguf` (~0.6 GB).
+- Default local embedding model: `hf:ggml-org/embeddinggemma-300m-qat-q8_0-GGUF/embeddinggemma-300m-qat-Q8_0.gguf` (~0.6 GB).
 - When `memorySearch.provider = "local"`, `node-llama-cpp` resolves `modelPath`; if the GGUF is missing it **auto-downloads** to the cache (or `local.modelCacheDir` if set), then loads it. Downloads resume on retry.
 - Native build requirement: run `pnpm approve-builds`, pick `node-llama-cpp`, then `pnpm rebuild node-llama-cpp`.
 - Fallback: if local setup fails and `memorySearch.fallback = "openai"`, we automatically switch to remote embeddings (`openai/text-embedding-3-small` unless overridden) and record the reason.
