@@ -32,6 +32,7 @@ COPY --from=build /app/openclaw.mjs ./openclaw.mjs
 COPY --from=build /app/skills ./skills
 COPY --from=build /app/extensions ./extensions
 COPY --from=build /app/config ./config
+COPY --from=build /app/docs ./docs
 
 ENV NODE_ENV=production
 ENV CLAWDBOT_STATE_DIR=/app/data
