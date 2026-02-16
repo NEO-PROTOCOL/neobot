@@ -397,4 +397,4 @@ export async function optimizeImageToJpeg(
   throw new Error("Failed to optimize image");
 }
 
-export { optimizeImageToPng };
+export { optimizeImageToPng, getDefaultLocalRoots };
