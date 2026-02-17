@@ -15,17 +15,17 @@ CRITICAL CONTEXT:
 - NEO Nexus = Protocol Event Hub & Connectivity Graph Sovereign.
 - FlowPay + FlowOFF = Revenue critical (Primary Protocol Flow).
 - MIO System = Operational Identity (Auth Layer).
-- Rules: All Git remotes MUST use SSH (git@github.com:...).
+- Rules: Prefer HTTPS for Git remotes (github.com/NEO-PROTOCOL/...).
 
 REVENUE LOOP:
 Lead → neo-agent-full → FlowOFF → FlowPay (PIX) → Unlock (Nexus Event) → Client 💰
 
 REPOS:
-- neomello/neobot (this repo - architect tool)
+- NEO-PROTOCOL/neobot (this repo - architect tool)
 - NEO-PROTOCOL/neo-nexus (event hub)
-- neomello/neo-agent-full (sovereign agent / communicator)
-- neomello/mio-system (identity layer)
-- neomello/neo-dashboard (interface)
+- NEO-PROTOCOL/neo-agent-full (sovereign agent / communicator)
+- NEO-PROTOCOL/mio-system (identity layer)
+- NEO-PROTOCOL/neo-dashboard (interface)
 
 Refer to "config/ecosystem.json" as the definitive source of truth for the project map.
 `;

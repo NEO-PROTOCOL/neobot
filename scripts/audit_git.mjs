@@ -21,11 +21,11 @@ for (const dir of dirs) {
 
     try {
         const remote = execSync('git remote -v', { cwd: dirPath }).toString();
-        const hasGithub = remote.includes('github.com/neomello');
+        const isOfficialOrg = remote.includes('github.com/NEO-PROTOCOL') || remote.includes('github.com/neo-smart-token-factory') || remote.includes('github.com/NEO-FlowOFF');
         const status = execSync('git status --porcelain', { cwd: dirPath }).toString();
         const isClean = status.length === 0;
 
-        console.log(`| ${dir} | ${hasGithub ? '✅ neomello' : '❌ Other/None'} | ${isClean ? '✅ Clean' : '⚠️ Uncommitted'} |`);
+        console.log(`| ${dir} | ${isOfficialOrg ? '✅ Official' : '❌ Legacy/Other'} | ${isClean ? '✅ Clean' : '⚠️ Uncommitted'} |`);
     } catch (e) {
         console.log(`| ${dir} | Error | - |`);
     }
