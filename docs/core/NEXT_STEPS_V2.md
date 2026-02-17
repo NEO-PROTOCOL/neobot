@@ -177,7 +177,7 @@ COMPONENTES NEO LAYER
     └─ Bio: "Decentralized AI Assistant Control Plane.
              Built on Moltbot. Breaking boundaries.
              #Web3 #Decentralization #AI"
-    └─ Link: github.com/neomello/neobot
+    └─ Link: github.com/NEO-PROTOCOL/neobot
     └─ Header image: NEO Protocol banner
     └─ Avatar: Logo NEO
 
@@ -1036,7 +1036,7 @@ git checkout -b upstream-sync
 ================================================================
 
 **Questions/Issues:**
-- GitHub: <https://github.com/neomello/neobot>
+- GitHub: <https://github.com/NEO-PROTOCOL/neobot>
 - Telegram: @neoprotocol
 - Email: neo@neoprotocol.space
 

@@ -19,8 +19,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/neomello/neobot/actions"><img src="https://img.shields.io/github/actions/workflow/status/neomello/neobot/ci.yml?branch=main&style=for-the-badge" alt="CI"></a>
-  <a href="https://github.com/neomello/neobot/releases"><img src="https://img.shields.io/github/v/release/neomello/neobot?include_prereleases&style=for-the-badge" alt="Release"></a>
+  <a href="https://github.com/NEO-PROTOCOL/neobot/actions"><img src="https://img.shields.io/github/actions/workflow/status/NEO-PROTOCOL/neobot/ci.yml?branch=main&style=for-the-badge" alt="CI"></a>
+  <a href="https://github.com/NEO-PROTOCOL/neobot/releases"><img src="https://img.shields.io/github/v/release/NEO-PROTOCOL/neobot?include_prereleases&style=for-the-badge" alt="Release"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="MIT"></a>
   <a href="https://files.lighthouse.storage/?referBy=cf37bdc80bcf4ff2bd162671c3f6b3fa"><img src="https://img.shields.io/badge/Powered%20by-Lighthouse%20Storage-00D9FF?style=for-the-badge&logo=ipfs&logoColor=white" alt="Lighthouse Storage"></a>
 </p>

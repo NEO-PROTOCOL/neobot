@@ -555,7 +555,7 @@ Start → [README](./README.md) → [QUICKSTART](./QUICKSTART.md) → [GUIA_COMP
 
 - 📖 Check the [FAQ](./docs/help/faq.md)
 - 🔍 Search this index (Ctrl+F / Cmd+F)
-- 🐛 [Report an issue](https://github.com/neomello/neobot/issues)
+- 🐛 [Report an issue](https://github.com/NEO-PROTOCOL/neobot/issues)
 - 💬 Ask in community channels (coming soon)
 
 ---

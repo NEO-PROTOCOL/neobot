@@ -18,7 +18,7 @@ Guia técnico para clonar, instalar, buildar e contribuir no repositório NEØ P
 
 ```bash
 # Clone
-git clone https://github.com/neomello/neobot.git
+git clone https://github.com/NEO-PROTOCOL/neobot.git
 cd neobot
 
 # Dependências

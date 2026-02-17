@@ -15,7 +15,7 @@ Antes de começar, você precisa ter instalado:
 ### 1️⃣ Clone o Repositório
 
 ```bash
-git clone https://github.com/neomello/neobot.git
+git clone https://github.com/NEO-PROTOCOL/neobot.git
 cd neobot
 ```
 
@@ -181,8 +181,8 @@ pnpm moltbot skills list    # Listar skills
 
 ## 🆘 Precisa de Ajuda?
 
-- **Issues:** https://github.com/neomello/neobot/issues
-- **Documentação:** https://github.com/neomello/neobot/tree/main/docs
+- **Issues:** https://github.com/NEO-PROTOCOL/neobot/issues
+- **Documentação:** https://github.com/NEO-PROTOCOL/neobot/tree/main/docs
 - **Email:** neo@neoprotocol.space
 
 ---
