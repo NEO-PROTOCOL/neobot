@@ -8,7 +8,7 @@
   "category": ["productivity", "notes", "macos"],
   "permissions": ["exec"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["apple-notes", "memo", "macos"]
   }

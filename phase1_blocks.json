@@ -2327,7 +2327,7 @@
             "type": "text",
             "text": {
               "content": "GitHub Repo",
-              "link": { "url": "https://github.com/neomello/neobot" }
+              "link": { "url": "https://github.com/NEO-PROTOCOL/neobot" }
             },
             "annotations": {
               "bold": false,
@@ -2338,7 +2338,7 @@
               "color": "default"
             },
             "plain_text": "GitHub Repo",
-            "href": "https://github.com/neomello/neobot"
+            "href": "https://github.com/NEO-PROTOCOL/neobot"
           }
         ],
         "color": "default"

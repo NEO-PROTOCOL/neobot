@@ -1,7 +1,7 @@
 # 🔐 MIO System - Registro de Identidades NEØ Protocol
 
 **Data:** 29 Janeiro 2026  
-**Sistema:** [mio-system](https://github.com/neomello/mio-system)  
+**Sistema:** [mio-system](https://github.com/NEO-PROTOCOL/mio-system)  
 **Node Arquiteto:** NODE NEØ
 
 ---
@@ -20,7 +20,7 @@
 - **Função:** Raciocínio complexo, memória soberana, identidade DID
 - **Stack:** LangGraph, Gemini 1.5, Claude, Kwil, Ceramic, IPFS, GUN.js
 - **Camada:** 3 - Cérebro
-- **Repo:** https://github.com/neomello/neo-agent-full
+- **Repo:** https://github.com/NEO-PROTOCOL/neo-agent-full
 - **Status:** 🟢 Ativo
 
 **Permissões:**
@@ -42,7 +42,7 @@
 - **Função:** Skills operacionais, CLI, automações, WhatsApp nativo
 - **Stack:** TypeScript, Node.js, Skills (70+), MCP Server, Baileys
 - **Camada:** 2 - Toolkit
-- **Repo:** https://github.com/neomello/neobot
+- **Repo:** https://github.com/NEO-PROTOCOL/neobot
 - **Status:** 🟢 Ativo
 
 **Permissões:**
@@ -66,7 +66,7 @@
 - **Função:** Content State Machine, governança editorial
 - **Stack:** Node.js, State Machines, JSON Contracts
 - **Camada:** 4 - Orquestração
-- **Repo:** https://github.com/neomello/neoflowoff-nodemello.run
+- **Repo:** https://github.com/NEO-PROTOCOL/neoflowoff-nodemello.run
 - **Status:** 🟢 Ativo
 
 **Fluxo:**
@@ -119,7 +119,7 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 - **Função:** Bridge para Typebot, Chatwoot, Dify AI, OpenAI
 - **Stack:** Evolution API, Baileys, Web3 (Kwil, Ceramic, The Graph)
 - **Camada:** 1 - Conectividade
-- **Repo:** https://github.com/neomello/FlowCloser-EVOLUTION
+- **Repo:** https://github.com/NEO-PROTOCOL/FlowCloser-EVOLUTION
 - **Deploy:** Railway (https://flowcloser-agent-production.up.railway.app)
 - **Status:** 🟢 Ativo
 
@@ -137,7 +137,7 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 - **Função:** PIX → $NEOFLW/USDC (Base L2)
 - **Stack:** Astro, Node.js, Smart Contracts
 - **Camada:** Valor & Token
-- **Repo:** https://github.com/neomello/flowpay (vazio - código local)
+- **Repo:** https://github.com/NEO-PROTOCOL/flowpay (vazio - código local)
 - **Local:** /Users/nettomello/CODIGOS/flowpay/ (208 arquivos)
 - **Status:** 🟡 Em desenvolvimento
 
@@ -181,7 +181,7 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 - **Função:** Monitorar neo-agent-full (memória, DID, IPFS)
 - **Stack:** Next.js, React, TypeScript
 - **Camada:** 5 - Interface
-- **Repo:** https://github.com/neomello/neo-agent-dashboard
+- **Repo:** https://github.com/NEO-PROTOCOL/neo-agent-dashboard
 - **Status:** 🟡 Em desenvolvimento
 
 ---

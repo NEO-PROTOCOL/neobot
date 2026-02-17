@@ -12,7 +12,7 @@ remote extension (loose-coupled).
 ## Location
 
 - **Local:** `flowcloser-local/`
-- **Git:** <https://github.com/neomello/flowcloser-agent>
+- **Git:** <https://github.com/NEO-PROTOCOL/flowcloser-agent>
 - **Deploy:** Railway (auto)
 - **IDE:** Antigravity
 

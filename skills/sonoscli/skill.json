@@ -8,7 +8,7 @@
   "category": ["audio", "smart-home", "music"],
   "permissions": ["exec", "network:local"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["sonos", "speakers", "audio", "music"]
   }

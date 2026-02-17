@@ -8,7 +8,7 @@
   "category": ["ai", "transcription", "speech"],
   "permissions": ["exec", "fs:read"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["whisper", "speech-to-text", "transcription", "local"]
   }

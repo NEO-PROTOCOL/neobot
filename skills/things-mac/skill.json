@@ -8,7 +8,7 @@
   "category": ["productivity", "tasks", "macos"],
   "permissions": ["exec"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["things3", "tasks", "macos", "gtd"]
   }

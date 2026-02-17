@@ -193,7 +193,7 @@ moltbot flowpay:buy \
 - **FlowPay Production:** https://flowpay-production-10d8.up.railway.app
 - **FlowPay Local:** /Users/nettomello/CODIGOS/flowpay
 - **Woovi Dashboard:** https://app.woovi.com
-- **Neobot Repo:** https://github.com/neomello/neobot
+- **Neobot Repo:** https://github.com/NEO-PROTOCOL/neobot
 
 ---
 

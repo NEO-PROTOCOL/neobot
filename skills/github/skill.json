@@ -12,7 +12,7 @@
     "env:read"
   ],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["github", "git", "ci", "devops", "gh"]
   }

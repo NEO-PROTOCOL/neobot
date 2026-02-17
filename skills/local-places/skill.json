@@ -8,7 +8,7 @@
   "category": ["search", "places", "local"],
   "permissions": ["exec", "network:local"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["places", "local", "restaurants", "google"]
   }

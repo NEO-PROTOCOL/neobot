@@ -18,7 +18,7 @@
       "write",
       "blockchain"
     ],
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "architecture": {
       "type": "modular",
@@ -46,7 +46,7 @@
           "id": "mio-system",
           "name": "MIO System",
           "role": "identity-registry",
-          "repository": "https://github.com/neomello/mio-system",
+          "repository": "https://github.com/NEO-PROTOCOL/mio-system",
           "description": "Sistema de Identidade Operacional - gerenciamento de identidades de agentes e plataformas",
           "tech": [
             "Identity Management",

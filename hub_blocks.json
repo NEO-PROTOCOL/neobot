@@ -2715,7 +2715,7 @@
             "type": "text",
             "text": {
               "content": "GitHub Repository",
-              "link": { "url": "https://github.com/neomello/neobot" }
+              "link": { "url": "https://github.com/NEO-PROTOCOL/neobot" }
             },
             "annotations": {
               "bold": false,
@@ -2726,7 +2726,7 @@
               "color": "default"
             },
             "plain_text": "GitHub Repository",
-            "href": "https://github.com/neomello/neobot"
+            "href": "https://github.com/NEO-PROTOCOL/neobot"
           }
         ],
         "color": "default"
@@ -2751,7 +2751,7 @@
             "text": {
               "content": "NEO Protocol Docs",
               "link": {
-                "url": "https://github.com/neomello/neobot/blob/main/ARCHITECTURE_NEO_PROTOCOL.md"
+                "url": "https://github.com/NEO-PROTOCOL/neobot/blob/main/ARCHITECTURE_NEO_PROTOCOL.md"
               }
             },
             "annotations": {
@@ -2763,7 +2763,7 @@
               "color": "default"
             },
             "plain_text": "NEO Protocol Docs",
-            "href": "https://github.com/neomello/neobot/blob/main/ARCHITECTURE_NEO_PROTOCOL.md"
+            "href": "https://github.com/NEO-PROTOCOL/neobot/blob/main/ARCHITECTURE_NEO_PROTOCOL.md"
           }
         ],
         "color": "default"

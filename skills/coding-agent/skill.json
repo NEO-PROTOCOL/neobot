@@ -8,7 +8,7 @@
   "category": ["ai", "coding", "automation"],
   "permissions": ["exec", "fs:read", "fs:write"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["codex", "claude-code", "coding", "agent"]
   }

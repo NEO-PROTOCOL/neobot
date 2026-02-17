@@ -353,7 +353,7 @@ railway logs -f
 ▓▓▓ SUPPORT CHANNELS
 ────────────────────────────────────────
 └─ GitHub Issues:
-   github.com/neomello/flowcloser-agent
+   github.com/NEO-PROTOCOL/flowcloser-agent
    /issues
 
 └─ Railway Support:

@@ -581,7 +581,7 @@ curl -X POST https://YOUR-NGROK.ngrok.io/api/webhooks/pix \
    └─ #flowpay channel
 
 3. GitHub Issues
-   └─ https://github.com/neomello/flowpay/issues
+   └─ https://github.com/NEO-PROTOCOL/flowpay/issues
 
 4. Email NODE NEØ
    └─ neo@neoprotocol.space

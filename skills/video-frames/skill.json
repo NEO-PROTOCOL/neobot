@@ -8,7 +8,7 @@
   "category": ["media", "video", "ffmpeg"],
   "permissions": ["exec", "fs:read", "fs:write"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["ffmpeg", "video", "frames", "media"]
   }

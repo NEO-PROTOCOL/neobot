@@ -8,7 +8,7 @@
   "category": ["ai", "image-generation", "media"],
   "permissions": ["exec", "network:outbound", "env:read"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["image-generation", "gemini", "ai", "images"]
   }

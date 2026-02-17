@@ -36,7 +36,7 @@
 ▓▓▓ 1. NEØ FLOWOFF (AGÊNCIA)
 ────────────────────────────────────────
 └─ Site: https://www.flowoff.xyz/
-└─ Repo: github.com/neomello/
+└─ Repo: github.com/NEO-PROTOCOL/
         neo-flowoff-pwa
 └─ Stack: HTML/CSS/JS, PWA, Web3Auth
 └─ Deploy: Vercel
@@ -80,7 +80,7 @@
 ▓▓▓ 3. FLOWPAY (PAYMENT GATEWAY)
 ────────────────────────────────────────
 └─ URL: https://flowpaypix.netlify.app/
-└─ Repo: github.com/neomello/flowpay
+└─ Repo: github.com/NEO-PROTOCOL/flowpay
 └─ Local: /CODIGOS/flowpay/
 └─ Stack: Astro, Web3Auth, Woovi/
          OpenPix, QuickNode
@@ -194,28 +194,28 @@
 ▓▓▓ GITHUB REPOS
 ────────────────────────────────────────
 └─ neo-flowoff-pwa
-   └─ github.com/neomello/
+   └─ github.com/NEO-PROTOCOL/
       neo-flowoff-pwa
    └─ Site principal da agência
    └─ 🟢 Produção (Vercel)
 
 └─ flowpay
-   └─ github.com/neomello/flowpay
+   └─ github.com/NEO-PROTOCOL/flowpay
    └─ Gateway de pagamentos
    └─ 🟡 90% Completo (Netlify)
 
 └─ flowpaycash
-   └─ github.com/neomello/flowpaycash
+   └─ github.com/NEO-PROTOCOL/flowpaycash
    └─ Versão anterior do FlowPay
    └─ 🟡 Backup/Archive
 
 └─ neo-one
-   └─ github.com/neomello/neo-one
+   └─ github.com/NEO-PROTOCOL/neo-one
    └─ Agente ASI1 autônomo (MCP v1.1)
    └─ 🟡 Em desenvolvimento
 
 └─ neo-agent-full
-   └─ github.com/neomello/neo-agent-full
+   └─ github.com/NEO-PROTOCOL/neo-agent-full
    └─ LangChain + LangGraph Agent
    └─ 🟡 Em desenvolvimento
 
@@ -382,13 +382,13 @@
 ▓▓▓ GITHUB
 ────────────────────────────────────────
 └─ neo-flowoff-pwa:
-   github.com/neomello/neo-flowoff-pwa
+   github.com/NEO-PROTOCOL/neo-flowoff-pwa
 
 └─ flowpay:
-   github.com/neomello/flowpay
+   github.com/NEO-PROTOCOL/flowpay
 
 └─ neo-one:
-   github.com/neomello/neo-one
+   github.com/NEO-PROTOCOL/neo-one
 
 ▓▓▓ RAILWAY
 ────────────────────────────────────────

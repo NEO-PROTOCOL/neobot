@@ -11,7 +11,7 @@
     "exec"
   ],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["session", "logs", "search", "jq"]
   }

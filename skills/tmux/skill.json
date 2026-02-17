@@ -8,7 +8,7 @@
   "category": ["automation", "terminal", "tmux"],
   "permissions": ["exec"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["tmux", "terminal", "automation", "sessions"]
   }

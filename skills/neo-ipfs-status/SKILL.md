@@ -30,7 +30,7 @@ pnpm neobot neo:skill:install neo-ipfs-status
 
 ```bash
 # Clone the skill
-git clone https://github.com/neomello/neobot
+git clone https://github.com/NEO-PROTOCOL/neobot
 cd neobot/skills/neo-ipfs-status
 
 # Run directly
@@ -177,7 +177,7 @@ MIT License - see [LICENSE](../../LICENSE) for details.
 
 ## 🔗 Links
 
-- **GitHub**: https://github.com/neomello/neobot
+- **GitHub**: https://github.com/NEO-PROTOCOL/neobot
 - **NEO Protocol Docs**: https://neo-docs.mello.eth
 - **IPFS Docs**: https://docs.ipfs.tech
 

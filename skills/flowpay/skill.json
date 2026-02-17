@@ -9,7 +9,7 @@
     "description": "Payment gateway skills for PIX → Access Unlock. CRITICAL revenue gateway for NEØ Protocol. Model B: PIX payment → Unlock access with token as invisible ledger.",
     "dependencies": [],
     "permissions": ["http", "read", "write"],
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "architecture": {
       "type": "modular",
@@ -29,7 +29,7 @@
           "id": "mio-system",
           "name": "MIO System",
           "role": "identity-registry",
-          "repository": "https://github.com/neomello/mio-system",
+          "repository": "https://github.com/NEO-PROTOCOL/mio-system",
           "description": "Sistema de Identidade Operacional - gerenciamento de identidades de agentes e plataformas",
           "tech": ["Identity Management", "Web3 Signatures"]
         }

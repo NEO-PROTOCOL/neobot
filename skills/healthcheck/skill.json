@@ -12,7 +12,7 @@
     "network:read"
   ],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["security", "hardening", "healthcheck", "audit"]
   }

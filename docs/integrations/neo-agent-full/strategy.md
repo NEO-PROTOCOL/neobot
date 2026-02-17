@@ -68,7 +68,7 @@ FlowCloser Agent                 Neobot
 ├── .env                  # Env vars
 └── ...                   # Tudo preservado
 
-Git: github.com/neomello/flowcloser-agent
+Git: github.com/NEO-PROTOCOL/flowcloser-agent
 Deploy: Railway (sem mudanças)
 URL: flowcloser-agent-production.up.railway.app
 ```
@@ -130,7 +130,7 @@ URL: flowcloser-agent-production.up.railway.app
   "status": "active",
   "location": {
     "local": "/Users/nettomello/CODIGOS/flowcloser-local",
-    "repository": "https://github.com/neomello/flowcloser-agent",
+    "repository": "https://github.com/NEO-PROTOCOL/flowcloser-agent",
     "production": "https://flowcloser-agent-production.up.railway.app"
   },
   "endpoints": {
@@ -614,7 +614,7 @@ integrado ao Neobot via **Remote Integration**
 ## Localização
 
 - **FlowCloser:** `/Users/nettomello/CODIGOS/flowcloser-local/`
-- **Git:** `https://github.com/neomello/flowcloser-agent`
+- **Git:** `https://github.com/NEO-PROTOCOL/flowcloser-agent`
 - **Deploy:** Railway (auto)
 - **URL Prod:** `flowcloser-agent-production.up.railway.app`
 

@@ -8,7 +8,7 @@
   "category": ["tools", "skills", "development"],
   "permissions": ["exec", "fs:read", "fs:write"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["skill", "creator", "development", "packaging"]
   }

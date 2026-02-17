@@ -53,7 +53,7 @@ export const NEO_PROTOCOL_INFO = {
   },
 
   links: {
-    github: "https://github.com/neomello/neobot",
+    github: "https://github.com/NEO-PROTOCOL/neobot",
     docs: "https://neo-docs.mello.eth", // TODO: Deploy IPFS
     architecture: "./ARCHITECTURE_NEO_PROTOCOL.md",
   },

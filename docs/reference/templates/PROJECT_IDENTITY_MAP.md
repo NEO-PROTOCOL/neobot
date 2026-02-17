@@ -35,7 +35,7 @@
 {
   "id": "neobot-architect",
   "name": "Neobot (Architect Agent)",
-  "repository": "https://github.com/neomello/neobot.git",
+  "repository": "https://github.com/NEO-PROTOCOL/neobot.git",
   "localPath": "/Users/nettomello/CODIGOS/neobot",
   "role": "Development Tool / Architect"
 }
@@ -61,7 +61,7 @@
 {
   "id": "neo-agent-full",
   "name": "NEO Agent Full",
-  "repository": "https://github.com/neomello/neo-agent-full.git",
+  "repository": "https://github.com/NEO-PROTOCOL/neo-agent-full.git",
   "localPath": "/Users/nettomello/CODIGOS/neo-agent-full",
   "role": "Full WhatsApp Agent (Web3 + AI)"
 }

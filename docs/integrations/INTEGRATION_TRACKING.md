@@ -396,7 +396,7 @@ Clone mio-system and execute
 registration scripts
 
 **Repository:**
-`https://github.com/neomello/mio-system`
+`https://github.com/NEO-PROTOCOL/mio-system`
 
 **TODO ID:** `mio-system-clone`
 

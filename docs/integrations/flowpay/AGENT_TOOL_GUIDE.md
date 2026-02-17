@@ -313,7 +313,7 @@ tail -f ~/.local/state/moltbot/logs/gateway.log | grep flowpay
 - **FlowPay Production:** https://flowpay-production-10d8.up.railway.app
 - **Woovi Dashboard:** https://app.woovi.com
 - **Health Check:** https://flowpay-production-10d8.up.railway.app/api/health
-- **Neobot Repo:** https://github.com/neomello/neobot
+- **Neobot Repo:** https://github.com/NEO-PROTOCOL/neobot
 - **FlowPay Repo:** https://github.com/flowpaycash/flowpay
 
 ---

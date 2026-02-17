@@ -2300,7 +2300,7 @@
       "in_trash": false,
       "is_locked": false,
       "properties": {
-        "GitHub": { "id": "%3COC%7C", "type": "url", "url": "https://github.com/neomello/neo-one" },
+        "GitHub": { "id": "%3COC%7C", "type": "url", "url": "https://github.com/NEO-PROTOCOL/neo-one" },
         "Prioridade": { "id": "%40iq%5C", "type": "select", "select": null },
         "Descrição": {
           "id": "W%3E%5EF",
@@ -5269,7 +5269,7 @@
         "GitHub": {
           "id": "%3COC%7C",
           "type": "url",
-          "url": "https://github.com/neomello/neoprotocol-space"
+          "url": "https://github.com/NEO-PROTOCOL/neoprotocol-space"
         },
         "Prioridade": {
           "id": "%40iq%5C",
@@ -5616,7 +5616,7 @@
       "in_trash": false,
       "is_locked": false,
       "properties": {
-        "GitHub": { "id": "%3COC%7C", "type": "url", "url": "https://github.com/neomello/neo-one" },
+        "GitHub": { "id": "%3COC%7C", "type": "url", "url": "https://github.com/NEO-PROTOCOL/neo-one" },
         "Prioridade": {
           "id": "%40iq%5C",
           "type": "select",
@@ -5929,7 +5929,7 @@
         "GitHub": {
           "id": "%3COC%7C",
           "type": "url",
-          "url": "https://github.com/neomello/neoflowoff-nodemello.run"
+          "url": "https://github.com/NEO-PROTOCOL/neoflowoff-nodemello.run"
         },
         "Prioridade": {
           "id": "%40iq%5C",
@@ -6195,7 +6195,7 @@
         "GitHub": {
           "id": "%3COC%7C",
           "type": "url",
-          "url": "https://github.com/neomello/neo-flowoff-pwa"
+          "url": "https://github.com/NEO-PROTOCOL/neo-flowoff-pwa"
         },
         "Prioridade": {
           "id": "%40iq%5C",

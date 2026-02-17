@@ -12,7 +12,7 @@
     "ipfs:pin"
   ],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["ipfs", "kubo", "storage", "decentralized"]
   }

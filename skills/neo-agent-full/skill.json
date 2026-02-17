@@ -16,7 +16,7 @@
       "http",
       "read"
     ],
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "architecture": {
       "type": "micro-service",

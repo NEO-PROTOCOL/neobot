@@ -8,7 +8,7 @@
   "category": ["channel", "messaging", "imessage"],
   "permissions": ["exec", "env:read"],
   "metadata": {
-    "repository": "https://github.com/neomello/neobot",
+    "repository": "https://github.com/NEO-PROTOCOL/neobot",
     "license": "MIT",
     "tags": ["bluebubbles", "imessage", "messaging"]
   }

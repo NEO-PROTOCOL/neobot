@@ -34,7 +34,7 @@ Gateway locally and to production.
 
 ```bash
 cd /Users/nettomello/CODIGOS
-git clone https://github.com/neomello/flowpay
+git clone https://github.com/NEO-PROTOCOL/flowpay
 cd flowpay
 ```
 

@@ -405,7 +405,7 @@ Com FlowPay funcionando:
 - **FlowPay Production:** https://flowpay-production-10d8.up.railway.app
 - **Woovi Dashboard:** https://app.woovi.com
 - **Health Check:** https://flowpay-production-10d8.up.railway.app/api/health
-- **GitHub Neobot:** https://github.com/neomello/neobot
+- **GitHub Neobot:** https://github.com/NEO-PROTOCOL/neobot
 - **GitHub FlowPay:** https://github.com/flowpaycash/flowpay
 
 ---
