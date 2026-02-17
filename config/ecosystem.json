@@ -102,12 +102,27 @@
         }
     },
     {
+        "id": "neo-protcl",
+        "org": "NEO Protocol",
+        "name": "NEO Protocol WebApp (Boot/Landing)",
+        "description": "Interface soberana do NEO Protocol. Landing page e Bootloader IPFS/ENS. Soberania Visual.",
+        "localPath": "../neo-protcl",
+        "repository": "https://github.com/NEO-PROTOCOL/neo-protcl.git",
+        "role": "Frontend / Landing / Bootloader",
+        "hosting": {
+            "platform": "Vercel / IPFS",
+            "productionUrl": "https://neoprotocol.space",
+            "adminEmail": "neo@neoprotocol.space",
+            "targetCustomDomain": "neoprotocol.space"
+        }
+    },
+    {
         "id": "neo-dashboard",
         "org": "NEO Protocol",
         "name": "Neo Dashboard",
         "description": "Interface Visual do Sistema (Next.js) - iOS Style Control Center",
         "localPath": "../neo-dashboard-deploy",
-        "repository": "git@github.com:neomello/neo-dashboard.git",
+        "repository": "https://github.com/NEO-PROTOCOL/neo-dashboard.git",
         "role": "Interface",
         "hosting": {
             "platform": "Vercel",
