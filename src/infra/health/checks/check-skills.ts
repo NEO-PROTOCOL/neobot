@@ -46,7 +46,7 @@ export async function checkSkillsStatus(sinceHours: number = 24): Promise<Health
       }
 
       stats[skill].runs++;
-      if (event.status === "success") stats[skill].success++;
+      if (event.status === "success") {stats[skill].success++;}
       else if (event.status === "error" || event.error) {
         stats[skill].error++;
         totalFails++;

@@ -15,7 +15,7 @@ export type ExtraGatewayService = {
   label: string;
   detail: string;
   scope: "user" | "system";
-  marker?: "openclaw" | "clawdbot" | "openclaw";
+  marker?: "openclaw" | "clawdbot"  ;
   legacy?: boolean;
 };
 

@@ -111,12 +111,12 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
   if (installDaemon) {
     const daemonRuntime =
       flow === "quickstart"
-        ? (DEFAULT_GATEWAY_DAEMON_RUNTIME as GatewayDaemonRuntime)
+        ? (DEFAULT_GATEWAY_DAEMON_RUNTIME)
         : ((await prompter.select({
           message: "Gateway service runtime",
           options: GATEWAY_DAEMON_RUNTIME_OPTIONS,
           initialValue: opts.daemonRuntime ?? DEFAULT_GATEWAY_DAEMON_RUNTIME,
-        })) as GatewayDaemonRuntime);
+        })));
     if (flow === "quickstart") {
       await prompter.note(
         "QuickStart uses Node for the Gateway service (stable + supported).",
@@ -133,7 +133,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
           { value: "reinstall", label: "Reinstall" },
           { value: "skip", label: "Skip" },
         ],
-      })) as "restart" | "reinstall" | "skip";
+      }));
       if (action === "restart") {
         await withWizardProgress(
           "Gateway service",
@@ -158,7 +158,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
       }
     }
 
-    if (!loaded || (loaded && (await service.isLoaded({ env: process.env })) === false)) {
+    if (!loaded || (loaded && ! (await service.isLoaded({ env: process.env })))) {
       const progress = prompter.progress("Gateway service");
       let installError: string | null = null;
       try {
@@ -319,7 +319,7 @@ export async function finalizeOnboardingWizard(options: FinalizeOnboardingOption
         { value: "later", label: "Do this later" },
       ],
       initialValue: "web",
-    })) as "web" | "later";
+    }));
 
     if (hatchChoice === "web") {
       const browserSupport = await detectBrowserOpenSupport();

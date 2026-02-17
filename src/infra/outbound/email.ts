@@ -75,7 +75,7 @@ async function sendViaResend(
       }),
     });
 
-    const data = (await response.json()) as any;
+    const data = (await response.json());
 
     if (!response.ok) {
       return { success: false, error: data.message || "Resend API error" };

@@ -5,7 +5,7 @@ import { getLedgerFilePath } from "../ledger/ledger.js";
 
 export async function createHealthAnchor() {
   const ledgerPath = getLedgerFilePath();
-  if (!fs.existsSync(ledgerPath)) return null;
+  if (!fs.existsSync(ledgerPath)) {return null;}
 
   const stateDir = path.dirname(ledgerPath);
   const anchorsDir = path.join(stateDir, "anchors");
@@ -44,15 +44,15 @@ export async function getLatestAnchor() {
   const stateDir = path.dirname(ledgerPath);
   const anchorsDir = path.join(stateDir, "anchors");
 
-  if (!fs.existsSync(anchorsDir)) return null;
+  if (!fs.existsSync(anchorsDir)) {return null;}
 
   const files = fs
     .readdirSync(anchorsDir)
     .filter((f) => f.startsWith("anchor-") && f.endsWith(".json"))
-    .sort()
-    .reverse();
+    .toSorted()
+    .toReversed();
 
-  if (files.length === 0) return null;
+  if (files.length === 0) {return null;}
 
   const latestFile = path.join(anchorsDir, files[0]);
   const content = fs.readFileSync(latestFile, "utf-8");

@@ -67,7 +67,7 @@ export class MioIdentityManager {
     try {
       this.wallet = new ethers.Wallet(cleanKey);
     } catch (error) {
-      throw new Error(`Invalid private key: ${String(error)}`);
+      throw new Error(`Invalid private key: ${String(error)}`, { cause: error });
     }
   }
 
@@ -172,11 +172,11 @@ export class MioIdentityManager {
     const canonical = {
       id: identity.id,
       publicKey: identity.publicKey,
-      roles: identity.roles.sort(),
+      roles: identity.roles.toSorted(),
       permissions: {
-        channels: identity.permissions.channels.sort(),
-        skills: identity.permissions.skills.sort(),
-        tools: identity.permissions.tools.sort(),
+        channels: identity.permissions.channels.toSorted(),
+        skills: identity.permissions.skills.toSorted(),
+        tools: identity.permissions.tools.toSorted(),
       },
       metadata: identity.metadata,
       createdAt: identity.createdAt.toISOString(),

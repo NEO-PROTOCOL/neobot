@@ -14,7 +14,7 @@ export async function describeImageWithModel(
   await ensureOpenClawModelsJson(params.cfg, params.agentDir);
   const authStorage = discoverAuthStorage(params.agentDir);
   const modelRegistry = discoverModels(authStorage, params.agentDir);
-  const model = modelRegistry.find(params.provider, params.model) as Model<Api> | null;
+  const model = modelRegistry.find(params.provider, params.model);
   if (!model) {
     throw new Error(`Unknown model: ${params.provider}/${params.model}`);
   }
@@ -57,7 +57,7 @@ export async function describeImageWithModel(
   const message = (await complete(model, context, {
     apiKey,
     maxTokens: params.maxTokens ?? 512,
-  })) as AssistantMessage;
+  }));
   const text = coerceImageAssistantText({
     message,
     provider: model.provider,

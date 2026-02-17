@@ -106,7 +106,7 @@ export class IdentityLoader {
      */
     public async signAsWarrior(message: string): Promise<string | undefined> {
         const warrior = this.getWarrior();
-        if (!warrior) return undefined;
+        if (!warrior) {return undefined;}
         return await warrior.manager.signMessage(message);
     }
 

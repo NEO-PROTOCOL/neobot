@@ -19,7 +19,7 @@ export async function handleNexusWebhookHttpRequest(
     res: ServerResponse
 ): Promise<boolean> {
     const url = req.url ?? "/";
-    if (url !== "/api/webhook/nexus") return false;
+    if (url !== "/api/webhook/nexus") {return false;}
 
     if (req.method !== "POST") {
         res.statusCode = 405;
@@ -39,7 +39,7 @@ export async function handleNexusWebhookHttpRequest(
 
     // Read body to validate HMAC
     const body = await readJsonBodyOrError(req, res, 1024 * 1024);
-    if (body === undefined) return true;
+    if (body === undefined) {return true;}
 
     const expectedSignature = createHmac("sha256", secret)
         .update(JSON.stringify(body))

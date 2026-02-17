@@ -380,19 +380,19 @@ Seja crítico mas construtivo. Foque em problemas reais que podem causar impacto
       const lines = response.split("\n");
       let currentSection = "";
       lines.forEach((line) => {
-        if (line.includes("Testes")) currentSection = "tests";
-        else if (line.includes("Migrations")) currentSection = "migrations";
+        if (line.includes("Testes")) {currentSection = "tests";}
+        else if (line.includes("Migrations")) {currentSection = "migrations";}
         else if (line.includes("Variáveis") || line.includes("Environment"))
-          currentSection = "envVars";
-        else if (line.includes("Rollback")) currentSection = "rollbackPlan";
-        else if (line.includes("Ordem") || line.includes("Order")) currentSection = "deployOrder";
-        else if (line.includes("Avisos") || line.includes("Warnings")) currentSection = "warnings";
+          {currentSection = "envVars";}
+        else if (line.includes("Rollback")) {currentSection = "rollbackPlan";}
+        else if (line.includes("Ordem") || line.includes("Order")) {currentSection = "deployOrder";}
+        else if (line.includes("Avisos") || line.includes("Warnings")) {currentSection = "warnings";}
         else if (line.includes("Recomendações") || line.includes("Recommendations"))
-          currentSection = "recommendations";
+          {currentSection = "recommendations";}
         else if (line.trim().startsWith("-") || line.trim().match(/^\d+\./)) {
           const item = line.replace(/^[-•]\s*|\d+\.\s*/, "").trim();
           if (item && currentSection && checklist[currentSection as keyof DeployChecklist]) {
-            (checklist[currentSection as keyof DeployChecklist] as string[]).push(item);
+            (checklist[currentSection as keyof DeployChecklist]).push(item);
           }
         }
       });

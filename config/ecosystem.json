@@ -20,7 +20,7 @@
             "note": "9 identidades mio-system residem em src/neo/identity/registry.ts"
         },
         "hosting": {
-            "platform": "Local / Railway (Dev)",
+            "platform": "Local / Railway (Production)",
             "targetCustomDomain": "nexus.neoprotocol.space",
             "adminEmail": "neo@neoprotocol.space"
         }

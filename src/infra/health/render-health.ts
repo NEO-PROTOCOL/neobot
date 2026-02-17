@@ -4,8 +4,8 @@ import { toYaml } from "./yaml.js";
 export type HealthOutputFormat = "chat" | "yaml" | "json";
 
 function icon(status: string): string {
-  if (status === "ok") return "✅";
-  if (status === "warn") return "⚠️";
+  if (status === "ok") {return "✅";}
+  if (status === "warn") {return "⚠️";}
   return "❌";
 }
 

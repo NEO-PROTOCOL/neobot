@@ -252,7 +252,7 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
 
       if (result.status === "ok") {
         console.log("\n✅ Tudo certo! Já está no meu calendário.");
-        if (result.outputText) console.log(`\nDetalhes: ${result.outputText}`);
+        if (result.outputText) {console.log(`\nDetalhes: ${result.outputText}`);}
       } else {
         console.error(`\n❌ Tive um problema ao agendar: ${result.error}`);
       }
@@ -280,12 +280,12 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
             node: process.version,
             runtime_config: path.resolve(process.cwd(), "config/neobot.runtime.json"),
             enabled_channels: Object.entries(cfg.channels ?? {})
-              .filter(([, v]) => v?.enabled === true)
+              .filter(([, v]) =>  v?.enabled)
               .map(([k]) => k),
             enabled_executors: Object.entries(cfg.executors ?? {})
-              .filter(([, v]) => v?.enabled === true)
+              .filter(([, v]) =>  v?.enabled)
               .map(([k]) => k),
-            social_enabled: cfg.social_browser_automation?.enabled === true,
+            social_enabled:  cfg.social_browser_automation?.enabled,
           },
           null,
           2,
@@ -299,12 +299,12 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
       console.log(`📂 Configuração carregada de: config/neobot.runtime.json`);
 
       const channels = Object.entries(cfg.channels ?? {})
-        .filter(([, v]) => v?.enabled === true)
+        .filter(([, v]) =>  v?.enabled)
         .map(([k]) => k);
       console.log(`📡 Canais ativos: ${channels.join(", ") || "Nenhum"}`);
 
       const executors = Object.entries(cfg.executors ?? {})
-        .filter(([, v]) => v?.enabled === true)
+        .filter(([, v]) =>  v?.enabled)
         .map(([k]) => k);
       console.log(`🛠️  Ferramentas (Executors) prontas: ${executors.join(", ") || "Nenhuma"}`);
     }

@@ -8,7 +8,7 @@ let dashboardUrl: string | null =
  * Allows remote monitoring of the agent from the web UI.
  */
 export function startDashboardLogBridge() {
-  if (!dashboardUrl) return;
+  if (!dashboardUrl) {return;}
 
   // Ensure it ends with /api/logs
   const target = dashboardUrl.endsWith("/")
@@ -31,7 +31,7 @@ export function startDashboardLogBridge() {
             : "No message",
         timestamp:
           logObj["date"] instanceof Date
-            ? (logObj["date"] as Date).toISOString()
+            ? (logObj["date"]).toISOString()
             : new Date().toISOString(),
       };
 

@@ -23,7 +23,7 @@ export type RunShellSkillResult = {
 };
 
 function existsOrThrow(p: string) {
-  if (!fs.existsSync(p)) throw new Error(`Missing file: ${p}`);
+  if (!fs.existsSync(p)) {throw new Error(`Missing file: ${p}`);}
 }
 
 export async function runShellSkill(params: RunShellSkillParams): Promise<RunShellSkillResult> {

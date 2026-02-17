@@ -23,7 +23,7 @@ export function registerMessageSendCommand(message: Command, helpers: MessageCli
       .option("--silent", "Send message silently without notification (Telegram only)", false),
   );
   sendCmd.action(async function (this: Command, opts: Record<string, unknown>) {
-    const excess = (this.args as string[]) ?? [];
+    const excess = (this.args) ?? [];
     if (excess.length > 0) {
       opts.message = [opts.message, ...excess].filter(Boolean).join(" ");
     }

@@ -246,7 +246,7 @@ export function describeReplyTarget(msg: Message): TelegramReplyTarget | null {
   const externalReply = (msg as Message & { external_reply?: Message }).external_reply;
   const quoteText =
     msg.quote?.text ??
-    (externalReply as (Message & { quote?: { text?: string } }) | undefined)?.quote?.text;
+    (externalReply)?.quote?.text;
   let body = "";
   let kind: TelegramReplyTarget["kind"] = "reply";
 
@@ -375,7 +375,7 @@ function buildForwardedContextFromChat(params: {
   }
   const signature = params.signature?.trim() || undefined;
   const from = signature ? `${display} (${signature})` : display;
-  const chatType = (params.chat.type?.trim() || undefined) as Chat["type"] | undefined;
+  const chatType = (params.chat.type?.trim() || undefined);
   return {
     from,
     date: params.date,

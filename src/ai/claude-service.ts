@@ -455,7 +455,7 @@ Retorne APENAS um array JSON de etapas, exemplo:
    */
   private async summarizeContext(userId: string): Promise<void> {
     const context = this.contexts.get(userId);
-    if (!context) return;
+    if (!context) {return;}
 
     console.log(`📝 Resumindo contexto para ${userId}...`);
 
@@ -572,7 +572,7 @@ Retorne APENAS um array JSON de etapas, exemplo:
   getCacheStats() {
     const entries = Array.from(this.responseCache.entries());
     const topHits = entries
-      .sort((a, b) => b[1].hits - a[1].hits)
+      .toSorted((a, b) => b[1].hits - a[1].hits)
       .slice(0, 10)
       .map(([key, entry]) => ({
         key: key.substring(0, 50) + "...",

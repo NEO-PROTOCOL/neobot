@@ -89,8 +89,8 @@ export async function pinMultipleToLighthouse(
     }),
   );
 
-  const succeeded = results.filter((r) => r.status === "fulfilled" && r.value === true).length;
-  const failed = results.filter((r) => r.status === "fulfilled" && r.value === false).length;
+  const succeeded = results.filter((r) => r.status === "fulfilled" &&  r.value).length;
+  const failed = results.filter((r) => r.status === "fulfilled" && ! r.value).length;
   const errors = results.filter((r) => r.status === "rejected").length;
 
   if (succeeded > 0) {

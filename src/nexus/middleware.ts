@@ -121,6 +121,6 @@ export function applyTemplate(templateParams: Record<string, any>, payload: any)
 }
 
 function resolvePath(obj: any, path: string): any {
-  if (!obj) return undefined;
+  if (!obj) {return undefined;}
   return path.split('.').reduce((acc, part) => (acc && acc[part] !== undefined) ? acc[part] : undefined, obj);
 }

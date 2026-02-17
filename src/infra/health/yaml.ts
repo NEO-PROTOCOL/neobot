@@ -12,17 +12,17 @@ function indentLines(s: string, spaces: number): string {
 
 function yamlEscapeString(s: string): string {
   // keep it safe and readable
-  if (s === "") return '""';
+  if (s === "") {return '""';}
   const needsQuotes = /[:\-[\]{},#&*!|>'"%@`]/.test(s) || /\s/.test(s) || s.includes("\n");
-  if (!needsQuotes) return s;
+  if (!needsQuotes) {return s;}
   return JSON.stringify(s); // double quotes safe
 }
 
 export function toYaml(value: unknown, level = 0): string {
   const indent = " ".repeat(level);
 
-  if (value === null || value === undefined) return "null";
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (value === null || value === undefined) {return "null";}
+  if (typeof value === "number" || typeof value === "boolean") {return String(value);}
 
   if (typeof value === "string") {
     if (value.includes("\n")) {
@@ -36,7 +36,7 @@ export function toYaml(value: unknown, level = 0): string {
   }
 
   if (Array.isArray(value)) {
-    if (value.length === 0) return "[]";
+    if (value.length === 0) {return "[]";}
     const lines = value.map((item) => {
       const rendered = toYaml(item, level + 2);
       if (isPlainObject(item) || Array.isArray(item)) {
@@ -49,7 +49,7 @@ export function toYaml(value: unknown, level = 0): string {
 
   if (isPlainObject(value)) {
     const keys = Object.keys(value);
-    if (keys.length === 0) return "{}";
+    if (keys.length === 0) {return "{}";}
     const lines: string[] = [];
     for (const k of keys) {
       const v = value[k];

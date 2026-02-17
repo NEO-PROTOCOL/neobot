@@ -35,7 +35,7 @@ function defaultStateDir(): string {
 function ledgerPath(): string {
   const dir = defaultStateDir();
   // Ensure the directory exists when retrieving path
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  if (!fs.existsSync(dir)) {fs.mkdirSync(dir, { recursive: true });}
   return path.join(dir, "ledger.jsonl");
 }
 

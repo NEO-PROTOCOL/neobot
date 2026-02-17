@@ -88,7 +88,7 @@ export class NeoSkillsRegistry {
       }
     }
 
-    if (!rootCid) throw new Error("Failed to get root CID from IPFS addAll");
+    if (!rootCid) {throw new Error("Failed to get root CID from IPFS addAll");}
 
     console.log(`✅ Published! CID: ${rootCid}`);
     console.log(`   Skill: ${manifest.name} v${manifest.version}`);
@@ -136,7 +136,7 @@ export class NeoSkillsRegistry {
       // e.g. QmHash/index.js -> index.js
       const relativePath = f.path.replace(new RegExp(`^${cid}/?`), "");
 
-      if (!relativePath) continue; // Skip root folder itself if it matches
+      if (!relativePath) {continue;} // Skip root folder itself if it matches
 
       const fullPath = path.join(installPath, relativePath);
 
@@ -223,7 +223,7 @@ export class NeoSkillsRegistry {
 
     try {
       // Check if dir exists
-      if (!fs.existsSync(skillsDir)) return [];
+      if (!fs.existsSync(skillsDir)) {return [];}
 
       const entries = await fs.promises.readdir(skillsDir, { withFileTypes: true });
 

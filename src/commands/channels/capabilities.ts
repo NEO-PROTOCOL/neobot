@@ -28,33 +28,33 @@ type ChannelCapabilitiesReport = {
 
 function normalizeTimeout(raw: unknown, fallback = 10_000) {
   const value = typeof raw === "string" ? Number(raw) : Number(raw);
-  if (!Number.isFinite(value) || value <= 0) return fallback;
+  if (!Number.isFinite(value) || value <= 0) {return fallback;}
   return value;
 }
 
 function formatSupport(capabilities?: ChannelCapabilities) {
-  if (!capabilities) return "unknown";
+  if (!capabilities) {return "unknown";}
   const bits: string[] = [];
   if (capabilities.chatTypes?.length) {
     bits.push(`chatTypes=${capabilities.chatTypes.join(",")}`);
   }
-  if (capabilities.polls) bits.push("polls");
-  if (capabilities.reactions) bits.push("reactions");
-  if (capabilities.edit) bits.push("edit");
-  if (capabilities.unsend) bits.push("unsend");
-  if (capabilities.reply) bits.push("reply");
-  if (capabilities.effects) bits.push("effects");
-  if (capabilities.groupManagement) bits.push("groupManagement");
-  if (capabilities.threads) bits.push("threads");
-  if (capabilities.media) bits.push("media");
-  if (capabilities.nativeCommands) bits.push("nativeCommands");
-  if (capabilities.blockStreaming) bits.push("blockStreaming");
+  if (capabilities.polls) {bits.push("polls");}
+  if (capabilities.reactions) {bits.push("reactions");}
+  if (capabilities.edit) {bits.push("edit");}
+  if (capabilities.unsend) {bits.push("unsend");}
+  if (capabilities.reply) {bits.push("reply");}
+  if (capabilities.effects) {bits.push("effects");}
+  if (capabilities.groupManagement) {bits.push("groupManagement");}
+  if (capabilities.threads) {bits.push("threads");}
+  if (capabilities.media) {bits.push("media");}
+  if (capabilities.nativeCommands) {bits.push("nativeCommands");}
+  if (capabilities.blockStreaming) {bits.push("blockStreaming");}
   return bits.length ? bits.join(" ") : "none";
 }
 
 function formatProbeLines(channelId: string, probe: unknown): string[] {
   const lines: string[] = [];
-  if (!probe || typeof probe !== "object") return lines;
+  if (!probe || typeof probe !== "object") {return lines;}
   const probeObj = probe as Record<string, unknown>;
 
   const ok = typeof probeObj.ok === "boolean" ? probeObj.ok : undefined;
@@ -134,7 +134,7 @@ export async function channelsCapabilitiesCommand(
   runtime: RuntimeEnv = defaultRuntime,
 ) {
   const cfg = await requireValidConfig(runtime);
-  if (!cfg) return;
+  if (!cfg) {return;}
   const timeoutMs = normalizeTimeout(opts.timeout, 10_000);
   const rawChannel = typeof opts.channel === "string" ? opts.channel.trim().toLowerCase() : "";
 
@@ -150,7 +150,7 @@ export async function channelsCapabilitiesCommand(
       ? plugins
       : (() => {
         const plugin = getChannelPlugin(rawChannel);
-        if (!plugin) return null;
+        if (!plugin) {return null;}
         return [plugin];
       })();
 

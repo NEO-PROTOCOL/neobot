@@ -149,7 +149,7 @@ export function isPinataConfigured(): boolean {
  */
 export function getPinataGatewayUrl(cid: string): string | null {
   const gatewayUrl = process.env.PINATA_GATEWAY_URL;
-  if (!gatewayUrl) return null;
+  if (!gatewayUrl) {return null;}
 
   // Remove trailing slash se existir
   const baseUrl = gatewayUrl.replace(/\/$/, "");
@@ -200,8 +200,8 @@ export async function pinMultipleToPinata(cids: string[]): Promise<void> {
 
   const results = await Promise.allSettled(cids.map((cid) => pinToPinata(cid)));
 
-  const succeeded = results.filter((r) => r.status === "fulfilled" && r.value === true).length;
-  const failed = results.filter((r) => r.status === "fulfilled" && r.value === false).length;
+  const succeeded = results.filter((r) => r.status === "fulfilled" &&  r.value).length;
+  const failed = results.filter((r) => r.status === "fulfilled" && ! r.value).length;
 
   if (succeeded > 0) {
     console.log(`✅ Pinata: ${succeeded} pinned successfully`);

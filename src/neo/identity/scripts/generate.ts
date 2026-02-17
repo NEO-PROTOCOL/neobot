@@ -53,7 +53,7 @@ async function generateAllIdentities(): Promise<GeneratedIdentity[]> {
         )
 
         const isValid = await manager.verifyIdentity(identity)
-        if (!isValid) throw new Error(`Failed to verify identity: ${template.id}`)
+        if (!isValid) {throw new Error(`Failed to verify identity: ${template.id}`)}
 
         console.log(chalk.green(`   ✅ ${identity.id}`))
         identities.push({ template, privateKey, identity })

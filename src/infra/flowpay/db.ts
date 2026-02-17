@@ -38,7 +38,7 @@ export function getDatabase(): DatabaseInstance {
 }
 
 function initializeSchema(): void {
-  if (!db) return;
+  if (!db) {return;}
 
   const tables = db
     .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='orders'")
