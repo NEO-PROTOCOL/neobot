@@ -6,6 +6,7 @@ export {
   isCronRunSessionKey as isCronSessionKey,
   isSubagentSessionKey,
   parseAgentSessionKey,
+  getSubagentDepth,
   type ParsedAgentSessionKey,
 } from "../sessions/session-key-utils.js";
 

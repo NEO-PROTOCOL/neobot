@@ -81,3 +81,20 @@ export function resolveThreadParentSessionKey(
   const parent = raw.slice(0, idx).trim();
   return parent ? parent : null;
 }
+
+export function getSubagentDepth(sessionKey: string | undefined | null): number {
+  const raw = (sessionKey ?? "").trim();
+  if (!raw) {
+    return 0;
+  }
+  const parsed = parseAgentSessionKey(raw);
+  const rest = parsed ? parsed.rest : raw;
+  const parts = rest.split(":").filter(Boolean);
+  let depth = 0;
+  for (const part of parts) {
+    if (part.toLowerCase() === "subagent") {
+      depth += 1;
+    }
+  }
+  return depth;
+}

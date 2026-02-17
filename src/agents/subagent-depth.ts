@@ -2,7 +2,7 @@ import JSON5 from "json5";
 import fs from "node:fs";
 import type { OpenClawConfig } from "../config/config.js";
 import { resolveStorePath } from "../config/sessions/paths.js";
-import { getSubagentDepth, parseAgentSessionKey } from "../sessions/session-key-utils.js";
+import { parseAgentSessionKey, getSubagentDepth } from "../routing/session-key.js";
 import { resolveDefaultAgentId } from "./agent-scope.js";
 
 type SessionDepthEntry = {
