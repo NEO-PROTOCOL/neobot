@@ -1,0 +1,35 @@
+# ##############################################################################
+# 🌌 NEO PROTOCOL - UNIFIED INFRASTRUCTURE MAP (PRODUCTION)
+# Last Updated: 2026-02-16
+# ##############################################################################
+
+# 🛰️ NEXUS CORE
+PORT=3000
+NEXUS_PORT=3000
+DATA_DIR=./data
+NODE_ENV=production
+
+# 🔐 SECURITY & CORS
+ALLOWED_ORIGINS=http://localhost:3000,https://flowpay.cash,https://nexus.neoprotocol.space,https://agent.neoprotocol.space,https://architect.neoprotocol.space,https://dashboard.neoprotocol.space
+
+# 📡 SOVEREIGN NODES (Internal Mesh)
+# Use estas URLs para comunicações entre serviços dentro da Railway
+NEOBOT_INTERNAL_URL=http://neobot.railway.internal
+NEXUS_INTERNAL_URL=http://neo-nexus.railway.internal
+AGENT_INTERNAL_URL=http://neo-agent-full.railway.internal
+FACTORY_INTERNAL_URL=http://smart-factory.railway.internal
+FLOWPAY_INTERNAL_URL=http://flowpay.railway.internal
+
+# 🌐 PUBLIC SOVEREIGN DOMAINS
+# Use estas URLs para o Discovery Service e APIs Externas
+NEXUS_API_URL=https://nexus.neoprotocol.space
+NEO_AGENT_FULL_API_URL=https://agent.neoprotocol.space
+MIO_SYSTEM_API_URL=https://id.neoprotocol.space
+NEOBOT_API_URL=https://architect.neoprotocol.space
+FACTORY_API_URL=https://factory.neoprotocol.space
+FLOWPAY_API_URL=https://flowpay.cash
+DASHBOARD_URL=https://dashboard.neoprotocol.space
+
+# 🏋️ WOD & 🏛️ FLUXX
+WOD_API_URL=https://api.wodx.pro
+FLUXX_DAO_API_URL=https://fluxx.neoprotocol.space

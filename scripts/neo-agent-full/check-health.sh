@@ -19,7 +19,7 @@ echo ""
 
 # Production
 echo "🌐 Production (Railway):"
-PROD_URL="https://flowcloser-agent-production.up.railway.app/health"
+PROD_URL="https://neo-agent-full-agent-production.up.railway.app/health"
 if curl -sf "$PROD_URL" > /dev/null 2>&1; then
   echo "✅ UP"
   curl -s "$PROD_URL" | jq 2>/dev/null || curl -s "$PROD_URL"

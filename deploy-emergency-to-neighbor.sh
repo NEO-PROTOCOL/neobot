@@ -29,18 +29,18 @@ import qrcode from "qrcode-terminal"; // @ts-ignore
 const SESSION_DIR = process.env.WHATSAPP_SESSION_DIR || "./data/whatsapp-session";
 
 async function connectToWhatsApp() {
-  console.log("🦞 [FlowCloser] Inicializando State em:", SESSION_DIR);
+  console.log("🦞 [NEO Agent Full] Inicializando State em:", SESSION_DIR);
   const { state, saveCreds } = await useMultiFileAuthState(SESSION_DIR);
   const { version } = await fetchLatestBaileysVersion();
   
-  console.log(\`🦞 [FlowCloser] Iniciando WhatsApp v\${version.join(".")}\`);
+  console.log(\`🦞 [NEO Agent Full] Iniciando WhatsApp v\${version.join(".")}\`);
 
   const sock = makeWASocket({
     version,
     logger: pino({ level: "silent" }),
     printQRInTerminal: true,
     auth: state,
-    browser: ["FlowCloser", "Chrome", "1.0.0"],
+    browser: ["NEO Agent Full", "Chrome", "1.0.0"],
     syncFullHistory: false,
     generateHighQualityLinkPreview: true
   });
@@ -67,7 +67,7 @@ async function connectToWhatsApp() {
         setTimeout(connectToWhatsApp, 5000); // Wait 5s before reconnect
       }
     } else if (connection === "open") {
-      console.log("✅ [FlowCloser] WhatsApp Conectado com Sucesso! 🚀");
+      console.log("✅ [NEO Agent Full] WhatsApp Conectado com Sucesso! 🚀");
     }
   });
 
@@ -92,7 +92,7 @@ async function connectToWhatsApp() {
 
       // Auto-reply
       await sock.sendMessage(remoteJid, {
-        text: "👋 Olá! Sou o FlowCloser (Startup Mode).\\n\\nRecebi: " + text
+        text: "👋 Olá! Sou o NEO Agent Full (Startup Mode).\\n\\nRecebi: " + text
       });
     }
   });

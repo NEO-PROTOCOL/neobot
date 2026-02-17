@@ -3,7 +3,7 @@
 
 set -e
 
-FLOWCLOSER_PATH="/Users/nettomello/CODIGOS/flowcloser-local"
+FLOWCLOSER_PATH="/Users/nettomello/CODIGOS/neo-agent-full-local"
 
 if [ ! -d "$FLOWCLOSER_PATH" ]; then
   echo "❌ FlowCloser not found at: $FLOWCLOSER_PATH"
