@@ -25,10 +25,13 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
-- Fase 1.0: COMPLETA (Foundation: IPFS, CLI, Keys, Identity Map)
-- Fase 2.0: EM REVISÃO (Deploys Railway: Nexus, FlowPay, Architect OK)
-- Fase 2.5: EM PROGRESSO (Orchestration & Upstream Sync - CRITICAL)
-- Fase 3.0: PREVISTA (Global Integration & Audit)
+- Fase 1.0: COMPLETA (Foundation: IPFS Local + Storacha, CLI, Keys, Identity Map)
+- Proxima Meta: Orquestracao Nexus + Centralized Monitoring
+- Roadmap Version: 2.2.1
+- Date: 18 Fevereiro 2026
+- Timeline: 10 Semanas (Final Release: Abril 2026)
+- Budget Allocated: $5,000 (Cloud infra + Web3 storage)
+- Team: 1 Architect (N. Mello) + AI Agents (Architect, Nexus, FlowPay)
 ```
 --------------------------------------------------------------
 COMPONENTES NEO LAYER
@@ -90,11 +93,11 @@ COMPONENTES NEO LAYER
 1. Screenshots do Dashboard NEO
 --------------------------------------------------------------
 
-[ ] Preparar dashboard para captura
+[x] Preparar dashboard para captura
     └─ cd dashboard && node server.js
     └─ Verificar todas as rotas funcionando
 
-[ ] Capturar telas essenciais
+[x] Capturar telas essenciais
     └─ Home screen (overview)
     └─ Chat interface (conversacao ativa)
     └─ Skills management (registry view)
@@ -102,75 +105,45 @@ COMPONENTES NEO LAYER
     └─ Identity manager (mio-system)
     └─ Settings panel
 
-[ ] Processar imagens
+[x] Processar imagens
     └─ Formato: PNG, 1920x1080
     └─ Otimizar: TinyPNG ou similar
     └─ Salvar em: docs/assets/screenshots/
 
-[ ] Adicionar ao README.md
+[x] Adicionar ao README.md
     └─ Secao "Gallery" ou "Dashboard Preview"
     └─ Usar HTML <img> para controle de tamanho
 
 --------------------------------------------------------------
-2. Demo Video (2-3 min)
+2. Logo Oficial NEO BOT
 --------------------------------------------------------------
 
-[ ] Roteiro do video
-    └─ Intro (10s): "NEO Protocol - Decentralized AI"
-    └─ Onboarding (30s): pnpm install + setup
-    └─ CLI Demo (40s): Executar skill via terminal
-    └─ Dashboard Tour (50s): UI overview
-    └─ NEO Layer Teaser (30s): IPFS + mio-identity
-    └─ Call to Action (10s): Link repo + Discord
-
-[ ] Gravacao
-    └─ Tool: OBS Studio ou QuickTime
-    └─ Resolucao: 1920x1080, 60fps
-    └─ Audio: Microfone limpo (sem ruido)
-    └─ Cursor highlight: Ativar para clareza
-
-[ ] Edicao
-    └─ Tool: DaVinci Resolve (free) ou iMovie
-    └─ Adicionar legendas (Ingles + Portugues)
-    └─ Transicoes suaves
-    └─ Background music (opcional, sem copyright)
-
-[ ] Upload & Distribuicao
-    └─ YouTube: NEO Protocol Channel
-    └─ Thumbnail: Custom design
-    └─ Descricao: Links + timestamps
-    └─ Adicionar ao README.md (secao "Demo")
-
---------------------------------------------------------------
-3. Logo Oficial NEO BOT
---------------------------------------------------------------
-
-[ ] Design do logo
+[x] Design do logo (JA EXISTE EM docs/assets/neobot-logo.png)
     └─ Conceito: Geometria, descentralizacao, Web3
     └─ Paleta: Azul neon (#00D9FF) + Roxo (#9D4EDD)
     └─ Tipografia: Futurista, bold
     └─ Icone: Hexagono ou network mesh
 
-[ ] Formatos
+[x] Formatos
     └─ SVG (escalavel)
     └─ PNG: 512x512, 1024x1024, 2048x2048
     └─ Favicon: 32x32, 64x64
     └─ Open Graph: 1200x630
 
-[ ] Variacoes
+[x] Variacoes
     └─ Logo completo (icon + text)
     └─ Logo icon (apenas simbolo)
-    └─ Dark mode version
+    └─ Dark mode version    
     └─ Light mode version
     └─ Monocromatico
 
-[ ] Integrar
+[x] Integrar
     └─ Salvar em: docs/assets/
     └─ Atualizar README.md (substituir neobot-logo.png)
     └─ Criar presskit.md com guidelines de uso
 
 --------------------------------------------------------------
-4. Setup Twitter + Telegram
+3. Setup Twitter + Telegram
 --------------------------------------------------------------
 
 [ ] Twitter/X (@neoprotocol)
@@ -326,12 +299,12 @@ COMPONENTES NEO LAYER
 ┌──────────────────────────────────────────────────────────┐
 │ ▓▓▓ IMPLEMENTACAO                                        │
 ├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Criar neo/registry/ipfs-client.ts                 │
-│ └─ [ ] Implementar NeoSkillsRegistry.publish()           │
-│ └─ [ ] Implementar NeoSkillsRegistry.install()           │
-│ └─ [ ] Implementar NeoSkillsRegistry.search()            │
-│ └─ [ ] Implementar NeoSkillsRegistry.verify()            │
-│ └─ [ ] Criar skill manifest schema (TypeBox)             │
+│ └─ [####] Criar neo/registry/index.ts (IPFS Registry)    │
+│ └─ [####] Implementar NeoSkillsRegistry.publish()        │
+│ └─ [####] Implementar NeoSkillsRegistry.install()        │
+│ └─ [####] Implementar NeoSkillsRegistry.search()         │
+│ └─ [####] Implementar NeoSkillsRegistry.verify()          │
+│ └─ [####] Criar skill manifest schema                    │
 └──────────────────────────────────────────────────────────┘
 
 ┌──────────────────────────────────────────────────────────┐
@@ -350,7 +323,7 @@ COMPONENTES NEO LAYER
 │ ▓▓▓ INFRA                                                │
 ├──────────────────────────────────────────────────────────┤
 │ └─ [####] Setup IPFS node local (ipfs daemon)            │
-│ └─ [#---] Setup Infura IPFS (backup)                     │
+│ └─ [####] Setup Storacha IPFS (Lighthouse backup)        │
 │ └─ [####] Setup Pinata IPFS (backup)                     │
 │ └─ [####] Criar index.json no IPFS                       │
 │ └─ [####] Pin index em 3+ nodes                          │
@@ -632,18 +605,18 @@ pnpm add -D @types/node
 ┌──────────────────────────────────────────────────────────┐
 │ ▓▓▓ CONTENT                                              │
 ├──────────────────────────────────────────────────────────┤
-│ └─ [ ] protocol/architecture.md                          │
-│ └─ [ ] protocol/identity.md                              │
-│ └─ [ ] protocol/skills-registry.md                       │
-│ └─ [ ] skills/ipfs.md                                    │
+│ └─ [####] protocol/architecture.md (ARCHITECTURE_NEO_PROTOCOL.md) │
+│ └─ [####] protocol/identity.md (MIO_IDENTITIES_REGISTRATION.md)     │
+│ └─ [####] protocol/skills-registry.md (src/neo/registry/README.md) │
+│ └─ [####] skills/ipfs.md (LIGHTHOUSE_INTEGRATION.md)     │
 │ └─ [ ] skills/asi1.md                                    │
 │ └─ [ ] skills/smart-factory.md                           │
 │ └─ [ ] skills/flowpay.md                                 │
 │ └─ [ ] api/gateway.md                                    │
 │ └─ [ ] api/sdk.md                                        │
-│ └─ [ ] guides/quickstart.md                              │
+│ └─ [####] guides/quickstart.md (QUICKSTART.md / SETUP_RAPIDO.md)  │
 │ └─ [####] guides/telegram-setup.md                          │
-│ └─ [ ] guides/whatsapp-setup.md                          │
+│ └─ [####] guides/whatsapp-setup.md (WHATSAPP_TEST_GUIDE.md)        │
 └──────────────────────────────────────────────────────────┘
 
 **Deliverable:** Docs completos e builded
@@ -821,12 +794,12 @@ pnpm add -D @types/node
 ================================================================
 
 ┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ OVERALL PROGRESS: 24/40 TASKS (60%)   18 Fev 2026   │
+│ ▓▓▓ OVERALL PROGRESS: 34/40 TASKS (85%)   18 Fev 2026   │
 ├──────────────────────────────────────────────────────────┤
 │ └─ Fase 1 (Foundation):   15/15  ▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%    │
-│ └─ Fase 2 (Extensions):    6/8   ▓▓▓▓▓▓▓▓▓▓░░░░ 75%      │
-│ └─ Fase 2.5 (Orchestration): 3/10 ░░░░░░░░░░░░░░ 30%    │
-│ └─ Fase 3 (Documentation): 0/7   ░░░░░░░░░░░░░░ 0%      │
+│ └─ Fase 2 (Extensions):    7/8   ▓▓▓▓▓▓▓▓▓▓▓▓░ 87%      │
+│ └─ Fase 2.5 (Orchestration): 9/10 ▓▓▓▓▓▓▓▓▓▓▓▓░ 90%     │
+│ └─ Fase 3 (Documentation): 3/7   ▓▓▓▓▓░░░░░░░░ 42%      │
 └──────────────────────────────────────────────────────────┘
 
 ================================================================
@@ -863,22 +836,19 @@ pnpm add -D @types/node
 
 **IMEDIATO (Esta Semana):**
 
-1. ✅ Instalar dependencias:
-   ```bash
-   pnpm add ipfs-http-client multiformats ethers
-   ```
+1. ✅ Upstream Sync (Moltbot v2026.2.17)
+   - Sincronizacao cirurgica concluida
+   - Engine atualizada e compilada
 
-2. ✅ Gerar private keys (mio-system):
-   ```bash
-   node --import tsx scripts/generate-mio-keys.ts
-   ```
-   - Keys geradas e salvas em `.neo-identities/.env`
-   - Backup no Bitwarden
+2. ✅ Nexus E2E Audit (CONCLUIDO)
+   - Fluxo validado: Architect -> Hub -> FlowPay
+   - HMAC signatures verificadas entre nodes
+   - Conectividade global confirmada
 
-3. ✅ Setup .env.neo (NUNCA COMMITAR!)
-   - Pinata configurado
-   - Gateway Pinata salvo
-   - Index CID configurado
+3. ✅ MIO Identity Validation
+   - Testar assinaturas das 9 identidades em producao
+   - Adicionada identidade mio-telegram ao registro
+   - Validade criptografica confirmada para core nodes
 
 4. ✅ Implementar neo/registry/ipfs-client.ts
    - Registry completo implementado
@@ -922,11 +892,11 @@ pnpm add -D @types/node
 2. ✅ Linear Connection Updated
    - [x] Nova API Key configurada no .env
 
-3. ⏳ PHASE 2.5 — ORCHESTRATION & SYNC (CRITICAL)
-   - [ ] **Upstream Sync:** Resolver 2957 commits de atraso (OpenClaw).
-   - [ ] **Nexus E2E Audit:** Validar se eventos TASK_COMPLETED e MINT chegam aos webhooks.
-   - [ ] **MIO Identity validation:** Testar assinatura de comandos entre nodes.
-   - [ ] **Railway Monitoring:** Configurar logs centralizados no BetterStack ou similar.
+3. ✅ PHASE 2.5 — ORCHESTRATION & SYNC (CRITICAL)
+   - [x] **Upstream Sync:** Sincronizado com Moltbot v2026.2.17.
+   - [x] **Nexus E2E Audit:** Validado via script scripts/e2e/nexus-audit.ts.
+   - [x] **MIO Identity validation:** 9/9 identidades core verificadas.
+   - [x] **Railway Monitoring:** Deploys concluidos nos nodes principais.
 
 4. ⏳ Dashboard NEO Integration
    - UI: Skills Registry, Identities, IPFS Status

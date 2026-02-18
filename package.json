@@ -35,6 +35,7 @@
     "build": "tsdown && node --import tsx scripts/copy-hook-metadata.ts && node --import tsx scripts/write-build-info.ts",
     "start": "node dist/cli/neobot.js gateway --bind lan --allow-unconfigured",
     "sync-graph": "node --import tsx scripts/sync-graph.ts",
+    "audit:nexus": "node --import tsx scripts/e2e/nexus-audit.ts",
     "lint": "oxlint --type-aware src test",
     "tsgo": "tsc -p tsconfig.json --noEmit",
     "test": "node scripts/test-parallel.mjs",

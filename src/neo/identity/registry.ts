@@ -111,6 +111,20 @@ export const NEO_IDENTITY_TEMPLATES = [
   },
 
   {
+    id: "mio-telegram",
+    role: "Telegram Gateway",
+    permissions: {
+      channels: ["telegram"],
+      skills: ["telegram"],
+      tools: ["messaging", "media", "read", "write"],
+    },
+    metadata: {
+      name: "NEO Telegram",
+      bio: "Gateway Telegram do protocolo NEO. Comunicação via Bot API.",
+    },
+  },
+
+  {
     id: "mio-ipfs",
     role: "IPFS Node",
     permissions: {
