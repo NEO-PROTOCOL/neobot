@@ -234,7 +234,11 @@ const lines: string[] = [];
 for (let i = 0; i < activeEntries.length; i += PER_LINE) {
   const chunk = activeEntries.slice(i, i + PER_LINE);
   const parts = chunk.map((entry) => {
-    return `<a href="${entry.html_url}"><img src="${entry.avatar_url}" width="48" height="48" alt="${entry.display}" title="${entry.display}"/></a>`;
+    let src = entry.avatar_url;
+    if (!src.startsWith("http")) {
+      src = `https://raw.githubusercontent.com/${REPO}/main/${src}`;
+    }
+    return `<a href="${entry.html_url}"><img src="${src}" width="48" height="48" alt="${entry.display}" title="${entry.display}"/></a>`;
   });
   lines.push(`  ${parts.join(" ")}`);
 }
@@ -253,7 +257,7 @@ if (start === -1 || end === -1) {
 const next = `${readme.slice(0, start + START_TAG.length)}\n${block}${readme.slice(end)}`;
 writeFileSync(readmePath, next);
 
-console.log(`Updated README neocontributors: ${entries.length} entries`);
+console.log(`Updated README neocontributors: ${activeEntries.length} entries`);
 
 function run(cmd: string): string {
   return execSync(cmd, {
