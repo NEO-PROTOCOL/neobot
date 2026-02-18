@@ -7,10 +7,10 @@
 [#---] Implementation Phase .............................. PREP
 ================================================================
 ```
-**Versao:** 2.1.0
-**Data:** 05 Fevereiro 2026
+**Versao:** 2.2.0
+**Data:** 18 Fevereiro 2026
 **Arquiteto:** NODE NEØ
-**Timeline:** 7 semanas (release 27 Marco 2026)
+**Timeline:** 10 semanas (release Abril 2026)
 ```
 ================================================================
                         VISAO GERAL
@@ -26,8 +26,9 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
 - Fase 1.0: COMPLETA (Foundation: IPFS, CLI, Keys, Identity Map)
-- Fase 2.0: EM PROGRESSO (Autonomous & Orchestration: Nexus, NEO Agent Full)
-- Fase 3.0: PREVISTA (Dashboard & Global Deploy)
+- Fase 2.0: EM REVISÃO (Deploys Railway: Nexus, FlowPay, Architect OK)
+- Fase 2.5: EM PROGRESSO (Orchestration & Upstream Sync - CRITICAL)
+- Fase 3.0: PREVISTA (Global Integration & Audit)
 ```
 --------------------------------------------------------------
 COMPONENTES NEO LAYER
@@ -82,7 +83,7 @@ COMPONENTES NEO LAYER
 ================================================================
 ```
 ┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CURTO PRAZO (05 - 12 FEV)                            │
+│ ▓▓▓ CURTO PRAZO (18 - 25 FEV)                            │
 └──────────────────────────────────────────────────────────┘
 
 --------------------------------------------------------------
@@ -820,12 +821,12 @@ pnpm add -D @types/node
 ================================================================
 
 ┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ OVERALL PROGRESS: 17/31 TASKS (55%)   11 Fev 2026   │
+│ ▓▓▓ OVERALL PROGRESS: 24/40 TASKS (60%)   18 Fev 2026   │
 ├──────────────────────────────────────────────────────────┤
 │ └─ Fase 1 (Foundation):   15/15  ▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%    │
-│ └─ Fase 2 (Extensions):    0/8   ░░░░░░░░░░░░░░ 0%      │
-│ └─ Fase 3 (Documentation): 0/5   ░░░░░░░░░░░░░░ 0%      │
-│ └─ Fase 4 (Release):       0/3   ░░░░░░░░░░░░░░ 0%      │
+│ └─ Fase 2 (Extensions):    6/8   ▓▓▓▓▓▓▓▓▓▓░░░░ 75%      │
+│ └─ Fase 2.5 (Orchestration): 3/10 ░░░░░░░░░░░░░░ 30%    │
+│ └─ Fase 3 (Documentation): 0/7   ░░░░░░░░░░░░░░ 0%      │
 └──────────────────────────────────────────────────────────┘
 
 ================================================================
@@ -912,19 +913,23 @@ pnpm add -D @types/node
 
 **PROXIMO (Fase 2 — 14 Fev):**
 
-1. ⏳ IPFS Channel Adapter (neo/gateway/ipfs-channel.ts)
-   - IPFSChannelAdapter com PubSub
-   - Criptografia via mio-identity
+1. ✅ Deploys em Produção (Railway)
+   - [x] NEO Nexus (Event Hub) Live
+   - [x] FlowPay Sovereign Live
+   - [x] neobot Architect Live
+   - [x] neo-agent-full Live
 
-2. ⏳ Web3 Signature System (neo/gateway/web3-signer.ts)
-   - Sign/verify skills no registry
-   - Integração com ledger (audit log)
+2. ✅ Linear Connection Updated
+   - [x] Nova API Key configurada no .env
 
-3. ⏳ Dashboard NEO Integration
+3. ⏳ PHASE 2.5 — ORCHESTRATION & SYNC (CRITICAL)
+   - [ ] **Upstream Sync:** Resolver 2957 commits de atraso (OpenClaw).
+   - [ ] **Nexus E2E Audit:** Validar se eventos TASK_COMPLETED e MINT chegam aos webhooks.
+   - [ ] **MIO Identity validation:** Testar assinatura de comandos entre nodes.
+   - [ ] **Railway Monitoring:** Configurar logs centralizados no BetterStack ou similar.
+
+4. ⏳ Dashboard NEO Integration
    - UI: Skills Registry, Identities, IPFS Status
-
-4. ⏳ Publicar skills críticas no IPFS
-   - Objetivo: 5+ skills com CID real no registry
 
 ================================================================
                     METRICAS DE AUTONOMIA
