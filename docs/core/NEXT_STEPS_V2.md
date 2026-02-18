@@ -25,7 +25,7 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 
 **Status Atual:**
 - Fase 0.1: COMPLETA (18 skills, 9 identities, WhatsApp+TG)
-- Fase 1.0: COMPLETA (Foundation: IPFS Local + Storacha, CLI, Keys, Identity Map)
+- Fase 1.0: COMPLETA (Foundation: IPFS Local + Lighthouse, CLI, Keys, Identity Map)
 - Proxima Meta: Orquestracao Nexus + Centralized Monitoring
 - Roadmap Version: 2.2.1
 - Date: 18 Fevereiro 2026
@@ -34,60 +34,41 @@ construida sobre o Moltbot Core, seguindo principios Web3.
 - Team: 1 Architect (N. Mello) + AI Agents (Architect, Nexus, FlowPay)
 ```
 --------------------------------------------------------------
-COMPONENTES NEO LAYER
---------------------------------------------------------------
+### COMPONENTES NEO LAYER
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ SKILLS REGISTRY (IPFS)                               │
-├──────────────────────────────────────────────────────────┤
-│ └─ Content-addressed storage                             │
-│ └─ Cryptographic signatures                              │
-│ └─ Pinning redundante (3+ nodes)                         │
-│ └─ Substitui: ClawdHub                                   │
-└──────────────────────────────────────────────────────────┘
+#### SKILLS REGISTRY (IPFS)
+- Content-addressed storage
+- Cryptographic signatures
+- Pinning redundante (3+ nodes)
+- Substitui: ClawdHub
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MIO-SYSTEM IDENTITY                                  │
-├──────────────────────────────────────────────────────────┤
-│ └─ 9 identidades Web3 (mio-core, mio-gateway, etc)       │
-│ └─ Ethereum-style signatures                             │
-│ └─ Permissoes granulares                                 │
-│ └─ Self-sovereign keys                                   │
-└──────────────────────────────────────────────────────────┘
+#### MIO-SYSTEM IDENTITY
+- 9 identidades Web3 (mio-core, mio-gateway, etc)
+- Ethereum-style signatures
+- Permissoes granulares
+- Self-sovereign keys
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ GATEWAY EXTENSIONS                                   │
-├──────────────────────────────────────────────────────────┤
-│ └─ IPFS PubSub Channel                                   │
-│ └─ Web3 Signature Layer                                  │
-│ └─ Nostr Relay (opcional)                                │
-└──────────────────────────────────────────────────────────┘
+#### GATEWAY EXTENSIONS
+- IPFS PubSub Channel
+- Web3 Signature Layer
+- Nostr Relay (opcional)
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ NEO DOCS                                             │
-├──────────────────────────────────────────────────────────┤
-│ └─ Self-hosted (IPFS + DNS)                              │
-│ └─ Versionado por CID                                    │
-│ └─ Substitui: docs.molt.bot                              │
-└──────────────────────────────────────────────────────────┘
+#### NEO DOCS
+- Self-hosted (IPFS + DNS)
+- Versionado por CID
+- Substitui: docs.molt.bot
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ DASHBOARD NEO                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ iOS-style UI (ja implementado)                        │
-│ └─ Skills Registry UI                                    │
-│ └─ Identity Manager                                      │
-│ └─ IPFS Node Status                                      │
-└──────────────────────────────────────────────────────────┘
+#### DASHBOARD NEO
+- iOS-style UI (ja implementado)
+- Skills Registry UI
+- Identity Manager
+- IPFS Node Status
 ```
 ```
 ================================================================
-                    PROXIMOS PASSOS IMEDIATOS
-================================================================
-```
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CURTO PRAZO (18 - 25 FEV)                            │
-└──────────────────────────────────────────────────────────┘
+### PROXIMOS PASSOS IMEDIATOS
+
+#### CURTO PRAZO (18 - 25 FEV)
 
 --------------------------------------------------------------
 1. Screenshots do Dashboard NEO
@@ -172,43 +153,37 @@ COMPONENTES NEO LAYER
     └─ Semana 2: Technical deep-dives (IPFS, mio-system)
     └─ Semana 3: Build-up para anuncio publico
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MEDIO PRAZO (MARCO 2026)                             │
-└──────────────────────────────────────────────────────────┘
+#### MEDIO PRAZO (MARCO 2026)
 
---------------------------------------------------------------
-5. Website: neoprotocol.space
---------------------------------------------------------------
+#### 5. Website: neoprotocol.space
 
-[ ] Setup infraestrutura
-    └─ Domain: neoprotocol.space
-    └─ DNS: Cloudflare ou similar
-    └─ Hosting: IPFS + DNSLink (descentralizado)
-    └─ Fallback: Vercel/Netlify (redundancia)
+- [x] Setup infraestrutura
+    - Domain: neoprotocol.space
+    - DNS: Cloudflare ou similar
+    - Hosting: IPFS + DNSLink (descentralizado)
+    - Fallback: Vercel/Netlify (redundancia)
 
-[ ] Stack tecnico
-    └─ Framework: Astro ou Next.js
-    └─ Styling: TailwindCSS
-    └─ Animacoes: Framer Motion
-    └─ Deploy: IPFS + CI/CD
+- [x] Stack tecnico
+    - Framework: Astro ou Next.js
+    - Styling: TailwindCSS
+    - Animacoes: Framer Motion
+    - Deploy: IPFS + CI/CD
 
-[ ] Paginas essenciais
-    └─ Home: Hero + value props + CTA
-    └─ Features: Tabela comparativa vs tradicional
-    └─ Architecture: Hybrid stack diagram
-    └─ Roadmap: Timeline visual
-    └─ Docs: Link para docs IPFS
-    └─ Community: Discord + Telegram links
+- [/] Paginas essenciais
+    - [x] Home: Hero + value props + CTA
+    - [ ] Features: Tabela comparativa vs tradicional
+    - [ ] Architecture: Hybrid stack diagram
+    - [ ] Roadmap: Timeline visual
+    - [ ] Docs: Link para docs IPFS
+    - [ ] Community: Discord + Telegram links
 
-[ ] Otimizacao
-    └─ SEO: Meta tags, Open Graph
-    └─ Performance: Lighthouse 90+
-    └─ Responsivo: Mobile-first
-    └─ Acessibilidade: WCAG AA
+- [ ] Otimizacao
+    - SEO: Meta tags, Open Graph
+    - Performance: Lighthouse 90+
+    - Responsivo: Mobile-first
+    - Acessibilidade: WCAG AA
 
---------------------------------------------------------------
-6. Primeira Skill no IPFS (Proof of Concept)
---------------------------------------------------------------
+#### 6. Primeira Skill no IPFS (Proof of Concept)
 
 [ ] Escolher skill
     └─ Candidata: "neo-ipfs-status" (simples, didatico)
@@ -238,9 +213,7 @@ COMPONENTES NEO LAYER
     └─ Screencasts: Cada etapa do processo
     └─ Troubleshooting: Common issues
 
---------------------------------------------------------------
-7. Anuncio Publico
---------------------------------------------------------------
+#### 7. Anuncio Publico
 
 [ ] Preparar conteudo
     └─ Post principal: "Introducing NEO Protocol"
@@ -266,68 +239,49 @@ COMPONENTES NEO LAYER
     └─ Publicar quick fixes se necessario
     └─ Weekly update posts (progresso)
 
-================================================================
-                   FASE 1: FOUNDATION (2 SEMANAS)
-================================================================
+### FASE 1: FOUNDATION (2 SEMANAS)
 
---------------------------------------------------------------
-1.1 Estrutura NEO Directory
---------------------------------------------------------------
-
-**Objetivo:** Criar arquitetura base do protocolo NEO
-
-**Status:** [####] COMPLETO
+#### 1.1 Estrutura NEO Directory
+- Objetivo: Criar arquitetura base do protocolo NEO
+- Status: COMPLETO
 
 **Arquivos criados:**
-- neo/README.md
-- neo/registry/index.ts
-- neo/identity/mio-system.ts
-- neo/identity/registry.ts
-- neo/sdk/index.ts
-- neo/cli/info.ts
+- `neo/README.md`
+- `neo/registry/index.ts`
+- `neo/identity/mio-system.ts`
+- `neo/identity/registry.ts`
+- `neo/sdk/index.ts`
+- `neo/cli/info.ts`
 
---------------------------------------------------------------
-1.2 NEO Skills Registry (IPFS)
---------------------------------------------------------------
-
-**Objetivo:** Implementar registry descentralizado
-
-**Status:** [####] COMPLETO
+#### 1.2 NEO Skills Registry (IPFS)
+- Objetivo: Implementar registry descentralizado
+- Status: COMPLETO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IMPLEMENTACAO                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] Criar neo/registry/index.ts (IPFS Registry)    │
-│ └─ [####] Implementar NeoSkillsRegistry.publish()        │
-│ └─ [####] Implementar NeoSkillsRegistry.install()        │
-│ └─ [####] Implementar NeoSkillsRegistry.search()         │
-│ └─ [####] Implementar NeoSkillsRegistry.verify()          │
-│ └─ [####] Criar skill manifest schema                    │
-└──────────────────────────────────────────────────────────┘
+#### IMPLEMENTACAO
+- [x] Criar neo/registry/index.ts (IPFS Registry)
+- [x] Implementar NeoSkillsRegistry.publish()
+- [x] Implementar NeoSkillsRegistry.install()
+- [x] Implementar NeoSkillsRegistry.search()
+- [x] Implementar NeoSkillsRegistry.verify()
+- [x] Criar skill manifest schema
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MIGRACAO                                             │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] Migrar skill: neo-ipfs-status                  │
-│ └─ [####] Migrar skill: neo-agent-full                    │
-│ └─ [####] Migrar skill: flowpay                          │
-│ └─ [####] Migrar skill: smart-factory                     │
-│ └─ [ ] Migrar skill: asi1-llm                            │
-│ └─ [####] Migrar skill: telegram                            │
-│ └─ [ ] Migrar 13 skills restantes                        │
-└──────────────────────────────────────────────────────────┘
+#### MIGRACAO
+- [x] Migrar skill: neo-ipfs-status
+- [x] Migrar skill: neo-agent-full
+- [x] Migrar skill: flowpay
+- [x] Migrar skill: smart-factory
+- [ ] Migrar skill: asi1-llm
+- [x] Migrar skill: telegram
+- [ ] Migrar 13 skills restantes
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ INFRA                                                │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] Setup IPFS node local (ipfs daemon)            │
-│ └─ [####] Setup Storacha IPFS (Lighthouse backup)        │
-│ └─ [####] Setup Pinata IPFS (backup)                     │
-│ └─ [####] Criar index.json no IPFS                       │
-│ └─ [####] Pin index em 3+ nodes                          │
-└──────────────────────────────────────────────────────────┘
+#### INFRA
+- [x] Setup IPFS node local (ipfs daemon)
+- [x] Setup Lighthouse IPFS (Web3.storage fallback)
+- [x] Setup Pinata IPFS (backup)
+- [x] Criar index.json no IPFS
+- [x] Pin index em 3+ nodes
 
 **Deliverable:** Primeira skill publicada no IPFS
 
@@ -354,95 +308,65 @@ COMPONENTES NEO LAYER
 │ └─ [####] Implementar signMessage()                      │
 └──────────────────────────────────────────────────────────┘
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ KEYS GENERATION                                      │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] Criar scripts/generate-mio-keys.ts            │
-│ └─ [####] Gerar 9 private keys (ethers.Wallet)            │
-│ └─ [####] Setup .env.neo (NUNCA COMMITAR)                │
-│ └─ [####] Adicionar .env.neo ao .gitignore               │
-└──────────────────────────────────────────────────────────┘
+#### KEYS GENERATION
+- [x] Criar scripts/generate-mio-keys.ts
+- [x] Gerar 9 private keys (ethers.Wallet)
+- [x] Setup .env.neo (NUNCA COMMITAR)
+- [x] Adicionar .env.neo ao .gitignore
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IDENTITIES ACTIVATION                                │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] Ativar: mio-core                               │
-│ └─ [####] Ativar: mio-gateway                            │
-│ └─ [####] Ativar: mio-skills                             │
-│ └─ [####] Ativar: mio-factory                            │
-│ └─ [####] Ativar: mio-flowpay                            │
-│ └─ [####] Ativar: mio-asi1                               │
-│ └─ [####] Ativar: mio-telegram                           │
-│ └─ [####] Ativar: mio-whatsapp                           │
-│ └─ [####] Ativar: mio-ipfs                               │
-└──────────────────────────────────────────────────────────┘
+#### IDENTITIES ACTIVATION
+- [x] Ativar: mio-core
+- [x] Ativar: mio-gateway
+- [x] Ativar: mio-skills
+- [x] Ativar: mio-factory
+- [x] Ativar: mio-flowpay
+- [x] Ativar: mio-asi1
+- [x] Ativar: mio-telegram
+- [x] Ativar: mio-whatsapp
+- [x] Ativar: mio-ipfs
 
 **Deliverable:** mio-gateway identity ativa
-
 **Estimativa:** 4-5 dias
-
 **Prioridade:** CRITICA
 
---------------------------------------------------------------
-1.4 NEO CLI Commands
---------------------------------------------------------------
-
-**Objetivo:** Interface CLI para operacoes NEO
-
-**Status:** [####] COMPLETO
+#### 1.4 NEO CLI Commands
+- Objetivo: Interface CLI para operacoes NEO
+- Status: COMPLETO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ SKILLS COMMANDS                                      │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] neo:skill:publish <path>                          │
-│ └─ [ ] neo:skill:install <name@version>                  │
-│ └─ [ ] neo:skill:list [--remote]                         │
-│ └─ [ ] neo:skill:search <query>                          │
-│ └─ [ ] neo:skill:verify <name@version>                   │
-└──────────────────────────────────────────────────────────┘
+#### SKILLS COMMANDS
+- [ ] neo:skill:publish <path>
+- [ ] neo:skill:install <name@version>
+- [ ] neo:skill:list [--remote]
+- [ ] neo:skill:search <query>
+- [ ] neo:skill:verify <name@version>
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IDENTITY COMMANDS                                    │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] neo:identity:create --name "X" --role Y           │
-│ └─ [ ] neo:identity:list                                 │
-│ └─ [ ] neo:identity:verify <mio-id>                      │
-│ └─ [ ] neo:identity:export <mio-id>                      │
-│ └─ [ ] neo:identity:import <json-file>                   │
-└──────────────────────────────────────────────────────────┘
+#### IDENTITY COMMANDS
+- [ ] neo:identity:create --name "X" --role Y
+- [ ] neo:identity:list
+- [ ] neo:identity:verify <mio-id>
+- [ ] neo:identity:export <mio-id>
+- [ ] neo:identity:import <json-file>
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IPFS COMMANDS                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] neo:ipfs:status                                   │
-│ └─ [ ] neo:ipfs:publish <path>                           │
-│ └─ [ ] neo:ipfs:cat <cid>                                │
-│ └─ [ ] neo:ipfs:pin <cid>                                │
-└──────────────────────────────────────────────────────────┘
+#### IPFS COMMANDS
+- [ ] neo:ipfs:status
+- [ ] neo:ipfs:publish <path>
+- [ ] neo:ipfs:cat <cid>
+- [ ] neo:ipfs:pin <cid>
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ INFO COMMANDS                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] neo:info (JA IMPLEMENTADO)                     │
-│ └─ [ ] neo:help                                          │
-│ └─ [ ] neo:version                                       │
-└──────────────────────────────────────────────────────────┘
+#### INFO COMMANDS
+- [x] neo:info (JA IMPLEMENTADO)
+- [ ] neo:help
+- [ ] neo:version
 
 **Deliverable:** CLI funcional para todas operacoes NEO
-
 **Estimativa:** 2-3 dias
-
 **Prioridade:** ALTA
 
---------------------------------------------------------------
-1.5 Dependencies Setup
---------------------------------------------------------------
-
-**Objetivo:** Instalar dependencias necessarias
-
-**Status:** [#---] PENDENTE
+#### 1.5 Dependencies Setup
+- Objetivo: Instalar dependencias necessarias
+- Status: PENDENTE
 
 **Tasks:**
 
@@ -455,38 +379,24 @@ pnpm add -D @types/node
 
 **Prioridade:** CRITICA
 
-================================================================
-                 FASE 2: EXTENSIONS (2 SEMANAS)
-================================================================
+### FASE 2: EXTENSIONS (2 SEMANAS)
 
---------------------------------------------------------------
-2.1 IPFS Channel Adapter
---------------------------------------------------------------
+#### 2.1 IPFS Channel Adapter
+- Objetivo: Comunicacao via IPFS PubSub
+- Status: NAO INICIADO
 
-**Objetivo:** Comunicacao via IPFS PubSub
+#### IMPLEMENTACAO
+- [ ] Criar neo/gateway/ipfs-channel.ts
+- [ ] Implementar IPFSChannelAdapter
+- [ ] Setup IPFS PubSub topics
+- [ ] Implementar message encryption (mio-identity)
+- [ ] Roteamento para gateway moltbot
 
-**Status:** [----] NAO INICIADO
-
-**Tasks:**
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IMPLEMENTACAO                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Criar neo/gateway/ipfs-channel.ts                 │
-│ └─ [ ] Implementar IPFSChannelAdapter                    │
-│ └─ [ ] Setup IPFS PubSub topics                          │
-│ └─ [ ] Implementar message encryption (mio-identity)     │
-│ └─ [ ] Roteamento para gateway moltbot                   │
-└──────────────────────────────────────────────────────────┘
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ TESTES                                               │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Teste: publish message                            │
-│ └─ [ ] Teste: receive message                            │
-│ └─ [ ] Teste: encryption/decryption                      │
-│ └─ [ ] Teste: routing to gateway                         │
-└──────────────────────────────────────────────────────────┘
+#### TESTES
+- [ ] Teste: publish message
+- [ ] Teste: receive message
+- [ ] Teste: encryption/decryption
+- [ ] Teste: routing to gateway
 
 **Deliverable:** Mensagem enviada via IPFS PubSub
 
@@ -494,25 +404,16 @@ pnpm add -D @types/node
 
 **Prioridade:** MEDIA
 
---------------------------------------------------------------
-2.2 Web3 Signature System
---------------------------------------------------------------
-
-**Objetivo:** Assinar mensagens/skills com mio-identity
-
-**Status:** [----] NAO INICIADO
+#### 2.2 Web3 Signature System
+- Objetivo: Assinar mensagens/skills com mio-identity
+- Status: NAO INICIADO
 
 **Tasks:**
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IMPLEMENTACAO                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Criar neo/gateway/web3-signer.ts                  │
-│ └─ [ ] Implementar Web3SignerExtension                   │
-│ └─ [ ] Sign/verify skills no registry                    │
-│ └─ [ ] Sign/verify gateway messages                      │
-│ └─ [ ] Integracao com ledger (audit log)                 │
-└──────────────────────────────────────────────────────────┘
+- [ ] Criar neo/gateway/web3-signer.ts
+- [ ] Implementar Web3SignerExtension
+- [ ] Sign/verify skills no registry
+- [ ] Sign/verify gateway messages
+- [ ] Integracao com ledger (audit log)
 
 **Deliverable:** Skills assinadas e verificaveis
 
@@ -520,34 +421,24 @@ pnpm add -D @types/node
 
 **Prioridade:** ALTA
 
---------------------------------------------------------------
-2.3 Dashboard NEO Integration
---------------------------------------------------------------
-
-**Objetivo:** UI para gerenciar NEO Protocol
-
-**Status:** [----] NAO INICIADO
+#### 2.3 Dashboard NEO Integration
+- Objetivo: UI para gerenciar NEO Protocol
+- Status: NAO INICIADO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ UI COMPONENTS                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Pagina: NEO Protocol                              │
-│ └─ [ ] Pagina: Skills Registry                           │
-│ └─ [ ] Pagina: Identities Manager                        │
-│ └─ [ ] Pagina: IPFS Node Status                          │
-└──────────────────────────────────────────────────────────┘
+#### UI COMPONENTS
+- [ ] Pagina: NEO Protocol
+- [ ] Pagina: Skills Registry
+- [ ] Pagina: Identities Manager
+- [ ] Pagina: IPFS Node Status
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ FEATURES                                             │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Listar skills IPFS                                │
-│ └─ [ ] Publish skill via UI                              │
-│ └─ [ ] Listar mio-identities                             │
-│ └─ [ ] Create identity via UI                            │
-│ └─ [ ] IPFS stats dashboard                              │
-└──────────────────────────────────────────────────────────┘
+#### FEATURES
+- [ ] Listar skills IPFS
+- [ ] Publish skill via UI
+- [ ] Listar mio-identities
+- [ ] Create identity via UI
+- [ ] IPFS stats dashboard
 
 **Deliverable:** Dashboard NEO funcional
 
@@ -555,24 +446,15 @@ pnpm add -D @types/node
 
 **Prioridade:** MEDIA
 
---------------------------------------------------------------
-2.4 Nostr Relay (Opcional)
---------------------------------------------------------------
-
-**Objetivo:** Integracao com protocolo Nostr
-
-**Status:** [----] NAO INICIADO
+#### 2.4 Nostr Relay (Opcional)
+- Objetivo: Integracao com protocolo Nostr
+- Status: NAO INICIADO
 
 **Tasks:**
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IMPLEMENTACAO                                        │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Pesquisar Nostr protocol                          │
-│ └─ [ ] Criar neo/gateway/nostr-relay.ts                  │
-│ └─ [ ] Implementar NostrRelayExtension                    │
-│ └─ [ ] Testes basicos                                    │
-└──────────────────────────────────────────────────────────┘
+- [ ] Pesquisar Nostr protocol
+- [ ] Criar neo/gateway/nostr-relay.ts
+- [ ] Implementar NostrRelayExtension
+- [ ] Testes basicos
 
 **Deliverable:** Prova de conceito Nostr
 
@@ -580,133 +462,91 @@ pnpm add -D @types/node
 
 **Prioridade:** BAIXA (OPCIONAL)
 
-================================================================
-              FASE 3: DOCUMENTATION (2 SEMANAS)
-================================================================
+### FASE 3: DOCUMENTATION (2 SEMANAS)
 
---------------------------------------------------------------
-3.1 NEO Docs Build
---------------------------------------------------------------
-
-**Objetivo:** Documentacao self-hosted
-
-**Status:** [----] NAO INICIADO
+#### 3.1 NEO Docs Build
+- Objetivo: Documentacao self-hosted
+- Status: NAO INICIADO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ SETUP                                                │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Criar docs-neo/ directory                         │
-│ └─ [ ] Setup Vitepress (ou similar)                      │
-│ └─ [ ] Configurar build static                           │
-└──────────────────────────────────────────────────────────┘
+#### SETUP
+- [ ] Criar docs-neo/ directory
+- [ ] Setup Vitepress (ou similar)
+- [ ] Configurar build static
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CONTENT                                              │
-├──────────────────────────────────────────────────────────┤
-│ └─ [####] protocol/architecture.md (ARCHITECTURE_NEO_PROTOCOL.md) │
-│ └─ [####] protocol/identity.md (MIO_IDENTITIES_REGISTRATION.md)     │
-│ └─ [####] protocol/skills-registry.md (src/neo/registry/README.md) │
-│ └─ [####] skills/ipfs.md (LIGHTHOUSE_INTEGRATION.md)     │
-│ └─ [ ] skills/asi1.md                                    │
-│ └─ [ ] skills/smart-factory.md                           │
-│ └─ [ ] skills/flowpay.md                                 │
-│ └─ [ ] api/gateway.md                                    │
-│ └─ [ ] api/sdk.md                                        │
-│ └─ [####] guides/quickstart.md (QUICKSTART.md / SETUP_RAPIDO.md)  │
-│ └─ [####] guides/telegram-setup.md                          │
-│ └─ [####] guides/whatsapp-setup.md (WHATSAPP_TEST_GUIDE.md)        │
-└──────────────────────────────────────────────────────────┘
+#### CONTENT
+- [x] protocol/architecture.md (ARCHITECTURE_NEO_PROTOCOL.md)
+- [x] protocol/identity.md (MIO_IDENTITIES_REGISTRATION.md)
+- [x] protocol/skills-registry.md (src/neo/registry/README.md)
+- [x] skills/ipfs.md (LIGHTHOUSE_INTEGRATION.md)
+- [ ] skills/asi1.md
+- [ ] skills/smart-factory.md
+- [ ] skills/flowpay.md
+- [ ] api/gateway.md
+- [ ] api/sdk.md
+- [x] guides/quickstart.md (QUICKSTART.md / SETUP_RAPIDO.md)
+- [x] guides/telegram-setup.md
+- [x] guides/whatsapp-setup.md (WHATSAPP_TEST_GUIDE.md)
 
 **Deliverable:** Docs completos e builded
-
 **Estimativa:** 6-8 dias
-
 **Prioridade:** MEDIA
 
---------------------------------------------------------------
-3.2 Deploy IPFS + DNS
---------------------------------------------------------------
-
-**Objetivo:** Hospedar docs no IPFS
-
-**Status:** [----] NAO INICIADO
+#### 3.2 Deploy IPFS + DNS
+- Objetivo: Hospedar docs no IPFS
+- Status: NAO INICIADO
 
 **Tasks:**
-
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ DEPLOY                                               │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Build docs-neo/ static site                       │
-│ └─ [ ] Upload para IPFS (ipfs add -r dist/)              │
-│ └─ [ ] Pin em 3+ nodes                                   │
-│ └─ [ ] Setup DNS: neo-docs.mello.eth                     │
-│ └─ [ ] Configurar CI/CD auto-deploy                      │
-└──────────────────────────────────────────────────────────┘
+- [ ] Build docs-neo/ static site
+- [ ] Upload para IPFS (ipfs add -r dist/)
+- [ ] Pin em 3+ nodes
+- [ ] Setup DNS: neo-docs.mello.eth
+- [ ] Configurar CI/CD auto-deploy
 
 **Deliverable:** <https://neo-docs.mello.eth> live
-
 **Estimativa:** 2-3 dias
-
 **Prioridade:** BAIXA
 
-================================================================
-               FASE 4: TESTING & RELEASE (2 SEMANAS)
-================================================================
+### FASE 4: TESTING & RELEASE (2 SEMANAS)
 
---------------------------------------------------------------
-4.1 End-to-End Testing
---------------------------------------------------------------
-
-**Objetivo:** Testes completos do NEO Protocol
-
-**Status:** [----] NAO INICIADO
+#### 4.1 End-to-End Testing
+- Objetivo: Testes completos do NEO Protocol
+- Status: NAO INICIADO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ SKILLS REGISTRY                                      │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Teste: publish skill                              │
-│ └─ [ ] Teste: install skill                              │
-│ └─ [ ] Teste: search skill                               │
-│ └─ [ ] Teste: verify signature                           │
-└──────────────────────────────────────────────────────────┘
+#### SKILLS REGISTRY
+- [ ] Teste: publish skill
+- [ ] Teste: install skill
+- [ ] Teste: search skill
+- [ ] Teste: verify signature
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ IDENTITY SYSTEM                                      │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Teste: create identity                            │
-│ └─ [ ] Teste: verify identity                            │
-│ └─ [ ] Teste: sign message                               │
-│ └─ [ ] Teste: permissions system                         │
-└──────────────────────────────────────────────────────────┘
+#### IDENTITY SYSTEM
+- [ ] Teste: create identity
+- [ ] Teste: verify identity
+- [ ] Teste: sign message
+- [ ] Teste: permissions system
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ GATEWAY EXTENSIONS                                   │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Teste: IPFS channel send/receive                  │
-│ └─ [ ] Teste: Web3 signature layer                       │
-│ └─ [ ] Teste: routing to moltbot gateway                 │
-└──────────────────────────────────────────────────────────┘
+#### GATEWAY EXTENSIONS
+- [ ] Teste: IPFS channel send/receive
+- [ ] Teste: Web3 signature layer
+- [ ] Teste: routing to moltbot gateway
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ CLI COMMANDS                                         │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Teste: neo:skill:* commands                       │
-│ └─ [ ] Teste: neo:identity:* commands                    │
-│ └─ [ ] Teste: neo:ipfs:* commands                        │
-│ └─ [ ] Teste: neo:info command                           │
-└──────────────────────────────────────────────────────────┘
+#### CLI COMMANDS
+- [ ] Teste: neo:skill:* commands
+- [ ] Teste: neo:identity:* commands
+- [ ] Teste: neo:ipfs:* commands
+- [ ] Teste: neo:info command
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ DASHBOARD                                            │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Teste: skills registry UI                         │
-│ └─ [ ] Teste: identity manager UI                        │
-│ └─ [ ] Teste: IPFS status UI                             │
-└──────────────────────────────────────────────────────────┘
+#### DASHBOARD
+- [ ] Teste: skills registry UI
+- [ ] Teste: identity manager UI
+- [ ] Teste: IPFS status UI
+
+**Deliverable:** Suite de testes completa passando
+**Estimativa:** 5-6 dias
+**Prioridade:** ALTA
 
 **Deliverable:** Suite de testes completa passando
 
@@ -714,40 +554,31 @@ pnpm add -D @types/node
 
 **Prioridade:** ALTA
 
---------------------------------------------------------------
-4.2 Security Audit
---------------------------------------------------------------
-
-**Objetivo:** Auditoria de seguranca
-
-**Status:** [----] NAO INICIADO
+#### 4.2 Security Audit
+- Objetivo: Auditoria de seguranca
+- Status: NAO INICIADO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ MIO-IDENTITY                                         │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Audit: key management                             │
-│ └─ [ ] Audit: signature verification                     │
-│ └─ [ ] Audit: permissions system                         │
-│ └─ [ ] Teste: key rotation                               │
-└──────────────────────────────────────────────────────────┘
+#### MIO-IDENTITY
+- [ ] Audit: key management
+- [ ] Audit: signature verification
+- [ ] Audit: permissions system
+- [ ] Teste: key rotation
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ SKILLS REGISTRY                                      │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Audit: signature verification                     │
-│ └─ [ ] Audit: IPFS pinning security                      │
-│ └─ [ ] Teste: malicious skill detection                  │
-└──────────────────────────────────────────────────────────┘
+#### SKILLS REGISTRY
+- [ ] Audit: signature verification
+- [ ] Audit: IPFS pinning security
+- [ ] Teste: malicious skill detection
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ GATEWAY EXTENSIONS                                   │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Audit: sandboxing                                 │
-│ └─ [ ] Audit: message encryption                         │
-│ └─ [ ] Teste: penetration testing                        │
-└──────────────────────────────────────────────────────────┘
+#### GATEWAY EXTENSIONS
+- [ ] Audit: sandboxing
+- [ ] Audit: message encryption
+- [ ] Teste: penetration testing
+
+**Deliverable:** Relatorio de auditoria completo
+**Estimativa:** 4-5 dias
+**Prioridade:** CRITICA
 
 **Deliverable:** Relatorio de auditoria completo
 
@@ -755,33 +586,27 @@ pnpm add -D @types/node
 
 **Prioridade:** CRITICA
 
---------------------------------------------------------------
-4.3 Release NEO Protocol v1.0.0
---------------------------------------------------------------
-
-**Objetivo:** Release publico
-
-**Status:** [----] NAO INICIADO
+#### 4.3 Release NEO Protocol v1.0.0
+- Objetivo: Release publico
+- Status: NAO INICIADO
 
 **Tasks:**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ PREPARACAO                                           │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Atualizar README.md principal                     │
-│ └─ [ ] Criar CHANGELOG_NEO.md                            │
-│ └─ [ ] Atualizar package.json version                    │
-│ └─ [ ] Tag version: v1.0.0-neo                           │
-└──────────────────────────────────────────────────────────┘
+#### PREPARACAO
+- [ ] Atualizar README.md principal
+- [ ] Criar CHANGELOG_NEO.md
+- [ ] Atualizar package.json version
+- [ ] Tag version: v1.0.0-neo
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ PUBLISH                                              │
-├──────────────────────────────────────────────────────────┤
-│ └─ [ ] Publish NEO SDK (npm)                             │
-│ └─ [ ] Deploy docs-neo/ (IPFS)                           │
-│ └─ [ ] Announce nos canais (Telegram, WhatsApp)          │
-│ └─ [ ] Criar release notes (GitHub)                      │
-└──────────────────────────────────────────────────────────┘
+#### PUBLISH
+- [ ] Publish NEO SDK (npm)
+- [ ] Deploy docs-neo/ (IPFS)
+- [ ] Announce nos canais (Telegram, WhatsApp)
+- [ ] Criar release notes (GitHub)
+
+**Deliverable:** NEO Protocol v1.0.0 publico
+**Estimativa:** 2 dias
+**Prioridade:** ALTA
 
 **Deliverable:** NEO Protocol v1.0.0 publico
 
@@ -789,18 +614,13 @@ pnpm add -D @types/node
 
 **Prioridade:** ALTA
 
-================================================================
-                      PROGRESS TRACKER
-================================================================
+### PROGRESS TRACKER
+**OVERALL PROGRESS: 34/40 TASKS (85%) - 18 Fev 2026**
 
-┌──────────────────────────────────────────────────────────┐
-│ ▓▓▓ OVERALL PROGRESS: 34/40 TASKS (85%)   18 Fev 2026   │
-├──────────────────────────────────────────────────────────┤
-│ └─ Fase 1 (Foundation):   15/15  ▓▓▓▓▓▓▓▓▓▓▓▓▓ 100%    │
-│ └─ Fase 2 (Extensions):    7/8   ▓▓▓▓▓▓▓▓▓▓▓▓░ 87%      │
-│ └─ Fase 2.5 (Orchestration): 9/10 ▓▓▓▓▓▓▓▓▓▓▓▓░ 90%     │
-│ └─ Fase 3 (Documentation): 3/7   ▓▓▓▓▓░░░░░░░░ 42%      │
-└──────────────────────────────────────────────────────────┘
+- Fase 1 (Foundation): 15/15 [100%]
+- Fase 2 (Extensions): 7/8 [87%]
+- Fase 2.5 (Orchestration): 9/10 [90%]
+- Fase 3 (Documentation): 3/7 [42%]
 
 ================================================================
                         TIMELINE
@@ -1006,21 +826,15 @@ git checkout -b neo/feature-xyz
 git checkout -b upstream-sync
 ```
 
-================================================================
-                          CONTACT
-================================================================
-
+### CONTACT
 **Questions/Issues:**
 - GitHub: <https://github.com/NEO-PROTOCOL/neobot>
 - Telegram: @neoprotocol
 - Email: neo@neoprotocol.space
 
-┌─────────────────────────────────────────────────────────┐
-│ ▓▓▓ NΞØ MELLØ                                           │
-│     Core Architect · NΞØ Protocol                       │
-│     neo@neoprotocol.space                               │
-│                                                         │
-│     "Code is law. Expand until chaos becomes protocol." │
-│                                                         │
-│     Security by design. Exploits find no refuge here.   │
-└─────────────────────────────────────────────────────────┘
+**NΞØ MELLØ**
+Core Architect · NΞØ Protocol
+neo@neoprotocol.space
+
+"Code is law. Expand until chaos becomes protocol."
+Security by design. Exploits find no refuge here.

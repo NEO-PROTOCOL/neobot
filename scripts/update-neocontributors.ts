@@ -1,12 +1,12 @@
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import type { ApiContributor, Entry, MapConfig, User } from "./update-clawtributors.types.js";
+import type { ApiContributor, Entry, MapConfig, User } from "./update-neocontributors.types.js";
 
-const REPO = "openclaw/openclaw";
+const REPO = "neomello/neobot";
 const PER_LINE = 10;
 
-const mapPath = resolve("scripts/clawtributors-map.json");
+const mapPath = resolve("scripts/neocontributors-map.json");
 const mapConfig = JSON.parse(readFileSync(mapPath, "utf8")) as MapConfig;
 
 const displayName = mapConfig.displayName ?? {};
@@ -149,7 +149,7 @@ for (const item of contributors) {
         entriesByKey.set(key, {
           key,
           login: user.login,
-          display: pickDisplay(baseName, user.login, existing?.display),
+          display: pickDisplay(baseName, user.login, ""),
           html_url: user.html_url,
           avatar_url: normalizeAvatar(user.avatar_url),
           lines: lines > 0 ? lines : contributions,
@@ -236,17 +236,19 @@ for (let i = 0; i < entries.length; i += PER_LINE) {
 
 const block = `${lines.join("\n")}\n`;
 const readme = readFileSync(readmePath, "utf8");
-const start = readme.indexOf('<p align="left">');
-const end = readme.indexOf("</p>", start);
+const START_TAG = "<!-- neocontributors-start -->";
+const END_TAG = "<!-- neocontributors-end -->";
+const start = readme.indexOf(START_TAG);
+const end = readme.indexOf(END_TAG);
 
 if (start === -1 || end === -1) {
-  throw new Error("README.md missing clawtributors block");
+  throw new Error("README.md missing neocontributors tags");
 }
 
-const next = `${readme.slice(0, start)}<p align="left">\n${block}${readme.slice(end)}`;
+const next = `${readme.slice(0, start + START_TAG.length)}\n${block}${readme.slice(end)}`;
 writeFileSync(readmePath, next);
 
-console.log(`Updated README clawtributors: ${entries.length} entries`);
+console.log(`Updated README neocontributors: ${entries.length} entries`);
 
 function run(cmd: string): string {
   return execSync(cmd, {

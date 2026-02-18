@@ -1,17 +1,17 @@
 {
-  "name": "openclaw",
+  "name": "neobot",
   "version": "2026.2.13",
   "description": "Multi-channel AI gateway with extensible messaging integrations",
   "keywords": [],
   "license": "MIT",
   "author": "",
   "bin": {
-    "openclaw": "openclaw.mjs"
+    "neobot": "neobot.mjs"
   },
   "files": [
     "CHANGELOG.md",
     "LICENSE",
-    "openclaw.mjs",
+    "neobot.mjs",
     "README-header.png",
     "README.md",
     "assets/",
@@ -28,7 +28,7 @@
       "types": "./dist/plugin-sdk/index.d.ts",
       "default": "./dist/plugin-sdk/index.js"
     },
-    "./cli-entry": "./openclaw.mjs"
+    "./cli-entry": "./neobot.mjs"
   },
   "scripts": {
     "dev": "node --import tsx src/cli/neobot.ts",
@@ -121,7 +121,7 @@
     "sharp": "^0.34.5",
     "signal-utils": "^0.21.1",
     "sqlite-vec": "0.1.7-alpha.2",
-    "tar": "7.5.7",
+    "tar": "7.5.9",
     "tslog": "^4.10.2",
     "undici": "^7.22.0",
     "ws": "^8.19.0",
@@ -156,7 +156,8 @@
       "qs": ">=6.14.1",
       "form-data": ">=2.5.5",
       "glob": ">=11.0.1",
-      "tar": "7.5.7"
+      "tar": "7.5.9",
+      "fast-xml-parser": ">=5.3.6"
     },
     "onlyBuiltDependencies": [
       "@whiskeysockets/baileys",

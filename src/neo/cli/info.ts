@@ -63,7 +63,7 @@ export async function neoInfoCommand(): Promise<void> {
 📊 Autonomia
 ───────────────────────────────────────────────────────────
   NEO Layer:    ${NEO_PROTOCOL_INFO.autonomy.neo} (descentralizado)
-  OpenClaw Core: ${NEO_PROTOCOL_INFO.autonomy.openclaw} (upstream sync)
+  Neobot Core: ${NEO_PROTOCOL_INFO.autonomy.neobot} (upstream sync)
 
 🔗 Links
 ───────────────────────────────────────────────────────────
