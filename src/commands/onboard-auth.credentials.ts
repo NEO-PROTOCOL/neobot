@@ -1,6 +1,8 @@
 import type { OAuthCredentials } from "@mariozechner/pi-ai";
 import { resolveOpenClawAgentDir } from "../agents/agent-paths.js";
 import { upsertAuthProfile } from "../agents/auth-profiles.js";
+export { CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF } from "../agents/cloudflare-ai-gateway.js";
+export { XAI_DEFAULT_MODEL_REF } from "./onboard-auth.models.js";
 
 const resolveAuthAgentDir = (agentDir?: string) => agentDir ?? resolveOpenClawAgentDir();
 
@@ -9,9 +11,10 @@ export async function writeOAuthCredentials(
   creds: OAuthCredentials,
   agentDir?: string,
 ): Promise<void> {
-  // Write to resolved agent dir so gateway finds credentials on startup.
+  const email =
+    typeof creds.email === "string" && creds.email.trim() ? creds.email.trim() : "default";
   upsertAuthProfile({
-    profileId: `${provider}:${(creds as any).email ?? "default"}`,
+    profileId: `${provider}:${email}`,
     credential: {
       type: "oauth",
       provider,
@@ -47,13 +50,18 @@ export async function setGeminiApiKey(key: string, agentDir?: string) {
   });
 }
 
-export async function setMinimaxApiKey(key: string, agentDir?: string) {
+export async function setMinimaxApiKey(
+  key: string,
+  agentDir?: string,
+  profileId: string = "minimax:default",
+) {
+  const provider = profileId.split(":")[0] ?? "minimax";
   // Write to resolved agent dir so gateway finds credentials on startup.
   upsertAuthProfile({
-    profileId: "minimax:default",
+    profileId,
     credential: {
       type: "api_key",
-      provider: "minimax",
+      provider,
       key,
     },
     agentDir: resolveAuthAgentDir(agentDir),
@@ -73,13 +81,13 @@ export async function setMoonshotApiKey(key: string, agentDir?: string) {
   });
 }
 
-export async function setKimiCodeApiKey(key: string, agentDir?: string) {
+export async function setKimiCodingApiKey(key: string, agentDir?: string) {
   // Write to resolved agent dir so gateway finds credentials on startup.
   upsertAuthProfile({
-    profileId: "kimi-code:default",
+    profileId: "kimi-coding:default",
     credential: {
       type: "api_key",
-      provider: "kimi-code",
+      provider: "kimi-coding",
       key,
     },
     agentDir: resolveAuthAgentDir(agentDir),
@@ -112,7 +120,6 @@ export async function setVeniceApiKey(key: string, agentDir?: string) {
   });
 }
 
-
 export const ZAI_DEFAULT_MODEL_REF = "zai/glm-5";
 export const XIAOMI_DEFAULT_MODEL_REF = "xiaomi/mimo-v2-flash";
 export const OPENROUTER_DEFAULT_MODEL_REF = "openrouter/auto";
@@ -121,7 +128,6 @@ export const TOGETHER_DEFAULT_MODEL_REF = "together/moonshotai/Kimi-K2.5";
 export const LITELLM_DEFAULT_MODEL_REF = "litellm/claude-opus-4-6";
 export const VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF = "vercel-ai-gateway/anthropic/claude-opus-4.6";
 
-
 export async function setZaiApiKey(key: string, agentDir?: string) {
   // Write to resolved agent dir so gateway finds credentials on startup.
   upsertAuthProfile({
@@ -129,6 +135,18 @@ export async function setZaiApiKey(key: string, agentDir?: string) {
     credential: {
       type: "api_key",
       provider: "zai",
+      key,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
+export async function setXiaomiApiKey(key: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "xiaomi:default",
+    credential: {
+      type: "api_key",
+      provider: "xiaomi",
       key,
     },
     agentDir: resolveAuthAgentDir(agentDir),
@@ -144,6 +162,42 @@ export async function setOpenrouterApiKey(key: string, agentDir?: string) {
       type: "api_key",
       provider: "openrouter",
       key: safeKey,
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
+export async function setCloudflareAiGatewayConfig(
+  accountId: string,
+  gatewayId: string,
+  apiKey: string,
+  agentDir?: string,
+) {
+  const normalizedAccountId = accountId.trim();
+  const normalizedGatewayId = gatewayId.trim();
+  const normalizedKey = apiKey.trim();
+  upsertAuthProfile({
+    profileId: "cloudflare-ai-gateway:default",
+    credential: {
+      type: "api_key",
+      provider: "cloudflare-ai-gateway",
+      key: normalizedKey,
+      metadata: {
+        accountId: normalizedAccountId,
+        gatewayId: normalizedGatewayId,
+      },
+    },
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
+export async function setLitellmApiKey(key: string, agentDir?: string) {
+  upsertAuthProfile({
+    profileId: "litellm:default",
+    credential: {
+      type: "api_key",
+      provider: "litellm",
+      key,
     },
     agentDir: resolveAuthAgentDir(agentDir),
   });
@@ -172,7 +226,6 @@ export async function setOpencodeZenApiKey(key: string, agentDir?: string) {
     agentDir: resolveAuthAgentDir(agentDir),
   });
 }
-
 
 export async function setTogetherApiKey(key: string, agentDir?: string) {
   upsertAuthProfile({
@@ -216,61 +269,6 @@ export function setXaiApiKey(key: string, agentDir?: string) {
     credential: {
       type: "api_key",
       provider: "xai",
-      key,
-    },
-    agentDir: resolveAuthAgentDir(agentDir),
-  });
-}
-
-
-export const CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF = "cloudflare-ai-gateway/anthropic/claude-3-5-sonnet-latest";
-export const XAI_DEFAULT_MODEL_REF = "xai/grok-4";
-
-export async function setXiaomiApiKey(key: string, agentDir?: string) {
-  upsertAuthProfile({
-    profileId: "xiaomi:default",
-    credential: {
-      type: "api_key",
-      provider: "xiaomi",
-      key,
-    },
-    agentDir: resolveAuthAgentDir(agentDir),
-  });
-}
-
-export async function setLitellmApiKey(key: string, agentDir?: string) {
-  upsertAuthProfile({
-    profileId: "litellm:default",
-    credential: {
-      type: "api_key",
-      provider: "litellm",
-      key,
-    },
-    agentDir: resolveAuthAgentDir(agentDir),
-  });
-}
-
-export async function setCloudflareAiGatewayConfig(accountId: string, gatewayId: string, apiKey: string, agentDir?: string) {
-  upsertAuthProfile({
-    profileId: "cloudflare-ai-gateway:default",
-    credential: {
-      type: "api_key",
-      provider: "cloudflare-ai-gateway",
-      key: apiKey,
-      // @ts-ignore
-      accountId,
-      gatewayId,
-    },
-    agentDir: resolveAuthAgentDir(agentDir),
-  });
-}
-
-export async function setKimiCodingApiKey(key: string, agentDir?: string) {
-  upsertAuthProfile({
-    profileId: "kimi-coding:default",
-    credential: {
-      type: "api_key",
-      provider: "kimi-coding",
       key,
     },
     agentDir: resolveAuthAgentDir(agentDir),

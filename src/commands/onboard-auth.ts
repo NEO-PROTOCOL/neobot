@@ -38,7 +38,9 @@ export {
 } from "./onboard-auth.config-core.js";
 export {
   applyMinimaxApiConfig,
+  applyMinimaxApiConfigCn,
   applyMinimaxApiProviderConfig,
+  applyMinimaxApiProviderConfigCn,
   applyMinimaxConfig,
   applyMinimaxHostedConfig,
   applyMinimaxHostedProviderConfig,
@@ -51,6 +53,8 @@ export {
 } from "./onboard-auth.config-opencode.js";
 export {
   CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF,
+  LITELLM_DEFAULT_MODEL_REF,
+  OPENROUTER_DEFAULT_MODEL_REF,
   setAnthropicApiKey,
   setCloudflareAiGatewayConfig,
   setQianfanApiKey,
@@ -76,8 +80,6 @@ export {
   ZAI_DEFAULT_MODEL_REF,
   TOGETHER_DEFAULT_MODEL_REF,
   XAI_DEFAULT_MODEL_REF,
-  LITELLM_DEFAULT_MODEL_REF,
-  OPENROUTER_DEFAULT_MODEL_REF,
 } from "./onboard-auth.credentials.js";
 export {
   buildMinimaxApiModelDefinition,
@@ -92,6 +94,7 @@ export {
   KIMI_CODING_MODEL_ID,
   KIMI_CODING_MODEL_REF,
   MINIMAX_API_BASE_URL,
+  MINIMAX_CN_API_BASE_URL,
   MINIMAX_HOSTED_MODEL_ID,
   MINIMAX_HOSTED_MODEL_REF,
   MOONSHOT_BASE_URL,

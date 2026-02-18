@@ -81,7 +81,6 @@ describe("createHooksRequestHandler timeout status mapping", () => {
         debug: vi.fn(),
         info: vi.fn(),
         error: vi.fn(),
-        isEnabled: vi.fn(),
       } as unknown as ReturnType<typeof createSubsystemLogger>,
       dispatchWakeHook,
       dispatchAgentHook,
