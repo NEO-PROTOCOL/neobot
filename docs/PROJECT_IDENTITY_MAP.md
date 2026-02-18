@@ -9,49 +9,60 @@
 ├──────────────────────────────────────────────────────────┤
 │ 💠 **Neobot Architect** (Sovereign Node)                  │
 │    └─ Local: `.`                                         │
-│    └─ Repo: `neomello/neobot`                            │
+│    └─ Identity: `mio-core` / `mio-warrior` (Pending Key) │
 │                                                          │
 │ 💠 **NEO Agent Full** (Agent Node)                       │
 │    └─ Local: `../neo-agent-full`                         │
-│    └─ Repo: `neomello/neo-agent-full`                    │
+│    └─ Identity: `mio-asi1` / `mio-telegram`              │
 │                                                          │
 │ 💠 **NEO Nexus** (Event Hub)                             │
 │    └─ Local: `../neo-nexus`                              │
-│    └─ Repo: `NEO-PROTOCOL/neo-nexus`                     │
+│    └─ Identity: `mio-gateway`                            │
 │                                                          │
-│ 💠 **MIO System** (Identity)                             │
+│ 💠 **MIO System** (Identity Layer)                       │
 │    └─ Local: `../mio-system`                             │
-│    └─ Repo: `neomello/mio-system`                        │
+│    └─ Identity: `mio-factory` / `mio-skills`             │
 │                                                          │
 │ 💠 **Neo Dashboard** (Control Center)                     │
 │    └─ Local: `../neo-dashboard-deploy`                   │
-│    └─ Repo: `neomello/neo-dashboard`                     │
+│    └─ Status: Active Interface                           │
 └──────────────────────────────────────────────────────────┘
+---
+
+┌──────────────────────────────────────────────────────────┐
+│ ▓▓▓ EXTENDED ECOSYSTEM                                   │
+├──────────────────────────────────────────────────────────┤
+│ 💳 **FlowPay Sovereign** (Financial Node)                │
+│    └─ Port: 4321 | Domain: `flowpay.cash`                │
+│                                                          │
+│ 🏗️ **Neo Smart Factory** (Web3 Engineering)              │
+│    └─ Role: Token/Contract Orchestration                 │
+│                                                          │
+│ 🏛️ **Fluxx DAO** (Governance Node)                       │
+│    └─ Role: Protocol Governance & Voting                 │
+│                                                          │
+│ 🌍 **NEO Protocol Web** (Landing/Boot)                   │
+│    └─ URL: `neoprotocol.space`                           │
+└──────────────────────────────────────────────────────────┘
+
 ---
 
 ## CORRECT REFERENCES (Source of Truth: ecosystem.json)
 
-### Neobot (Architect)
-```json
-{
-  "id": "neobot-architect",
-  "name": "Neobot Architect",
-  "org": "NEO Protocol",
-  "role": "Sovereign Node / Orchestrator / Architect"
-}
-```
+## CORE DATA SYNC (Registry vs Local)
 
-### NEO Agent Full
-```json
-{
-  "id": "neo-agent-full",
-  "name": "NEO Agent Full",
-  "org": "NEO Protocol",
-  "role": "Agent Node / Autonomous Service"
-}
-```
+┌──────────────────────────┬────────────┬──────────────────┐
+│ MODULE                   │ STATUS     │ MOUNT PATH       │
+├──────────────────────────┼────────────┼──────────────────┤
+│ neobot-architect         │ 💎 CORE    │ `./`             │
+│ neo-agent-full           │ 🤖 AGENT   │ `../neo-agent`   │
+│ neo-nexus                │ ⚡ HUB     │ `../neo-nexus`   │
+│ mio-system               │ 🔐 AUTH    │ `../mio-system`  │
+└──────────────────────────┴────────────┴──────────────────┘
 
 ---
 
-**Status:** Soberania Arquitetural Garantida.  
+**Status:** Soberania Arquitetural Garantida. (85% Global Sync)  
+**Audit Live:** Validado via `scripts/e2e/nexus-audit.ts`  
+**Security:** MIO Identities Encrypted
 **Próxima Etapa:** Unificação de Projetos na Railway.
