@@ -309,8 +309,7 @@ function normalizeAvatar(url: string): string {
   if (lower.includes("s=") || lower.includes("size=")) {
     return url;
   }
-  const sep = url.includes("?") ? "&" : "?";
-  return `${url}${sep}s=48`;
+  return url.split("?")[0];
 }
 
 function isGhostAvatar(url: string): boolean {
