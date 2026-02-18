@@ -13,6 +13,7 @@ const mapConfig = JSON.parse(readFileSync(mapPath, "utf8")) as MapConfig;
 const displayName = mapConfig.displayName ?? {};
 const nameToLogin = normalizeMap(mapConfig.nameToLogin ?? {});
 const emailToLogin = normalizeMap(mapConfig.emailToLogin ?? {});
+const customAvatars = mapConfig.customAvatars ?? {};
 const ensureLogins = (mapConfig.ensureLogins ?? []).map((login) => login.toLowerCase());
 
 const readmePath = resolve("README.md");
@@ -115,7 +116,7 @@ for (const seed of seedEntries) {
       login: resolvedLogin ?? login ?? undefined,
       display: seed.display,
       html_url: user?.html_url ?? seed.html_url,
-      avatar_url: user?.avatar_url ?? avatar,
+      avatar_url: pickAvatar(resolvedLogin || undefined, user?.avatar_url ?? avatar),
       lines: 0,
     });
   } else {
@@ -151,7 +152,7 @@ for (const item of contributors) {
           login: user.login,
           display: pickDisplay(baseName, user.login, ""),
           html_url: user.html_url,
-          avatar_url: normalizeAvatar(user.avatar_url),
+          avatar_url: pickAvatar(user.login, normalizeAvatar(user.avatar_url)),
           lines: lines,
         });
       }
@@ -162,7 +163,7 @@ for (const item of contributors) {
         const user = apiByLogin.get(key) ?? fetchUser(resolvedLogin);
         if (user) {
           existing.html_url = user.html_url;
-          existing.avatar_url = normalizeAvatar(user.avatar_url);
+          existing.avatar_url = pickAvatar(resolvedLogin, normalizeAvatar(user.avatar_url));
         }
       }
       const lines = linesByLogin.get(key) ?? 0;
@@ -200,7 +201,7 @@ for (const [login, lines] of linesByLogin.entries()) {
       login: user.login,
       display: displayName[user.login.toLowerCase()] ?? user.login,
       html_url: user.html_url,
-      avatar_url: normalizeAvatar(user.avatar_url),
+      avatar_url: pickAvatar(user.login, normalizeAvatar(user.avatar_url)),
       lines: lines,
     });
   } else {
@@ -482,4 +483,15 @@ function pickDisplay(
     return baseName;
   }
   return login;
+}
+
+function pickAvatar(login: string | undefined, fallback: string): string {
+  if (!login) {
+    return fallback;
+  }
+  const key = login.toLowerCase();
+  if (customAvatars[key]) {
+    return customAvatars[key];
+  }
+  return fallback;
 }

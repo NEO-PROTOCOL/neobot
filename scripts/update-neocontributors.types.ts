@@ -5,6 +5,7 @@ export type MapConfig = {
   emailToLogin?: Record<string, string>;
   placeholderAvatar?: string;
   seedCommit?: string;
+  customAvatars?: Record<string, string>;
 };
 
 export type ApiContributor = {

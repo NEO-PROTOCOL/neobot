@@ -3,9 +3,11 @@
     "neomello"
   ],
   "seedCommit": null,
-  "placeholderAvatar": "assets/avatar-placeholder.svg",
   "displayName": {
     "neomello": "MELLØ (Core Architect)"
+  },
+  "customAvatars": {
+    "neomello": "assets/arquiteto_neo2.JPEG"
   },
   "nameToLogin": {
     "mello": "neomello",
