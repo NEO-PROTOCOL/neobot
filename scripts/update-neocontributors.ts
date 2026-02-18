@@ -3,7 +3,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import type { ApiContributor, Entry, MapConfig, User } from "./update-neocontributors.types.js";
 
-const REPO = "neomello/neobot";
+const REPO = "NEO-PROTOCOL/neobot";
+const SOVEREIGN_DATE = "2026-02-13"; // Migration to NEO Protocol
 const PER_LINE = 10;
 
 const mapPath = resolve("scripts/neocontributors-map.json");
@@ -46,7 +47,7 @@ for (const login of ensureLogins) {
   }
 }
 
-const log = run("git log --format=%aN%x7c%aE --numstat");
+const log = run(`git log --since="${SOVEREIGN_DATE}" --format=%aN%x7c%aE --numstat`);
 const linesByLogin = new Map<string, number>();
 
 let currentName: string | null = null;
@@ -145,14 +146,13 @@ for (const item of contributors) {
       let user = apiByLogin.get(key) ?? fetchUser(resolvedLogin);
       if (user) {
         const lines = linesByLogin.get(key) ?? 0;
-        const contributions = contributionsByLogin.get(key) ?? 0;
         entriesByKey.set(key, {
           key,
           login: user.login,
           display: pickDisplay(baseName, user.login, ""),
           html_url: user.html_url,
           avatar_url: normalizeAvatar(user.avatar_url),
-          lines: lines > 0 ? lines : contributions,
+          lines: lines,
         });
       }
     } else if (existing) {
@@ -166,8 +166,7 @@ for (const item of contributors) {
         }
       }
       const lines = linesByLogin.get(key) ?? 0;
-      const contributions = contributionsByLogin.get(key) ?? 0;
-      existing.lines = Math.max(existing.lines, lines > 0 ? lines : contributions);
+      existing.lines = Math.max(existing.lines, lines);
     }
     continue;
   }
@@ -180,7 +179,7 @@ for (const item of contributors) {
       display: baseName,
       html_url: fallbackHref(baseName),
       avatar_url: placeholderAvatar,
-      lines: item.contributions ?? 0,
+      lines: 0, // Ignore legacy contributions
     });
   } else {
     existingAnon.lines = Math.max(existingAnon.lines, item.contributions ?? 0);
@@ -196,14 +195,13 @@ for (const [login, lines] of linesByLogin.entries()) {
     user = fetchUser(login) || undefined;
   }
   if (user) {
-    const contributions = contributionsByLogin.get(login) ?? 0;
     entriesByKey.set(login, {
       key: login,
       login: user.login,
       display: displayName[user.login.toLowerCase()] ?? user.login,
       html_url: user.html_url,
       avatar_url: normalizeAvatar(user.avatar_url),
-      lines: lines > 0 ? lines : contributions,
+      lines: lines,
     });
   } else {
     entriesByKey.set(login, {
@@ -225,9 +223,15 @@ entries.sort((a, b) => {
   return a.display.localeCompare(b.display);
 });
 
+// Final filter: only keep ensureLogins OR those with recent lines
+const activeEntries = entries.filter((e) => {
+  const isEnsured = e.login && ensureLogins.includes(e.login.toLowerCase());
+  return isEnsured || e.lines > 0;
+});
+
 const lines: string[] = [];
-for (let i = 0; i < entries.length; i += PER_LINE) {
-  const chunk = entries.slice(i, i + PER_LINE);
+for (let i = 0; i < activeEntries.length; i += PER_LINE) {
+  const chunk = activeEntries.slice(i, i + PER_LINE);
   const parts = chunk.map((entry) => {
     return `<a href="${entry.html_url}"><img src="${entry.avatar_url}" width="48" height="48" alt="${entry.display}" title="${entry.display}"/></a>`;
   });
