@@ -12,7 +12,7 @@ export interface ConversationContext {
   userId: string;
   history: Message[];
   metadata: {
-    preferences?: Record<string, any>;
+    preferences?: Record<string, unknown>;
     tags?: string[];
     summary?: string;
   };
@@ -334,7 +334,7 @@ export class ClaudeService {
       const response = await this.client.messages.create({
         model: model,
         max_tokens: 4096,
-        messages: messages as any,
+        messages: messages as Anthropic.MessageParam[],
       });
 
       const responseTime = Date.now() - startTime;
@@ -455,7 +455,9 @@ Retorne APENAS um array JSON de etapas, exemplo:
    */
   private async summarizeContext(userId: string): Promise<void> {
     const context = this.contexts.get(userId);
-    if (!context) {return;}
+    if (!context) {
+      return;
+    }
 
     console.log(`📝 Resumindo contexto para ${userId}...`);
 
@@ -496,7 +498,7 @@ Retorne APENAS um array JSON de etapas, exemplo:
    * Tracking de métricas (ENHANCED - com info de modelo)
    */
   private trackRequest(
-    usage: any,
+    usage: Anthropic.Messages.Usage,
     responseTime: number,
     model: string = "claude-sonnet-4-20250514",
   ): void {
@@ -652,10 +654,10 @@ Economia estimada: ~40-60% vs usar apenas Sonnet
     message: string,
     contextFetcher: () => Promise<string>,
   ): Promise<string> {
-    const model = "claude-3-5-sonnet-20241022";
+    const model = "claude-sonnet-4-20250514";
 
     // Ferramentas disponíveis para o Admin
-    const tools: any[] = [
+    const tools: Anthropic.Tool[] = [
       {
         name: "get_server_logs",
         description: "Get the last N lines of server logs to debug issues.",
@@ -705,8 +707,9 @@ Economia estimada: ~40-60% vs usar apenas Sonnet
         return content.text;
       }
 
-      // TypeScript (e a API v2) diz que tool_use pode estar em qualquer bloco
-      const toolUse = response.content.find((c) => c.type === "tool_use") as any;
+      const toolUse = response.content.find(
+        (c): c is Anthropic.ToolUseBlock => c.type === "tool_use",
+      );
 
       if (toolUse) {
         return `[EXECUTING COMMAND] 🛠️ ${toolUse.name} (${JSON.stringify(toolUse.input)}) \nAguardando implementação da execução real no backend... (Para Phase 2 completa)`;

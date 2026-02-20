@@ -35,6 +35,7 @@ help:  ## Show this help message
 	@echo "    setup        Full project setup (hooks, env, deps)"
 	@echo "    kickoff      Start a development session (System Check)"
 	@echo "    wrapup       End a development session (Status Report)"
+	@echo "    monitor      Run Deploy Health Monitor"
 	@echo "    clean        Remove build artifacts"
 	@echo "    deep-clean   Remove node_modules and all artifacts (Use with caution)"
 	@echo ""
@@ -61,6 +62,13 @@ help:  ## Show this help message
 	@echo "    docker-run   Run the container locally (Port $(PORT))"
 	@echo "    docker-shell Access shell inside the container"
 	@echo ""
+	@echo "  $(GREEN)Tunnel Operations (NΞØ Tunnel)$(RESET)"
+	@echo "    tunnel-neo-agent   Start tunnel for WhatsApp/TG Agent (8042)"
+	@echo "    tunnel-flowpay     Start tunnel for FlowPay Gateway (4321)"
+	@echo "    tunnel-nexus       Start tunnel for Protocol Nexus (3000)"
+	@echo "    tunnel-neobot      Start tunnel for Neobot Architect (19000)"
+	@echo "    tunnel-status      Check status of the tunnel server"
+	@echo ""
 
 # --- LIFECYCLE ---------------------------------------------------------------
 
@@ -80,6 +88,9 @@ kickoff: ## Start session
 
 wrapup: ## End session
 	@node --import tsx scripts/wrapup.ts
+
+monitor: ## Run Deploy Health Monitor
+	@bash scripts/neo-monitor-deploy.sh
 
 clean: ## Remove dist and temp files
 	@echo "$(YELLOW)Cleaning build artifacts...$(RESET)"
@@ -169,3 +180,20 @@ sync-upstream: ## Fetch updates from OpenClaw upstream
 
 updates: ## Check for pnpm package updates
 	@pnpm outdated
+	
+# --- TUNNEL OPERATIONS -------------------------------------------------------
+
+tunnel-neo-agent: ## Start tunnel for neo-agent
+	@cd ../neo-tunnel && $(MAKE) client-neo-agent
+
+tunnel-flowpay: ## Start tunnel for flowpay
+	@cd ../neo-tunnel && $(MAKE) client-flowpay
+
+tunnel-nexus: ## Start tunnel for nexus
+	@cd ../neo-tunnel && $(MAKE) client-nexus
+
+tunnel-neobot: ## Start tunnel for neobot
+	@cd ../neo-tunnel && $(MAKE) client-neobot
+
+tunnel-status: ## Check tunnel server status
+	@cd ../neo-tunnel && $(MAKE) status
