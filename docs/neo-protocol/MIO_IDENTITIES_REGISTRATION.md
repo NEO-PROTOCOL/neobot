@@ -11,11 +11,13 @@
 ### 🧠 Agentes (Inteligências)
 
 #### 1. neo-agent-full
+
 ```bash
-./scripts/register-identity.sh agent neo-agent-full "Cerebro/LangGraph ReAct"
+./scripts/register-identity.sh agent neo-agent-full "Cerebro/Modal"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Agent (Autonomous Intelligence)
 - **Função:** Raciocínio complexo, memória soberana, identidade DID
 - **Stack:** LangGraph, Gemini 1.5, Claude, Kwil, Ceramic, IPFS, GUN.js
@@ -24,6 +26,7 @@
 - **Status:** 🟢 Ativo
 
 **Permissões:**
+
 - Read: GitHub, Brave Search, Notion (MCP)
 - Write: Twitter, Kwil DB, Ceramic Logs, IPFS
 - Execute: LangGraph planning, Tool use
@@ -33,11 +36,13 @@
 ---
 
 #### 2. Neobot
+
 ```bash
 ./scripts/register-identity.sh agent neobot "Toolkit/Operations"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Agent (Operational Toolkit)
 - **Função:** Skills operacionais, CLI, automações, WhatsApp nativo
 - **Stack:** TypeScript, Node.js, Skills (70+), MCP Server, Baileys
@@ -46,6 +51,7 @@
 - **Status:** 🟢 Ativo
 
 **Permissões:**
+
 - Read: File system, Notion (MCP), GitHub
 - Write: Telegram, WhatsApp (Baileys), Ledger, Health logs
 - Execute: CLI commands, Skills, Health checks
@@ -57,11 +63,13 @@
 ### 🎛️ Plataformas (Orchestrators)
 
 #### 3. NODE NEØ (neoflowoff-nodemello.run)
+
 ```bash
 ./scripts/register-identity.sh platform nodemello "Orchestrator/Content State Machine"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Platform (Orchestrator)
 - **Função:** Content State Machine, governança editorial
 - **Stack:** Node.js, State Machines, JSON Contracts
@@ -70,11 +78,13 @@
 - **Status:** 🟢 Ativo
 
 **Fluxo:**
+
 ```
 DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 ```
 
 **Permissões:**
+
 - Read: neo-agent-full (drafts)
 - Write: FlowCloser (WhatsApp), Twitter API, Instagram API
 - Execute: Workflow automation, Asset management
@@ -82,22 +92,25 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 ---
 
 #### 4. Smart Factory
+
 ```bash
 ./scripts/register-identity.sh platform smart-factory "Tokenization/Multi-chain"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Platform (Tokenization Engine)
 - **Função:** Deploy contratos, mint tokens, bridge cross-chain
 - **Stack:** Solidity, Tact (TON), Hardhat, OpenZeppelin
 - **Camada:** Valor & Token
-- **Repos:** 
+- **Repos:**
   - https://github.com/neo-smart-token-factory/smart-core
   - https://github.com/neo-smart-token-factory/docs
   - https://github.com/neo-smart-token-factory/smart-cli
 - **Status:** 🟡 Pré-lançamento (v0.5.3-neural-core)
 
 **Contratos:**
+
 - NeoTokenV2 (ERC20Permit, gasless, bridgeable)
 - NeoSmartFactory (multi-protocol)
 - TON Jetton (TEP-74 compliant)
@@ -110,11 +123,13 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 ### 🔌 Conectores (Bridges)
 
 #### 5. FlowCloser
+
 ```bash
 ./scripts/register-identity.sh connector flowcloser "External Services Bridge"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Connector (External Services)
 - **Função:** Bridge para Typebot, Chatwoot, Dify AI, OpenAI
 - **Stack:** Evolution API, Baileys, Web3 (Kwil, Ceramic, The Graph)
@@ -128,11 +143,13 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 ---
 
 #### 6. FlowPay
+
 ```bash
 ./scripts/register-identity.sh connector flowpay "Payment Gateway PIX"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Connector (Payment Gateway)
 - **Função:** PIX → $NEOFLW/USDC (Base L2)
 - **Stack:** Astro, Node.js, Smart Contracts
@@ -142,6 +159,7 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 - **Status:** 🟡 Em desenvolvimento
 
 **Fluxo:**
+
 ```
 PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 ```
@@ -151,11 +169,13 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 ### 📱 Interfaces (User-Facing)
 
 #### 7. MiniApp Telegram
+
 ```bash
 ./scripts/register-identity.sh interface miniapp-telegram "Telegram Mini App"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Interface (Mobile-first)
 - **Função:** Compra de $NEOFLW, Wallet abstraction, SDR automation
 - **Stack:** Vue.js, Telegram SDK, Vite
@@ -164,6 +184,7 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 - **Status:** 🟡 Estrutura básica
 
 **Features planejadas:**
+
 - `/buy <amount>` - Comprar tokens via PIX
 - `/balance` - Ver saldo
 - `/send <wallet>` - Enviar tokens
@@ -172,11 +193,13 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 ---
 
 #### 8. neo-agent-dashboard
+
 ```bash
 ./scripts/register-identity.sh interface neo-agent-dashboard "Agent Monitoring Dashboard"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Interface (Monitoring)
 - **Função:** Monitorar neo-agent-full (memória, DID, IPFS)
 - **Stack:** Next.js, React, TypeScript
@@ -187,17 +210,41 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 ---
 
 #### 9. Neobot Dashboard
+
 ```bash
 ./scripts/register-identity.sh interface neobot-dashboard "Operations Dashboard"
 ```
 
 **Detalhes:**
+
 - **Tipo:** Interface (Operational)
 - **Função:** Dashboard operacional iOS-style para Neobot
 - **Stack:** HTML, CSS, JS (Glassmorphic Bento Grid)
 - **Camada:** 5 - Interface
 - **Local:** neobot/ui/
 - **Status:** 🟢 Ativo
+
+---
+
+---
+
+#### 10. FlowPay Core
+
+```bash
+./scripts/register-identity.sh connector flowpay-core "Payment Gateway Engine / Settlement"
+```
+
+**Detalhes:**
+
+- **Tipo:** Connector (Settlement Engine)
+- **Função:** Engine de liquidação PIX ↔ Crypto, Gestão de Webhooks, PoI
+- **Official Domain:** [flowpaycore.com](https://flowpaycore.com)
+- **ENS:** `flowpaycore.eth`
+- **Sovereign Wallet:** `0xb872d02b3b040c05925e186490e9564e32356129`
+- **Stack:** Fastify, TypeScript, HMAC-SHA256, Nexus integration
+- **Camada:** Valor & Token
+- **Repo:** [https://github.com/FlowPay-Core/flowpay_core](https://github.com/FlowPay-Core/flowpay_core)
+- **Status:** 🟢 Ativo (Auditable Settlement)
 
 ---
 
@@ -218,7 +265,8 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 │                                             │
 │  🔌 CONNECTORS                              │
 │  ├── FlowCloser (external services)        │
-│  └── FlowPay (payment gateway)             │
+│  ├── FlowPay (payment gateway UI)          │
+│  └── FlowPay Core (settlement engine)      │
 │                                             │
 │  📱 INTERFACES                              │
 │  ├── MiniApp Telegram                       │
@@ -232,27 +280,29 @@ PIX (BRL) → FlowPay → Smart Contract → $NEOFLW/USDC → User Wallet
 
 ## 🔐 Matriz de Permissões
 
-| Identidade | Read | Write | Execute |
-|------------|------|-------|---------|
-| **neo-agent-full** | GitHub, Brave, Notion, Kwil DB | Twitter, Ceramic, IPFS, GUN.js | LangGraph, Tool use |
-| **Neobot** | File system, Notion, GitHub | Telegram, WhatsApp, Ledger | Skills, CLI, Health |
-| **NODE NEØ** | neo-agent-full drafts | FlowCloser, Twitter, Instagram | State Machine, Workflows |
-| **Smart Factory** | smart-core contracts | Base, Polygon, TON blockchains | Deploy, Mint, Bridge |
-| **FlowCloser** | Evolution API, Baileys | Typebot, Chatwoot, Dify | External Services |
-| **FlowPay** | PIX API, Bank webhooks | Smart Contracts (mint) | Payment processing |
-| **MiniApp Telegram** | Telegram SDK | User wallets | Token purchase |
-| **neo-agent-dashboard** | neo-agent-full API | Dashboard state | Monitoring |
-| **Neobot Dashboard** | Neobot health, ledger | Dashboard state | UI operations |
+| Identidade              | Read                           | Write                          | Execute                  |
+| ----------------------- | ------------------------------ | ------------------------------ | ------------------------ |
+| **neo-agent-full**      | GitHub, Brave, Notion, Kwil DB | Twitter, Ceramic, IPFS, GUN.js | LangGraph, Tool use      |
+| **Neobot**              | File system, Notion, GitHub    | Telegram, WhatsApp, Ledger     | Skills, CLI, Health      |
+| **NODE NEØ**            | neo-agent-full drafts          | FlowCloser, Twitter, Instagram | State Machine, Workflows |
+| **Smart Factory**       | smart-core contracts           | Base, Polygon, TON blockchains | Deploy, Mint, Bridge     |
+| **FlowCloser**          | Evolution API, Baileys         | Typebot, Chatwoot, Dify        | External Services        |
+| **FlowPay**             | PIX API, Bank webhooks         | Smart Contracts (mint)         | Payment processing       |
+| **FlowPay Core**        | PIX API, Bank webhooks         | Nexus (events), PoI Logs       | Auditable Settlement     |
+| **MiniApp Telegram**    | Telegram SDK                   | User wallets                   | Token purchase           |
+| **neo-agent-dashboard** | neo-agent-full API             | Dashboard state                | Monitoring               |
+| **Neobot Dashboard**    | Neobot health, ledger          | Dashboard state                | UI operations            |
 
 ---
 
 ## 🚀 Próximos Passos
 
 1. **Executar Scripts de Registro:**
+
    ```bash
    cd ~/mio-system
    chmod +x scripts/register-identity.sh
-   
+
    # Registrar todas as identidades
    ./scripts/register-identity.sh agent neo-agent-full "Cerebro/LangGraph"
    ./scripts/register-identity.sh agent neobot "Toolkit/Operations"

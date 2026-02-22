@@ -10,7 +10,7 @@ DATA_DIR=./data
 NODE_ENV=production
 
 # 🔐 SECURITY & CORS
-ALLOWED_ORIGINS=http://localhost:3000,https://flowpay.cash,https://nexus.neoprotocol.space,https://agent.neoprotocol.space,https://architect.neoprotocol.space,https://dashboard.neoprotocol.space
+ALLOWED_ORIGINS=http://localhost:3000,https://flowpay.cash,https://flowpaycore.com,https://nexus.neoprotocol.space,https://agent.neoprotocol.space,https://architect.neoprotocol.space,https://dashboard.neoprotocol.space
 
 # 📡 SOVEREIGN NODES (Internal Mesh)
 # Use estas URLs para comunicações entre serviços dentro da Railway
@@ -19,6 +19,7 @@ NEXUS_INTERNAL_URL=http://neo-nexus.railway.internal
 AGENT_INTERNAL_URL=http://neo-agent-full.railway.internal
 FACTORY_INTERNAL_URL=http://smart-factory.railway.internal
 FLOWPAY_INTERNAL_URL=http://flowpay.railway.internal
+FLOWPAY_CORE_INTERNAL_URL=http://flowpay-core.railway.internal
 
 # 🌐 PUBLIC SOVEREIGN DOMAINS
 # Use estas URLs para o Discovery Service e APIs Externas
@@ -28,6 +29,7 @@ MIO_SYSTEM_API_URL=https://id.neoprotocol.space
 NEOBOT_API_URL=https://architect.neoprotocol.space
 FACTORY_API_URL=https://factory.neoprotocol.space
 FLOWPAY_API_URL=https://flowpay.cash
+FLOWPAY_CORE_API_URL=https://flowpaycore.com
 DASHBOARD_URL=https://dashboard.neoprotocol.space
 
 # 🏋️ WOD & 🏛️ FLUXX

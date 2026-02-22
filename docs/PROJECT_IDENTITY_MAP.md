@@ -1,4 +1,5 @@
 # NEO PROTOCOL - PROJECT IDENTITY MAP
+
 > **Purpose:** Definitive reference to avoid confusion between projects  
 > **Last Updated:** 2026-02-18 (Post-Audit Orchestration)
 
@@ -37,7 +38,12 @@
 
 - **FlowPay Sovereign (Financial Node)**
   - Domain: `flowpay.cash`
-  - Role: Financial Sovereign Node
+  - Role: Financial Sovereign Node / Storefront
+
+- **FlowPay Core (Settlement Node)**
+  - Domain: `flowpaycore.com`
+  - ENS: `flowpaycore.eth`
+  - Role: Settlement Engine / Webhook Logic
 
 - **Neo Smart Factory (Web3 Engineering)**
   - Organization: Neo Smart Factory
@@ -55,12 +61,12 @@
 
 ## CORE DATA SYNC (Registry vs Local)
 
-| Module | Status | Local Mount Path |
-| :--- | :--- | :--- |
-| neobot-architect | CORE | `./` |
-| neo-agent-full | AGENT | `../neo-agent` |
-| neo-nexus | HUB | `../neo-nexus` |
-| mio-system | AUTH | `../mio-system` |
+| Module           | Status | Local Mount Path |
+| :--------------- | :----- | :--------------- |
+| neobot-architect | CORE   | `./`             |
+| neo-agent-full   | AGENT  | `../neo-agent`   |
+| neo-nexus        | HUB    | `../neo-nexus`   |
+| mio-system       | AUTH   | `../mio-system`  |
 
 ---
 

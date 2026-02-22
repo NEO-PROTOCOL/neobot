@@ -47,12 +47,13 @@ graph TB
         SF_MOBILE --> SF_HUB
     end
 
-    subgraph FINANCE["💰 FLOWPAY SOVEREIGN (The Treasury)"]
+    subgraph FINANCE["💰 FLOWPAY CORE (The Treasury)"]
         direction TB
-        FP_GATE["💸 FlowPay Gateway (PIX/Crypto)"]
-        FP_CORE["🧠 FlowPay Core (Logic)"]
+        FP_GATE["💸 FlowPay Interface (flowpay.cash)"]
+        FP_CORE["🧠 FlowPay Core (flowpaycore.com)"]
         FP_LIQ["💧 Liquidity Pools (Dex)"]
         
+        %% Repo: https://github.com/FlowPay-Core/flowpay_core
         %% Finance Flow
         FP_GATE --> FP_CORE
         FP_CORE --> FP_LIQ

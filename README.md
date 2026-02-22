@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD003 MD007 MD011 MD013 MD022 MD023 MD025 MD029 MD032 MD033 MD034 -->
+
 ```text
 ░█▀█░█▀▀░█▀█░░░█▀█░█▀▄░█▀█░▀█▀░█▀█░█▀▀░█▀█░█░░
 ░█░█░█▀▀░█░█░░░█▀▀░█▀▄░█░█░░█░░█░█░█░░░█░█░█░░
@@ -45,13 +46,13 @@ Hybrid architecture:
 
 ▓▓▓ RECOGNITION & FOUNDATION
 ────────────────────────────────────────
-We recognize Moltbot and Peter Steinberger 
-for building the most sophisticated AI 
+We recognize Moltbot and Peter Steinberger
+for building the most sophisticated AI
 assistant control plane. NEØ extends it.
 
 > "Moltbot gave us the engine.
->  NEØ Protocol is breaking the
->  speed limits."
+> NEØ Protocol is breaking the
+> speed limits."
 
 ▓▓▓ FROM NEOBOT / MOLTBOT
 ────────────────────────────────────────
@@ -70,7 +71,7 @@ assistant control plane. NEØ extends it.
 
 ## Storage Partnership
 
-NEØ Protocol uses **Lighthouse Storage** 
+NEØ Protocol uses **Lighthouse Storage**
 for decentralized, perpetual storage.
 
 <p align="left">
@@ -105,7 +106,7 @@ graph TB
     subgraph ACTIVE_NODES["✅ ECOSYSTEM"]
         FULL_AGENT["🤖 NEO-AGENT-FULL"]
         FACTORY["🏭 SMART FACTORY"]
-        FINANCE["💳 FLOWPAY"]
+        FINANCE["💳 FLOWPAY CORE"]
     end
 
     NEXUS <--> ARCHITECT
@@ -136,7 +137,9 @@ graph TB
 Thanks to all our neocontributors!
 
 <!-- neocontributors-start -->
-  <a href="https://github.com/neomello"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/arquiteto_neo2.JPEG" width="48" height="48" alt="MELLØ (Core Architect)" title="MELLØ (Core Architect)"/></a> <a href="https://github.com/buerbaumer"><img src="https://avatars.githubusercontent.com/u/44548809" width="48" height="48" alt="buerbaumer" title="buerbaumer"/></a> <a href="https://github.com/search?q=Mariano%20Belinky"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Mariano Belinky" title="Mariano Belinky"/></a> <a href="https://github.com/search?q=Clawd"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Clawd" title="Clawd"/></a> <a href="https://github.com/search?q=Jarvis"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Jarvis" title="Jarvis"/></a> <a href="https://github.com/search?q=Rain"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Rain" title="Rain"/></a> <a href="https://github.com/search?q=Sash%20Catanzarite"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Sash Catanzarite" title="Sash Catanzarite"/></a> <a href="https://github.com/search?q=Ubuntu"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Ubuntu" title="Ubuntu"/></a> <a href="https://github.com/search?q=Zach%20Knickerbocker"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Zach Knickerbocker" title="Zach Knickerbocker"/></a>
+
+<a href="https://github.com/neomello"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/arquiteto_neo2.JPEG" width="48" height="48" alt="MELLØ (Core Architect)" title="MELLØ (Core Architect)"/></a> <a href="https://github.com/buerbaumer"><img src="https://avatars.githubusercontent.com/u/44548809" width="48" height="48" alt="buerbaumer" title="buerbaumer"/></a> <a href="https://github.com/search?q=Mariano%20Belinky"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Mariano Belinky" title="Mariano Belinky"/></a> <a href="https://github.com/search?q=Clawd"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Clawd" title="Clawd"/></a> <a href="https://github.com/search?q=Jarvis"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Jarvis" title="Jarvis"/></a> <a href="https://github.com/search?q=Rain"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Rain" title="Rain"/></a> <a href="https://github.com/search?q=Sash%20Catanzarite"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Sash Catanzarite" title="Sash Catanzarite"/></a> <a href="https://github.com/search?q=Ubuntu"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Ubuntu" title="Ubuntu"/></a> <a href="https://github.com/search?q=Zach%20Knickerbocker"><img src="https://raw.githubusercontent.com/NEO-PROTOCOL/neobot/main/assets/avatar-placeholder.svg" width="48" height="48" alt="Zach Knickerbocker" title="Zach Knickerbocker"/></a>
+
 <!-- neocontributors-end -->
 
 ▓▓▓ NΞØ MELLØ
@@ -145,7 +148,7 @@ Core Architect · NΞØ Protocol
 neo@neoprotocol.space
 
 "Code is law. Expand until
- chaos becomes protocol."
+chaos becomes protocol."
 
 Security by design.
 Explits find no refuge here.

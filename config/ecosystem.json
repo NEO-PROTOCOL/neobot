@@ -296,15 +296,42 @@
   },
   {
     "id": "flowpay-core",
-    "org": "FlowPay",
-    "name": "FlowPay Core (Open Source)",
-    "description": "Versão Open Source do Protocolo de Gateway FlowPay",
+    "org": "FlowPay-Core",
+    "name": "FlowPay Core (Payment Gateway Engine)",
+    "description": "Engine de gateway de pagamentos PIX ↔ Crypto. Fastify + TypeScript. Recebe webhooks PIX de providers (BaaS Legacy, Woovi, Efí, MP, Stark), normaliza eventos, emite Unlock Receipts assinados HMAC-SHA256 e notifica o NEO Nexus em FLOWPAY:PAYMENT_CONFIRMED.",
     "localPath": "../../neoflowoff/flowpay-core",
-    "repository": "git@github.com:flowpaycash/flowpay-core.git",
-    "role": "Core Protocol / Open Source",
+    "repository": "https://github.com/FlowPay-Core/flowpay_core",
+    "role": "Payment Core / Webhook Engine",
+    "localUrl": "http://localhost:5050",
+    "officialDomain": "flowpaycore.com",
+    "ens": "flowpaycore.eth",
+    "registrationTx": "0x99764ddf4b8c9a0b5eb41ed424a1518f695bf018afd5e896e3ddc5097f73da26",
+    "sovereignWallet": "0xb872d02b3b040c05925e186490e9564e32356129",
+    "webhookUrl": {
+      "local": "http://localhost:5050/webhook/:providerId",
+      "internal": "http://flowpay-core.railway.internal/webhook/:providerId",
+      "production": "https://core.flowpay.cash/webhook/:providerId"
+    },
+    "nexusEvents": {
+      "emits": ["FLOWPAY:PAYMENT_CONFIRMED"],
+      "consumes": [],
+      "nexusTarget": {
+        "local": "http://localhost:3000/api/events",
+        "internal": "http://neo-nexus.railway.internal/api/events",
+        "production": "https://nexus.neoprotocol.space/api/events"
+      }
+    },
     "hosting": {
-      "platform": "N/A (Library)",
-      "adminEmail": "neo@neoprotocol.space"
+      "platform": "Railway (Phase 1+)",
+      "port": 5050,
+      "internalUrl": "http://flowpay-core.railway.internal",
+      "productionUrl": "https://core.flowpay.cash",
+      "healthcheck": "/health",
+      "buildCommand": "npm run build",
+      "startCommand": "node dist/app.js",
+      "adminEmail": "neo@neoprotocol.space",
+      "envRequired": ["RECEIPT_SECRET", "NEXUS_URL", "BAAS_LEGACY_ALLOWED_IPS"],
+      "portNotes": "Porta 5050 — não conflita com neo-nexus(3000), mio-system(4000), flowpay-astro(4321), neo-agent-full(8080), neobot(19000)"
     }
   },
   {
