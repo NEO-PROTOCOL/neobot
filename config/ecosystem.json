@@ -241,7 +241,7 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI Mobile (MiniApp)",
     "description": "Interface Mobile Unificada para o ecossistema Smart Factory",
-    "localPath": "../neo-smart-factory/miniapp",
+    "localPath": "../neo-smart-factory/smart-ui-mobile",
     "repository": "https://github.com/neo-smart-token-factory/smart-ui-mobile",
     "role": "Interface / Mobile / MiniApp",
     "hosting": {
