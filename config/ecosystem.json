@@ -266,20 +266,33 @@
   },
   {
     "id": "flowpay",
-    "org": "FlowPay",
-    "name": "FlowPay Sovereign",
-    "description": "Gateway Financeiro Soberano (PIX ↔ Crypto) com liquidação on-chain e recorrência. Astro SSR + Netlify Functions. Recebe webhooks do Nexus em /api/webhook/nexus.",
+    "org": "FlowPay (NEØ Stack)",
+    "name": "FlowPay App (Checkout Astro)",
+    "description": "Aplicação de checkout da stack NEØ Protocol (separada do FlowPay Core). Astro SSR + endpoints /api para create-charge, charge status e webhooks.",
+    "stackBoundary": {
+      "belongsToNeoProtocolStack": true,
+      "commercialTrack": "stack",
+      "doNotConfuseWith": "flowpay-core"
+    },
     "localPath": "../flowpay",
     "absolutePath": "/usr/local/projects/flowpay",
     "repository": "git@github.com:flowpaycash/flowpay.git",
-    "role": "Financial Sovereign Node",
+    "role": "Checkout / Financial Node (Stack)",
     "localUrl": "http://localhost:4321",
     "webhookUrl": {
       "local": "http://localhost:4321/api/webhook/nexus",
       "internal": "http://flowpay.railway.internal/api/webhook/nexus",
       "production": "https://flowpay.cash/api/webhook/nexus"
     },
-    "nexusEvents": ["FACTORY:MINT_CONFIRMED", "FACTORY:MINT_FAILED", "NEOBOT:ACCESS_UNLOCKED"],
+    "nexusEvents": {
+      "emits": ["FLOWPAY:PAYMENT_RECEIVED"],
+      "consumes": ["FACTORY:MINT_CONFIRMED", "FACTORY:MINT_FAILED", "NEOBOT:ACCESS_UNLOCKED"],
+      "nexusTarget": {
+        "local": "http://localhost:3000/api/webhooks/flowpay",
+        "internal": "http://neo-nexus.railway.internal/api/webhooks/flowpay",
+        "production": "https://nexus.neoprotocol.space/api/webhooks/flowpay"
+      }
+    },
     "hosting": {
       "platform": "Railway",
       "railwayProjectId": "0a6c292a-b3b2-4873-96a7-2e84e7b9b38c",
@@ -296,12 +309,18 @@
   },
   {
     "id": "flowpay-core",
-    "org": "FlowPay-Core",
-    "name": "FlowPay Core (Payment Gateway Engine)",
-    "description": "Engine de gateway de pagamentos PIX ↔ Crypto. Fastify + TypeScript. Recebe webhooks PIX de providers (BaaS Legacy, Woovi, Efí, MP, Stark), normaliza eventos, emite Unlock Receipts assinados HMAC-SHA256 e notifica o NEO Nexus em FLOWPAY:PAYMENT_CONFIRMED.",
-    "localPath": "../../neoflowoff/flowpay-core",
+    "org": "FlowPay Core (External Venture)",
+    "name": "FlowPay Core Engine (Standalone Commercial)",
+    "description": "Engine standalone de pagamentos para trilha comercial e investidores (fora da stack NEØ Protocol). Fastify + TypeScript. Recebe webhooks PIX de providers e normaliza confirmações de pagamento.",
+    "stackBoundary": {
+      "belongsToNeoProtocolStack": false,
+      "relationshipToNeoProtocol": "strategic-partner",
+      "doNotConfuseWith": "flowpay"
+    },
+    "localPath": "../flowpay-core",
+    "absolutePath": "/usr/local/projects/flowpay-core",
     "repository": "https://github.com/FlowPay-Core/flowpay_core",
-    "role": "Payment Core / Webhook Engine",
+    "role": "Payment Core / Webhook Engine (External)",
     "localUrl": "http://localhost:5050",
     "officialDomain": "flowpaycore.com",
     "ens": "flowpaycore.eth",
@@ -309,28 +328,20 @@
     "sovereignWallet": "0xb872d02b3b040c05925e186490e9564e32356129",
     "webhookUrl": {
       "local": "http://localhost:5050/webhook/:providerId",
-      "internal": "http://flowpay-core.railway.internal/webhook/:providerId",
-      "production": "https://core.flowpay.cash/webhook/:providerId"
-    },
-    "nexusEvents": {
-      "emits": ["FLOWPAY:PAYMENT_CONFIRMED"],
-      "consumes": [],
-      "nexusTarget": {
-        "local": "http://localhost:3000/api/events",
-        "internal": "http://neo-nexus.railway.internal/api/events",
-        "production": "https://nexus.neoprotocol.space/api/events"
-      }
+      "deploymentStatus": "NOT_DEPLOYED"
     },
     "hosting": {
-      "platform": "Railway (Phase 1+)",
+      "platform": "Vercel (landing only)",
+      "deploymentStatus": "LANDING_ONLY",
+      "productionUrl": "https://flowpaycore.com",
+      "appDeploymentStatus": "NOT_DEPLOYED",
+      "appPlatform": "Not deployed",
       "port": 5050,
-      "internalUrl": "http://flowpay-core.railway.internal",
-      "productionUrl": "https://core.flowpay.cash",
       "healthcheck": "/health",
       "buildCommand": "npm run build",
       "startCommand": "node dist/app.js",
       "adminEmail": "neo@neoprotocol.space",
-      "envRequired": ["RECEIPT_SECRET", "NEXUS_URL", "BAAS_LEGACY_ALLOWED_IPS"],
+      "envRequired": ["RECEIPT_SECRET", "BAAS_LEGACY_ALLOWED_IPS"],
       "portNotes": "Porta 5050 — não conflita com neo-nexus(3000), mio-system(4000), flowpay-astro(4321), neo-agent-full(8080), neobot(19000)"
     }
   },
