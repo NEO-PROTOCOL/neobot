@@ -125,8 +125,10 @@
     "repository": "https://github.com/NEO-PROTOCOL/neo-dashboard.git",
     "role": "Interface",
     "hosting": {
-      "platform": "Vercel",
-      "productionUrl": "https://neo-dashboard-deploy.vercel.app",
+      "platform": "Railway",
+      "productionUrl": "https://neo-dashboard-production-2e56.up.railway.app",
+      "railwayUrl": "https://neo-dashboard-production-2e56.up.railway.app",
+      "legacyUrl": "https://neo-dashboard-deploy.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "dashboard.neoprotocol.space"
     }
