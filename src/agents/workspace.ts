@@ -32,6 +32,13 @@ export const DEFAULT_MEMORY_ALT_FILENAME = "memory.md";
 const WORKSPACE_STATE_DIRNAME = ".openclaw";
 const WORKSPACE_STATE_FILENAME = "workspace-state.json";
 const WORKSPACE_STATE_VERSION = 1;
+const WORKSPACE_TEMPLATE_FALLBACKS: Readonly<Record<string, readonly string[]>> = {
+  [DEFAULT_IDENTITY_FILENAME]: ["IDENTITY.dev.md"],
+  [DEFAULT_USER_FILENAME]: ["USER.dev.md"],
+  [DEFAULT_AGENTS_FILENAME]: ["AGENTS.dev.md"],
+  [DEFAULT_SOUL_FILENAME]: ["SOUL.dev.md"],
+  [DEFAULT_TOOLS_FILENAME]: ["TOOLS.dev.md"],
+};
 
 const workspaceTemplateCache = new Map<string, Promise<string>>();
 let gitAvailabilityPromise: Promise<boolean> | null = null;
@@ -58,15 +65,21 @@ async function loadTemplate(name: string): Promise<string> {
 
   const pending = (async () => {
     const templateDir = await resolveWorkspaceTemplateDir();
-    const templatePath = path.join(templateDir, name);
-    try {
-      const content = await fs.readFile(templatePath, "utf-8");
-      return stripFrontMatter(content);
-    } catch {
-      throw new Error(
-        `Missing workspace template: ${name} (${templatePath}). Ensure docs/reference/templates are packaged.`,
-      );
+    const candidateNames = [name, ...(WORKSPACE_TEMPLATE_FALLBACKS[name] ?? [])];
+    for (const candidateName of candidateNames) {
+      const templatePath = path.join(templateDir, candidateName);
+      try {
+        const content = await fs.readFile(templatePath, "utf-8");
+        return stripFrontMatter(content);
+      } catch {
+        // Try next candidate.
+      }
     }
+
+    throw new Error(
+      `Missing workspace template: ${name} (${path.join(templateDir, name)}). ` +
+        `Checked candidates: ${candidateNames.join(", ")}. Ensure docs/reference/templates are packaged.`,
+    );
   })();
 
   workspaceTemplateCache.set(name, pending);
