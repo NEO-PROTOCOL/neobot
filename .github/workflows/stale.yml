@@ -17,7 +17,7 @@ jobs:
       - uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
         id: app-token
         with:
-          app-id: "2729701"
+          app-id: "2969391"
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
       - name: Mark stale issues and pull requests
         uses: actions/stale@v9
