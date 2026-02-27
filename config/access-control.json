@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "effectiveDate": "2026-02-26",
   "owner": "NEØ MELLØ",
-  "workspaceRoot": "/Users/nettomello/neomello/01-neo-protocol-org",
+  "workspaceRoot": "/Users/nettomello/neomello",
   "policyModel": {
     "levels": [
       {
@@ -104,22 +104,22 @@
   ],
   "pathPolicies": [
     {
-      "path": "neobot/config/ecosystem.json",
+      "path": "NEO-PROTOCOL/neobot/config/ecosystem.json",
       "level": "sovereign",
       "authorizedGroups": ["owner", "core-architecture"]
     },
     {
-      "path": "neobot/config/access-control.json",
+      "path": "NEO-PROTOCOL/neobot/config/access-control.json",
       "level": "sovereign",
       "authorizedGroups": ["owner", "core-architecture"]
     },
     {
-      "path": "neo-protocol-contracts/**",
+      "path": "NEO-PROTOCOL/neo-protocol-contracts/**",
       "level": "restricted",
       "authorizedGroups": ["owner", "protocol-engineering"]
     },
     {
-      "path": "neoflw-token/**",
+      "path": "NEO-PROTOCOL/neoflw-token/**",
       "level": "restricted",
       "authorizedGroups": ["owner", "protocol-engineering"]
     },
