@@ -22,7 +22,7 @@
     "hosting": {
       "platform": "Local / Railway (Production)",
       "productionUrl": "http://neobot.railway.internal",
-      "railwayUrl": "https://aryn3v88.up.railway.app",
+      "railwayUrl": "https://neobot.up.railway.app",
       "targetCustomDomain": "orchestrator.neoprotocol.space",
       "customDomainAliases": ["architect.neoprotocol.space"],
       "adminEmail": "neo@neoprotocol.space"
@@ -32,15 +32,17 @@
     "id": "neo-agent-full",
     "org": "NEO Protocol",
     "name": "NEO Agent Full (WhatsApp/TG)",
-    "description": "Agente IA Full-Stack (WhatsApp/TG) soberano. Integrado via Railway Project.",
+    "description": "Agente IA Full-Stack (WhatsApp/TG) soberano. Hospedado no Railway; inferência GPU via Modal (vLLM / A10G). Conecta ao neo-nexus via WebSocket como subscriber (FLOWPAY:PAYMENT_RECEIVED, MINT_CONFIRMED). Expõe webhook HTTP em /webhook para automações Make/n8n.",
     "localPath": "../neo-agent-full",
     "repository": "https://github.com/NEO-PROTOCOL/neo-agent-full.git",
     "role": "Agent Node / Autonomous Service",
     "webhookUrl": {
-      "local": "http://localhost:8080/api/webhook/nexus",
-      "internal": "http://neo-agent-full.railway.internal/api/webhook/nexus",
-      "production": "https://agent.neoprotocol.space/api/webhook/nexus"
+      "local": "http://localhost:8042/webhook",
+      "internal": "http://neo-agent-full.railway.internal/webhook",
+      "production": "https://agent.neoprotocol.space/webhook",
+      "note": "Nexus connection is outbound WebSocket subscriber (wss://nexus.neoprotocol.space), not an HTTP receiver"
     },
+    "nexusEvents": ["FLOWPAY:PAYMENT_RECEIVED", "MINT_CONFIRMED"],
     "hosting": {
       "platform": "Railway",
       "productionUrl": "https://agent.neoprotocol.space",
