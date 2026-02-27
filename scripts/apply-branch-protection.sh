@@ -14,7 +14,7 @@ repos=(
   "NEO-PROTOCOL/neo-nexus"
   "NEO-PROTOCOL/mio-system"
   "NEO-PROTOCOL/neo-protocol-contracts"
-  "NEO-PROTOCOL/neoflw-token"
+  "NEO-FlowOFF/neoflw-token"
 )
 
 ok_repos=()

@@ -119,7 +119,7 @@
       "authorizedGroups": ["owner", "protocol-engineering"]
     },
     {
-      "path": "NEO-PROTOCOL/neoflw-token/**",
+      "path": "NEO-FlowOFF/neoflw-token/**",
       "level": "restricted",
       "authorizedGroups": ["owner", "protocol-engineering"]
     },
