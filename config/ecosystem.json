@@ -2,33 +2,29 @@
   {
     "id": "neobot-architect",
     "org": "NEO Protocol",
-    "name": "Neobot — Node Warrior / NEO Nexus",
-    "description": "Node Warrior: Agente Central do NEO Protocol. Orquestrador soberano (nexus.neoprotocol.space), arquiteto e executor. Contém o Protocol Nexus Event Bus e as identidades mio-system em src/neo/identity/.",
-    "localPath": ".",
+    "name": "Neobot — Node Warrior",
+    "description": "Agente Central do NEO Protocol. Orquestrador soberano hospedado em orchestrator.neoprotocol.space. Contém o event bus interno (src/nexus/) e o registry das 9 identidades em src/neo/identity/registry.ts. Recebe eventos do nó neo-nexus via POST /api/webhook/nexus com autenticação HMAC (x-nexus-signature).",
+    "localPath": "../01-neo-protocol-org/neobot",
     "repository": "https://github.com/NEO-PROTOCOL/neobot.git",
-    "role": "Sovereign Node / Orchestrator / Architect",
+    "role": "Sovereign Node / Orchestrator",
     "localUrl": "http://localhost:19000",
     "webhookUrl": {
       "local": "http://localhost:19000/api/webhook/nexus",
       "internal": "http://neobot.railway.internal/api/webhook/nexus",
-      "production": "https://architect.neoprotocol.space/api/webhook/nexus",
+      "production": "https://orchestrator.neoprotocol.space/api/webhook/nexus",
       "dev": "https://dev.neoprotocol.space/api/webhook/nexus"
     },
-    "nexusEvents": [
-      "TASK_COMPLETED",
-      "BUILD_STATUS",
-      "NEXUS_START"
-    ],
+    "nexusEvents": ["TASK_COMPLETED", "BUILD_STATUS", "NEXUS_START"],
     "identity": {
-      "primary": "mio-core",
-      "publicKey": "src/neo/identity/",
-      "note": "9 identidades mio-system residem em src/neo/identity/registry.ts"
+      "registryPath": "src/neo/identity/registry.ts",
+      "note": "Hospeda o registry das 9 identidades mio-system. mio-system é um nó separado (id.neoprotocol.space)."
     },
     "hosting": {
       "platform": "Local / Railway (Production)",
       "productionUrl": "http://neobot.railway.internal",
       "railwayUrl": "https://aryn3v88.up.railway.app",
-      "targetCustomDomain": "architect.neoprotocol.space",
+      "targetCustomDomain": "orchestrator.neoprotocol.space",
+      "customDomainAliases": ["architect.neoprotocol.space"],
       "adminEmail": "neo@neoprotocol.space"
     }
   },
@@ -69,9 +65,7 @@
       "production": "https://nexus.neoprotocol.space/api/events",
       "railway": "https://7glr6que.up.railway.app/api/events"
     },
-    "nexusEvents": [
-      "*"
-    ],
+    "nexusEvents": ["*"],
     "hosting": {
       "platform": "Railway",
       "productionUrl": "https://nexus.neoprotocol.space",
@@ -295,14 +289,8 @@
       "production": "https://flowpay.cash/api/webhook/nexus"
     },
     "nexusEvents": {
-      "emits": [
-        "FLOWPAY:PAYMENT_RECEIVED"
-      ],
-      "consumes": [
-        "FACTORY:MINT_CONFIRMED",
-        "FACTORY:MINT_FAILED",
-        "NEOBOT:ACCESS_UNLOCKED"
-      ],
+      "emits": ["FLOWPAY:PAYMENT_RECEIVED"],
+      "consumes": ["FACTORY:MINT_CONFIRMED", "FACTORY:MINT_FAILED", "NEOBOT:ACCESS_UNLOCKED"],
       "nexusTarget": {
         "local": "http://localhost:3000/api/webhooks/flowpay",
         "internal": "http://neo-nexus.railway.internal/api/webhooks/flowpay",
