@@ -87,3 +87,4 @@ USER.md
 .pnpm-store/
 neo-identities/
 metadata-genesis/
+env_blocks.json

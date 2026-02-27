@@ -86,6 +86,14 @@ function getLatestWs(): MockWebSocket {
   return ws;
 }
 
+function makeIdentity(deviceId: string): DeviceIdentity {
+  return {
+    deviceId,
+    privateKeyPem: "test-private-key-pem",
+    publicKeyPem: "test-public-key-pem",
+  };
+}
+
 describe("GatewayClient close handling", () => {
   beforeEach(() => {
     wsInstances.length = 0;
@@ -95,11 +103,7 @@ describe("GatewayClient close handling", () => {
 
   it("clears stale token on device token mismatch close", () => {
     const onClose = vi.fn();
-    const identity: DeviceIdentity = {
-      deviceId: "dev-1",
-      privateKeyPem: "private-key",
-      publicKeyPem: "public-key",
-    };
+    const identity = makeIdentity("dev-1");
     const client = new GatewayClient({
       url: "ws://127.0.0.1:18789",
       deviceIdentity: identity,
@@ -125,11 +129,7 @@ describe("GatewayClient close handling", () => {
       throw new Error("disk unavailable");
     });
     const onClose = vi.fn();
-    const identity: DeviceIdentity = {
-      deviceId: "dev-2",
-      privateKeyPem: "private-key",
-      publicKeyPem: "public-key",
-    };
+    const identity = makeIdentity("dev-2");
     const client = new GatewayClient({
       url: "ws://127.0.0.1:18789",
       deviceIdentity: identity,
