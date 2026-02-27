@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "effectiveDate": "2026-02-26",
+  "owner": "NEØ MELLØ",
+  "workspaceRoot": "/Users/nettomello/neomello/01-neo-protocol-org",
+  "policyModel": {
+    "levels": [
+      {
+        "id": "sovereign",
+        "description": "Controle total do núcleo de orquestração e identidade"
+      },
+      {
+        "id": "restricted",
+        "description": "Projetos estratégicos com acesso limitado por time"
+      },
+      {
+        "id": "internal",
+        "description": "Uso interno da organização, sem exposição pública"
+      },
+      {
+        "id": "public",
+        "description": "Repositórios e assets aptos para exposição open source"
+      }
+    ],
+    "defaultLevel": "internal"
+  },
+  "accessGroups": [
+    {
+      "id": "owner",
+      "description": "Proprietário soberano do ecossistema"
+    },
+    {
+      "id": "core-architecture",
+      "description": "Arquitetura central e governança técnica"
+    },
+    {
+      "id": "protocol-engineering",
+      "description": "Smart contracts, integrações de protocolo e token"
+    },
+    {
+      "id": "growth-apps",
+      "description": "Produtos de crescimento, PWA e conteúdo"
+    },
+    {
+      "id": "ops",
+      "description": "Operação, incidentes, observabilidade e deploy"
+    },
+    {
+      "id": "external-collaborators",
+      "description": "Colaboradores externos com escopo limitado"
+    }
+  ],
+  "projectPolicies": [
+    {
+      "id": "neobot-architect",
+      "level": "sovereign",
+      "authorizedGroups": ["owner", "core-architecture", "ops"]
+    },
+    {
+      "id": "neo-nexus",
+      "level": "sovereign",
+      "authorizedGroups": ["owner", "core-architecture", "ops"]
+    },
+    {
+      "id": "mio-system",
+      "level": "sovereign",
+      "authorizedGroups": ["owner", "core-architecture", "protocol-engineering"]
+    },
+    {
+      "id": "neo-tunnel",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "core-architecture", "ops"]
+    },
+    {
+      "id": "neo-agent-full",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "core-architecture", "ops"]
+    },
+    {
+      "id": "flowpay",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "core-architecture", "ops"]
+    },
+    {
+      "id": "smart-core",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "protocol-engineering"]
+    },
+    {
+      "id": "fluxx-contracts",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "protocol-engineering"]
+    },
+    {
+      "id": "wod-eth",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "protocol-engineering"]
+    },
+    {
+      "id": "neo-flowoff-pwa",
+      "level": "internal",
+      "authorizedGroups": ["owner", "growth-apps", "ops"]
+    }
+  ],
+  "pathPolicies": [
+    {
+      "path": "neobot/config/ecosystem.json",
+      "level": "sovereign",
+      "authorizedGroups": ["owner", "core-architecture"]
+    },
+    {
+      "path": "neobot/config/access-control.json",
+      "level": "sovereign",
+      "authorizedGroups": ["owner", "core-architecture"]
+    },
+    {
+      "path": "neo-protocol-contracts/**",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "protocol-engineering"]
+    },
+    {
+      "path": "neoflw-token/**",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "protocol-engineering"]
+    },
+    {
+      "path": "flowpay/**",
+      "level": "restricted",
+      "authorizedGroups": ["owner", "core-architecture", "ops"]
+    },
+    {
+      "path": "flowpay-core/**",
+      "level": "public",
+      "authorizedGroups": ["owner", "external-collaborators"],
+      "notes": "Projeto externo, fora da stack NEØ Protocol"
+    }
+  ],
+  "enforcementBaseline": {
+    "requireCodeowners": true,
+    "requirePullRequestReviews": 2,
+    "requireStatusChecks": true,
+    "blockDirectPushToMain": true
+  }
+}

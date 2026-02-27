@@ -1,0 +1,31 @@
+name: Ecosystem Guard
+
+on:
+  pull_request:
+    paths:
+      - config/ecosystem.json
+      - config/access-control.json
+      - scripts/validate-ecosystem.sh
+      - .github/workflows/ecosystem-guard.yml
+  push:
+    branches:
+      - main
+    paths:
+      - config/ecosystem.json
+      - config/access-control.json
+      - scripts/validate-ecosystem.sh
+      - .github/workflows/ecosystem-guard.yml
+
+permissions:
+  contents: read
+
+jobs:
+  validate-ecosystem:
+    name: Validate ecosystem map
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate ecosystem
+        run: bash scripts/validate-ecosystem.sh

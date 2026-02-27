@@ -14,7 +14,11 @@
       "production": "https://architect.neoprotocol.space/api/webhook/nexus",
       "dev": "https://dev.neoprotocol.space/api/webhook/nexus"
     },
-    "nexusEvents": ["TASK_COMPLETED", "BUILD_STATUS", "NEXUS_START"],
+    "nexusEvents": [
+      "TASK_COMPLETED",
+      "BUILD_STATUS",
+      "NEXUS_START"
+    ],
     "identity": {
       "primary": "mio-core",
       "publicKey": "src/neo/identity/",
@@ -65,7 +69,9 @@
       "production": "https://nexus.neoprotocol.space/api/events",
       "railway": "https://7glr6que.up.railway.app/api/events"
     },
-    "nexusEvents": ["*"],
+    "nexusEvents": [
+      "*"
+    ],
     "hosting": {
       "platform": "Railway",
       "productionUrl": "https://nexus.neoprotocol.space",
@@ -152,7 +158,8 @@
       "internalUrl": "http://smart-factory.railway.internal",
       "adminEmail": "factory@neoprotocol.space",
       "targetCustomDomain": "factory.neoprotocol.space"
-    }
+    },
+    "workspaceScope": "hub-root"
   },
   {
     "id": "smart-core",
@@ -174,7 +181,7 @@
     "org": "Neo Smart Factory",
     "name": "Smart CLI",
     "description": "CLI universal (nxf) for NΞØ SMART FACTORY",
-    "localPath": "../neo-smart-factory/cli",
+    "localPath": "../neo-smart-factory/smart-cli",
     "repository": "https://github.com/neo-smart-token-factory/smart-cli",
     "role": "Tooling / CLI",
     "hosting": {
@@ -215,7 +222,7 @@
     "org": "Neo Smart Factory",
     "name": "Smart Factory Docs",
     "description": "Documentation for NΞØ SMART FACTORY",
-    "localPath": "../neo-smart-factory/docs",
+    "localPath": "../neo-smart-factory",
     "repository": "https://github.com/neo-smart-token-factory/docs",
     "role": "Documentation",
     "hosting": {
@@ -223,7 +230,8 @@
       "productionUrl": "https://smart-ui-delta.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "docs.neoprotocol.space"
-    }
+    },
+    "workspaceScope": "docs-repo-mirror"
   },
   {
     "id": "internal-ops",
@@ -287,8 +295,14 @@
       "production": "https://flowpay.cash/api/webhook/nexus"
     },
     "nexusEvents": {
-      "emits": ["FLOWPAY:PAYMENT_RECEIVED"],
-      "consumes": ["FACTORY:MINT_CONFIRMED", "FACTORY:MINT_FAILED", "NEOBOT:ACCESS_UNLOCKED"],
+      "emits": [
+        "FLOWPAY:PAYMENT_RECEIVED"
+      ],
+      "consumes": [
+        "FACTORY:MINT_CONFIRMED",
+        "FACTORY:MINT_FAILED",
+        "NEOBOT:ACCESS_UNLOCKED"
+      ],
       "nexusTarget": {
         "local": "http://localhost:3000/api/webhooks/flowpay",
         "internal": "http://neo-nexus.railway.internal/api/webhooks/flowpay",
@@ -307,44 +321,6 @@
       "buildCommand": "npm run build",
       "startCommand": "PORT=4321 npm start",
       "healthcheck": "/api/health"
-    }
-  },
-  {
-    "id": "flowpay-core",
-    "org": "FlowPay Core (External Venture)",
-    "name": "FlowPay Core Engine (Standalone Commercial)",
-    "description": "Engine standalone de pagamentos para trilha comercial e investidores (fora da stack NEØ Protocol). Fastify + TypeScript. Recebe webhooks PIX de providers e normaliza confirmações de pagamento.",
-    "stackBoundary": {
-      "belongsToNeoProtocolStack": false,
-      "relationshipToNeoProtocol": "strategic-partner",
-      "doNotConfuseWith": "flowpay"
-    },
-    "localPath": "../flowpay-core",
-    "absolutePath": "/usr/local/projects/flowpay-core",
-    "repository": "https://github.com/FlowPay-Core/flowpay_core",
-    "role": "Payment Core / Webhook Engine (External)",
-    "localUrl": "http://localhost:5050",
-    "officialDomain": "flowpaycore.com",
-    "ens": "flowpaycore.eth",
-    "registrationTx": "0x99764ddf4b8c9a0b5eb41ed424a1518f695bf018afd5e896e3ddc5097f73da26",
-    "sovereignWallet": "0xb872d02b3b040c05925e186490e9564e32356129",
-    "webhookUrl": {
-      "local": "http://localhost:5050/webhook/:providerId",
-      "deploymentStatus": "NOT_DEPLOYED"
-    },
-    "hosting": {
-      "platform": "Vercel (landing only)",
-      "deploymentStatus": "LANDING_ONLY",
-      "productionUrl": "https://flowpaycore.com",
-      "appDeploymentStatus": "NOT_DEPLOYED",
-      "appPlatform": "Not deployed",
-      "port": 5050,
-      "healthcheck": "/health",
-      "buildCommand": "npm run build",
-      "startCommand": "node dist/app.js",
-      "adminEmail": "neo@neoprotocol.space",
-      "envRequired": ["RECEIPT_SECRET", "BAAS_LEGACY_ALLOWED_IPS"],
-      "portNotes": "Porta 5050 — não conflita com neo-nexus(3000), mio-system(4000), flowpay-astro(4321), neo-agent-full(8080), neobot(19000)"
     }
   },
   {
@@ -373,7 +349,7 @@
     "hosting": {
       "platform": "Vercel",
       "adminEmail": "neo@neoprotocol.space",
-      "targetCustomDomain": "https://flowoff.xyz"
+      "targetCustomDomain": "flowoff.xyz"
     }
   },
   {
@@ -453,7 +429,7 @@
     "org": "Fluxx DAO",
     "name": "Fluxx DAO Landing",
     "description": "Página oficial do Protocolo de Governança Fluxx DAO.",
-    "localPath": "../fluxx-dao/fluxx-dao",
+    "localPath": "../fluxx-dao/fluxx-app",
     "repository": "git@github.com:FluxxDAO/fluxx-landing.git",
     "role": "Governance Node / Landing",
     "hosting": {
@@ -461,7 +437,8 @@
       "productionUrl": "https://fluxx-landing.vercel.app",
       "adminEmail": "team@fluxx.space",
       "targetCustomDomain": "www.fluxx.space"
-    }
+    },
+    "workspaceScope": "landing-surface"
   },
   {
     "id": "fluxx-contracts",
@@ -488,7 +465,8 @@
     "hosting": {
       "platform": "Local / Vercel (Pending)",
       "adminEmail": "team@fluxx.space"
-    }
+    },
+    "workspaceScope": "app-surface"
   },
   {
     "id": "neo-tunnel",
