@@ -120,17 +120,17 @@
     "id": "neo-dashboard",
     "org": "NEO Protocol",
     "name": "Neo Dashboard",
-    "description": "Interface Visual do Sistema (Next.js) - iOS Style Control Center",
+    "description": "Dashboard central de visualizacao geral das organizacoes, nos e conexoes do ecossistema NEO Protocol.",
     "localPath": "../neo-dashboard-deploy",
     "repository": "https://github.com/NEO-PROTOCOL/neo-dashboard.git",
-    "role": "Interface",
+    "role": "Observability / Control Center",
     "hosting": {
       "platform": "Railway",
-      "productionUrl": "https://neo-dashboard-production-2e56.up.railway.app",
-      "railwayUrl": "https://neo-dashboard-production-2e56.up.railway.app",
-      "legacyUrl": "https://neo-dashboard-deploy.vercel.app",
+      "productionUrl": "https://dashboard.neoprotocol.space",
+      "railwayUrl": "https://hgdrbcjm.up.railway.app",
       "adminEmail": "neo@neoprotocol.space",
-      "targetCustomDomain": "dashboard.neoprotocol.space"
+      "targetCustomDomain": "dashboard.neoprotocol.space",
+      "port": 3000
     }
   },
   {
