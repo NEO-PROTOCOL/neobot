@@ -1,11 +1,11 @@
 # Sovereign control surfaces
-/config/ecosystem.json @nettomello
-/config/access-control.json @nettomello
-/scripts/validate-ecosystem.sh @nettomello
+/config/ecosystem.json @neomello
+/config/access-control.json @neomello
+/scripts/validate-ecosystem.sh @neomello
 
 # Identity and core orchestration
-/src/neo/identity/ @nettomello
-/src/ @nettomello
+/src/neo/identity/ @neomello
+/src/ @neomello
 
 # Workflow governance
-/.github/workflows/ @nettomello
+/.github/workflows/ @neomello
