@@ -175,10 +175,9 @@
     "repository": "https://github.com/neo-smart-factory/smart-core",
     "role": "Protocol Layer / Contracts",
     "hosting": {
-      "platform": "Railway",
-      "productionUrl": "https://smart.neoprotocol.space",
+      "platform": "N/A (Contracts Repository)",
       "adminEmail": "neo@neoprotocol.space",
-      "targetCustomDomain": "smart.neoprotocol.space"
+      "note": "No public HTTP runtime. Contracts and deployment standards only."
     }
   },
   {
