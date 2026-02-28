@@ -21,7 +21,7 @@ const CONFIG = {
   MIO_API_URL: process.env.MIO_API_URL || 'https://id.neoprotocol.space',
   NEO_DASHBOARD_URL: process.env.NEO_DASHBOARD_URL || 'http://localhost:3000'
 };
-const ARCHITECT_WEBHOOK = 'https://architect.neoprotocol.space/api/webhook/nexus';
+const ORCHESTRATOR_WEBHOOK = 'https://orchestrator.neoprotocol.space/api/webhook/nexus';
 
 async function logSection(title: string) {
     console.log(`\n\x1b[1m\x1b[34m[${title.toUpperCase()}]\x1b[0m`);
@@ -76,7 +76,7 @@ async function runAudit() {
     await logSection('Phase 2: Connectivity Pulse');
     const nodes = [
         { name: 'Nexus Hub', url: 'https://7glr6que.up.railway.app' }, // Railway URL from ecosystem.json
-        { name: 'Architect', url: 'https://aryn3v88.up.railway.app' },
+        { name: 'Orchestrator', url: 'https://aryn3v88.up.railway.app' },
         { name: 'FlowPay', url: 'https://flowpay.cash/api/health' },
         { name: 'Agent Full', url: 'https://agent.neoprotocol.space' }
     ];

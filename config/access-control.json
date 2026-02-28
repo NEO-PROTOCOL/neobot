@@ -52,7 +52,7 @@
   ],
   "projectPolicies": [
     {
-      "id": "neobot-architect",
+      "id": "neobot-orchestrator",
       "level": "sovereign",
       "authorizedGroups": ["owner", "core-architecture", "ops"]
     },

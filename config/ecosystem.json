@@ -1,9 +1,9 @@
 [
   {
-    "id": "neobot-architect",
+    "id": "neobot-orchestrator",
     "org": "NEO Protocol",
-    "name": "Neobot — Node Warrior / NEO Nexus",
-    "description": "Node Warrior: Agente Central do NEO Protocol. Orquestrador soberano (nexus.neoprotocol.space), arquiteto e executor. Contém o Protocol Nexus Event Bus e as identidades mio-system em src/neo/identity/.",
+    "name": "Neobot — Node Warrior / Orchestrator",
+    "description": "Agente central do NEO Protocol. Orquestrador soberano que integra o barramento de eventos do nó neo-nexus (nó separado) e as identidades operacionais do nó mio-system.",
     "localPath": ".",
     "repository": "https://github.com/NEO-PROTOCOL/neobot.git",
     "role": "Orchestrator",
@@ -11,20 +11,23 @@
     "webhookUrl": {
       "local": "http://localhost:19000/api/webhook/nexus",
       "internal": "http://neobot.railway.internal/api/webhook/nexus",
-      "production": "https://architect.neoprotocol.space/api/webhook/nexus",
-      "dev": "https://dev.neoprotocol.space/api/webhook/nexus"
+      "production": "https://orchestrator.neoprotocol.space/api/webhook/nexus"
     },
-    "nexusEvents": ["TASK_COMPLETED", "BUILD_STATUS", "NEXUS_START"],
+    "nexusEvents": [
+      "TASK_COMPLETED",
+      "BUILD_STATUS",
+      "NEXUS_START"
+    ],
     "identity": {
       "primary": "mio-core",
       "publicKey": "src/neo/identity/",
-      "note": "9 identidades mio-system residem em src/neo/identity/registry.ts"
+      "note": "Integra 9 identidades operacionais do nó mio-system em src/neo/identity/registry.ts"
     },
     "hosting": {
       "platform": "Local / Railway (Production)",
       "productionUrl": "http://neobot.railway.internal",
       "railwayUrl": "https://aryn3v88.up.railway.app",
-      "targetCustomDomain": "architect.neoprotocol.space",
+      "targetCustomDomain": "orchestrator.neoprotocol.space",
       "adminEmail": "neo@neoprotocol.space"
     }
   },
@@ -32,12 +35,12 @@
     "id": "neo-agent-full",
     "org": "NEO Protocol",
     "name": "NEO Agent Full (WhatsApp/TG)",
-    "description": "Agente IA Full-Stack (WhatsApp/TG) soberano. Integrado via Railway Project.",
+    "description": "Agente IA Full-Stack (WhatsApp/TG) soberano. Integrado via Railway Project e Modal.",
     "localPath": "../neo-agent-full",
     "repository": "https://github.com/NEO-PROTOCOL/neo-agent-full.git",
     "role": "Agent Node / Autonomous Service",
     "webhookUrl": {
-      "local": "http://localhost:8080/api/webhook/nexus",
+      "local": "http://localhost:8042/api/webhook/nexus",
       "internal": "http://neo-agent-full.railway.internal/api/webhook/nexus",
       "production": "https://agent.neoprotocol.space/api/webhook/nexus"
     },
@@ -53,24 +56,26 @@
   {
     "id": "neo-nexus",
     "org": "NEO Protocol",
-    "name": "NEO Nexus (Event Hub — standalone)",
+    "name": "NEO Nexus Event Hub",
     "description": "Standalone Event Hub do Protocolo NEØ. Distribui eventos para todos os nós via HTTP webhook. Docker + Railway. Porta 3000.",
     "localPath": "../neo-nexus",
     "repository": "https://github.com/NEO-PROTOCOL/neo-nexus.git",
-    "role": "Event Hub / Relay",
+    "role": "Event Hub / Event Bus",
     "localUrl": "http://localhost:3000",
     "webhookUrl": {
       "local": "http://localhost:3000/api/events",
       "internal": "http://neo-nexus.railway.internal/api/events",
       "production": "https://nexus.neoprotocol.space/api/events",
-      "railway": "https://7glr6que.up.railway.app/api/events"
+      "railway": "https://neo-nexus-production.up.railway.app/api/events"
     },
-    "nexusEvents": ["*"],
+    "nexusEvents": [
+      "*"
+    ],
     "hosting": {
       "platform": "Railway",
       "productionUrl": "https://nexus.neoprotocol.space",
       "internalUrl": "http://neo-nexus.railway.internal",
-      "railwayUrl": "https://7glr6que.up.railway.app",
+      "railwayUrl": "https://neo-nexus-production.up.railway.app",
       "targetCustomDomain": "nexus.neoprotocol.space",
       "port": 3000,
       "buildCommand": "npm run build",
@@ -82,13 +87,13 @@
   {
     "id": "mio-system",
     "org": "NEO Protocol",
-    "name": "MIO System (Identity)",
+    "name": "MIO ID System",
     "description": "Modelo de Identidade Operacional - Backend Security Layer (Substitui Auth Tradicional)",
     "localPath": "../mio-system",
     "repository": "https://github.com/NEO-PROTOCOL/mio-system.git",
     "role": "Identity Layer",
     "webhookUrl": {
-      "local": "http://localhost:4000/api/webhook/nexus",
+      "local": "http://localhost:8080/api/webhook/nexus",
       "internal": "http://mio-system.railway.internal/api/webhook/nexus",
       "production": "https://id.neoprotocol.space/api/webhook/nexus"
     },
@@ -289,8 +294,14 @@
       "production": "https://flowpay.cash/api/webhook/nexus"
     },
     "nexusEvents": {
-      "emits": ["FLOWPAY:PAYMENT_RECEIVED"],
-      "consumes": ["FACTORY:MINT_CONFIRMED", "FACTORY:MINT_FAILED", "NEOBOT:ACCESS_UNLOCKED"],
+      "emits": [
+        "FLOWPAY:PAYMENT_RECEIVED"
+      ],
+      "consumes": [
+        "FACTORY:MINT_CONFIRMED",
+        "FACTORY:MINT_FAILED",
+        "NEOBOT:ACCESS_UNLOCKED"
+      ],
       "nexusTarget": {
         "local": "http://localhost:3000/api/webhooks/flowpay",
         "internal": "http://neo-nexus.railway.internal/api/webhooks/flowpay",

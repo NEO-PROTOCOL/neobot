@@ -8,7 +8,7 @@
 
 | Project Name | Repository | Local Path | Role | Deploy |
 |--------------|-----------|------------|------|--------|
-| **Neobot** | `neomello/neobot` | `/Users/nettomello/CODIGOS/neobot` | Dev Tool, Architect | Local/Dev |
+| **Neobot** | `neomello/neobot` | `/Users/nettomello/CODIGOS/neobot` | Dev Tool, Orchestrator | Local/Dev |
 | **FlowCloser** | `NEO-PROTOCOL/neo-closer` | `/Users/nettomello/CODIGOS/neo-protocol-stack/flowcloser` | Webhook Notifier | Railway (sales.neoprotocol.space) |
 | **Neo-Agent-Full** | `neomello/neo-agent-full` | `/Users/nettomello/CODIGOS/neo-agent-full` | Full WhatsApp Agent | Railway (existing) |
 | **Neo-Nexus** | `NEO-PROTOCOL/neo-nexus` | `/Users/nettomello/CODIGOS/neo-nexus` | Event Orchestrator | Railway (nexus.neoprotocol.space) |
@@ -30,14 +30,14 @@
 
 ## CORRECT REFERENCES (Use These)
 
-### Neobot (Architect)
+### Neobot (Orchestrator)
 ```json
 {
-  "id": "neobot-architect",
-  "name": "Neobot (Architect Agent)",
+  "id": "neobot-orchestrator",
+  "name": "Neobot (Orchestrator Agent)",
   "repository": "https://github.com/NEO-PROTOCOL/neobot.git",
   "localPath": "/Users/nettomello/CODIGOS/neobot",
-  "role": "Development Tool / Architect"
+  "role": "Development Tool / Orchestrator"
 }
 ```
 

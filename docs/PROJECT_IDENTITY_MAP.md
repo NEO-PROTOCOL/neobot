@@ -7,10 +7,10 @@
 
 ## CORE IDENTITY MATRIX
 
-- **Neobot Architect (Sovereign Node)**
+- **Neobot Orchestrator (Sovereign Node)**
   - Local Path: `.`
   - Identity: `mio-core` / `mio-warrior` (Pending Key)
-  - Role: Sovereign Node / Orchestrator / Architect
+  - Role: Sovereign Node / Orchestrator
 
 - **NEO Agent Full (Agent Node)**
   - Local Path: `../neo-agent-full`
@@ -63,7 +63,7 @@
 
 | Module           | Status | Local Mount Path |
 | :--------------- | :----- | :--------------- |
-| neobot-architect | CORE   | `./`             |
+| neobot-orchestrator | CORE   | `./`             |
 | neo-agent-full   | AGENT  | `../neo-agent`   |
 | neo-nexus        | HUB    | `../neo-nexus`   |
 | mio-system       | AUTH   | `../mio-system`  |
