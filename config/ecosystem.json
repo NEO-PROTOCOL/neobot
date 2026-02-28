@@ -29,6 +29,20 @@
     }
   },
   {
+    "id": "neo-protocol-hub",
+    "org": "NEO Protocol",
+    "name": "NEO Protocol Hub",
+    "description": "Hub organizacional do NEO Protocol. Centraliza governanca tecnica, mapa do ecossistema e integracao entre nos.",
+    "localPath": "..",
+    "repository": "https://github.com/NEO-PROTOCOL",
+    "role": "Organization Hub / Governance Node",
+    "hosting": {
+      "platform": "GitHub Organization / Distributed",
+      "adminEmail": "neo@neoprotocol.space",
+      "targetCustomDomain": "neoprotocol.space"
+    }
+  },
+  {
     "id": "neo-agent-full",
     "org": "NEO Protocol",
     "name": "NEO Agent Full (WhatsApp/TG)",
@@ -137,21 +151,17 @@
     "id": "smart-factory",
     "org": "Neo Smart Factory",
     "name": "NEO Smart Factory Hub",
-    "description": "Fábrica de Tokens e Contratos Inteligentes. Reduz fricção Web3.",
-    "localPath": "../../neo-smart-token-factory",
-    "repository": "https://github.com/neo-smart-token-factory",
-    "role": "Web3 Engineering Organization",
-    "webhookUrl": {
-      "internal": "http://smart-factory.railway.internal/api/webhook/nexus",
-      "production": "https://factory.neoprotocol.space/api/webhook/nexus"
-    },
+    "description": "Hub organizacional da Neo Smart Factory. Centraliza metadados, governanca tecnica e integracao dos nos smart-*.",
+    "localPath": "../../neo-smart-factory",
+    "repository": "https://github.com/neo-smart-factory",
+    "role": "Organization Hub / Metadata Node",
     "hosting": {
       "platform": "Railway",
-      "productionUrl": "https://nsfactory-metadata.up.railway.app",
-      "railwayUrl": "https://7o9m2kh2.up.railway.app",
+      "productionUrl": "https://nsfactory.xyz",
+      "railwayUrl": "https://nsfactory-metadata.up.railway.app",
       "internalUrl": "http://smart-factory.railway.internal",
-      "adminEmail": "factory@neoprotocol.space",
-      "targetCustomDomain": "factory.neoprotocol.space"
+      "adminEmail": "team@nsfactory.xyz",
+      "targetCustomDomain": "nsfactory.xyz"
     },
     "workspaceScope": "hub-root"
   },
@@ -160,8 +170,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart Core",
     "description": "Smart contracts and deployment scripts for NΞØ SMART FACTORY (Core Protocol Engine)",
-    "localPath": "../../neo-smart-token-factory/smart-core",
-    "repository": "https://github.com/neo-smart-token-factory/smart-core",
+    "localPath": "../../neo-smart-factory/smart-core",
+    "repository": "https://github.com/neo-smart-factory/smart-core",
     "role": "Protocol Layer / Contracts",
     "hosting": {
       "platform": "Railway",
@@ -175,8 +185,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart CLI",
     "description": "CLI universal (nxf) for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory/smart-cli",
-    "repository": "https://github.com/neo-smart-token-factory/smart-cli",
+    "localPath": "../../neo-smart-factory/smart-cli",
+    "repository": "https://github.com/neo-smart-factory/smart-cli",
     "role": "Tooling / CLI",
     "hosting": {
       "platform": "N/A (Local CLI)",
@@ -188,8 +198,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI",
     "description": "UI interface, PWA, and landing page for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory/smart-ui",
-    "repository": "https://github.com/neo-smart-token-factory/smart-ui",
+    "localPath": "../../neo-smart-factory/smart-ui",
+    "repository": "https://github.com/neo-smart-factory/smart-ui",
     "role": "Interface / PWA",
     "hosting": {
       "platform": "N/A (Library / PWA)",
@@ -201,8 +211,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI Landing",
     "description": "Landing page comercial da Smart Token Factory",
-    "localPath": "../../neo-smart-token-factory/_legacy_forge-ui/landing",
-    "repository": "https://github.com/neo-smart-token-factory/smart-ui-landing",
+    "localPath": "../../neo-smart-factory/_legacy_forge-ui/landing",
+    "repository": "https://github.com/neo-smart-factory/smart-ui-landing",
     "role": "Landing Page / Traffic",
     "hosting": {
       "platform": "Vercel (nodevercel/smart-ui-landing)",
@@ -216,8 +226,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart Factory Docs",
     "description": "Documentation for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory",
-    "repository": "https://github.com/neo-smart-token-factory/docs",
+    "localPath": "../../neo-smart-factory",
+    "repository": "https://github.com/neo-smart-factory/docs",
     "role": "Documentation",
     "hosting": {
       "platform": "Vercel / IPFS",
@@ -232,8 +242,8 @@
     "org": "Neo Smart Factory",
     "name": "Internal Ops",
     "description": "Operações internas e automações da Smart Factory",
-    "localPath": "../../neo-smart-token-factory/internal-ops",
-    "repository": "https://github.com/neo-smart-token-factory/internal-ops",
+    "localPath": "../../neo-smart-factory/internal-ops",
+    "repository": "https://github.com/neo-smart-factory/internal-ops",
     "role": "Internal Ops / Automation",
     "hosting": {
       "platform": "Private / Local",
@@ -245,8 +255,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI Mobile (MiniApp)",
     "description": "Interface Mobile Unificada para o ecossistema Smart Factory",
-    "localPath": "../../neo-smart-token-factory/smart-ui-mobile",
-    "repository": "https://github.com/neo-smart-token-factory/smart-ui-mobile",
+    "localPath": "../../neo-smart-factory/smart-ui-mobile",
+    "repository": "https://github.com/neo-smart-factory/smart-ui-mobile",
     "role": "Interface / Mobile / MiniApp",
     "hosting": {
       "platform": "Vercel (nodevercel/smart-ui-mobile)",
@@ -260,8 +270,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart NFT",
     "description": "NFT Manager with IPFS for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory/smart-nft",
-    "repository": "https://github.com/neo-smart-token-factory/smart-nft",
+    "localPath": "../../neo-smart-factory/smart-nft",
+    "repository": "https://github.com/neo-smart-factory/smart-nft",
     "role": "NFT Management",
     "hosting": {
       "platform": "IPFS / Web3",

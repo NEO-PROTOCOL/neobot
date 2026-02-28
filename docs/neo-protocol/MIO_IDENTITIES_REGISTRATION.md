@@ -104,9 +104,9 @@ DRAFT → WAITING_HUMAN → APPROVED → SCHEDULED → POSTED → ARCHIVED
 - **Stack:** Solidity, Tact (TON), Hardhat, OpenZeppelin
 - **Camada:** Valor & Token
 - **Repos:**
-  - https://github.com/neo-smart-token-factory/smart-core
-  - https://github.com/neo-smart-token-factory/docs
-  - https://github.com/neo-smart-token-factory/smart-cli
+  - https://github.com/neo-smart-factory/smart-core
+  - https://github.com/neo-smart-factory/docs
+  - https://github.com/neo-smart-factory/smart-cli
 - **Status:** 🟡 Pré-lançamento (v0.5.3-neural-core)
 
 **Contratos:**

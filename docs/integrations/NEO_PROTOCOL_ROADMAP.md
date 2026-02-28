@@ -41,7 +41,7 @@ orchestrator.
 ┃       └─ Unified control layer
 ┃
 ┃ TOKENIZATION
-┃ └─ neo-smart-token-factory
+┃ └─ neo-smart-factory
 ┃    ├─ smart-core (Contracts)
 ┃    ├─ smart-ui (PWA)
 ┃    ├─ smart-cli (nxf)
@@ -271,7 +271,7 @@ Integrate CEO automation platform.
 **NEØ Ecosystem:**
 - neo-agent-full (Sovereign backend)
 - neo-agent-dashboard (Visualization)
-- neo-smart-token-factory (Tokenization)
+- neo-smart-factory (Tokenization)
 
 **External:**
 - Moltbot (Fork origin)

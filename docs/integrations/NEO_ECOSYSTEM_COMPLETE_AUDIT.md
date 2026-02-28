@@ -88,7 +88,7 @@ and integration strategy with Neobot.
 **Priority:** 🔥 HIGH (Revenue generator)
 
 **Notion:** NEØ TOKEN FACTORY
-**Organization:** neo-smart-token-factory
+**Organization:** neo-smart-factory
 **Repos:** 8 repositories
 
 **Deployed Platforms:**
@@ -576,7 +576,7 @@ Simplified workflow, manual publish
 6. [FlowPay repo - to identify]
 7. [FlowOFF agency repo - to identify]
 
-**neo-smart-token-factory org:**
+**neo-smart-factory org:**
 1. smart-core (Contracts)
 2. smart-ui (PWA)
 3. smart-cli (nxf)
