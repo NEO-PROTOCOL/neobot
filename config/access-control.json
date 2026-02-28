@@ -52,86 +52,152 @@
   ],
   "projectPolicies": [
     {
-      "id": "neobot-architect",
+      "id": "neobot-orchestrator",
       "level": "sovereign",
-      "authorizedGroups": ["owner", "core-architecture", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
+    },
+    {
+      "id": "neobot-architect",
+      "legacyAliasOf": "neobot-orchestrator",
+      "level": "sovereign",
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
     },
     {
       "id": "neo-nexus",
       "level": "sovereign",
-      "authorizedGroups": ["owner", "core-architecture", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
     },
     {
       "id": "mio-system",
       "level": "sovereign",
-      "authorizedGroups": ["owner", "core-architecture", "protocol-engineering"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "protocol-engineering"
+      ]
     },
     {
       "id": "neo-tunnel",
       "level": "restricted",
-      "authorizedGroups": ["owner", "core-architecture", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
     },
     {
       "id": "neo-agent-full",
       "level": "restricted",
-      "authorizedGroups": ["owner", "core-architecture", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
     },
     {
       "id": "flowpay",
       "level": "restricted",
-      "authorizedGroups": ["owner", "core-architecture", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
     },
     {
       "id": "smart-core",
       "level": "restricted",
-      "authorizedGroups": ["owner", "protocol-engineering"]
+      "authorizedGroups": [
+        "owner",
+        "protocol-engineering"
+      ]
     },
     {
       "id": "fluxx-contracts",
       "level": "restricted",
-      "authorizedGroups": ["owner", "protocol-engineering"]
+      "authorizedGroups": [
+        "owner",
+        "protocol-engineering"
+      ]
     },
     {
       "id": "wod-eth",
       "level": "restricted",
-      "authorizedGroups": ["owner", "protocol-engineering"]
+      "authorizedGroups": [
+        "owner",
+        "protocol-engineering"
+      ]
     },
     {
       "id": "neo-flowoff-pwa",
       "level": "internal",
-      "authorizedGroups": ["owner", "growth-apps", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "growth-apps",
+        "ops"
+      ]
     }
   ],
   "pathPolicies": [
     {
       "path": "NEO-PROTOCOL/neobot/config/ecosystem.json",
       "level": "sovereign",
-      "authorizedGroups": ["owner", "core-architecture"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture"
+      ]
     },
     {
       "path": "NEO-PROTOCOL/neobot/config/access-control.json",
       "level": "sovereign",
-      "authorizedGroups": ["owner", "core-architecture"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture"
+      ]
     },
     {
       "path": "NEO-PROTOCOL/neo-protocol-contracts/**",
       "level": "restricted",
-      "authorizedGroups": ["owner", "protocol-engineering"]
+      "authorizedGroups": [
+        "owner",
+        "protocol-engineering"
+      ]
     },
     {
       "path": "NEO-FlowOFF/neoflw-token/**",
       "level": "restricted",
-      "authorizedGroups": ["owner", "protocol-engineering"]
+      "authorizedGroups": [
+        "owner",
+        "protocol-engineering"
+      ]
     },
     {
       "path": "flowpay/**",
       "level": "restricted",
-      "authorizedGroups": ["owner", "core-architecture", "ops"]
+      "authorizedGroups": [
+        "owner",
+        "core-architecture",
+        "ops"
+      ]
     },
     {
       "path": "flowpay-core/**",
       "level": "public",
-      "authorizedGroups": ["owner", "external-collaborators"],
+      "authorizedGroups": [
+        "owner",
+        "external-collaborators"
+      ],
       "notes": "Projeto externo, fora da stack NEØ Protocol"
     }
   ],
