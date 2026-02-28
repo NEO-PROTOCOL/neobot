@@ -23,7 +23,8 @@
     },
     "hosting": {
       "platform": "Local / Railway (Production)",
-      "productionUrl": "http://neobot.railway.internal",
+      "productionUrl": "https://architect.neoprotocol.space",
+      "activeUrl": "http://neobot.railway.internal",
       "railwayUrl": "https://aryn3v88.up.railway.app",
       "targetCustomDomain": "architect.neoprotocol.space",
       "adminEmail": "neo@neoprotocol.space"
@@ -216,7 +217,8 @@
     "role": "Landing Page / Traffic",
     "hosting": {
       "platform": "Vercel (nodevercel/smart-ui-landing)",
-      "productionUrl": "https://landing-jet-seven.vercel.app/",
+      "productionUrl": "https://landing.neoprotocol.space",
+      "activeUrl": "https://landing-jet-seven.vercel.app/",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "landing.neoprotocol.space"
     }
@@ -231,7 +233,8 @@
     "role": "Documentation",
     "hosting": {
       "platform": "Vercel / IPFS",
-      "productionUrl": "https://smart-ui-delta.vercel.app",
+      "productionUrl": "https://docs.neoprotocol.space",
+      "activeUrl": "https://smart-ui-delta.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "docs.neoprotocol.space"
     },
@@ -260,7 +263,8 @@
     "role": "Interface / Mobile / MiniApp",
     "hosting": {
       "platform": "Vercel (nodevercel/smart-ui-mobile)",
-      "productionUrl": "https://miniapp-smartfactory.vercel.app",
+      "productionUrl": "https://mobile.neoprotocol.space",
+      "activeUrl": "https://miniapp-smartfactory.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "mobile.neoprotocol.space"
     }
@@ -290,7 +294,7 @@
     },
     "localPath": "../../flowpay",
     "absolutePath": "/usr/local/projects/flowpay",
-    "repository": "git@github.com:flowpaycash/flowpay.git",
+    "repository": "https://github.com/flowpaycash/flowpay",
     "role": "Checkout / Financial Node (Stack)",
     "localUrl": "http://localhost:4321",
     "webhookUrl": {
@@ -384,11 +388,12 @@
     "name": "WOD [X] PRO (App)",
     "description": "Plataforma Fitness Gamificada - Aplicativo Front-end",
     "localPath": "../../wodxpro/wod-x-pro",
-    "repository": "git@github.com:wodxpro/wod-x-pro.git",
+    "repository": "https://github.com/wodxpro/wod-x-pro",
     "role": "DApp / Game",
     "hosting": {
       "platform": "Vercel",
-      "productionUrl": "https://wod-x-pro.vercel.app",
+      "productionUrl": "https://app.wodx.pro",
+      "activeUrl": "https://wod-x-pro.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "app.wodx.pro"
     }
@@ -399,7 +404,7 @@
     "name": "WOD Core API / Contracts",
     "description": "Contratos Inteligentes e Lógica de Tokenomics do WOD",
     "localPath": "../../wodxpro/wod-eth",
-    "repository": "git@github.com:wodxpro/wod-eth.git",
+    "repository": "https://github.com/wodxpro/wod-eth",
     "role": "Protocol Layer",
     "hosting": {
       "platform": "Railway / Base",
@@ -413,11 +418,12 @@
     "name": "WOD Protocol (Docs/Landing)",
     "description": "Documentação e Landing Page oficial do Protocolo WOD",
     "localPath": "../../wodxpro/wod-protocol",
-    "repository": "git@github.com:wodxpro/wod-protocol.git",
+    "repository": "https://github.com/wodxpro/wod-protocol",
     "role": "Documentation / Web",
     "hosting": {
       "platform": "Vercel",
-      "productionUrl": "https://wod-protocol.vercel.app",
+      "productionUrl": "https://protocol.wodx.pro",
+      "activeUrl": "https://wod-protocol.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "protocol.wodx.pro"
     }
@@ -428,11 +434,12 @@
     "name": "Fluxx DAO Landing",
     "description": "Página oficial do Protocolo de Governança Fluxx DAO.",
     "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "git@github.com:FluxxDAO/fluxx-landing.git",
+    "repository": "https://github.com/FluxxDAO/fluxx-landing",
     "role": "Governance Node / Landing",
     "hosting": {
       "platform": "Vercel",
-      "productionUrl": "https://fluxx-landing.vercel.app",
+      "productionUrl": "https://www.fluxx.space",
+      "activeUrl": "https://fluxx-landing.vercel.app",
       "adminEmail": "team@fluxx.space",
       "targetCustomDomain": "www.fluxx.space"
     },
@@ -444,7 +451,7 @@
     "name": "Fluxx DAO Contracts",
     "description": "Smart Contracts da FLUXX DAO (Governance & Tokens)",
     "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "git@github.com:FluxxDAO/contract-fluxx.git",
+    "repository": "https://github.com/FluxxDAO/contract-fluxx",
     "role": "Protocol Layer / Contracts",
     "hosting": {
       "platform": "Mainnet / Base",
@@ -459,7 +466,7 @@
     "name": "Fluxx DAO App",
     "description": "Aplicativo de Governança e Interface Fluxx DAO",
     "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "git@github.com:FluxxDAO/fluxx-app.git",
+    "repository": "https://github.com/FluxxDAO/fluxx-app",
     "role": "Interface / DApp",
     "hosting": {
       "platform": "Local / Vercel (Pending)",
