@@ -33,8 +33,8 @@ export function registerNeoCommands(program: Command): void {
     .action(async () => {
       try {
         await neoInfoCommand();
-      } catch (error: any) {
-        console.error(`Failed to execute neo:info: ${error.message}`);
+      } catch (error: unknown) {
+        console.error(`Failed to execute neo:info: ${error instanceof Error ? error.message : String(error)}`);
         process.exit(1);
       }
     });
@@ -46,8 +46,8 @@ export function registerNeoCommands(program: Command): void {
     .action(async () => {
       try {
         await indexCreateCommand();
-      } catch (error: any) {
-        console.error(`Failed to create index: ${error.message}`);
+      } catch (error: unknown) {
+        console.error(`Failed to create index: ${error instanceof Error ? error.message : String(error)}`);
         process.exit(1);
       }
     });
@@ -62,8 +62,8 @@ export function registerNeoCommands(program: Command): void {
     .action(async (path: string) => {
       try {
         await skillPublishCommand(path);
-      } catch (error: any) {
-        console.error(`Failed to publish skill: ${error.message}`);
+      } catch (error: unknown) {
+        console.error(`Failed to publish skill: ${error instanceof Error ? error.message : String(error)}`);
         process.exit(1);
       }
     });
@@ -76,8 +76,8 @@ export function registerNeoCommands(program: Command): void {
     .action(async (spec: string, options: { path?: string }) => {
       try {
         await skillInstallCommand(spec, options);
-      } catch (error: any) {
-        console.error(`Failed to install skill: ${error.message}`);
+      } catch (error: unknown) {
+        console.error(`Failed to install skill: ${error instanceof Error ? error.message : String(error)}`);
         process.exit(1);
       }
     });
@@ -90,8 +90,8 @@ export function registerNeoCommands(program: Command): void {
     .action(async (options: { search?: string }) => {
       try {
         await skillListCommand(options);
-      } catch (error: any) {
-        console.error(`Failed to list skills: ${error.message}`);
+      } catch (error: unknown) {
+        console.error(`Failed to list skills: ${error instanceof Error ? error.message : String(error)}`);
         process.exit(1);
       }
     });
