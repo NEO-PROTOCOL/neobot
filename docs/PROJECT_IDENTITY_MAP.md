@@ -63,7 +63,7 @@
 
 | Module           | Status | Local Mount Path |
 | :--------------- | :----- | :--------------- |
-| neobot-architect | CORE   | `./`             |
+| neobot-orchestrator | CORE   | `./`             |
 | neo-agent-full   | AGENT  | `../neo-agent`   |
 | neo-nexus        | HUB    | `../neo-nexus`   |
 | mio-system       | AUTH   | `../mio-system`  |

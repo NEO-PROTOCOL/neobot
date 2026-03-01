@@ -5,56 +5,56 @@
   "status": "high_priority",
   "priority": "high",
   "description": "Tokenization-as-a-Service platform. 8-repo architecture with nxf CLI bridge.",
-  "organization": "neo-smart-token-factory",
+  "organization": "neo-smart-factory",
   "repositories": {
     "smart-core": {
-      "url": "https://github.com/neo-smart-token-factory/smart-core",
+      "url": "https://github.com/neo-smart-factory/smart-core",
       "description": "Hardhat contracts",
       "tech": "Hardhat, Solidity",
       "status": "active"
     },
     "smart-ui": {
-      "url": "https://github.com/neo-smart-token-factory/smart-ui",
+      "url": "https://github.com/neo-smart-factory/smart-ui",
       "description": "PWA Dashboard",
       "tech": "Nuxt, Vue",
       "status": "active",
       "deployment": "https://smart-ui-delta.vercel.app"
     },
     "smart-cli": {
-      "url": "https://github.com/neo-smart-token-factory/smart-cli",
+      "url": "https://github.com/neo-smart-factory/smart-cli",
       "description": "nxf CLI tool",
       "tech": "TypeScript, Commander.js",
       "status": "active",
       "install": "npm install -g @neo-smart-factory/cli"
     },
     "smart-ui-mobile": {
-      "url": "https://github.com/neo-smart-token-factory/smart-ui-mobile",
+      "url": "https://github.com/neo-smart-factory/smart-ui-mobile",
       "description": "Telegram miniapp",
       "tech": "Nuxt, Telegram Bot API",
       "status": "active",
       "deployment": "https://nuxt-app-vert.vercel.app"
     },
     "smart-ui-landing": {
-      "url": "https://github.com/neo-smart-token-factory/smart-ui-landing",
+      "url": "https://github.com/neo-smart-factory/smart-ui-landing",
       "description": "Landing page",
       "tech": "Nuxt",
       "status": "active",
       "deployment": "https://landing-jet-seven.vercel.app"
     },
     "neo-api": {
-      "url": "https://github.com/neo-smart-token-factory/neo-api",
+      "url": "https://github.com/neo-smart-factory/neo-api",
       "description": "Deploy/Compile API",
       "tech": "Node.js, Express",
       "status": "active"
     },
     "forge-core": {
-      "url": "https://github.com/neo-smart-token-factory/forge-core",
+      "url": "https://github.com/neo-smart-factory/forge-core",
       "description": "Foundry contracts",
       "tech": "Foundry, Solidity",
       "status": "active"
     },
     "forge-modules": {
-      "url": "https://github.com/neo-smart-token-factory/forge-modules",
+      "url": "https://github.com/neo-smart-factory/forge-modules",
       "description": "Contract templates",
       "tech": "Foundry",
       "status": "active"
@@ -71,7 +71,7 @@
     "package": "@neo-smart-factory/cli",
     "version": "0.5.3",
     "install": "git clone + npm link (dev mode)",
-    "repository": "https://github.com/neo-smart-token-factory/smart-cli",
+    "repository": "https://github.com/neo-smart-factory/smart-cli",
     "commands": {
       "init": "nsf init",
       "draft": "nsf token draft",
