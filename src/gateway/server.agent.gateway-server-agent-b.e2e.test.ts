@@ -334,12 +334,12 @@ describe("gateway server agent", () => {
   });
 
   test("agent dedupe survives reconnect", { timeout: 60_000 }, async () => {
-    await withGatewayServer(async ({ port }) => {
+    await withGatewayServer(async ({ port: innerPort }) => {
       const dial = async () => {
-        const ws = new WebSocket(`ws://127.0.0.1:${port}`);
-        await new Promise<void>((resolve) => ws.once("open", resolve));
-        await connectOk(ws);
-        return ws;
+        const innerWs = new WebSocket(`ws://127.0.0.1:${innerPort}`);
+        await new Promise<void>((resolve) => innerWs.once("open", resolve));
+        await connectOk(innerWs);
+        return innerWs;
       };
 
       const idem = "reconnect-agent";
