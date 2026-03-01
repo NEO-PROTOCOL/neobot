@@ -1,23 +1,23 @@
 import { describe, expect, it, vi } from "vitest";
 
 const { ProxyAgent, undiciFetch, proxyAgentSpy, getLastAgent } = vi.hoisted(() => {
-  const undiciFetch = vi.fn();
-  const proxyAgentSpy = vi.fn();
-  class ProxyAgent {
-    static lastCreated: ProxyAgent | undefined;
+  const hoistedUndiciFetch = vi.fn();
+  const hoistedProxyAgentSpy = vi.fn();
+  class HoistedProxyAgent {
+    static lastCreated: HoistedProxyAgent | undefined;
     proxyUrl: string;
     constructor(proxyUrl: string) {
       this.proxyUrl = proxyUrl;
-      ProxyAgent.lastCreated = this;
-      proxyAgentSpy(proxyUrl);
+      HoistedProxyAgent.lastCreated = this;
+      hoistedProxyAgentSpy(proxyUrl);
     }
   }
 
   return {
-    ProxyAgent,
-    undiciFetch,
-    proxyAgentSpy,
-    getLastAgent: () => ProxyAgent.lastCreated,
+    ProxyAgent: HoistedProxyAgent,
+    undiciFetch: hoistedUndiciFetch,
+    proxyAgentSpy: hoistedProxyAgentSpy,
+    getLastAgent: () => HoistedProxyAgent.lastCreated,
   };
 });
 

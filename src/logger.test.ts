@@ -36,16 +36,16 @@ describe("logger helpers", () => {
   });
 
   it("only logs debug when verbose is enabled", () => {
-    const logVerbose = vi.spyOn(console, "log");
+    const consoleSpy = vi.spyOn(console, "log");
     setVerbose(false);
     logDebug("quiet");
-    expect(logVerbose).not.toHaveBeenCalled();
+    expect(consoleSpy).not.toHaveBeenCalled();
 
     setVerbose(true);
-    logVerbose.mockClear();
+    consoleSpy.mockClear();
     logDebug("loud");
-    expect(logVerbose).toHaveBeenCalled();
-    logVerbose.mockRestore();
+    expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
   });
 
   it("writes to configured log file at configured level", () => {

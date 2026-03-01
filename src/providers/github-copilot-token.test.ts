@@ -58,9 +58,9 @@ describe("github-copilot token", () => {
       }),
     });
 
-    const { resolveCopilotApiToken } = await import("./github-copilot-token.js");
+    const { resolveCopilotApiToken: resolveCopilotApiTokenFresh } = await import("./github-copilot-token.js");
 
-    const res = await resolveCopilotApiToken({
+    const res = await resolveCopilotApiTokenFresh({
       githubToken: "gh",
       cachePath,
       loadJsonFileImpl: loadJsonFile,

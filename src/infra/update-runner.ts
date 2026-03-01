@@ -519,11 +519,11 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
         };
       }
 
-      const candidates = (revListStep.stdoutTail ?? "")
+      const preflightCandidates = (revListStep.stdoutTail ?? "")
         .split("\n")
         .map((line) => line.trim())
         .filter(Boolean);
-      if (candidates.length === 0) {
+      if (preflightCandidates.length === 0) {
         return {
           status: "error",
           mode: "git",
@@ -561,7 +561,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
 
       let selectedSha: string | null = null;
       try {
-        for (const sha of candidates) {
+        for (const sha of preflightCandidates) {
           const shortSha = sha.slice(0, 8);
           const checkoutStep = await runStep(
             step(
@@ -885,7 +885,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
       stepIndex: 0,
       totalSteps: 1,
     });
-    const steps = [updateStep];
+    const globalSteps = [updateStep];
     const afterVersion = await readPackageVersion(pkgRoot);
     return {
       status: updateStep.exitCode === 0 ? "ok" : "error",
@@ -894,7 +894,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
       reason: updateStep.exitCode === 0 ? undefined : updateStep.name,
       before: { version: beforeVersion },
       after: { version: afterVersion },
-      steps,
+      steps: globalSteps,
       durationMs: Date.now() - startedAt,
     };
   }

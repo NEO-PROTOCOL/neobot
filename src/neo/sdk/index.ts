@@ -80,7 +80,7 @@ export async function createNeoClient(options?: { ipfsApiUrl?: string; privateKe
 /**
  * Type guard: verifica se é uma NeoSkill válida
  */
-export function isNeoSkill(obj: any): obj is import("../registry/index.js").NeoSkill {
+export function isNeoSkill(obj: unknown): obj is import("../registry/index.js").NeoSkill {
   return (
     typeof obj === "object" &&
     typeof obj.id === "string" &&
@@ -94,7 +94,7 @@ export function isNeoSkill(obj: any): obj is import("../registry/index.js").NeoS
 /**
  * Type guard: verifica se é uma NeoIdentity válida
  */
-export function isNeoIdentity(obj: any): obj is import("../identity/mio-system.js").NeoIdentity {
+export function isNeoIdentity(obj: unknown): obj is import("../identity/mio-system.js").NeoIdentity {
   return (
     typeof obj === "object" &&
     typeof obj.id === "string" &&

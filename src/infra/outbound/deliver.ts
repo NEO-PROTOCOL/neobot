@@ -323,9 +323,9 @@ async function deliverOutboundPayloadsCore(
   const signalMaxBytes = isSignalChannel
     ? resolveChannelMediaMaxBytes({
         cfg,
-        resolveChannelLimitMb: ({ cfg, accountId }) =>
-          cfg.channels?.signal?.accounts?.[accountId]?.mediaMaxMb ??
-          cfg.channels?.signal?.mediaMaxMb,
+        resolveChannelLimitMb: ({ cfg: limitCfg, accountId: limitAccountId }) =>
+          limitCfg.channels?.signal?.accounts?.[limitAccountId]?.mediaMaxMb ??
+          limitCfg.channels?.signal?.mediaMaxMb,
         accountId,
       })
     : undefined;
@@ -451,7 +451,7 @@ async function deliverOutboundPayloadsCore(
       mediaUrls: payload.mediaUrls ?? (payload.mediaUrl ? [payload.mediaUrl] : []),
       channelData: payload.channelData,
     };
-    const emitMessageSent = (params: {
+    const emitMessageSent = (sentParams: {
       success: boolean;
       content: string;
       error?: string;
@@ -462,9 +462,9 @@ async function deliverOutboundPayloadsCore(
           .runMessageSent(
             {
               to,
-              content: params.content,
-              success: params.success,
-              ...(params.error ? { error: params.error } : {}),
+              content: sentParams.content,
+              success: sentParams.success,
+              ...(sentParams.error ? { error: sentParams.error } : {}),
             },
             {
               channelId: channel,
@@ -480,13 +480,13 @@ async function deliverOutboundPayloadsCore(
       void triggerInternalHook(
         createInternalHookEvent("message", "sent", sessionKeyForInternalHooks, {
           to,
-          content: params.content,
-          success: params.success,
-          ...(params.error ? { error: params.error } : {}),
+          content: sentParams.content,
+          success: sentParams.success,
+          ...(sentParams.error ? { error: sentParams.error } : {}),
           channelId: channel,
           accountId: accountId ?? undefined,
           conversationId: to,
-          messageId: params.messageId,
+          messageId: sentParams.messageId,
         }),
       ).catch(() => {});
     };
