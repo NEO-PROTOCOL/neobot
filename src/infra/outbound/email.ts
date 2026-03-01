@@ -36,7 +36,7 @@ export async function sendEmail(
 
 async function sendViaResend(
   opts: EmailOptions,
-  config: any,
+  config: Record<string, unknown>,
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
   try {
     // Ordem de resolução do 'from':
@@ -48,23 +48,24 @@ async function sendViaResend(
 
     let from = opts.from;
 
-    if (!from && opts.skillId && config.skills?.[opts.skillId]) {
-      from = config.skills[opts.skillId];
+    const configRecord = config as Record<string, Record<string, unknown>>;
+    if (!from && opts.skillId && configRecord.skills?.[opts.skillId]) {
+      from = configRecord.skills[opts.skillId] as string;
     }
 
-    if (!from && opts.nodeId && config.nodes?.[opts.nodeId]) {
-      from = config.nodes[opts.nodeId];
+    if (!from && opts.nodeId && configRecord.nodes?.[opts.nodeId]) {
+      from = configRecord.nodes[opts.nodeId] as string;
     }
 
     if (!from) {
-      from = config.from || "Neobot <notifications@notifications.neoprotocol.space>";
+      from = (config.from as string | undefined) || "Neobot <notifications@notifications.neoprotocol.space>";
     }
 
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${config.apiKey}`,
+        Authorization: `Bearer ${config.apiKey as string}`,
       },
       body: JSON.stringify({
         from,
@@ -75,21 +76,21 @@ async function sendViaResend(
       }),
     });
 
-    const data = (await response.json());
+    const data = (await response.json()) as Record<string, unknown>;
 
     if (!response.ok) {
-      return { success: false, error: data.message || "Resend API error" };
+      return { success: false, error: (data.message as string | undefined) || "Resend API error" };
     }
 
-    return { success: true, messageId: data.id };
-  } catch (err: any) {
-    return { success: false, error: err.message };
+    return { success: true, messageId: data.id as string | undefined };
+  } catch (err: unknown) {
+    return { success: false, error: err instanceof Error ? err.message : String(err) };
   }
 }
 
 async function sendViaGmail(
   opts: EmailOptions,
-  _config: any,
+  _config: unknown,
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
   // Placeholder for Gmail sending via 'gog' or direct API
   // For now, we log it. In production, we'd spawn 'gog gmail send'

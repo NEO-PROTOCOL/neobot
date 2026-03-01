@@ -15,7 +15,7 @@ export interface SystemStats {
 
 export interface ReportData {
   stats: SystemStats;
-  aiUsage: any;
+  aiUsage: unknown;
   reminders: number;
   messages: number;
   errors: string[];
@@ -69,7 +69,7 @@ export class IntelligentReportService {
   /**
    * Obter estatísticas de IA
    */
-  async getAIStats(): Promise<any> {
+  async getAIStats(): Promise<unknown> {
     return this.claude.getStats();
   }
 
@@ -153,7 +153,7 @@ Seja conciso, objetivo e forneça insights acionáveis.`;
    */
   private generateFallbackReport(
     stats: SystemStats,
-    aiStats: any,
+    aiStats: unknown,
     reminders: number,
     logs: string[],
     errors: string[],

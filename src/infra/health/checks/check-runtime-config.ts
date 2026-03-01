@@ -9,15 +9,15 @@ export async function checkRuntimeConfigStatus(): Promise<HealthCheckResult> {
       status: "ok",
       summary: "Configuração de runtime carregada com sucesso.",
       details: {
-        version: (config as any).version,
-        governance: (config as any).governance_mode,
+        version: (config as Record<string, unknown>).version,
+        governance: (config as Record<string, unknown>).governance_mode,
       },
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
     return {
       key: "runtime_config",
       status: "fail",
-      summary: `Falha ao carregar configuração: ${error.message}`,
+      summary: `Falha ao carregar configuração: ${error instanceof Error ? error.message : String(error)}`,
       recommendation: "Verifique o arquivo config/neobot.runtime.json para erros de sintaxe JSON.",
     };
   }
