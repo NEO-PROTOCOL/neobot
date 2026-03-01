@@ -3,12 +3,12 @@ import { AuthStorage, ModelRegistry } from "@mariozechner/pi-coding-agent";
 
 export { AuthStorage, ModelRegistry } from "@mariozechner/pi-coding-agent";
 
-function createAuthStorage(AuthStorageLike: unknown, path: string) {
+function createAuthStorage(AuthStorageLike: unknown, storagePath: string) {
   const withFactory = AuthStorageLike as { create?: (path: string) => unknown };
   if (typeof withFactory.create === "function") {
-    return withFactory.create(path) as AuthStorage;
+    return withFactory.create(storagePath) as AuthStorage;
   }
-  return new (AuthStorageLike as { new (path: string): unknown })(path) as AuthStorage;
+  return new (AuthStorageLike as { new (path: string): unknown })(storagePath) as AuthStorage;
 }
 
 // Compatibility helpers for pi-coding-agent 0.50+ (discover* helpers removed).

@@ -524,11 +524,11 @@ export async function channelsCapabilitiesCommand(
     if (report.channel === "slack" && report.slackScopes) {
       for (const entry of report.slackScopes) {
         const source = entry.result.source ? ` (${entry.result.source})` : "";
-        const label = entry.tokenType === "user" ? "User scopes" : "Bot scopes";
+        const scopeLabel = entry.tokenType === "user" ? "User scopes" : "Bot scopes";
         if (entry.result.ok && entry.result.scopes?.length) {
-          lines.push(`${label}${source}: ${entry.result.scopes.join(", ")}`);
+          lines.push(`${scopeLabel}${source}: ${entry.result.scopes.join(", ")}`);
         } else if (entry.result.error) {
-          lines.push(`${label}: ${theme.error(entry.result.error)}`);
+          lines.push(`${scopeLabel}: ${theme.error(entry.result.error)}`);
         }
       }
     }
@@ -538,8 +538,8 @@ export async function channelsCapabilitiesCommand(
         lines.push(`Permissions: ${theme.error(perms.error)}`);
       } else {
         const list = perms.permissions?.length ? perms.permissions.join(", ") : "none";
-        const label = perms.channelId ? ` (${perms.channelId})` : "";
-        lines.push(`Permissions${label}: ${list}`);
+        const permLabel = perms.channelId ? ` (${perms.channelId})` : "";
+        lines.push(`Permissions${permLabel}: ${list}`);
         if (perms.missingRequired && perms.missingRequired.length > 0) {
           lines.push(`${theme.warn("Missing required:")} ${perms.missingRequired.join(", ")}`);
         } else {

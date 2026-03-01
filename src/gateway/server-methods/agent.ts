@@ -351,8 +351,8 @@ export const agentHandlers: GatewayRequestHandlers = {
     }
 
     if (requestedSessionKey) {
-      const { cfg, storePath, entry, canonicalKey } = loadSessionEntry(requestedSessionKey);
-      cfgForAgent = cfg;
+      const { cfg: sessionCfg, storePath, entry, canonicalKey } = loadSessionEntry(requestedSessionKey);
+      cfgForAgent = sessionCfg;
       const now = Date.now();
       const sessionId = entry?.sessionId ?? randomUUID();
       const labelValue = request.label?.trim() || entry?.label;
@@ -425,8 +425,8 @@ export const agentHandlers: GatewayRequestHandlers = {
       resolvedSessionId = sessionId;
       const canonicalSessionKey = canonicalKey;
       resolvedSessionKey = canonicalSessionKey;
-      const agentId = resolveAgentIdFromSessionKey(canonicalSessionKey);
-      const mainSessionKey = resolveAgentMainSessionKey({ cfg, agentId });
+      const sessionAgentId = resolveAgentIdFromSessionKey(canonicalSessionKey);
+      const mainSessionKey = resolveAgentMainSessionKey({ cfg, agentId: sessionAgentId });
       if (storePath) {
         await updateSessionStore(storePath, (store) => {
           const target = resolveGatewaySessionStoreTarget({
