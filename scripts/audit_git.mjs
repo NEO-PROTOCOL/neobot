@@ -21,7 +21,7 @@ for (const dir of dirs) {
 
     try {
         const remote = execSync('git remote -v', { cwd: dirPath }).toString();
-        const isOfficialOrg = remote.includes('github.com/NEO-PROTOCOL') || remote.includes('github.com/neo-smart-token-factory') || remote.includes('github.com/NEO-FlowOFF');
+        const isOfficialOrg = remote.includes('github.com/NEO-PROTOCOL') || remote.includes('github.com/neo-smart-factory') || remote.includes('github.com/NEO-FlowOFF');
         const status = execSync('git status --porcelain', { cwd: dirPath }).toString();
         const isClean = status.length === 0;
 

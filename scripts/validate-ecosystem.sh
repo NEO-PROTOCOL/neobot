@@ -68,6 +68,11 @@ check_required_fields() {
 }
 
 check_local_paths() {
+  if [[ "${CI:-}" == "true" || "${GITHUB_ACTIONS:-}" == "true" ]]; then
+    echo "INFO: skipping localPath existence check in CI"
+    return
+  fi
+
   local missing_paths=""
   while IFS=$'\t' read -r id local_path; do
     local target="$BASE_DIR/$local_path"

@@ -40,7 +40,7 @@ else
   echo -e "${RED}❌ nsf not installed${NC}"
   echo ""
   echo "Install with:"
-  echo "  git clone https://github.com/neo-smart-token-factory/smart-cli"
+  echo "  git clone https://github.com/neo-smart-factory/smart-cli"
   echo "  cd smart-cli && npm install && npm link"
   echo ""
   exit 1

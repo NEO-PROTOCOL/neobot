@@ -80,8 +80,8 @@ moltbot factory contracts --all
 - **Config:** `hardhat.config.js`, `tact.config.json`
 
 ### GitHub
-- [smart-core](https://github.com/neo-smart-token-factory/smart-core)
-- [docs](https://github.com/neo-smart-token-factory/docs)
+- [smart-core](https://github.com/neo-smart-factory/smart-core)
+- [docs](https://github.com/neo-smart-factory/docs)
 
 ### Notion
 - [Smart Factory Page](https://www.notion.so/2f78c6e83be08129bcfcf52c91ebc00a)

@@ -537,7 +537,7 @@ nxf call \
    └─ docs/integrations/smart-factory/
 
 2. GitHub Issues
-   └─ https://github.com/neo-smart-token-factory/smart-core/issues
+   └─ https://github.com/neo-smart-factory/smart-core/issues
 
 3. Discord/Slack
    └─ #smart-factory channel

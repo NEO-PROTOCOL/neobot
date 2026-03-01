@@ -9,3 +9,13 @@
 
 # Workflow governance
 /.github/workflows/ @nettomello
+/config/ecosystem.json @neomello
+/config/access-control.json @neomello
+/scripts/validate-ecosystem.sh @neomello
+
+# Identity and core orchestration
+/src/neo/identity/ @neomello
+/src/ @neomello
+
+# Workflow governance
+/.github/workflows/ @neomello

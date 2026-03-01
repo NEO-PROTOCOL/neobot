@@ -224,7 +224,7 @@ PIX → Token gateway with Neobot skills
 Tokenization factory with Neobot skills
 
 **Organization:**
-`neo-smart-token-factory`
+`neo-smart-factory`
 
 **Repositories:**
 1. `smart-core` (Contracts)
@@ -325,7 +325,7 @@ Compare CEO Escalável vs Smart UI Mobile
 
 **Locations:**
 - `/CODIGOS/ceo-escalavel-miniapp/`
-- `neo-smart-token-factory/smart-ui-mobile`
+- `neo-smart-factory/smart-ui-mobile`
 
 **Analysis needed:**
 - Architecture comparison
