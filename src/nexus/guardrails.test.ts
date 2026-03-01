@@ -1,6 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { CircuitBreaker, PaymentIdempotency, runSafeHandler, applyTemplate } from '../src/nexus/middleware';
-import { Nexus, ProtocolEvent } from '../src/nexus/index';
 
 describe('Nexus Guardrails', () => {
   

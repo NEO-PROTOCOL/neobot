@@ -42,7 +42,7 @@ export interface PaymentPayload {
     amount: number;
     currency: "BRL" | "USDC" | "NEOFLW";
     payerId: string; // MIO ID
-    metadata: Record<string, any>;
+    metadata: Record<string, unknown>;
 }
 
 export interface MintPayload {
@@ -77,8 +77,8 @@ class ProtocolNexus extends EventEmitter {
     }
 
     private setupLogger() {
-        this.on("newListener", (event) => {
-            // console.log(`[NEXUS] Listener attached for: ${event}`);
+        this.on("newListener", (_newListenerEvent) => {
+            // console.log(`[NEXUS] Listener attached for: ${_newListenerEvent}`);
         });
     }
 
@@ -87,7 +87,7 @@ class ProtocolNexus extends EventEmitter {
      * @param event The ProtocolEvent type
      * @param payload Data associated with the event
      */
-    public dispatch(event: ProtocolEvent, payload: any) {
+    public dispatch(event: ProtocolEvent, payload: unknown) {
         // 1. Safe Mode Check
         try {
             const safeMode = loadSafeMode();
@@ -118,7 +118,7 @@ class ProtocolNexus extends EventEmitter {
     /**
      * Register a reactor (handler) for a specific event.
      */
-    public onEvent(event: ProtocolEvent | string, handler: (payload: any) => void) {
+    public onEvent(event: ProtocolEvent | string, handler: (payload: unknown) => void) {
         this.on(event, handler);
     }
 }
@@ -137,7 +137,7 @@ export function setupNexusReactors() {
     console.log(`[NEXUS] 📜 Loaded ${rules.length} dynamic rules.`);
 
     rules.forEach(rule => {
-        Nexus.onEvent(rule.on, async (payload: any) => {
+        Nexus.onEvent(rule.on, async (payload: unknown) => {
             await runSafeHandler(rule, payload, async (r, p) => {
                 // Dispatch Logic
                 if (r.dispatch) {
@@ -148,7 +148,8 @@ export function setupNexusReactors() {
                 // Action Logic
                 if (r.action) {
                      if (r.action === 'notify_user') {
-                         const message = r.params?.message ? applyTemplate({ msg: r.params.message }, p).msg : 'No message';
+                         const rawMsg = r.params?.message ? applyTemplate({ msg: r.params.message }, p).msg : undefined;
+                         const message = rawMsg != null ? (typeof rawMsg === 'object' ? JSON.stringify(rawMsg) : String(rawMsg as string | number | boolean)) : 'No message';
                          console.log(`[ACTION] 🔔 NOTIFY (via neo-agent-full): ${message}`, p);
                      }
                 }
@@ -168,7 +169,7 @@ export function setupNexusReactors() {
     */
 
     // REACTOR: Mint -> Notification
-    Nexus.onEvent(ProtocolEvent.MINT_CONFIRMED, (payload: any) => {
+    Nexus.onEvent(ProtocolEvent.MINT_CONFIRMED, (_payload: unknown) => {
         console.log(`[REACTOR] ✅ Mint Confirmed! Triggering neo-agent-full notification...`);
         // Here we would call the WhatsApp/Telegram sender
     });

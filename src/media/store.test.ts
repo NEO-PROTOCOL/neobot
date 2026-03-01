@@ -51,9 +51,9 @@ describe("media store", () => {
   }
 
   it("creates and returns media directory", async () => {
-    await withTempStore(async (store, home) => {
-      const dir = await store.ensureMediaDir();
-      expect(isPathWithinBase(home, dir)).toBe(true);
+    await withTempStore(async (s, h) => {
+      const dir = await s.ensureMediaDir();
+      expect(isPathWithinBase(h, dir)).toBe(true);
       expect(path.normalize(dir)).toContain(`${path.sep}.openclaw${path.sep}media`);
       const stat = await fs.stat(dir);
       expect(stat.isDirectory()).toBe(true);
@@ -61,9 +61,9 @@ describe("media store", () => {
   });
 
   it("saves buffers and enforces size limit", async () => {
-    await withTempStore(async (store) => {
+    await withTempStore(async (s) => {
       const buf = Buffer.from("hello");
-      const saved = await store.saveMediaBuffer(buf, "text/plain");
+      const saved = await s.saveMediaBuffer(buf, "text/plain");
       const savedStat = await fs.stat(saved.path);
       expect(savedStat.size).toBe(buf.length);
       expect(saved.contentType).toBe("text/plain");
@@ -74,21 +74,21 @@ describe("media store", () => {
       })
         .jpeg({ quality: 80 })
         .toBuffer();
-      const savedJpeg = await store.saveMediaBuffer(jpeg, "image/jpeg");
+      const savedJpeg = await s.saveMediaBuffer(jpeg, "image/jpeg");
       expect(savedJpeg.contentType).toBe("image/jpeg");
       expect(savedJpeg.path.endsWith(".jpg")).toBe(true);
 
       const huge = Buffer.alloc(5 * 1024 * 1024 + 1);
-      await expect(store.saveMediaBuffer(huge)).rejects.toThrow("Media exceeds 5MB limit");
+      await expect(s.saveMediaBuffer(huge)).rejects.toThrow("Media exceeds 5MB limit");
     });
   });
 
   it("copies local files and cleans old media", async () => {
-    await withTempStore(async (store, home) => {
-      const srcFile = path.join(home, "tmp-src.txt");
-      await fs.mkdir(home, { recursive: true });
+    await withTempStore(async (s, h) => {
+      const srcFile = path.join(h, "tmp-src.txt");
+      await fs.mkdir(h, { recursive: true });
       await fs.writeFile(srcFile, "local file");
-      const saved = await store.saveMediaSource(srcFile);
+      const saved = await s.saveMediaSource(srcFile);
       expect(saved.size).toBe(10);
       const savedStat = await fs.stat(saved.path);
       expect(savedStat.isFile()).toBe(true);
@@ -97,19 +97,19 @@ describe("media store", () => {
       // make the file look old and ensure cleanOldMedia removes it
       const past = Date.now() - 10_000;
       await fs.utimes(saved.path, past / 1000, past / 1000);
-      await store.cleanOldMedia(1);
+      await s.cleanOldMedia(1);
       await expect(fs.stat(saved.path)).rejects.toThrow();
     });
   });
 
   it("cleans old media files in first-level subdirectories", async () => {
-    await withTempStore(async (store) => {
-      const saved = await store.saveMediaBuffer(Buffer.from("nested"), "text/plain", "inbound");
+    await withTempStore(async (s) => {
+      const saved = await s.saveMediaBuffer(Buffer.from("nested"), "text/plain", "inbound");
       const inboundDir = path.dirname(saved.path);
       const past = Date.now() - 10_000;
       await fs.utimes(saved.path, past / 1000, past / 1000);
 
-      await store.cleanOldMedia(1);
+      await s.cleanOldMedia(1);
 
       await expect(fs.stat(saved.path)).rejects.toThrow();
       const inboundStat = await fs.stat(inboundDir);
@@ -118,12 +118,12 @@ describe("media store", () => {
   });
 
   it("sets correct mime for xlsx by extension", async () => {
-    await withTempStore(async (store, home) => {
-      const xlsxPath = path.join(home, "sheet.xlsx");
-      await fs.mkdir(home, { recursive: true });
+    await withTempStore(async (s, h) => {
+      const xlsxPath = path.join(h, "sheet.xlsx");
+      await fs.mkdir(h, { recursive: true });
       await fs.writeFile(xlsxPath, "not really an xlsx");
 
-      const saved = await store.saveMediaSource(xlsxPath);
+      const saved = await s.saveMediaSource(xlsxPath);
       expect(saved.contentType).toBe(
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       );
@@ -132,16 +132,16 @@ describe("media store", () => {
   });
 
   it("renames media based on detected mime even when extension is wrong", async () => {
-    await withTempStore(async (store, home) => {
+    await withTempStore(async (s, h) => {
       const pngBytes = await sharp({
         create: { width: 2, height: 2, channels: 3, background: "#00ff00" },
       })
         .png()
         .toBuffer();
-      const bogusExt = path.join(home, "image-wrong.bin");
+      const bogusExt = path.join(h, "image-wrong.bin");
       await fs.writeFile(bogusExt, pngBytes);
 
-      const saved = await store.saveMediaSource(bogusExt);
+      const saved = await s.saveMediaSource(bogusExt);
       expect(saved.contentType).toBe("image/png");
       expect(path.extname(saved.path)).toBe(".png");
 
@@ -151,7 +151,7 @@ describe("media store", () => {
   });
 
   it("sniffs xlsx mime for zip buffers and renames extension", async () => {
-    await withTempStore(async (store, home) => {
+    await withTempStore(async (s, h) => {
       const zip = new JSZip();
       zip.file(
         "[Content_Types].xml",
@@ -159,10 +159,10 @@ describe("media store", () => {
       );
       zip.file("xl/workbook.xml", "<workbook/>");
       const fakeXlsx = await zip.generateAsync({ type: "nodebuffer" });
-      const bogusExt = path.join(home, "sheet.bin");
+      const bogusExt = path.join(h, "sheet.bin");
       await fs.writeFile(bogusExt, fakeXlsx);
 
-      const saved = await store.saveMediaSource(bogusExt);
+      const saved = await s.saveMediaSource(bogusExt);
       expect(saved.contentType).toBe(
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       );
@@ -171,7 +171,7 @@ describe("media store", () => {
   });
 
   it("prefers header mime extension when sniffed mime lacks mapping", async () => {
-    await withTempStore(async (_store, home) => {
+    await withTempStore(async (_store, h) => {
       vi.resetModules();
       vi.doMock("./mime.js", async () => {
         const actual = await vi.importActual<typeof import("./mime.js")>("./mime.js");
@@ -186,7 +186,7 @@ describe("media store", () => {
         const buf = Buffer.from("fake-audio");
         const saved = await storeWithMock.saveMediaBuffer(buf, "audio/ogg; codecs=opus");
         expect(path.extname(saved.path)).toBe(".ogg");
-        expect(saved.path.startsWith(home)).toBe(true);
+        expect(saved.path.startsWith(h)).toBe(true);
       } finally {
         vi.doUnmock("./mime.js");
       }
@@ -195,40 +195,40 @@ describe("media store", () => {
 
   describe("extractOriginalFilename", () => {
     it("extracts original filename from embedded pattern", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         // Pattern: {original}---{uuid}.{ext}
         const filename = "report---a1b2c3d4-e5f6-7890-abcd-ef1234567890.pdf";
-        const result = store.extractOriginalFilename(`/path/to/${filename}`);
+        const result = s.extractOriginalFilename(`/path/to/${filename}`);
         expect(result).toBe("report.pdf");
       });
     });
 
     it("handles uppercase UUID pattern", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         const filename = "Document---A1B2C3D4-E5F6-7890-ABCD-EF1234567890.docx";
-        const result = store.extractOriginalFilename(`/media/inbound/${filename}`);
+        const result = s.extractOriginalFilename(`/media/inbound/${filename}`);
         expect(result).toBe("Document.docx");
       });
     });
 
     it("falls back to basename for non-matching patterns", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         // UUID-only filename (legacy format)
         const uuidOnly = "a1b2c3d4-e5f6-7890-abcd-ef1234567890.pdf";
-        expect(store.extractOriginalFilename(`/path/${uuidOnly}`)).toBe(uuidOnly);
+        expect(s.extractOriginalFilename(`/path/${uuidOnly}`)).toBe(uuidOnly);
 
         // Regular filename without embedded pattern
-        expect(store.extractOriginalFilename("/path/to/regular.txt")).toBe("regular.txt");
+        expect(s.extractOriginalFilename("/path/to/regular.txt")).toBe("regular.txt");
 
         // Filename with --- but invalid UUID part
-        expect(store.extractOriginalFilename("/path/to/foo---bar.txt")).toBe("foo---bar.txt");
+        expect(s.extractOriginalFilename("/path/to/foo---bar.txt")).toBe("foo---bar.txt");
       });
     });
 
     it("preserves original name with special characters", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         const filename = "报告_2024---a1b2c3d4-e5f6-7890-abcd-ef1234567890.pdf";
-        const result = store.extractOriginalFilename(`/media/${filename}`);
+        const result = s.extractOriginalFilename(`/media/${filename}`);
         expect(result).toBe("报告_2024.pdf");
       });
     });
@@ -236,9 +236,9 @@ describe("media store", () => {
 
   describe("saveMediaBuffer with originalFilename", () => {
     it("embeds original filename in stored path when provided", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         const buf = Buffer.from("test content");
-        const saved = await store.saveMediaBuffer(
+        const saved = await s.saveMediaBuffer(
           buf,
           "text/plain",
           "inbound",
@@ -251,16 +251,16 @@ describe("media store", () => {
         expect(saved.path).toContain("report---");
 
         // Should be able to extract original name
-        const extracted = store.extractOriginalFilename(saved.path);
+        const extracted = s.extractOriginalFilename(saved.path);
         expect(extracted).toBe("report.txt");
       });
     });
 
     it("sanitizes unsafe characters in original filename", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         const buf = Buffer.from("test");
         // Filename with unsafe chars: < > : " / \ | ? *
-        const saved = await store.saveMediaBuffer(
+        const saved = await s.saveMediaBuffer(
           buf,
           "text/plain",
           "inbound",
@@ -274,10 +274,10 @@ describe("media store", () => {
     });
 
     it("truncates long original filenames", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         const buf = Buffer.from("test");
         const longName = "a".repeat(100) + ".txt";
-        const saved = await store.saveMediaBuffer(
+        const saved = await s.saveMediaBuffer(
           buf,
           "text/plain",
           "inbound",
@@ -292,9 +292,9 @@ describe("media store", () => {
     });
 
     it("falls back to UUID-only when originalFilename not provided", async () => {
-      await withTempStore(async (store) => {
+      await withTempStore(async (s) => {
         const buf = Buffer.from("test");
-        const saved = await store.saveMediaBuffer(buf, "text/plain", "inbound");
+        const saved = await s.saveMediaBuffer(buf, "text/plain", "inbound");
 
         // Should be UUID-only pattern (legacy behavior)
         expect(saved.id).toMatch(/^[a-f0-9-]{36}\.txt$/);

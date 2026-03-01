@@ -4,7 +4,7 @@ import { ReactorRule } from "./config.js";
 interface EventPayload {
   __chainId?: string;
   __depth?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // --- 1. Circuit Breaker (Event Depth) ---
@@ -61,9 +61,9 @@ export const PaymentIdempotency = new IdempotencyGuard();
 // --- 3. Wrapper (Try-Catch Global) ---
 
 export async function runSafeHandler(
-  rule: ReactorRule, 
-  payload: any, 
-  handler: (r: ReactorRule, p: any) => Promise<void> | void
+  rule: ReactorRule,
+  payload: unknown,
+  handler: (r: ReactorRule, p: unknown) => Promise<void> | void
 ): Promise<boolean> {
   const meta = {
     ruleId: rule.id,
@@ -74,12 +74,13 @@ export async function runSafeHandler(
   try {
     await handler(rule, payload);
     return true;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error instanceof Error ? error : new Error(String(error));
     console.error(`[NEXUS] 💥 Rule Execution Failed`, {
       ...meta,
-      errorName: error.name,
-      errorMessage: error.message,
-      stack: error.stack
+      errorName: err.name,
+      errorMessage: err.message,
+      stack: err.stack
     });
     return false;
   }
@@ -87,8 +88,8 @@ export async function runSafeHandler(
 
 // --- 4. Template Engine (Robust) ---
 
-export function applyTemplate(templateParams: Record<string, any>, payload: any): any {
-  const result: any = {};
+export function applyTemplate(templateParams: Record<string, unknown>, payload: unknown): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
   
   for (const key in templateParams) {
     const val = templateParams[key];
@@ -108,7 +109,7 @@ export function applyTemplate(templateParams: Record<string, any>, payload: any)
       if (val.includes("{{")) {
         result[key] = val.replace(/\{\{([^{}]+)\}\}/g, (_, token) => {
           const resolved = resolvePath(payload, token.trim());
-          return resolved !== undefined && resolved !== null ? String(resolved) : '';
+          return resolved !== undefined && resolved !== null ? (typeof resolved === 'object' ? JSON.stringify(resolved) : String(resolved as string | number | boolean)) : '';
         });
         continue;
       }
@@ -120,7 +121,12 @@ export function applyTemplate(templateParams: Record<string, any>, payload: any)
   return result;
 }
 
-function resolvePath(obj: any, path: string): any {
+function resolvePath(obj: unknown, path: string): unknown {
   if (!obj) {return undefined;}
-  return path.split('.').reduce((acc, part) => (acc && acc[part] !== undefined) ? acc[part] : undefined, obj);
+  return path.split('.').reduce<unknown>((acc, part) => {
+    if (acc && typeof acc === 'object' && part in acc) {
+      return (acc as Record<string, unknown>)[part];
+    }
+    return undefined;
+  }, obj);
 }

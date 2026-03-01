@@ -24,7 +24,7 @@ let db: DatabaseInstance | null = null;
 
 export function getDatabase(): DatabaseInstance {
   if (!db) {
-    const newDb = new (Database as any).default(DB_PATH);
+    const newDb = new (Database as unknown as { default: new (path: string) => DatabaseInstance }).default(DB_PATH);
     newDb.pragma("journal_mode = WAL");
     newDb.pragma("foreign_keys = ON");
 
@@ -32,9 +32,11 @@ export function getDatabase(): DatabaseInstance {
 
     // Initialize schema if needed
     initializeSchema();
+
+    return newDb;
   }
 
-  return db as DatabaseInstance;
+  return db;
 }
 
 function initializeSchema(): void {
@@ -55,7 +57,7 @@ function initializeSchema(): void {
       db.exec("ALTER TABLE audit_log ADD COLUMN signature TEXT");
       db.exec("ALTER TABLE audit_log ADD COLUMN mio_id TEXT");
       console.log("[FlowPay DB] Sovereign Audit columns verified/added ✓");
-    } catch (e) {
+    } catch {
       // Column might already exist, safe to ignore
     }
   }
@@ -108,8 +110,8 @@ export type OrderStatus =
   | "REFUNDED";
 
 export function createOrder(order: Omit<Order, "id" | "created_at" | "updated_at">): number {
-  const db = getDatabase();
-  const stmt = db.prepare(`
+  const conn = getDatabase();
+  const stmt = conn.prepare(`
     INSERT INTO orders (
       charge_id, amount_brl, amount_usdt, exchange_rate,
       product_ref, product_name, product_price,
@@ -139,8 +141,8 @@ export function createOrder(order: Omit<Order, "id" | "created_at" | "updated_at
 }
 
 export function getOrder(charge_id: string): Order | null {
-  const db = getDatabase();
-  const stmt = db.prepare("SELECT * FROM orders WHERE charge_id = ?");
+  const conn = getDatabase();
+  const stmt = conn.prepare("SELECT * FROM orders WHERE charge_id = ?");
   return stmt.get(charge_id) as Order | null;
 }
 
@@ -149,9 +151,9 @@ export function updateOrderStatus(
   status: OrderStatus,
   extra?: Partial<Order>,
 ): void {
-  const db = getDatabase();
+  const conn = getDatabase();
   let fields = ["status = ?", "updated_at = CURRENT_TIMESTAMP"];
-  let values: any[] = [status];
+  let values: (string | number | null | undefined)[] = [status];
 
   if (extra) {
     if (extra.paid_at) {
@@ -173,7 +175,7 @@ export function updateOrderStatus(
   }
   values.push(charge_id);
 
-  const stmt = db.prepare(`UPDATE orders SET ${fields.join(", ")} WHERE charge_id = ?`);
+  const stmt = conn.prepare(`UPDATE orders SET ${fields.join(", ")} WHERE charge_id = ?`);
   stmt.run(...values);
 }
 
@@ -200,8 +202,8 @@ export interface Receipt {
 }
 
 export function createReceipt(receipt: Omit<Receipt, "id" | "created_at">): number {
-  const db = getDatabase();
-  const stmt = db.prepare(`
+  const conn = getDatabase();
+  const stmt = conn.prepare(`
     INSERT INTO receipts (
       receipt_id, order_id, charge_id, paid_at,
       customer_ref, product_ref, amount_brl,
@@ -228,8 +230,8 @@ export function createReceipt(receipt: Omit<Receipt, "id" | "created_at">): numb
 }
 
 export function getReceipt(receipt_id: string): Receipt | null {
-  const db = getDatabase();
-  const stmt = db.prepare("SELECT * FROM receipts WHERE receipt_id = ?");
+  const conn = getDatabase();
+  const stmt = conn.prepare("SELECT * FROM receipts WHERE receipt_id = ?");
   return stmt.get(receipt_id) as Receipt | null;
 }
 
@@ -253,14 +255,14 @@ export interface Product {
 }
 
 export function getProduct(ref: string): Product | null {
-  const db = getDatabase();
-  const stmt = db.prepare("SELECT * FROM products WHERE ref = ? AND active = 1");
+  const conn = getDatabase();
+  const stmt = conn.prepare("SELECT * FROM products WHERE ref = ? AND active = 1");
   return stmt.get(ref) as Product | null;
 }
 
 export function listProducts(): Product[] {
-  const db = getDatabase();
-  const stmt = db.prepare("SELECT * FROM products WHERE active = 1 ORDER BY price_brl ASC");
+  const conn = getDatabase();
+  const stmt = conn.prepare("SELECT * FROM products WHERE active = 1 ORDER BY price_brl ASC");
   return stmt.all() as Product[];
 }
 
@@ -268,13 +270,13 @@ export function logAudit(
   event_type: string,
   actor: string,
   action: string,
-  details?: any,
+  details?: Record<string, unknown>,
   order_id?: number,
   signature?: string,
   mio_id?: string,
 ): void {
-  const db = getDatabase();
-  const stmt = db.prepare(
+  const conn = getDatabase();
+  const stmt = conn.prepare(
     `INSERT INTO audit_log (event_type, actor, action, details, order_id, signature, mio_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
   );
   stmt.run(
