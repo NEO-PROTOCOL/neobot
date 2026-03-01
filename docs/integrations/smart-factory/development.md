@@ -83,14 +83,14 @@ mkdir -p ~/smart-factory
 cd ~/smart-factory
 
 # Clone all 8 repos
-git clone https://github.com/neo-smart-token-factory/smart-core
-git clone https://github.com/neo-smart-token-factory/smart-ui
-git clone https://github.com/neo-smart-token-factory/smart-cli
-git clone https://github.com/neo-smart-token-factory/smart-ui-mobile
-git clone https://github.com/neo-smart-token-factory/smart-ui-landing
-git clone https://github.com/neo-smart-token-factory/neo-api
-git clone https://github.com/neo-smart-token-factory/forge-core
-git clone https://github.com/neo-smart-token-factory/forge-modules
+git clone https://github.com/neo-smart-factory/smart-core
+git clone https://github.com/neo-smart-factory/smart-ui
+git clone https://github.com/neo-smart-factory/smart-cli
+git clone https://github.com/neo-smart-factory/smart-ui-mobile
+git clone https://github.com/neo-smart-factory/smart-ui-landing
+git clone https://github.com/neo-smart-factory/neo-api
+git clone https://github.com/neo-smart-factory/forge-core
+git clone https://github.com/neo-smart-factory/forge-modules
 ```
 
 ### Development Workflow

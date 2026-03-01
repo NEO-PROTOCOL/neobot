@@ -139,7 +139,7 @@ factory:doctor
 ────────────────────────────────────────
 
 Install (Dev Mode):
-  git clone https://github.com/neo-smart-token-factory/smart-cli
+  git clone https://github.com/neo-smart-factory/smart-cli
   cd smart-cli && npm install && npm link
 
 Commands (v0.5.3):
@@ -392,7 +392,7 @@ Risk: 8 repos out of sync
 
 - [ADR-003](../../extensions/smart-factory/ADR-003-tokenization-architecture.md)
 - [architecture.md](./architecture.md)
-- Smart Factory GitHub Org: neo-smart-token-factory
+- Smart Factory GitHub Org: neo-smart-factory
 
 ────────────────────────────────────────
 

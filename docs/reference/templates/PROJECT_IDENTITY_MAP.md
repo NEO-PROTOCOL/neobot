@@ -33,7 +33,7 @@
 ### Neobot (Architect)
 ```json
 {
-  "id": "neobot-architect",
+  "id": "neobot-orchestrator",
   "name": "Neobot (Architect Agent)",
   "repository": "https://github.com/NEO-PROTOCOL/neobot.git",
   "localPath": "/Users/nettomello/CODIGOS/neobot",

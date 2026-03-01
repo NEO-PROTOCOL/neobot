@@ -28,7 +28,7 @@
           "id": "smart-core",
           "name": "Smart Core",
           "role": "smart-contract-factory",
-          "repository": "https://github.com/neo-smart-token-factory/smart-core",
+          "repository": "https://github.com/neo-smart-factory/smart-core",
           "description": "Neural Core V2 - Factory de contratos inteligentes com deploy automatizado",
           "tech": [
             "Hardhat",

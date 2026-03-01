@@ -1,9 +1,10 @@
 [
   {
-    "id": "neobot-architect",
+    "id": "neobot-orchestrator",
+    "aliases": ["neobot-architect"],
     "org": "NEO Protocol",
-    "name": "Neobot — Node Warrior / NEO Nexus",
-    "description": "Node Warrior: Agente Central do NEO Protocol. Orquestrador soberano (nexus.neoprotocol.space), arquiteto e executor. Contém o Protocol Nexus Event Bus e as identidades mio-system em src/neo/identity/.",
+    "name": "Neobot — Node Warrior / Orchestrator",
+    "description": "Node Warrior: Agente central do NEO Protocol. Orquestrador soberano, arquiteto e executor operacional do ecossistema.",
     "localPath": ".",
     "repository": "https://github.com/NEO-PROTOCOL/neobot.git",
     "role": "Orchestrator",
@@ -22,22 +23,37 @@
     },
     "hosting": {
       "platform": "Local / Railway (Production)",
-      "productionUrl": "http://neobot.railway.internal",
+      "productionUrl": "https://architect.neoprotocol.space",
+      "activeUrl": "http://neobot.railway.internal",
       "railwayUrl": "https://aryn3v88.up.railway.app",
       "targetCustomDomain": "architect.neoprotocol.space",
       "adminEmail": "neo@neoprotocol.space"
     }
   },
   {
+    "id": "neo-protocol-hub",
+    "org": "NEO Protocol",
+    "name": "NEO Protocol Hub",
+    "description": "Hub organizacional do NEO Protocol. Centraliza governanca tecnica, mapa do ecossistema e integracao entre nos.",
+    "localPath": "..",
+    "repository": "https://github.com/NEO-PROTOCOL",
+    "role": "Organization Hub / Governance Node",
+    "hosting": {
+      "platform": "GitHub Organization / Distributed",
+      "adminEmail": "neo@neoprotocol.space",
+      "targetCustomDomain": "neoprotocol.space"
+    }
+  },
+  {
     "id": "neo-agent-full",
     "org": "NEO Protocol",
     "name": "NEO Agent Full (WhatsApp/TG)",
-    "description": "Agente IA Full-Stack (WhatsApp/TG) soberano. Integrado via Railway Project.",
+    "description": "Agente IA Full-Stack (WhatsApp/TG) soberano. Integrado via Railway Project e Modal.",
     "localPath": "../neo-agent-full",
     "repository": "https://github.com/NEO-PROTOCOL/neo-agent-full.git",
     "role": "Agent Node / Autonomous Service",
     "webhookUrl": {
-      "local": "http://localhost:8080/api/webhook/nexus",
+      "local": "http://localhost:8042/api/webhook/nexus",
       "internal": "http://neo-agent-full.railway.internal/api/webhook/nexus",
       "production": "https://agent.neoprotocol.space/api/webhook/nexus"
     },
@@ -53,11 +69,11 @@
   {
     "id": "neo-nexus",
     "org": "NEO Protocol",
-    "name": "NEO Nexus (Event Hub — standalone)",
+    "name": "NEO Nexus Event Hub",
     "description": "Standalone Event Hub do Protocolo NEØ. Distribui eventos para todos os nós via HTTP webhook. Docker + Railway. Porta 3000.",
     "localPath": "../neo-nexus",
     "repository": "https://github.com/NEO-PROTOCOL/neo-nexus.git",
-    "role": "Event Hub / Relay",
+    "role": "Event Hub",
     "localUrl": "http://localhost:3000",
     "webhookUrl": {
       "local": "http://localhost:3000/api/events",
@@ -82,13 +98,13 @@
   {
     "id": "mio-system",
     "org": "NEO Protocol",
-    "name": "MIO System (Identity)",
+    "name": "MIO System",
     "description": "Modelo de Identidade Operacional - Backend Security Layer (Substitui Auth Tradicional)",
     "localPath": "../mio-system",
     "repository": "https://github.com/NEO-PROTOCOL/mio-system.git",
     "role": "Identity Layer",
     "webhookUrl": {
-      "local": "http://localhost:4000/api/webhook/nexus",
+      "local": "http://localhost:8080/api/webhook/nexus",
       "internal": "http://mio-system.railway.internal/api/webhook/nexus",
       "production": "https://id.neoprotocol.space/api/webhook/nexus"
     },
@@ -120,38 +136,33 @@
     "id": "neo-dashboard",
     "org": "NEO Protocol",
     "name": "Neo Dashboard",
-    "description": "Interface Visual do Sistema (Next.js) - iOS Style Control Center",
+    "description": "Dashboard central de visualizacao geral das organizacoes, nos e conexoes do ecossistema NEO Protocol.",
     "localPath": "../neo-dashboard-deploy",
     "repository": "https://github.com/NEO-PROTOCOL/neo-dashboard.git",
-    "role": "Interface",
+    "role": "Observability / Control Center",
     "hosting": {
       "platform": "Railway",
-      "productionUrl": "https://neo-dashboard-production-2e56.up.railway.app",
-      "railwayUrl": "https://neo-dashboard-production-2e56.up.railway.app",
-      "legacyUrl": "https://neo-dashboard-deploy.vercel.app",
+      "productionUrl": "https://dashboard.neoprotocol.space",
+      "railwayUrl": "https://hgdrbcjm.up.railway.app",
       "adminEmail": "neo@neoprotocol.space",
-      "targetCustomDomain": "dashboard.neoprotocol.space"
+      "targetCustomDomain": "dashboard.neoprotocol.space",
+      "port": 3000
     }
   },
   {
     "id": "smart-factory",
     "org": "Neo Smart Factory",
     "name": "NEO Smart Factory Hub",
-    "description": "Fábrica de Tokens e Contratos Inteligentes. Reduz fricção Web3.",
-    "localPath": "../../neo-smart-token-factory",
-    "repository": "https://github.com/neo-smart-token-factory",
-    "role": "Web3 Engineering Organization",
-    "webhookUrl": {
-      "internal": "http://smart-factory.railway.internal/api/webhook/nexus",
-      "production": "https://factory.neoprotocol.space/api/webhook/nexus"
-    },
+    "description": "Hub organizacional da Neo Smart Factory. Centraliza metadados, governanca tecnica e integracao dos nos smart-*.",
+    "localPath": "../../neo-smart-factory",
+    "repository": "https://github.com/neo-smart-factory",
+    "role": "Organization Hub / Metadata Node",
     "hosting": {
-      "platform": "Railway",
-      "productionUrl": "https://nsfactory-metadata.up.railway.app",
-      "railwayUrl": "https://7o9m2kh2.up.railway.app",
-      "internalUrl": "http://smart-factory.railway.internal",
-      "adminEmail": "factory@neoprotocol.space",
-      "targetCustomDomain": "factory.neoprotocol.space"
+      "platform": "GitHub Organization / Distributed",
+      "productionUrl": "https://nsfactory.xyz",
+      "adminEmail": "team@nsfactory.xyz",
+      "targetCustomDomain": "nsfactory.xyz",
+      "note": "Metadata repo pending creation inside neo-smart-factory org"
     },
     "workspaceScope": "hub-root"
   },
@@ -160,14 +171,13 @@
     "org": "Neo Smart Factory",
     "name": "Smart Core",
     "description": "Smart contracts and deployment scripts for NΞØ SMART FACTORY (Core Protocol Engine)",
-    "localPath": "../../neo-smart-token-factory/smart-core",
-    "repository": "https://github.com/neo-smart-token-factory/smart-core",
+    "localPath": "../../neo-smart-factory/smart-core",
+    "repository": "https://github.com/neo-smart-factory/smart-core",
     "role": "Protocol Layer / Contracts",
     "hosting": {
-      "platform": "Railway",
-      "productionUrl": "https://smart.neoprotocol.space",
+      "platform": "N/A (Contracts Repository)",
       "adminEmail": "neo@neoprotocol.space",
-      "targetCustomDomain": "smart.neoprotocol.space"
+      "note": "No public HTTP runtime. Contracts and deployment standards only."
     }
   },
   {
@@ -175,8 +185,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart CLI",
     "description": "CLI universal (nxf) for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory/smart-cli",
-    "repository": "https://github.com/neo-smart-token-factory/smart-cli",
+    "localPath": "../../neo-smart-factory/docs/smart-cli",
+    "repository": "https://github.com/neo-smart-factory/smart-cli",
     "role": "Tooling / CLI",
     "hosting": {
       "platform": "N/A (Local CLI)",
@@ -188,8 +198,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI",
     "description": "UI interface, PWA, and landing page for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory/smart-ui",
-    "repository": "https://github.com/neo-smart-token-factory/smart-ui",
+    "localPath": "../../neo-smart-factory/smart-ui",
+    "repository": "https://github.com/neo-smart-factory/smart-ui",
     "role": "Interface / PWA",
     "hosting": {
       "platform": "N/A (Library / PWA)",
@@ -201,12 +211,13 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI Landing",
     "description": "Landing page comercial da Smart Token Factory",
-    "localPath": "../../neo-smart-token-factory/_legacy_forge-ui/landing",
-    "repository": "https://github.com/neo-smart-token-factory/smart-ui-landing",
+    "localPath": "../../neo-smart-factory/docs/_legacy_forge-ui/landing",
+    "repository": "https://github.com/neo-smart-factory/smart-ui-landing",
     "role": "Landing Page / Traffic",
     "hosting": {
       "platform": "Vercel (nodevercel/smart-ui-landing)",
-      "productionUrl": "https://landing-jet-seven.vercel.app/",
+      "productionUrl": "https://landing.neoprotocol.space",
+      "activeUrl": "https://landing-jet-seven.vercel.app/",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "landing.neoprotocol.space"
     }
@@ -216,12 +227,13 @@
     "org": "Neo Smart Factory",
     "name": "Smart Factory Docs",
     "description": "Documentation for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory",
-    "repository": "https://github.com/neo-smart-token-factory/docs",
+    "localPath": "../../neo-smart-factory/docs",
+    "repository": "https://github.com/neo-smart-factory/docs",
     "role": "Documentation",
     "hosting": {
       "platform": "Vercel / IPFS",
-      "productionUrl": "https://smart-ui-delta.vercel.app",
+      "productionUrl": "https://docs.neoprotocol.space",
+      "activeUrl": "https://smart-ui-delta.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "docs.neoprotocol.space"
     },
@@ -232,8 +244,8 @@
     "org": "Neo Smart Factory",
     "name": "Internal Ops",
     "description": "Operações internas e automações da Smart Factory",
-    "localPath": "../../neo-smart-token-factory/internal-ops",
-    "repository": "https://github.com/neo-smart-token-factory/internal-ops",
+    "localPath": "../../neo-smart-factory/docs/internal-ops",
+    "repository": "https://github.com/neo-smart-factory/internal-ops",
     "role": "Internal Ops / Automation",
     "hosting": {
       "platform": "Private / Local",
@@ -245,12 +257,13 @@
     "org": "Neo Smart Factory",
     "name": "Smart UI Mobile (MiniApp)",
     "description": "Interface Mobile Unificada para o ecossistema Smart Factory",
-    "localPath": "../../neo-smart-token-factory/smart-ui-mobile",
-    "repository": "https://github.com/neo-smart-token-factory/smart-ui-mobile",
+    "localPath": "../../neo-smart-factory/docs/smart-ui-mobile",
+    "repository": "https://github.com/neo-smart-factory/smart-ui-mobile",
     "role": "Interface / Mobile / MiniApp",
     "hosting": {
       "platform": "Vercel (nodevercel/smart-ui-mobile)",
-      "productionUrl": "https://miniapp-smartfactory.vercel.app",
+      "productionUrl": "https://mobile.neoprotocol.space",
+      "activeUrl": "https://miniapp-smartfactory.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "mobile.neoprotocol.space"
     }
@@ -260,8 +273,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart NFT",
     "description": "NFT Manager with IPFS for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-token-factory/smart-nft",
-    "repository": "https://github.com/neo-smart-token-factory/smart-nft",
+    "localPath": "../../neo-smart-factory/smart-nft",
+    "repository": "https://github.com/neo-smart-factory/smart-nft",
     "role": "NFT Management",
     "hosting": {
       "platform": "IPFS / Web3",
@@ -280,7 +293,7 @@
     },
     "localPath": "../../flowpay",
     "absolutePath": "/usr/local/projects/flowpay",
-    "repository": "git@github.com:flowpaycash/flowpay.git",
+    "repository": "https://github.com/flowpaycash/flowpay",
     "role": "Checkout / Financial Node (Stack)",
     "localUrl": "http://localhost:4321",
     "webhookUrl": {
@@ -374,11 +387,12 @@
     "name": "WOD [X] PRO (App)",
     "description": "Plataforma Fitness Gamificada - Aplicativo Front-end",
     "localPath": "../../wodxpro/wod-x-pro",
-    "repository": "git@github.com:wodxpro/wod-x-pro.git",
+    "repository": "https://github.com/wodxpro/wod-x-pro",
     "role": "DApp / Game",
     "hosting": {
       "platform": "Vercel",
-      "productionUrl": "https://wod-x-pro.vercel.app",
+      "productionUrl": "https://app.wodx.pro",
+      "activeUrl": "https://wod-x-pro.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "app.wodx.pro"
     }
@@ -389,7 +403,7 @@
     "name": "WOD Core API / Contracts",
     "description": "Contratos Inteligentes e Lógica de Tokenomics do WOD",
     "localPath": "../../wodxpro/wod-eth",
-    "repository": "git@github.com:wodxpro/wod-eth.git",
+    "repository": "https://github.com/wodxpro/wod-eth",
     "role": "Protocol Layer",
     "hosting": {
       "platform": "Railway / Base",
@@ -403,11 +417,12 @@
     "name": "WOD Protocol (Docs/Landing)",
     "description": "Documentação e Landing Page oficial do Protocolo WOD",
     "localPath": "../../wodxpro/wod-protocol",
-    "repository": "git@github.com:wodxpro/wod-protocol.git",
+    "repository": "https://github.com/wodxpro/wod-protocol",
     "role": "Documentation / Web",
     "hosting": {
       "platform": "Vercel",
-      "productionUrl": "https://wod-protocol.vercel.app",
+      "productionUrl": "https://protocol.wodx.pro",
+      "activeUrl": "https://wod-protocol.vercel.app",
       "adminEmail": "neo@neoprotocol.space",
       "targetCustomDomain": "protocol.wodx.pro"
     }
@@ -418,11 +433,12 @@
     "name": "Fluxx DAO Landing",
     "description": "Página oficial do Protocolo de Governança Fluxx DAO.",
     "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "git@github.com:FluxxDAO/fluxx-landing.git",
+    "repository": "https://github.com/FluxxDAO/fluxx-landing",
     "role": "Governance Node / Landing",
     "hosting": {
       "platform": "Vercel",
-      "productionUrl": "https://fluxx-landing.vercel.app",
+      "productionUrl": "https://www.fluxx.space",
+      "activeUrl": "https://fluxx-landing.vercel.app",
       "adminEmail": "team@fluxx.space",
       "targetCustomDomain": "www.fluxx.space"
     },
@@ -434,7 +450,7 @@
     "name": "Fluxx DAO Contracts",
     "description": "Smart Contracts da FLUXX DAO (Governance & Tokens)",
     "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "git@github.com:FluxxDAO/contract-fluxx.git",
+    "repository": "https://github.com/FluxxDAO/contract-fluxx",
     "role": "Protocol Layer / Contracts",
     "hosting": {
       "platform": "Mainnet / Base",
@@ -449,7 +465,7 @@
     "name": "Fluxx DAO App",
     "description": "Aplicativo de Governança e Interface Fluxx DAO",
     "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "git@github.com:FluxxDAO/fluxx-app.git",
+    "repository": "https://github.com/FluxxDAO/fluxx-app",
     "role": "Interface / DApp",
     "hosting": {
       "platform": "Local / Vercel (Pending)",

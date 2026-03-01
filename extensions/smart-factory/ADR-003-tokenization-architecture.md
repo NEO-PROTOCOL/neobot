@@ -250,16 +250,16 @@ export async function execute(ctx) {
   "version": "1.0.0",
   "type": "remote",
   "status": "high_priority",
-  "organization": "neo-smart-token-factory",
+  "organization": "neo-smart-factory",
   "repositories": {
-    "smart-core": "https://github.com/neo-smart-token-factory/smart-core",
-    "smart-ui": "https://github.com/neo-smart-token-factory/smart-ui",
-    "smart-cli": "https://github.com/neo-smart-token-factory/smart-cli",
-    "smart-ui-mobile": "https://github.com/neo-smart-token-factory/smart-ui-mobile",
-    "smart-ui-landing": "https://github.com/neo-smart-token-factory/smart-ui-landing",
-    "neo-api": "https://github.com/neo-smart-token-factory/neo-api",
-    "forge-core": "https://github.com/neo-smart-token-factory/forge-core",
-    "forge-modules": "https://github.com/neo-smart-token-factory/forge-modules"
+    "smart-core": "https://github.com/neo-smart-factory/smart-core",
+    "smart-ui": "https://github.com/neo-smart-factory/smart-ui",
+    "smart-cli": "https://github.com/neo-smart-factory/smart-cli",
+    "smart-ui-mobile": "https://github.com/neo-smart-factory/smart-ui-mobile",
+    "smart-ui-landing": "https://github.com/neo-smart-factory/smart-ui-landing",
+    "neo-api": "https://github.com/neo-smart-factory/neo-api",
+    "forge-core": "https://github.com/neo-smart-factory/forge-core",
+    "forge-modules": "https://github.com/neo-smart-factory/forge-modules"
   },
   "deployments": {
     "dashboard": "https://smart-ui-delta.vercel.app",

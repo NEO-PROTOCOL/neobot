@@ -192,7 +192,7 @@ Contains:
 
 ```bash
 # Clone repo
-git clone https://github.com/neo-smart-token-factory/smart-cli
+git clone https://github.com/neo-smart-factory/smart-cli
 cd smart-cli
 
 # Install dependencies
