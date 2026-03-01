@@ -10,25 +10,25 @@ import type { Model, Api } from "@mariozechner/pi-ai";
 
 export interface AuthStorage {
     authPath: string;
-    data: any;
-    runtimeOverrides: any;
+    data: unknown;
+    runtimeOverrides: unknown;
     setRuntimeApiKey(provider: string, key: string): void;
     removeRuntimeApiKey(provider: string): void;
     getApiKey(provider: string): string | null;
     load(): void;
     save(): void;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export interface ModelRegistry {
     authStorage: AuthStorage;
     modelsJsonPath: string;
     models: Model<Api>[];
-    customProviderApiKeys: any;
+    customProviderApiKeys: Record<string, unknown>;
     find(provider: string, modelId: string): Model<Api> | null;
     getAll(): Model<Api>[];
     getAvailable(): Model<Api>[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 // --- Implementation ---
@@ -65,7 +65,7 @@ export const discoverAuthStorage = (agentDir: string): AuthStorage => {
     } as AuthStorage;
 };
 
-export const discoverModels = (auth: any, agentDir: string): ModelRegistry => {
+export const discoverModels = (auth: AuthStorage, agentDir: string): ModelRegistry => {
     return {
         authStorage: auth,
         modelsJsonPath: agentDir,
@@ -78,12 +78,12 @@ export const discoverModels = (auth: any, agentDir: string): ModelRegistry => {
                 provider: provider,
                 name: modelId,
                 input: ["text", "image"], // Assume multimodal capability for generic adapter
-                api: undefined as any, // API instance is handled by the caller usually
+                api: modelId as Api, // API instance is handled by the caller usually
                 contextWindow: 128000, // Defatult safe high context
                 maxTokens: 4096,
                 cost: { input: 0, output: 0 },
                 description: "Sovereign Adapter Model",
-            } as any;
+            } as unknown as Model<Api>;
         },
         getAll: () => [],
         getAvailable: () => []
