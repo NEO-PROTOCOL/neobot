@@ -29,7 +29,7 @@ try {
         }
     }
 } catch (error) {
-    console.error(chalk.red(`❌ Failed to load .neo-identities/.env: ${error}`));
+    console.error(chalk.red(`❌ Failed to load .neo-identities/.env: ${error instanceof Error ? error.message : String(error)}`));
     process.exit(1);
 }
 
@@ -84,8 +84,8 @@ async function main() {
             console.log(chalk.gray(`   mio-ID: ${identity.id}`));
             console.log(chalk.gray(`   Public Key: ${identity.publicKey}`));
             console.log("");
-        } catch (error: any) {
-            failed.push({ id: template.id, error: error.message });
+        } catch (error: unknown) {
+            failed.push({ id: template.id, error: error instanceof Error ? error.message : String(error) });
         }
     }
 

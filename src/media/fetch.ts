@@ -131,10 +131,10 @@ export async function fetchRemoteMedia(options: FetchMediaOptions): Promise<Fetc
 
     const buffer = maxBytes
       ? await readResponseWithLimit(res, maxBytes, {
-          onOverflow: ({ maxBytes, res }) =>
+          onOverflow: ({ maxBytes: overflowMaxBytes, res: overflowRes }) =>
             new MediaFetchError(
               "max_bytes",
-              `Failed to fetch media from ${res.url || url}: payload exceeds maxBytes ${maxBytes}`,
+              `Failed to fetch media from ${overflowRes.url || url}: payload exceeds maxBytes ${overflowMaxBytes}`,
             ),
         })
       : Buffer.from(await res.arrayBuffer());

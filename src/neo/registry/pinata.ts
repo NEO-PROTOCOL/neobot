@@ -45,7 +45,7 @@ export async function uploadToPinata(
         pinata_secret_api_key: secretKey,
         ...formData.getHeaders(),
       },
-      body: formData as any,
+      body: formData as unknown as BodyInit,
     });
 
     if (!response.ok) {
@@ -124,9 +124,9 @@ export async function pinToPinata(cid: string): Promise<boolean> {
     console.log(`   Pinata ID: ${result.id}`);
     console.log(`   Gateway: ${gatewayUrl}/ipfs/${cid}`);
     return true;
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Se for erro de plano pago, apenas avisa
-    if (error.message?.includes("PAID_FEATURE_ONLY")) {
+    if (error instanceof Error && error.message?.includes("PAID_FEATURE_ONLY")) {
       console.warn(`⚠️  Pinata: Pin by CID requires paid plan. Content pinned locally only.`);
       console.warn(`   Gateway Pinata não funcionará sem plano pago.`);
       console.warn(`   Use gateway local ou considere upgrade do Pinata.`);
