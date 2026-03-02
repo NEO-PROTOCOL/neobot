@@ -15,7 +15,11 @@
       "production": "https://architect.neoprotocol.space/api/webhook/nexus",
       "dev": "https://dev.neoprotocol.space/api/webhook/nexus"
     },
-    "nexusEvents": ["TASK_COMPLETED", "BUILD_STATUS", "NEXUS_START"],
+    "nexusEvents": [
+      "TASK_COMPLETED",
+      "BUILD_STATUS",
+      "NEXUS_START"
+    ],
     "identity": {
       "primary": "mio-core",
       "publicKey": "src/neo/identity/",
@@ -81,7 +85,9 @@
       "production": "https://nexus.neoprotocol.space/api/events",
       "railway": "https://7glr6que.up.railway.app/api/events"
     },
-    "nexusEvents": ["*"],
+    "nexusEvents": [
+      "*"
+    ],
     "hosting": {
       "platform": "Railway",
       "productionUrl": "https://nexus.neoprotocol.space",
@@ -158,11 +164,12 @@
     "repository": "https://github.com/neo-smart-factory",
     "role": "Organization Hub / Metadata Node",
     "hosting": {
-      "platform": "GitHub Organization / Distributed",
-      "productionUrl": "https://nsfactory.xyz",
-      "adminEmail": "team@nsfactory.xyz",
-      "targetCustomDomain": "nsfactory.xyz",
-      "note": "Metadata repo pending creation inside neo-smart-factory org"
+      "platform": "Railway",
+      "productionUrl": "https://nsfactory-metadata.up.railway.app",
+      "railwayUrl": "https://7o9m2kh2.up.railway.app",
+      "internalUrl": "http://smart-factory.railway.internal",
+      "adminEmail": "factory@neoprotocol.space",
+      "targetCustomDomain": "factory.neoprotocol.space"
     },
     "workspaceScope": "hub-root"
   },
@@ -196,8 +203,8 @@
     "org": "Neo Smart Factory",
     "name": "Smart CLI",
     "description": "CLI universal (nxf) for NΞØ SMART FACTORY",
-    "localPath": "../../neo-smart-factory/docs/smart-cli",
-    "repository": "https://github.com/neo-smart-factory/smart-cli",
+    "localPath": "../neo-smart-factory/smart-cli",
+    "repository": "https://github.com/neo-smart-token-factory/smart-cli",
     "role": "Tooling / CLI",
     "hosting": {
       "platform": "N/A (Local CLI)",
@@ -313,7 +320,9 @@
       "production": "https://flowpay.cash/api/webhook/nexus"
     },
     "nexusEvents": {
-      "emits": ["FLOWPAY:PAYMENT_RECEIVED"],
+      "emits": [
+        "FLOWPAY:PAYMENT_RECEIVED"
+      ],
       "consumes": [
         "FACTORY:MINT_CONFIRMED",
         "FACTORY:MINT_FAILED",
@@ -471,8 +480,8 @@
     "org": "Fluxx DAO",
     "name": "Fluxx DAO Landing",
     "description": "Página oficial do Protocolo de Governança Fluxx DAO.",
-    "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "https://github.com/FluxxDAO/fluxx-landing",
+    "localPath": "../fluxx-dao/fluxx-app",
+    "repository": "git@github.com:FluxxDAO/fluxx-landing.git",
     "role": "Governance Node / Landing",
     "hosting": {
       "platform": "Vercel",
