@@ -40,7 +40,7 @@ export enum ProtocolEvent {
 export interface PaymentPayload {
     orderId: string;
     amount: number;
-    currency: "BRL" | "USDC" | "NEOFLW";
+    currency: "BRL" | "USDC" | "NEOFLW" | "NEOPAY";
     payerId: string; // MIO ID
     metadata: Record<string, any>;
 }
