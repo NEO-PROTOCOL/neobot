@@ -105,8 +105,11 @@ graph TB
 
     subgraph ACTIVE_NODES["✅ ECOSYSTEM"]
         FULL_AGENT["🤖 NEO-AGENT-FULL"]
-        FACTORY["🏭 SMART FACTORY"]
+        FACTORY["🏭 SMART FACTORY (smart-core)"]
         FINANCE["💳 FLOWPAY CORE"]
+        IDENTITY["🆔 MIO SYSTEM (Identity)"]
+        DASHBOARD["📊 NEO DASHBOARD"]
+        FLUXX["🏛️ FLUXX DAO"]
     end
 
     NEXUS <--> ARCHITECT
@@ -142,14 +145,22 @@ Thanks to all our neocontributors!
 
 <!-- neocontributors-end -->
 
+────────────────────────────────────────
+
 ▓▓▓ NΞØ MELLØ
 ────────────────────────────────────────
 Core Architect · NΞØ Protocol
 neo@neoprotocol.space
 
 "Code is law. Expand until
-chaos becomes protocol."
-
-Security by design.
-Explits find no refuge here.
+silence becomes structure."
 ────────────────────────────────────────
+```
+ █████ █         
+██╔═══██╗       
+██║ █ ██║  
+██ █  ██║      
+╚██████╔╝   
+█ ╚═══╝     
+
+```

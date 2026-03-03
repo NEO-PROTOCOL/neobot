@@ -1,5 +1,9 @@
 {
-  "allowlist": ["*"],
-  "blocklist": ["EVENT:DANGEROUS_OP"],
+  "allowlist": [
+    "*"
+  ],
+  "blocklist": [
+    "EVENT:DANGEROUS_OP"
+  ],
   "maxEventDepth": 10
 }
