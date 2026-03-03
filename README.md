@@ -145,14 +145,22 @@ Thanks to all our neocontributors!
 
 <!-- neocontributors-end -->
 
+────────────────────────────────────────
+
 ▓▓▓ NΞØ MELLØ
 ────────────────────────────────────────
 Core Architect · NΞØ Protocol
 neo@neoprotocol.space
 
 "Code is law. Expand until
-chaos becomes protocol."
-
-Security by design.
-Explits find no refuge here.
+silence becomes structure."
 ────────────────────────────────────────
+```
+ █████ █         
+██╔═══██╗       
+██║ █ ██║  
+██ █  ██║      
+╚██████╔╝   
+█ ╚═══╝     
+
+```
