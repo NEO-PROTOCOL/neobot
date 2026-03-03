@@ -77,7 +77,7 @@ async function runAudit() {
     const nodes = [
         { name: 'Nexus Hub', url: 'https://7glr6que.up.railway.app' }, // Railway URL from ecosystem.json
         { name: 'Architect', url: 'https://aryn3v88.up.railway.app' },
-        { name: 'FlowPay', url: 'https://flowpay.cash/api/health' },
+        { name: 'FlowPay', url: 'https://api.flowpay.cash/health' },
         { name: 'Agent Full', url: 'https://agent.neoprotocol.space' }
     ];
 
