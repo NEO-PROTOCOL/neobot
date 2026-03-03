@@ -5,7 +5,7 @@ import path from "path";
 // --- 1. Schemas ---
 
 // Template Validation: Tokens {{token}} must contain only alphanumeric/underscore/dot
-const TemplateString = z.string().refine(
+const _TemplateString = z.string().refine(
   (val) => {
     // Check for empty braces "{{"
     if (val.includes("{{") && val.includes("}}")) {

@@ -378,9 +378,9 @@ export async function startGatewayServer(
   const nodeRegistry = new NodeRegistry();
   const nodePresenceTimers = new Map<string, ReturnType<typeof setInterval>>();
   const nodeSubscriptions = createNodeSubscriptionManager();
-  const nodeSendEvent = (opts: { nodeId: string; event: string; payloadJSON?: string | null }) => {
-    const payload = safeParseJson(opts.payloadJSON ?? null);
-    nodeRegistry.sendEvent(opts.nodeId, opts.event, payload);
+  const nodeSendEvent = (nodeEventOpts: { nodeId: string; event: string; payloadJSON?: string | null }) => {
+    const payload = safeParseJson(nodeEventOpts.payloadJSON ?? null);
+    nodeRegistry.sendEvent(nodeEventOpts.nodeId, nodeEventOpts.event, payload);
   };
   const nodeSendToSession = (sessionKey: string, event: string, payload: unknown) =>
     nodeSubscriptions.sendToSession(sessionKey, event, payload, nodeSendEvent);
@@ -714,10 +714,10 @@ export async function startGatewayServer(
   });
 
   return {
-    close: async (opts) => {
+    close: async (closeOpts) => {
       // Run gateway_stop plugin hook before shutdown
       await runGlobalGatewayStopSafely({
-        event: { reason: opts?.reason ?? "gateway stopping" },
+        event: { reason: closeOpts?.reason ?? "gateway stopping" },
         ctx: { port },
         onError: (err) => log.warn(`gateway_stop hook failed: ${String(err)}`),
       });
@@ -731,7 +731,7 @@ export async function startGatewayServer(
       skillsChangeUnsub();
       authRateLimiter?.dispose();
       channelHealthMonitor?.stop();
-      await close(opts);
+      await close(closeOpts);
     },
   };
 }

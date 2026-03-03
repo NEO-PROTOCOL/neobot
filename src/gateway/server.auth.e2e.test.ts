@@ -841,7 +841,7 @@ describe("gateway server auth/connect", () => {
     const { mkdtemp } = await import("node:fs/promises");
     const { tmpdir } = await import("node:os");
     const { join } = await import("node:path");
-    const { buildDeviceAuthPayload } = await import("./device-auth.js");
+    const { buildDeviceAuthPayload: buildDeviceAuthPayloadLocal } = await import("./device-auth.js");
     const { loadOrCreateDeviceIdentity, publicKeyRawBase64UrlFromPem, signDevicePayload } =
       await import("../infra/device-identity.js");
     const { getPairedDevice } = await import("../infra/device-pairing.js");
@@ -856,7 +856,7 @@ describe("gateway server auth/connect", () => {
     };
     const buildDevice = (scopes: string[]) => {
       const signedAtMs = Date.now();
-      const payload = buildDeviceAuthPayload({
+      const payload = buildDeviceAuthPayloadLocal({
         deviceId: identity.deviceId,
         clientId: client.id,
         clientMode: client.mode,

@@ -341,8 +341,8 @@ export async function statusCommand(
     }
     const cache = memory.cache;
     if (cache) {
-      const summary = resolveMemoryCacheSummary(cache);
-      parts.push(colorByTone(summary.tone, summary.text));
+      const memoryCacheSummary = resolveMemoryCacheSummary(cache);
+      parts.push(colorByTone(memoryCacheSummary.tone, memoryCacheSummary.text));
     }
     return parts.join(" · ");
   })();

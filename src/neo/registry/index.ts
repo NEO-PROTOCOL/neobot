@@ -16,7 +16,7 @@ export interface SkillManifest {
   cid?: string; // IPFS CID after publish
   metadata?: {
     tags?: string[];
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 
@@ -46,7 +46,7 @@ export class NeoSkillsRegistry {
    */
   async publish(
     skillDir: string,
-    _signer?: any,
+    _signer?: unknown,
   ): Promise<{ cid: string; manifest: SkillManifest }> {
     console.log(`\n📦 Publishing skill from: ${skillDir}...`);
 
@@ -128,10 +128,14 @@ export class NeoSkillsRegistry {
     // This is a simplified version. For real robust implementation we need to handle recursive structures.
     // For now we assume a flat-ish structure or use 'get' command.
 
+    type IpfsGetEntry = {
+      path: string;
+      type?: string;
+      content?: AsyncIterable<Uint8Array>;
+    };
     // In kubo-rpc-client, .get returns an async generator of files
     for await (const file of this.ipfs.get(cid)) {
-      // @ts-ignore
-      const f = file as any;
+      const f = file as unknown as IpfsGetEntry;
       // f.path includes the CID prefix, we want to strip it relative to installPath
       // e.g. QmHash/index.js -> index.js
       const relativePath = f.path.replace(new RegExp(`^${cid}/?`), "");
@@ -175,7 +179,7 @@ export class NeoSkillsRegistry {
     // We will generate an index based on LOCALLY installed skills for the dashboard.
     const localSkills = await this.list();
 
-    const skillsMap: Record<string, any> = {};
+    const skillsMap: Record<string, { latest: string; versions: Record<string, string> }> = {};
 
     for (const skill of localSkills) {
       skillsMap[skill.name] = {

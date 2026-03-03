@@ -276,8 +276,8 @@ describe("initSessionState reset triggers in Slack channels", () => {
     sessionKey: string;
     sessionId: string;
   }): Promise<void> {
-    const { saveSessionStore } = await import("../../config/sessions.js");
-    await saveSessionStore(params.storePath, {
+    const { saveSessionStore: saveStore } = await import("../../config/sessions.js");
+    await saveStore(params.storePath, {
       [params.sessionKey]: {
         sessionId: params.sessionId,
         updatedAt: Date.now(),
@@ -468,8 +468,8 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
     sessionId: string;
     overrides: Record<string, unknown>;
   }): Promise<void> {
-    const { saveSessionStore } = await import("../../config/sessions.js");
-    await saveSessionStore(params.storePath, {
+    const { saveSessionStore: saveStore } = await import("../../config/sessions.js");
+    await saveStore(params.storePath, {
       [params.sessionKey]: {
         sessionId: params.sessionId,
         updatedAt: Date.now(),

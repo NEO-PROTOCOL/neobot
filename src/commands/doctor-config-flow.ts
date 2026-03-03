@@ -26,8 +26,8 @@ type UnrecognizedKeysIssue = ZodIssue & {
   keys: PropertyKey[];
 };
 
-function normalizeIssuePath(path: PropertyKey[]): Array<string | number> {
-  return path.filter((part): part is string | number => typeof part !== "symbol");
+function normalizeIssuePath(issuePath: PropertyKey[]): Array<string | number> {
+  return issuePath.filter((part): part is string | number => typeof part !== "symbol");
 }
 
 function isUnrecognizedKeysIssue(issue: ZodIssue): issue is UnrecognizedKeysIssue {
@@ -49,9 +49,9 @@ function formatPath(parts: Array<string | number>): string {
   return out || "<root>";
 }
 
-function resolvePathTarget(root: unknown, path: Array<string | number>): unknown {
+function resolvePathTarget(root: unknown, pathParts: Array<string | number>): unknown {
   let current: unknown = root;
-  for (const part of path) {
+  for (const part of pathParts) {
     if (typeof part === "number") {
       if (!Array.isArray(current)) {
         return null;
@@ -89,8 +89,8 @@ function stripUnknownConfigKeys(config: OpenClawConfig): {
     if (!isUnrecognizedKeysIssue(issue)) {
       continue;
     }
-    const path = normalizeIssuePath(issue.path);
-    const target = resolvePathTarget(next, path);
+    const issuePath = normalizeIssuePath(issue.path);
+    const target = resolvePathTarget(next, issuePath);
     if (!target || typeof target !== "object" || Array.isArray(target)) {
       continue;
     }
@@ -103,7 +103,7 @@ function stripUnknownConfigKeys(config: OpenClawConfig): {
         continue;
       }
       delete record[key];
-      removed.push(formatPath([...path, key]));
+      removed.push(formatPath([...issuePath, key]));
     }
   }
 
@@ -900,7 +900,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
 
   const unknown = stripUnknownConfigKeys(candidate);
   if (unknown.removed.length > 0) {
-    const lines = unknown.removed.map((path) => `- ${path}`).join("\n");
+    const lines = unknown.removed.map((p) => `- ${p}`).join("\n");
     candidate = unknown.config;
     pendingChanges = true;
     if (shouldRepair) {

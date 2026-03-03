@@ -103,11 +103,11 @@ export async function gatewayStatusCommand(
       const discoveryTask = discoveryPromise.catch(() => []);
       const tunnelTask = sshTarget ? tryStartTunnel() : Promise.resolve(null);
 
-      const [discovery, tunnelFirst] = await Promise.all([discoveryTask, tunnelTask]);
+      const [innerDiscovery, tunnelFirst] = await Promise.all([discoveryTask, tunnelTask]);
 
       if (!sshTarget && opts.sshAuto) {
         const user = process.env.USER?.trim() || "";
-        const candidates = discovery
+        const candidates = innerDiscovery
           .map((b) => {
             const host = b.tailnetDns || b.lanHost || b.host;
             if (!host?.trim()) {
@@ -150,7 +150,7 @@ export async function gatewayStatusCommand(
         : baseTargets;
 
       try {
-        const probed = await Promise.all(
+        const innerProbed = await Promise.all(
           targets.map(async (target) => {
             const auth = resolveAuthForTarget(cfg, target, {
               token: typeof opts.token === "string" ? opts.token : undefined,
@@ -170,7 +170,7 @@ export async function gatewayStatusCommand(
           }),
         );
 
-        return { discovery, probed };
+        return { discovery: innerDiscovery, probed: innerProbed };
       } finally {
         if (tunnel) {
           try {

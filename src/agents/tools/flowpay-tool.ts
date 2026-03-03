@@ -127,7 +127,8 @@ async function handleCreateCharge(
       );
     }
 
-    const data: any = await response.json();
+    const data = await response.json() as Record<string, unknown>;
+    const charge = data.charge as Record<string, unknown> | undefined;
 
     if (!response.ok || !data.success) {
       return jsonResult({
@@ -141,9 +142,9 @@ async function handleCreateCharge(
       success: true,
       mode: "sovereign",
       message: `PIX cobranca gerada R$ ${amount.toFixed(2)}`,
-      charge_id: data.charge?.correlationID || correlationId,
-      pix_code: data.charge?.brCode,
-      qr_code_url: data.charge?.qrCodeImage,
+      charge_id: charge?.correlationID || correlationId,
+      pix_code: charge?.brCode,
+      qr_code_url: charge?.qrCodeImage,
       instructions: [
         `Valor: R$ ${amount.toFixed(2)}`,
         `Ref: ${productId}`,
@@ -151,17 +152,17 @@ async function handleCreateCharge(
         `Aguardando confirmacao para Unlock.`,
       ].join("\n"),
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return jsonResult({
       success: false,
-      error: `FlowPay Link Error: ${error.message}`,
+      error: `FlowPay Link Error: ${error instanceof Error ? error.message : String(error)}`,
     });
   }
 }
 
 // Temporary Fallback while migrating endpoints
 async function handleLegacyCreateCharge(
-  params: any,
+  params: Record<string, unknown>,
   url: string,
   amount: number,
   wallet: string,
@@ -178,12 +179,13 @@ async function handleLegacyCreateCharge(
       product_id: params.product_id || "general",
     }),
   });
-  const data: any = await response.json();
+  const data = await response.json() as Record<string, unknown>;
+  const pixData = data.pix_data as Record<string, unknown> | undefined;
   return jsonResult({
     success: data.success,
     mode: "legacy",
-    pix_code: data.pix_data?.br_code,
-    qr_code_url: data.pix_data?.qr_code,
+    pix_code: pixData?.br_code,
+    qr_code_url: pixData?.qr_code,
     message: "Generated via Legacy Endpoint",
   });
 }
@@ -221,7 +223,7 @@ async function handleCheckStatus(
       paid: ["completed", "paid", "ACTIVE"].includes(status),
       message: status === "completed" ? "✅ PAGO & LIBERADO" : `Status: ${status}`,
     });
-  } catch (error: any) {
-    return jsonResult({ success: false, error: error.message });
+  } catch (error: unknown) {
+    return jsonResult({ success: false, error: error instanceof Error ? error.message : String(error) });
   }
 }

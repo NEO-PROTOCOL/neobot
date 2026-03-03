@@ -327,29 +327,29 @@ export async function runEmbeddedPiAgent(
       let apiKeyInfo: ApiKeyInfo | null = null;
       let lastProfileId: string | undefined;
 
-      const resolveAuthProfileFailoverReason = (params: {
+      const resolveAuthProfileFailoverReason = (failoverParams: {
         allInCooldown: boolean;
         message: string;
       }): FailoverReason => {
-        if (params.allInCooldown) {
+        if (failoverParams.allInCooldown) {
           return "rate_limit";
         }
-        const classified = classifyFailoverReason(params.message);
+        const classified = classifyFailoverReason(failoverParams.message);
         return classified ?? "auth";
       };
 
-      const throwAuthProfileFailover = (params: {
+      const throwAuthProfileFailover = (failoverParams: {
         allInCooldown: boolean;
         message?: string;
         error?: unknown;
       }): never => {
         const fallbackMessage = `No available auth profile for ${provider} (all in cooldown or unavailable).`;
         const message =
-          params.message?.trim() ||
-          (params.error ? describeUnknownError(params.error).trim() : "") ||
+          failoverParams.message?.trim() ||
+          (failoverParams.error ? describeUnknownError(failoverParams.error).trim() : "") ||
           fallbackMessage;
         const reason = resolveAuthProfileFailoverReason({
-          allInCooldown: params.allInCooldown,
+          allInCooldown: failoverParams.allInCooldown,
           message,
         });
         if (fallbackConfigured) {

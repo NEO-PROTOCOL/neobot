@@ -1,10 +1,10 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 const { getBotInfoMock, MessagingApiClientMock } = vi.hoisted(() => {
-  const getBotInfoMock = vi.fn();
-  const MessagingApiClientMock = vi.fn(function () {
-    return { getBotInfo: getBotInfoMock };
+  const hoistedGetBotInfoMock = vi.fn();
+  const hoistedMessagingApiClientMock = vi.fn(function () {
+    return { getBotInfo: hoistedGetBotInfoMock };
   });
-  return { getBotInfoMock, MessagingApiClientMock };
+  return { getBotInfoMock: hoistedGetBotInfoMock, MessagingApiClientMock: hoistedMessagingApiClientMock };
 });
 
 vi.mock("@line/bot-sdk", () => ({

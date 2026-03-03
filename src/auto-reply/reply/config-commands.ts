@@ -26,13 +26,13 @@ export function parseConfigCommand(raw: string): ConfigCommand | null {
       return { action: "show", path: args || undefined };
     case "unset":
     case "set": {
-      const parsed = parseSetUnsetCommand({ slash: "/config", action, args });
-      if (parsed.kind === "error") {
-        return { action: "error", message: parsed.message };
+      const setResult = parseSetUnsetCommand({ slash: "/config", action, args });
+      if (setResult.kind === "error") {
+        return { action: "error", message: setResult.message };
       }
-      return parsed.kind === "set"
-        ? { action: "set", path: parsed.path, value: parsed.value }
-        : { action: "unset", path: parsed.path };
+      return setResult.kind === "set"
+        ? { action: "set", path: setResult.path, value: setResult.value }
+        : { action: "unset", path: setResult.path };
     }
     default:
       return {

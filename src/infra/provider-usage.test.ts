@@ -259,13 +259,6 @@ describe("provider usage loading", () => {
         });
         expect(listProfilesForProvider(store, "anthropic")).toContain("anthropic:default");
 
-        const makeResponse = (status: number, body: unknown): Response => {
-          const payload = typeof body === "string" ? body : JSON.stringify(body);
-          const headers =
-            typeof body === "string" ? undefined : { "Content-Type": "application/json" };
-          return new Response(payload, { status, headers });
-        };
-
         const mockFetch = vi.fn(async (input: string | Request | URL, init?: RequestInit) => {
           const url =
             typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
@@ -308,13 +301,6 @@ describe("provider usage loading", () => {
     const cookieSnapshot = process.env.CLAUDE_AI_SESSION_KEY;
     process.env.CLAUDE_AI_SESSION_KEY = "sk-ant-web-1";
     try {
-      const makeResponse = (status: number, body: unknown): Response => {
-        const payload = typeof body === "string" ? body : JSON.stringify(body);
-        const headers =
-          typeof body === "string" ? undefined : { "Content-Type": "application/json" };
-        return new Response(payload, { status, headers });
-      };
-
       const mockFetch = vi.fn(async (input: string | Request | URL) => {
         const url =
           typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;

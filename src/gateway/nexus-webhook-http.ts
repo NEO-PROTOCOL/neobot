@@ -56,13 +56,13 @@ export async function handleNexusWebhookHttpRequest(
             sendUnauthorized(res);
             return true;
         }
-    } catch (err) {
+    } catch {
         sendUnauthorized(res);
         return true;
     }
 
     // 2. Process Event
-    const { event, payload } = body as { event: string; payload: any };
+    const { event, payload } = body as { event: string; payload: unknown };
     log.info(`Received event from Nexus: ${event}`);
 
     // Dispatch to internal Nexus bus
@@ -70,7 +70,7 @@ export async function handleNexusWebhookHttpRequest(
         Nexus.dispatch(event as ProtocolEvent, payload);
 
         // Custom logic for Neobot specific actions
-        if (event === ProtocolEvent.MINT_CONFIRMED) {
+        if ((event as ProtocolEvent) === ProtocolEvent.MINT_CONFIRMED) {
             // Trigger WhatsApp notification logic here or via a dedicated reactor listener
             log.info(`MINT_CONFIRMED for ${payload.orderId}. WhatsApp dispatcher should take over.`);
         }

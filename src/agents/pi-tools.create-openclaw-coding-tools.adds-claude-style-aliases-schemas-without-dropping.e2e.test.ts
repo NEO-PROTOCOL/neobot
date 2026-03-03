@@ -24,13 +24,13 @@ function findUnionKeywordOffenders(
   }> = [];
   const keywords = new Set(["anyOf", "oneOf", "allOf"]);
 
-  const walk = (value: unknown, path: string, name: string): void => {
+  const walk = (value: unknown, schemaPath: string, name: string): void => {
     if (!value) {
       return;
     }
     if (Array.isArray(value)) {
       for (const [index, entry] of value.entries()) {
-        walk(entry, `${path}[${index}]`, name);
+        walk(entry, `${schemaPath}[${index}]`, name);
       }
       return;
     }
@@ -40,7 +40,7 @@ function findUnionKeywordOffenders(
 
     const record = value as Record<string, unknown>;
     for (const [key, entry] of Object.entries(record)) {
-      const nextPath = path ? `${path}.${key}` : key;
+      const nextPath = schemaPath ? `${schemaPath}.${key}` : key;
       if (keywords.has(key)) {
         offenders.push({ name, keyword: key, path: nextPath });
       }
@@ -466,14 +466,14 @@ describe("createOpenClawCodingTools", () => {
       "maxProperties",
     ]);
 
-    const findUnsupportedKeywords = (schema: unknown, path: string): string[] => {
+    const findUnsupportedKeywords = (schema: unknown, schemaPath: string): string[] => {
       const found: string[] = [];
       if (!schema || typeof schema !== "object") {
         return found;
       }
       if (Array.isArray(schema)) {
         schema.forEach((item, i) => {
-          found.push(...findUnsupportedKeywords(item, `${path}[${i}]`));
+          found.push(...findUnsupportedKeywords(item, `${schemaPath}[${i}]`));
         });
         return found;
       }
@@ -487,7 +487,7 @@ describe("createOpenClawCodingTools", () => {
           : undefined;
       if (properties) {
         for (const [key, value] of Object.entries(properties)) {
-          found.push(...findUnsupportedKeywords(value, `${path}.properties.${key}`));
+          found.push(...findUnsupportedKeywords(value, `${schemaPath}.properties.${key}`));
         }
       }
 
@@ -496,10 +496,10 @@ describe("createOpenClawCodingTools", () => {
           continue;
         }
         if (unsupportedKeywords.has(key)) {
-          found.push(`${path}.${key}`);
+          found.push(`${schemaPath}.${key}`);
         }
         if (value && typeof value === "object") {
-          found.push(...findUnsupportedKeywords(value, `${path}.${key}`));
+          found.push(...findUnsupportedKeywords(value, `${schemaPath}.${key}`));
         }
       }
       return found;

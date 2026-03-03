@@ -161,7 +161,10 @@
       "form-data": ">=2.5.5",
       "glob": ">=11.0.1",
       "tar": "7.5.9",
-      "fast-xml-parser": ">=5.3.6"
+      "fast-xml-parser": ">=5.3.8",
+      "basic-ftp": ">=5.2.0",
+      "minimatch": ">=10.2.3",
+      "rollup": ">=4.59.0"
     },
     "onlyBuiltDependencies": [
       "@whiskeysockets/baileys",

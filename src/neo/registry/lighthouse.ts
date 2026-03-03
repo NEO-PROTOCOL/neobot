@@ -63,8 +63,8 @@ export async function pinToLighthouse(cid: string, fileName?: string): Promise<b
 
     console.warn(`⚠️  Lighthouse: Unexpected response format`);
     return false;
-  } catch (error: any) {
-    console.warn(`⚠️  Lighthouse: Failed to pin CID ${cid}: ${error.message}`);
+  } catch (error: unknown) {
+    console.warn(`⚠️  Lighthouse: Failed to pin CID ${cid}: ${error instanceof Error ? error.message : String(error)}`);
     return false;
   }
 }
@@ -173,7 +173,7 @@ export async function uploadToLighthouse(
         Authorization: `Bearer ${apiKey}`,
         ...formData.getHeaders(),
       },
-      body: formData as any,
+      body: formData as unknown as BodyInit,
     });
 
     if (!response.ok) {
@@ -192,8 +192,8 @@ export async function uploadToLighthouse(
     }
 
     throw new Error("Lighthouse: No CID in response");
-  } catch (error: any) {
-    console.error(`❌ Lighthouse upload failed: ${error.message}`);
+  } catch (error: unknown) {
+    console.error(`❌ Lighthouse upload failed: ${error instanceof Error ? error.message : String(error)}`);
     return null;
   }
 }

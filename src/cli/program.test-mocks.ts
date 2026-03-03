@@ -43,12 +43,12 @@ export function installBaseProgramMocks() {
     ],
     configureCommand,
     configureCommandWithSections,
-    configureCommandFromSectionsArg: (sections: unknown, runtime: unknown) => {
+    configureCommandFromSectionsArg: (sections: unknown, runtimeArg: unknown) => {
       const resolved = Array.isArray(sections) ? sections : [];
       if (resolved.length > 0) {
-        return configureCommandWithSections(resolved, runtime);
+        return configureCommandWithSections(resolved, runtimeArg);
       }
-      return configureCommand({}, runtime);
+      return configureCommand({}, runtimeArg);
     },
   }));
   vi.mock("../commands/setup.js", () => ({ setupCommand }));

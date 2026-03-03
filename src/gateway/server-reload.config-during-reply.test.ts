@@ -75,10 +75,10 @@ describe("gateway config reload during reply", () => {
   });
 
   it("should handle dispatcher reservation correctly when no replies sent", async () => {
-    const { createReplyDispatcher } = await import("../auto-reply/reply/reply-dispatcher.js");
+    const { createReplyDispatcher: createReplyDispatcherLocal } = await import("../auto-reply/reply/reply-dispatcher.js");
 
     let deliverCalled = false;
-    const dispatcher = createReplyDispatcher({
+    const dispatcher = createReplyDispatcherLocal({
       deliver: async () => {
         deliverCalled = true;
       },

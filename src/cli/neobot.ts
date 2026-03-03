@@ -439,8 +439,8 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
 
         console.log(`✅ Success. [ledger event] ${eventId}`);
         process.exit(0);
-      } catch (err: any) {
-        console.error(`❌ ${err.message}`);
+      } catch (err: unknown) {
+        console.error(`❌ ${err instanceof Error ? err.message : String(err)}`);
         // Log blocked attempt?
         process.exit(1);
       }
@@ -471,13 +471,13 @@ Se o usuário pediu duas mensagens, use a ferramenta duas vezes com horários di
   }
 
   if (cmd === "neo:skill:publish") {
-    const path = subcmd;
-    if (!path) {
+    const skillPath = subcmd;
+    if (!skillPath) {
       console.error("❌ Usage: neobot neo:skill:publish <path>");
       process.exit(1);
     }
     const { skillPublishCommand } = await import("../neo/cli/skill-publish.js");
-    await skillPublishCommand(path);
+    await skillPublishCommand(skillPath);
     process.exit(0);
   }
 
