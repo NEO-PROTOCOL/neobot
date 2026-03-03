@@ -317,7 +317,7 @@ config/ecosystem.json:
 │ └─ Documentation          0%         100%   NEO                │
 │ └─ Dashboard              0%         100%   NEO                │
 │ └─ Gateway Extensions     0%         100%   NEO                │
-│ └─ Autonomia Total        30%        70%    Objetivo            │
+│ └─ Autonomia Total        30%        70%    Objetivo           │
 └────────────────────────────────────────────────────────────────┘
 
 ========================================================================
