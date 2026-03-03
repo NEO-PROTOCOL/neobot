@@ -142,19 +142,18 @@ Display in chat UI
 ## 📦 Estrutura de Arquivos
 
 ```
+neo-dashboard-deploy/             # Frontend & Backend Remoto (Vercel/Railway)
+├── index.html               # UI principal
+├── styles.css               # Estilos iOS
+├── app.js                   # Frontend logic
+├── server.js                # Express server
+├── neo-routes.js            # Rotas e integração com o Neo
+├── automation-routes.js     # Automation API
+└── package.json
+
 neobot/
-├── dashboard/                    # Frontend & Backend
-│   ├── index.html               # UI principal
-│   ├── demo.html                # Página demo
-│   ├── styles.css               # Estilos iOS
-│   ├── app.js                   # Frontend logic
-│   ├── server.js                # Express server
-│   ├── ai-routes.js             # Claude AI routes
-│   ├── automation-routes.js     # Automation API
-│   ├── package.json
-│   └── README.md
-│
 ├── src/automations/             # Sistema de Automações
+
 │   ├── scheduler.ts             # Cron scheduler
 │   ├── intelligent-report-service.ts
 │   ├── intelligent-daily-report.ts
@@ -723,7 +722,7 @@ node server.js
 ### Option 2: PM2
 
 ```bash
-pm2 start dashboard/server.js --name neobot-dashboard
+pm2 start server.js --name neobot-dashboard
 pm2 save
 pm2 startup
 ```
@@ -738,19 +737,19 @@ RUN npm install
 COPY . .
 RUN npm run build
 EXPOSE 3000
-CMD ["node", "dashboard/server.js"]
+CMD ["node", "server.js"]
 ```
 
 ### Option 4: Cloud (Render/Vercel)
 
 ```yaml
-# render.yaml
+# render.yaml ou .railway-scaling.yml
 services:
   - type: web
-    name: neobot-dashboard
+    name: neo-dashboard-deploy
     env: node
     buildCommand: npm install && npm run build
-    startCommand: node dashboard/server.js
+    startCommand: node server.js
 ```
 
 ## 📊 Monitoring

@@ -205,10 +205,10 @@ neo/gateway/extensions.ts
            roteamento para gateway moltbot.
 
 ----------------------------------------------------------------------
-5. NEO Dashboard (Ja Existente)
+5. NEO Dashboard (neo-dashboard / Node Independente)
 ----------------------------------------------------------------------
 [####] Status Implementado ........................................ OK
-Localizacao: dashboard/
+Localizacao: Serviço Autônomo (neo-dashboard-deploy)
 
 Features NEO-Specific:
 
@@ -261,8 +261,8 @@ Implementacao: `src/infra/pi-adapter.ts`
 │ └─ src/              MOLTBOT CORE (sincronizado)                │
 │ └─ neo/              NEO PROTOCOL LAYER                         │
 │ └─ skills/           NEO SKILLS (18 skills)                     │
-│ └─ dashboard/        NEO DASHBOARD                              │
 │ └─ docs-neo/         NEO DOCS (self-hosted)                    │
+│ └─ config/ecosystem.json ECOSSISTEMA: Fonte de Verdade Canônica │
 │ └─ config/neobot.runtime.json                                  │
 │ └─ ARCHITECTURE_NEO_PROTOCOL.md, NEXT_STEPS.md, package.json   │
 └────────────────────────────────────────────────────────────────┘
@@ -277,8 +277,13 @@ config/neobot.runtime.json:
   neo.registry (type: ipfs, endpoint, indexCID)
   neo.identity (system: mio, wallet: ethereum/flow-mainnet)
   neo.gateway.extensions: ipfs-channel, web3-signer, nostr-relay
-  neo.dashboard (port: 3000, auth: mio-identity)
   - gateway, channels (config moltbot existente)
+```
+config/ecosystem.json:
+```
+  - Fonte da verdade canônica de todos os nós (neo-agent-full, 
+    neo-dashboard, flowpay, smart-factory, fluxx)
+  - Descoberta dinâmica via Nexus Discovery System.
 ```
 ========================================================================
                        COMANDOS CLI NEO

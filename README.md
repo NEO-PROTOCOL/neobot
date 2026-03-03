@@ -105,8 +105,11 @@ graph TB
 
     subgraph ACTIVE_NODES["✅ ECOSYSTEM"]
         FULL_AGENT["🤖 NEO-AGENT-FULL"]
-        FACTORY["🏭 SMART FACTORY"]
+        FACTORY["🏭 SMART FACTORY (smart-core)"]
         FINANCE["💳 FLOWPAY CORE"]
+        IDENTITY["🆔 MIO SYSTEM (Identity)"]
+        DASHBOARD["📊 NEO DASHBOARD"]
+        FLUXX["🏛️ FLUXX DAO"]
     end
 
     NEXUS <--> ARCHITECT
