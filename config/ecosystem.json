@@ -1,7 +1,9 @@
 [
   {
     "id": "neobot-orchestrator",
-    "aliases": ["neobot-architect"],
+    "aliases": [
+      "neobot-architect"
+    ],
     "org": "NEO Protocol",
     "name": "Neobot — Node Warrior / Orchestrator",
     "description": "Node Warrior: Agente central do NEO Protocol. Orquestrador soberano, arquiteto e executor operacional do ecossistema.",
@@ -480,8 +482,8 @@
     "org": "Fluxx DAO",
     "name": "Fluxx DAO Landing",
     "description": "Página oficial do Protocolo de Governança Fluxx DAO.",
-    "localPath": "../fluxx-dao/fluxx-app",
-    "repository": "git@github.com:FluxxDAO/fluxx-landing.git",
+    "localPath": "../../FluxxDAO/fluxx-landing",
+    "repository": "https://github.com/FluxxDAO/fluxx-landing",
     "role": "Governance Node / Landing",
     "hosting": {
       "platform": "Vercel",
@@ -493,12 +495,12 @@
     "workspaceScope": "landing-surface"
   },
   {
-    "id": "fluxx-contracts",
+    "id": "fluxx-backend",
     "org": "Fluxx DAO",
-    "name": "Fluxx DAO Contracts",
-    "description": "Smart Contracts da FLUXX DAO (Governance & Tokens)",
-    "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "https://github.com/FluxxDAO/contract-fluxx",
+    "name": "Fluxx DAO Backend (Contracts)",
+    "description": "Smart Contracts e Backend da FLUXX DAO (Governance & Tokens)",
+    "localPath": "../../FluxxDAO/fluxx-backend",
+    "repository": "https://github.com/FluxxDAO/fluxx-backend",
     "role": "Protocol Layer / Contracts",
     "hosting": {
       "platform": "Mainnet / Base",
@@ -506,20 +508,6 @@
       "notion": "https://www.notion.so/neoflw/FLUXX-10a8c6e83be08011b8dac17f3ff7193e"
     },
     "workspaceScope": "contracts-surface"
-  },
-  {
-    "id": "fluxx-app",
-    "org": "Fluxx DAO",
-    "name": "Fluxx DAO App",
-    "description": "Aplicativo de Governança e Interface Fluxx DAO",
-    "localPath": "../../FluxxDAO/fluxx-dao",
-    "repository": "https://github.com/FluxxDAO/fluxx-app",
-    "role": "Interface / DApp",
-    "hosting": {
-      "platform": "Local / Vercel (Pending)",
-      "adminEmail": "team@fluxx.space"
-    },
-    "workspaceScope": "app-surface"
   },
   {
     "id": "neo-tunnel",
