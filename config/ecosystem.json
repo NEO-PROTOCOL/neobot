@@ -85,7 +85,7 @@
       "local": "http://localhost:3000/api/events",
       "internal": "http://neo-nexus.railway.internal/api/events",
       "production": "https://nexus.neoprotocol.space/api/events",
-      "railway": "https://7glr6que.up.railway.app/api/events"
+      "railway": "https://neo-nexus-production.up.railway.app/api/events"
     },
     "nexusEvents": [
       "*"
@@ -94,7 +94,7 @@
       "platform": "Railway",
       "productionUrl": "https://nexus.neoprotocol.space",
       "internalUrl": "http://neo-nexus.railway.internal",
-      "railwayUrl": "https://7glr6que.up.railway.app",
+      "railwayUrl": "https://neo-nexus-production.up.railway.app",
       "targetCustomDomain": "nexus.neoprotocol.space",
       "port": 3000,
       "buildCommand": "npm run build",
