@@ -1,9 +1,7 @@
 [
   {
     "id": "neobot-orchestrator",
-    "aliases": [
-      "neobot-architect"
-    ],
+    "aliases": ["neobot-architect"],
     "org": "NEO Protocol",
     "name": "Neobot — Node Warrior / Orchestrator",
     "description": "Node Warrior: Agente central do NEO Protocol. Orquestrador soberano, arquiteto e executor operacional do ecossistema.",
@@ -17,11 +15,7 @@
       "production": "https://architect.neoprotocol.space/api/webhook/nexus",
       "dev": "https://dev.neoprotocol.space/api/webhook/nexus"
     },
-    "nexusEvents": [
-      "TASK_COMPLETED",
-      "BUILD_STATUS",
-      "NEXUS_START"
-    ],
+    "nexusEvents": ["TASK_COMPLETED", "BUILD_STATUS", "NEXUS_START"],
     "identity": {
       "primary": "mio-core",
       "publicKey": "src/neo/identity/",
@@ -85,16 +79,14 @@
       "local": "http://localhost:3000/api/events",
       "internal": "http://neo-nexus.railway.internal/api/events",
       "production": "https://nexus.neoprotocol.space/api/events",
-      "railway": "https://7glr6que.up.railway.app/api/events"
+      "railway": "https://neo-nexus-production.up.railway.app/api/events"
     },
-    "nexusEvents": [
-      "*"
-    ],
+    "nexusEvents": ["*"],
     "hosting": {
       "platform": "Railway",
       "productionUrl": "https://nexus.neoprotocol.space",
       "internalUrl": "http://neo-nexus.railway.internal",
-      "railwayUrl": "https://7glr6que.up.railway.app",
+      "railwayUrl": "https://neo-nexus-production.up.railway.app",
       "targetCustomDomain": "nexus.neoprotocol.space",
       "port": 3000,
       "buildCommand": "npm run build",
@@ -313,7 +305,14 @@
     },
     "localPath": "../../flowpay",
     "absolutePath": "/Users/nettomello/neomello/flowpay",
-    "repository": "https://github.com/flowpaycash/flowpay",
+    "repository": "https://github.com/flowpay-system/flowpay-api",
+    "repositories": {
+      "api": "https://github.com/flowpay-system/flowpay-api",
+      "app": "https://github.com/flowpay-system/flowpay-app",
+      "marketing": "https://github.com/flowpay-system/flowpay-marketing",
+      "docs": "https://github.com/flowpay-system/flowpay-docs",
+      "infra": "https://github.com/flowpay-system/flowpay-infra"
+    },
     "role": "Checkout / Financial Node (Stack)",
     "localUrl": "http://localhost:8787",
     "serviceEndpoints": {
@@ -327,9 +326,7 @@
       "production": "https://api.flowpay.cash/api/webhook"
     },
     "nexusEvents": {
-      "emits": [
-        "FLOWPAY:PAYMENT_RECEIVED"
-      ],
+      "emits": ["FLOWPAY:PAYMENT_RECEIVED"],
       "consumes": [
         "FACTORY:MINT_CONFIRMED",
         "FACTORY:MINT_FAILED",
