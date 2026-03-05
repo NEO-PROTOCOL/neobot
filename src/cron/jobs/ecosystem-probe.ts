@@ -50,7 +50,7 @@ const MONITORED_NODES = [
   {
     id: "neobot-orchestrator",
     name: "Neobot Orchestrator",
-    url: "https://architect.neoprotocol.space",
+    url: "https://orchestrator.neoprotocol.space",
   },
   {
     id: "flowpay",
