@@ -7,6 +7,33 @@ import { createSubsystemLogger } from "../logging/subsystem.js";
 
 const log = createSubsystemLogger("nexus-webhook");
 
+type SecretSlot = "new" | "old" | "legacy";
+
+type SecretCandidate = {
+    slot: SecretSlot;
+    value: string;
+};
+
+function configuredNexusSecrets(): SecretCandidate[] {
+    const ordered: Array<{ slot: SecretSlot; raw?: string }> = [
+        { slot: "new", raw: process.env.NEXUS_SECRET_NEW },
+        { slot: "old", raw: process.env.NEXUS_SECRET_OLD },
+        { slot: "legacy", raw: process.env.NEXUS_SECRET },
+    ];
+
+    const seen = new Set<string>();
+    const out: SecretCandidate[] = [];
+    for (const item of ordered) {
+        const value = (item.raw || "").trim();
+        if (!value || seen.has(value)) {
+            continue;
+        }
+        seen.add(value);
+        out.push({ slot: item.slot, value });
+    }
+    return out;
+}
+
 /**
  * ============================================================================
  *                    NEOBOT — Nexus Webhook Receiver
@@ -29,10 +56,10 @@ export async function handleNexusWebhookHttpRequest(
 
     // 1. Validate Signature
     const signature = req.headers["x-nexus-signature"] as string;
-    const secret = process.env.NEXUS_SECRET;
+    const secrets = configuredNexusSecrets();
 
-    if (!signature || !secret) {
-        log.warn("Missing signature or NEXUS_SECRET");
+    if (!signature || secrets.length === 0) {
+        log.warn("Missing signature or NEXUS secrets");
         sendUnauthorized(res);
         return true;
     }
@@ -41,25 +68,29 @@ export async function handleNexusWebhookHttpRequest(
     const body = await readJsonBodyOrError(req, res, 1024 * 1024);
     if (body === undefined) {return true;}
 
-    const expectedSignature = createHmac("sha256", secret)
-        .update(JSON.stringify(body))
-        .digest("hex");
+    const serializedBody = JSON.stringify(body);
+    const provided = Buffer.from(signature);
+    let matchedSlot: SecretSlot | null = null;
 
-    try {
-        const isValid = timingSafeEqual(
-            Buffer.from(signature),
-            Buffer.from(expectedSignature)
-        );
-
-        if (!isValid) {
-            log.error("Invalid HMAC signature from Nexus");
-            sendUnauthorized(res);
-            return true;
+    for (const candidate of secrets) {
+        const expected = createHmac("sha256", candidate.value).update(serializedBody).digest("hex");
+        const expectedBuffer = Buffer.from(expected);
+        if (provided.length !== expectedBuffer.length) {
+            continue;
         }
-    } catch {
+        if (timingSafeEqual(provided, expectedBuffer)) {
+            matchedSlot = candidate.slot;
+            break;
+        }
+    }
+
+    if (!matchedSlot) {
+        log.error("Invalid HMAC signature from Nexus");
         sendUnauthorized(res);
         return true;
     }
+
+    log.info(`Nexus signature accepted (slot: ${matchedSlot})`);
 
     // 2. Process Event
     const { event, payload } = body as { event: string; payload: unknown };
