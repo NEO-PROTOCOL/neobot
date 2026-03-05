@@ -33,6 +33,10 @@ export enum ProtocolEvent {
 
     // System Events
     NEXUS_START = "NEXUS:START",
+
+    // Ecosystem Health Events
+    NODE_OFFLINE   = "ECOSYSTEM:NODE_OFFLINE",
+    NODE_RECOVERED = "ECOSYSTEM:NODE_RECOVERED",
 }
 
 // --- 2. Payload Types ---

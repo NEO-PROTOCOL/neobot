@@ -1,14 +1,15 @@
-import cron from "node-cron";
+import { Cron } from "croner";
 import { dailyOpsStatusJob } from "../../cron/jobs/daily-ops-status.js";
+import { ecosystemProbeJob } from "../../cron/jobs/ecosystem-probe.js";
 
-export const jobs = [dailyOpsStatusJob];
+export const jobs = [dailyOpsStatusJob, ecosystemProbeJob];
 
 export function startScheduler() {
   console.log("🛡️ Neobot Scheduler Starting...");
 
   for (const job of jobs) {
     console.log(`📡 Scheduling job: ${job.name} [${job.schedule}]`);
-    cron.schedule(job.schedule, async () => {
+    new Cron(job.schedule, async () => {
       try {
         await job.run();
       } catch (error) {

@@ -21,5 +21,25 @@
     "params": {
       "message": "Success! Token minted. Tx: {{txId}}"
     }
+  },
+  {
+    "id": "rule-node-offline-alert",
+    "enabled": true,
+    "on": "ECOSYSTEM:NODE_OFFLINE",
+    "action": "notify_user",
+    "params": {
+      "message": "🚨 NODE OFFLINE: {{name}} ({{id}})\n🔗 {{url}}\n🕐 {{ts}}"
+    },
+    "priority": 99
+  },
+  {
+    "id": "rule-node-recovered-alert",
+    "enabled": true,
+    "on": "ECOSYSTEM:NODE_RECOVERED",
+    "action": "notify_user",
+    "params": {
+      "message": "✅ NODE RECUPERADO: {{name}} ({{id}})\n🔗 {{url}}\n🕐 {{ts}}"
+    },
+    "priority": 99
   }
 ]
