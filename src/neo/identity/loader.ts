@@ -9,20 +9,9 @@ const rootDir = process.cwd();
 config({ path: path.join(rootDir, ".env") });
 config({ path: path.join(rootDir, ".neo-identities", ".env") });
 
-/**
- * Mapeamento de IDs para Variáveis de Ambiente
- */
-const ENV_MAP: Record<string, string> = {
-    "mio-core": "NEO_CORE_PRIVATE_KEY",
-    "mio-gateway": "NEO_GATEWAY_PRIVATE_KEY",
-    "mio-skills": "NEO_SKILLS_PRIVATE_KEY",
-    "mio-factory": "NEO_FACTORY_PRIVATE_KEY",
-    "mio-flowpay": "NEO_FLOWPAY_PRIVATE_KEY",
-    "mio-asi1": "NEO_ASI1_PRIVATE_KEY",
-    "mio-whatsapp": "NEO_WHATSAPP_PRIVATE_KEY",
-    "mio-ipfs": "NEO_IPFS_PRIVATE_KEY",
-    "mio-warrior": "NEO_WARRIOR_PRIVATE_KEY",
-};
+function getEnvKeyForTemplateId(templateId: string): string {
+    return `NEO_${templateId.replace("mio-", "").toUpperCase()}_PRIVATE_KEY`;
+}
 
 export interface LoadedIdentity {
     identity: NeoIdentity;
@@ -51,7 +40,7 @@ export class IdentityLoader {
     public async loadAll(): Promise<number> {
         let count = 0;
         for (const template of NEO_IDENTITY_TEMPLATES) {
-            const envVar = ENV_MAP[template.id];
+            const envVar = getEnvKeyForTemplateId(template.id);
             const privateKey = process.env[envVar];
 
             if (privateKey) {
