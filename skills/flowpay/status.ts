@@ -42,19 +42,12 @@ export async function execute(ctx: any, input: StatusInput): Promise<StatusOutpu
   }
 
   try {
-    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://flowpaypix.netlify.app/api';
-    const apiKey = process.env.FLOWPAY_API_KEY || process.env.OPENPIX_API_KEY;
+    // Canonical edge gateway (Cloudflare Workers)
+    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://api.flowpay.cash';
 
-    if (!apiKey) {
-      throw new Error('FLOWPAY_API_KEY or OPENPIX_API_KEY not configured');
-    }
-
-    const response = await fetch(`${flowpayUrl}/charges/status?charge_id=${charge_id}`, {
-      method: 'GET',
-      headers: {
-        'Authorization': apiKey
-      }
-    });
+    const response = await fetch(
+      `${flowpayUrl}/api/charge-status?charge_id=${encodeURIComponent(charge_id)}`,
+    );
 
     if (!response.ok) {
       throw new Error(`FlowPay API error: ${response.statusText}`);

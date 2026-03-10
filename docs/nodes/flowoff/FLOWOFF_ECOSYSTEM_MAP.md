@@ -24,7 +24,7 @@
 ┃ ░ PAYMENT GATEWAY (PIX → CRYPTO)
 ┃
 ┃ Instagram: @neoflowoff.eth
-┃ Site: https://www.flowoff.xyz/
+┃ Site: https://www.neoflowoff.agency/
 ┃ Token: $NEOFLW (Base Mainnet)
 ```
 
@@ -35,7 +35,7 @@
 ```text
 ▓▓▓ 1. NEØ FLOWOFF (AGÊNCIA)
 ────────────────────────────────────────
-└─ Site: https://www.flowoff.xyz/
+└─ Site: https://www.neoflowoff.agency/
 └─ Repo: github.com/NEO-PROTOCOL/
         neo-flowoff-pwa
 └─ Stack: HTML/CSS/JS, PWA, Web3Auth
@@ -307,7 +307,7 @@
 ▓▓▓ AQUISIÇÃO DE CLIENTES
 ────────────────────────────────────────
 └─ 1. Lead encontra @neoflowoff.eth
-      (Instagram) ou flowoff.xyz
+      (Instagram) ou neoflowoff.agency
 └─ 2. Envia DM ou preenche formulário
 └─ 3. FlowCloser Agent responde (AI)
 └─ 4. Qualifica lead automaticamente
@@ -366,7 +366,7 @@
 ▓▓▓ PRODUCTION URLs
 ────────────────────────────────────────
 └─ FlowOFF Site:
-   https://www.flowoff.xyz/
+   https://www.neoflowoff.agency/
 
 └─ FlowCloser Agent:
    https://flowcloser-agent-production

@@ -1,39 +1,46 @@
 <!-- markdownlint-disable MD003 MD007 MD013 MD022 MD023 MD025 MD029 MD032 MD033 MD034 -->
 
+> **DEPRECATION NOTICE (Mar/2026):** Most documentation files in this
+> directory describe the **legacy architecture** (Netlify, Woovi/OpenPix
+> direct integration, Railway backend). The canonical FlowPay API now runs
+> on **Cloudflare Workers + D1** at `api.flowpay.cash`. See the current
+> reference below and the authoritative docs at `flowpay/flowpay-docs/`.
+>
+> Historical files (DAY3_*, RAILWAY_*, TROUBLESHOOTING_RAILWAY, etc.) are
+> kept for context but should NOT be used as implementation guides.
+
 ```text
 ========================================
      FLOWPAY INTEGRATION · OVERVIEW
 ========================================
 ```
 
-PIX → Crypto Gateway integrated to
+PIX → Access Gateway integrated to
 Neobot via **Remote Integration**
 (loose-coupled architecture).
 
 ────────────────────────────────────────
 
-## Architecture
+## Architecture (Current — Mar/2026)
 
 ```text
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┃ FlowPay Gateway (Independent)
-┃ ░ Cursor IDE
+┃ FlowPay API (Cloudflare Workers + D1)
+┃ ░ api.flowpay.cash
 ┃ ░ PIX → Access conversion
-┃ ░ Woovi/OpenPix integration
-┃ ░ Web3Auth wallet
-┃ ░ Astro framework (208 files)
-┃ ░ Netlify deployment
+┃ ░ Nexus event emission
+┃ ░ S2S auth (X-API-Key)
+┃ ░ Secret rotation chain
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            │
-           │ HTTP API
-           │ Webhooks
+           │ HTTP API (X-API-Key)
+           │ Nexus Events
            ↓
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ┃ Neobot (Orchestrator)
-┃ ░ Skills (HTTP client)
-┃ ░ Webhook handlers
+┃ ░ Skills (HTTP client → api.flowpay.cash)
+┃ ░ Agent Tool (flowpay-tool.ts)
 ┃ ░ UNLOCK_RECEIPT generator
-┃ ░ ADRs + documentation
 ┃ ░ Ledger audit trail
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -58,13 +65,13 @@ Blocks:
 ## Location
 
 ```text
-▓▓▓ FLOWPAY PATHS
+▓▓▓ FLOWPAY TOPOLOGY
 ────────────────────────────────────────
-└─ Local: /CODIGOS/flowpay/
-└─ GitHub: neomello/flowpay
-└─ Netlify: flowpaypix.netlify.app
-└─ IDE: Cursor
-└─ Framework: Astro (208 files)
+└─ API:       api.flowpay.cash   (Cloudflare Workers + D1)
+└─ App:       app.flowpay.cash   (Vue 3 PWA / Railway)
+└─ Marketing: flowpay.cash       (Astro / Railway)
+└─ GitHub:    flowpaycash/flowpay
+└─ Repo:      neomello/flowpay/
 ```
 
 ────────────────────────────────────────
@@ -150,16 +157,15 @@ See: [ADR-002](../../extensions/flowpay/ADR-002-access-unlock-primary.md)
 
 ## Configuration
 
+Required env vars for Neobot:
+
+```text
+FLOWPAY_API_URL=https://api.flowpay.cash
+FLOWPAY_INTERNAL_API_KEY=<s2s-key>
+```
+
 Integration config:
 `extensions/flowpay/integration.json`
-
-Contains:
-
-- Endpoints (buy, status, unlock, webhook)
-- Deploy platform (Netlify)
-- Tech stack (Astro, Web3Auth, Woovi)
-- Repository URLs
-- Revenue impact: PAYS_BILLS 💰
 
 ────────────────────────────────────────
 

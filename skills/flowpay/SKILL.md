@@ -70,19 +70,19 @@ Returns:
 
 FlowPay runs independently at:
 
-- **Production:** flowpay-production-10d8.up.railway.app
-- **Local:** /CODIGOS/flowpay/
+- **API (canonical):** api.flowpay.cash (Cloudflare Workers + D1)
+- **App (dashboard):** app.flowpay.cash (Vue 3 PWA / Railway)
+- **Marketing:** flowpay.cash (Astro / Railway)
 - **GitHub:** flowpaycash/flowpay
-- **Deploy:** Railway (auto)
 - **Status:** PRODUCTION ✅
 
 ## Tech Stack
 
-- **Framework:** Astro
-- **Auth:** Web3Auth
-- **Payment:** Woovi/OpenPix (PIX)
-- **Blockchain:** QuickNode
-- **Deploy:** Netlify
+- **API Runtime:** Cloudflare Workers + D1
+- **App:** Vue 3, Vite, PWA
+- **Payment:** PIX (via api.flowpay.cash)
+- **Blockchain:** QuickNode (latent)
+- **Auth:** S2S via X-API-Key (FLOWPAY_INTERNAL_API_KEY)
 
 ## Documentation
 
@@ -116,9 +116,8 @@ Without FlowPay:
 
 ## Prerequisites
 
-- FlowPay running (local or production)
-- FLOWPAY_API_KEY configured
-- Woovi/OpenPix account
+- FlowPay API running (api.flowpay.cash)
+- FLOWPAY_INTERNAL_API_KEY configured (S2S auth)
 - Product catalog defined
 
 ────────────────────────────────────────

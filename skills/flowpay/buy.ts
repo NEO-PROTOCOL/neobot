@@ -67,17 +67,22 @@ export async function execute(ctx: any, input: BuyInput): Promise<BuyOutput> {
       } as BuyOutput;
     }
 
-    // Call FlowPay API (Railway production)
-    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://flowpay-production-10d8.up.railway.app';
+    // Call FlowPay API (Cloudflare Workers — canonical edge gateway)
+    const flowpayUrl = process.env.FLOWPAY_API_URL || 'https://api.flowpay.cash';
 
     // Generate transaction ID
     const transactionId = `${product_ref}-${Date.now()}`;
 
+    // S2S auth via X-API-Key (same pattern as flowpay-tool.ts)
+    const apiKey = process.env.FLOWPAY_INTERNAL_API_KEY;
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (apiKey) {
+      headers['X-API-Key'] = apiKey;
+    }
+
     const response = await fetch(`${flowpayUrl}/api/create-charge`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers,
       body: JSON.stringify({
         wallet: wallet_address || '0x0000000000000000000000000000000000000000',
         valor: amount_brl,
