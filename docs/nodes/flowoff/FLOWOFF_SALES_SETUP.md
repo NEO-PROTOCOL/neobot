@@ -158,7 +158,7 @@ https://www.canva.com/design/DAG4sWWGiv8/1nwHM_YaS4YSzlXP-OlS9Q/view?utm_content
 4. FAQ (prazos, hospedagem, suporte)
 5. Pacotes Start/Profissional/Premium + valores
 6. Garantias
-7. CTA (contato + flowoff.xyz)
+7. CTA (contato + neoflowoff.agency)
 
 ---
 
@@ -399,6 +399,6 @@ am:
 
 ▓▓▓ NΞØ MELLØ  
 Core Architect · NEØ Protocol  
-flowoff.xyz
+neoflowoff.agency
 
 "Tráfego → Sistema → Receita. Sem estética. Só resultado."

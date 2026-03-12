@@ -60,9 +60,9 @@ export function createFlowPayTool(_options?: { config?: OpenClawConfig }): AnyAg
       const params = args as Record<string, unknown>;
       const action = readStringParam(params, "action", { required: true });
 
-      // FlowPay Sovereign Node URL
+      // FlowPay Sovereign Node URL (canonical edge gateway)
       const flowpayUrl =
-        process.env.FLOWPAY_API_URL || "https://flowpay-production-10d8.up.railway.app";
+        process.env.FLOWPAY_API_URL || "https://api.flowpay.cash";
 
       switch (action) {
         case "create_charge":
@@ -100,35 +100,27 @@ async function handleCreateCharge(
   const correlationId = `${productId}-${Date.now().toString(36)}`;
 
   try {
-    // NEW ENDPOINT: /api/charges/create
-    const response = await fetch(`${flowpayUrl}/api/charges/create`, {
+    // Canonical endpoint on api.flowpay.cash (Cloudflare Worker)
+    const apiKey = process.env.FLOWPAY_INTERNAL_API_KEY;
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    if (apiKey) {
+      headers["X-API-Key"] = apiKey;
+    }
+
+    const response = await fetch(`${flowpayUrl}/api/create-charge`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify({
         wallet: walletAddress,
-        value: amount, // API expects 'value' or 'valor' depending on version, verifying... sticking to 'valor' for backward compat or 'value' if new. Using 'valor' as per legacy tool, but architecture says 'amount_brl'. Let's use payload compatible with Woovi/OpenPix wrapper.
-        // Woovi Wrapper usually takes: correlationID, value (int cents), or value (float).
-        // Let's send a standard payload.
-        amount: amount,
-        correlationID: correlationId,
-        productID: productId,
-        customerRef: customerId,
+        valor: amount,
+        moeda: "BRL",
+        id_transacao: correlationId,
+        product_id: productId,
+        customer_name: customerId,
       }),
     });
 
-    // Fallback to legacy behavior if 404 (in case FlowPay isn't fully migrated yet)
-    if (response.status === 404) {
-      return await handleLegacyCreateCharge(
-        params,
-        flowpayUrl,
-        amount,
-        walletAddress,
-        correlationId,
-      );
-    }
-
     const data = await response.json() as Record<string, unknown>;
-    const charge = data.charge as Record<string, unknown> | undefined;
 
     if (!response.ok || !data.success) {
       return jsonResult({
@@ -138,13 +130,16 @@ async function handleCreateCharge(
       });
     }
 
+    const pixData = data.pix_data as Record<string, unknown> | undefined;
+    const charge = data.charge as Record<string, unknown> | undefined;
+
     return jsonResult({
       success: true,
       mode: "sovereign",
       message: `PIX cobranca gerada R$ ${amount.toFixed(2)}`,
-      charge_id: charge?.correlationID || correlationId,
-      pix_code: charge?.brCode,
-      qr_code_url: charge?.qrCodeImage,
+      charge_id: charge?.correlationID || String(data.correlation_id || correlationId),
+      pix_code: pixData?.br_code || charge?.brCode,
+      qr_code_url: pixData?.payment_link || charge?.qrCodeImage,
       instructions: [
         `Valor: R$ ${amount.toFixed(2)}`,
         `Ref: ${productId}`,
@@ -160,36 +155,6 @@ async function handleCreateCharge(
   }
 }
 
-// Temporary Fallback while migrating endpoints
-async function handleLegacyCreateCharge(
-  params: Record<string, unknown>,
-  url: string,
-  amount: number,
-  wallet: string,
-  txId: string,
-) {
-  const response = await fetch(`${url}/api/create-charge`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      wallet: wallet,
-      valor: amount,
-      moeda: "BRL",
-      id_transacao: txId,
-      product_id: params.product_id || "general",
-    }),
-  });
-  const data = await response.json() as Record<string, unknown>;
-  const pixData = data.pix_data as Record<string, unknown> | undefined;
-  return jsonResult({
-    success: data.success,
-    mode: "legacy",
-    pix_code: pixData?.br_code,
-    qr_code_url: pixData?.qr_code,
-    message: "Generated via Legacy Endpoint",
-  });
-}
-
 async function handleCheckStatus(
   params: Record<string, unknown>,
   flowpayUrl: string,
@@ -197,17 +162,9 @@ async function handleCheckStatus(
   const chargeId = readStringParam(params, "charge_id", { required: true });
 
   try {
-    // Try new endpoint first
-    let response = await fetch(
-      `${flowpayUrl}/api/charges/status?charge_id=${encodeURIComponent(chargeId)}`,
+    const response = await fetch(
+      `${flowpayUrl}/api/charge-status?charge_id=${encodeURIComponent(chargeId)}`,
     );
-
-    if (response.status === 404) {
-      // Fallback
-      response = await fetch(
-        `${flowpayUrl}/api/charge-status?charge_id=${encodeURIComponent(chargeId)}`,
-      );
-    }
 
     if (!response.ok) {
       return jsonResult({ success: false, error: "Status check failed" });

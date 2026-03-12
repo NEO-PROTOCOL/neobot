@@ -168,7 +168,7 @@
             },
             {
               "type": "text",
-              "text": { "content": "\n🔗 Link: https://pay.flowoff.xyz", "link": null },
+              "text": { "content": "\n🔗 Link: https://pay.neoflowoff.agency", "link": null },
               "annotations": {
                 "bold": false,
                 "italic": false,
@@ -177,7 +177,7 @@
                 "code": false,
                 "color": "default"
               },
-              "plain_text": "\n🔗 Link: https://pay.flowoff.xyz",
+              "plain_text": "\n🔗 Link: https://pay.neoflowoff.agency",
               "href": null
             }
           ]
@@ -2512,7 +2512,7 @@
             },
             {
               "type": "text",
-              "text": { "content": "\nURL: https://www.flowoff.xyz/", "link": null },
+              "text": { "content": "\nURL: https://www.neoflowoff.agency/", "link": null },
               "annotations": {
                 "bold": false,
                 "italic": false,
@@ -2521,7 +2521,7 @@
                 "code": false,
                 "color": "default"
               },
-              "plain_text": "\nURL: https://www.flowoff.xyz/",
+              "plain_text": "\nURL: https://www.neoflowoff.agency/",
               "href": null
             }
           ]
@@ -6286,8 +6286,8 @@
             {
               "type": "text",
               "text": {
-                "content": "https://www.flowoff.xyz/",
-                "link": { "url": "https://www.flowoff.xyz/" }
+                "content": "https://www.neoflowoff.agency/",
+                "link": { "url": "https://www.neoflowoff.agency/" }
               },
               "annotations": {
                 "bold": false,
@@ -6297,8 +6297,8 @@
                 "code": false,
                 "color": "default"
               },
-              "plain_text": "https://www.flowoff.xyz/",
-              "href": "https://www.flowoff.xyz/"
+              "plain_text": "https://www.neoflowoff.agency/",
+              "href": "https://www.neoflowoff.agency/"
             },
             {
               "type": "text",
@@ -7225,7 +7225,7 @@
             },
             {
               "type": "text",
-              "text": { "content": "FlowOFF.xyz", "link": { "url": "http://flowoff.xyz/" } },
+              "text": { "content": "FlowOFF.xyz", "link": { "url": "http://neoflowoff.agency/" } },
               "annotations": {
                 "bold": false,
                 "italic": false,
@@ -7235,7 +7235,7 @@
                 "color": "default"
               },
               "plain_text": "FlowOFF.xyz",
-              "href": "http://flowoff.xyz/"
+              "href": "http://neoflowoff.agency/"
             },
             {
               "type": "text",

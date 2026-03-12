@@ -11,21 +11,31 @@ Gateway endpoints and Neobot skills.
 
 ────────────────────────────────────────
 
+> **NOTE (Mar/2026):** The canonical API is now `api.flowpay.cash`
+> (Cloudflare Workers + D1). The Netlify and Railway URLs below are
+> **legacy** and should NOT be used.
+
 ## Base URLs
 
 ```text
-▓▓▓ ENVIRONMENTS
+▓▓▓ ENVIRONMENTS (CURRENT)
 ────────────────────────────────────────
-Local:      http://localhost:4321
-Production: https://flowpaypix.netlify.app
-Neobot:     http://localhost:8080 (or deployed)
+API:        https://api.flowpay.cash   (Cloudflare Workers)
+App:        https://app.flowpay.cash   (Vue 3 PWA)
+Marketing:  https://flowpay.cash       (Astro)
+
+LEGACY (DO NOT USE):
+  Netlify:  flowpaypix.netlify.app     (deprecated)
+  Railway:  flowpay-production-10d8... (deprecated)
 ```
 
 ────────────────────────────────────────
 
 ## FlowPay Endpoints
 
-### POST /api/charges/create
+### POST /api/create-charge
+
+> Canonical endpoint. Previously `/api/charges/create` (legacy).
 
 Create a PIX charge.
 
@@ -77,9 +87,11 @@ Create a PIX charge.
 
 ────────────────────────────────────────
 
-### GET /api/charges/status
+### GET /api/charge-status
 
 Check payment status.
+
+> Canonical endpoint. Previously `/api/charges/status` (legacy).
 
 **Query Params:**
 
@@ -88,7 +100,7 @@ Check payment status.
 **Example:**
 
 ```bash
-GET /api/charges/status?charge_id=abc123def456
+GET /api/charge-status?charge_id=abc123def456
 ```
 
 **Response (200 OK):**
@@ -394,16 +406,17 @@ function validateToken(token: string) {
 ## Rate Limits
 
 ```text
-▓▓▓ NETLIFY LIMITS
+▓▓▓ CLOUDFLARE WORKERS LIMITS
 ────────────────────────────────────────
-Functions: 125,000 requests/month
-Bandwidth: 100 GB/month
-Build minutes: 300 min/month
+Requests:  100,000/day (free), unlimited (paid)
+CPU time:  10ms (free), 50ms (paid)
+D1 reads:  5M/day (free)
+D1 writes: 100K/day (free)
 
-Rate limit per IP:
-  └─ /api/charges/create: 10 req/min
-  └─ /api/charges/status: 30 req/min
-  └─ /api/webhooks/pix: Unlimited (trusted)
+Rate limit per IP (configured in Worker):
+  └─ /api/create-charge: 10 req/min
+  └─ /api/charge-status: 30 req/min
+  └─ /api/webhook/*: Trusted (signature-verified)
 ```
 
 ────────────────────────────────────────

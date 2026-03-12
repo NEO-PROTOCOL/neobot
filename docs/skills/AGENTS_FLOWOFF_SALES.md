@@ -135,7 +135,7 @@ If the lead opens the public pitch, the information must match what you said.
 ## 6) SALES MATERIAL (Official Links)
 
 ### 🔗 Landing Page
-`https://www.flowoff.xyz/`
+`https://www.neoflowoff.agency/`
 
 ### 🔗 Pitch Link (Canva)
 ```
@@ -148,7 +148,7 @@ https://www.canva.com/design/DAG4sWWGiv8/1nwHM_YaS4YSzlXP-OlS9Q/view?utm_content
 - **p.4:** FAQ (deadline 7–20 business days; hosting included in first year; support; post-launch changes)
 - **p.5:** Packages with values (Genesis/Management/Custom)
 - **p.6:** Guarantees (30 days support; SSL certificate; full refund if not live; 1 year hosting)
-- **p.7:** CTA (flowoff.xyz / contact)
+- **p.7:** CTA (neoflowoff.agency / contact)
 
 **Based on file:** PITCH WEB _NEØFLOWCLOSER.pdf
 

@@ -152,7 +152,7 @@ https://www.canva.com/design/DAG4sWWGiv8/1nwHM_YaS4YSzlXP-OlS9Q/view?utm_content
 - **p.4:** FAQ (prazo 7–20 dias úteis; hospedagem inclusa no primeiro ano; suporte; alterações pós lançamento)
 - **p.5:** Pacotes com valores (Start/Profissional/Premium)
 - **p.6:** Garantias (30 dias suporte; certificado SSL; devolução total se não estiver no ar; 1 ano hospedagem)
-- **p.7:** CTA (flowoff.xyz / contato)
+- **p.7:** CTA (neoflowoff.agency / contato)
 
 **Baseado no arquivo:** PITCH WEB _NEØFLOWCLOSER.pdf
 

@@ -106,7 +106,7 @@ async function main() {
                 name: "FlowPay Sovereign",
                 status: "Em andamento",
                 description: "Gateway de Pagamentos + Smart Factory Bridge. Webhook Idempotency OK.",
-                url: "https://pay.flowoff.xyz"
+                url: "https://pay.neoflowoff.agency"
             },
             {
                 name: "WOD [X] PRO",
